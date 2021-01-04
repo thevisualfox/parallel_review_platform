@@ -1,0 +1,32 @@
+/**
+ * Button
+ *
+ */
+
+.btn {
+    text-decoration: none;
+
+    // Active state
+
+    @at-root {
+        a#{&}:active {
+            box-shadow: none !important;
+        }
+    }
+}
+
+// Button sizes
+
+@each $breakpoint in map-keys($grid-breakpoints) {
+    @include media-breakpoint-up($breakpoint) {
+        $infix: breakpoint-infix($breakpoint, $grid-breakpoints);
+
+        .btn#{$infix}-lg {
+            @include button-size($btn-padding-y-lg, $btn-padding-x-lg, $font-size-lg, $btn-line-height-lg, $btn-border-radius-lg);
+        }
+
+        .btn#{$infix}-sm {
+            @include button-size($btn-padding-y-sm, $btn-padding-x-sm, $font-size-sm, $btn-line-height-sm, $btn-border-radius-sm);
+        }
+    }
+}

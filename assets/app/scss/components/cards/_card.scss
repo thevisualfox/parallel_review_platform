@@ -1,0 +1,71 @@
+// Card
+
+.card {
+
+}
+
+.card-badge {
+    position: absolute;
+    top: spacer(2);
+    left: spacer(2);
+    margin: 0;
+    max-width: calc(100% - #{$spacer});
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+// Bordered card
+
+.card--bordered {
+    border: $card-border-width solid $card-border-color;
+
+    .card-body,
+    .card-footer {
+        padding: $card-spacer-y;
+    }
+}
+
+// Horizontal card
+
+.card-horizontal-img {
+    @include object-fit(cover);
+
+    flex: 0 0 auto;
+    width: auto;
+}
+
+// Responsive horizontal cards
+
+@each $breakpoint in map-keys($grid-breakpoints) {
+    @include media-breakpoint-up($breakpoint) {
+        $infix: breakpoint-infix($breakpoint, $grid-breakpoints);
+
+        .card#{$infix}-horizontal {
+            flex-direction: row;
+        }
+    }
+}
+
+// Link card
+
+.card--link {
+    transition: transform $global-duration;
+    will-change: transform;
+
+    &:hover {
+        transform: translateY(-5px);
+    }
+}
+
+.card__link {
+    display: inherit;
+    flex-direction: inherit;
+    flex: inherit;
+    text-decoration: none;
+    color: inherit;
+
+    &:hover {
+        color: inherit;
+        text-decoration: inherit;
+    }
+}
