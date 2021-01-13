@@ -1,0 +1,24 @@
+// Grid
+
+$grid-breakpoints: (
+    xs: 0,
+    sm: 600px,
+    md: 768px,
+    lg: 992px,
+    xl: 1280px,
+    xxl: 1440px
+);
+
+@include _assert-ascending($grid-breakpoints, "$grid-breakpoints");
+@include _assert-starts-at-zero($grid-breakpoints);
+
+$container-max-widths: (
+    sm: 580px,
+    md: 720px,
+    lg: 960px,
+    xl: 1220px
+);
+
+@include _assert-ascending($container-max-widths, "$container-max-widths");
+
+$grid-gutter-width: $spacer;

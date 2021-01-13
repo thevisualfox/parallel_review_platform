@@ -1,0 +1,27 @@
+/**
+ * Main header
+ *
+ */
+
+.main-header {
+    > .container {
+        padding-top: 20px;
+        padding-bottom: 20px;
+    }
+
+    // Extra large and up
+
+    @include media-breakpoint-up(xl) {
+        > .container {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+    }
+}
+
+// Main header search
+
+.main-header__search {
+    width: 25%;
+}
