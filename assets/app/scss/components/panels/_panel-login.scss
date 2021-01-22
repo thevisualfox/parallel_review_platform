@@ -1,0 +1,10 @@
+.panel--login {
+    @extend .h-100;
+
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 560px;
+    background-color: rgba($primary, 0.7);
+    backdrop-filter: blur(25px);
+}

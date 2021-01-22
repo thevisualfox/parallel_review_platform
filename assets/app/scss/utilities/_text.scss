@@ -21,6 +21,14 @@
     }
 }
 
+// Opacity levels
+
+@each $level, $percentage in $opacityLevels {
+    .text-muted--#{$level} {
+        opacity: $percentage;
+    }
+}
+
 // Adjacent text
 
 @each $breakpoint in map-keys($grid-breakpoints) {
