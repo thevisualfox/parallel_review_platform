@@ -1,0 +1,7 @@
+.panel {
+    @extend .d-flex, .flex-column, .align-items-center, .justify-content-center;
+}
+
+.panel__body {
+    @extend .px-16;
+}

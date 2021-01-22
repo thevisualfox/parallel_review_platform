@@ -27,13 +27,14 @@ $grays: (
     "900": $gray-900,
 );
 
-$primary: #f2928d;
+$primary: #141414;
 $secondary: #28519f;
 
 $theme-colors: (
     "primary": $primary,
     "secondary": $secondary,
-    "base": $color-base
+    "base": $color-base,
+    "white": $white
 );
 
 $yiq-text-dark: $color-base;

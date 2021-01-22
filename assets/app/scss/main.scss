@@ -1,3 +1,6 @@
+// Placeholdrs
+@import "abstracts/placeholders/placeholders";
+
 // Functions
 
 @import "node_modules/bootstrap/scss/functions";
@@ -72,6 +75,9 @@
 @import "components/cards/card";
 @import "components/grids/grid";
 @import "components/navs/nav-primary";
+@import "components/panes/pane";
+@import "components/panels/panel";
+@import "components/panels/panel-login";
 
 // Compositions
 

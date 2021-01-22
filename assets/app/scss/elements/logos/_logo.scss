@@ -9,4 +9,19 @@
 
 .logo__link {
     display: block;
+    text-decoration: none;
+
+    &:hover {
+        text-decoration: none;
+    }
+}
+
+.logo__title {
+    font-size: px-to-rem(40);
+    line-height: 47px;
+}
+
+.logo__subtitle {
+    font-size: px-to-rem(20);
+    line-height: 24px;
 }

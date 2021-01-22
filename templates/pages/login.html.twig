@@ -4,6 +4,42 @@
 
 {% block content %}
     <main class="main-content">
-        <h1>LOGIN</h1>
+        <section class="pane vh-100 overflow-hidden">
+            <div class="pane__background pane__background--overlay">
+                <img class="pane__background-image" src="{{ asset('build/app/img/login-background.jpg') }}"
+                    srcset="{{ asset('build/app/img/login-background@2x.jpg') }} 2x"
+                    alt="Hero">
+            </div>
+            <div class="pane__panel panel panel--login">
+                <div class="panel__body">
+                    <h1 class="text-uppercase text-white mb-0">Login</h1>
+                    <p class="text-muted--70 text-white">Login with your e-mail and password</p>
+                    <form class="panel__form form mt-7">
+                        <div class="form-row">
+                            <div class="form-group col-12">
+                                <label class="sr-only" for="login-email">Email</label>
+                                <input type="email" class="form-control" id="login-email" placeholder="Email">
+                            </div>
+                            <div class="form-group col-12">
+                                <label class="sr-only" for="login-password">Password</label>
+                                <input type="password" class="form-control" id="login-password" placeholder="Password">
+                            </div>
+                        </div>
+                        <div class="form-group d-flex align-items-center mt-3 mb-5">
+                            <div class="custom-control custom-checkbox mb-0">
+                                <input type="checkbox" class="custom-control-input" id="keep-logged-in">
+                                <label class="custom-control-label text-white text-muted--70" for="keep-logged-in">Keep me logged in</label>
+                            </div>
+                            <a href="#" class="btn btn-link ml-auto">
+                                <span class="btn__text text-white text-muted--70">Forgot your password?</span>
+                            </a>
+                        </div>
+                        <button type="submit" class="btn btn-white btn-block">
+                            <span class="btn__text">Log in</span>
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </section>
     </main>
 {% endblock %}
