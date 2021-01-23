@@ -14,4 +14,12 @@ class LoginController extends AbstractController
     {
         return $this->render('pages/login.html.twig');
     }
+
+    /**
+     * @Route("/signup", name="app_signup")
+     */
+    public function signup()
+    {
+        return $this->render('pages/signup.html.twig');
+    }
 }

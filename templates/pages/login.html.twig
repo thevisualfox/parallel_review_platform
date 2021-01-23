@@ -1,6 +1,6 @@
 {% extends 'base/default.html.twig' %}
 
-{% block title %}{{ content.title }}{% endblock %}
+{% block title %}Login{% endblock %}
 
 {% block content %}
     <main class="main-content">
@@ -14,30 +14,30 @@
                 <div class="panel__body">
                     <h1 class="text-uppercase text-white mb-0">Login</h1>
                     <p class="text-muted--70 text-white">Login with your e-mail and password</p>
-                    <form class="panel__form form mt-7">
-                        <div class="form-row">
-                            <div class="form-group col-12">
+                    <form class="panel__form form mt-7" method="_POST">
+                        <div class="row gutters-2">
+                            <div class="col-12">
                                 <label class="sr-only" for="login-email">Email</label>
-                                <input type="email" class="form-control" id="login-email" placeholder="Email">
+                                <input type="email" class="form-control" id="login-email" placeholder="Email" required>
                             </div>
-                            <div class="form-group col-12">
+                            <div class="col-12">
                                 <label class="sr-only" for="login-password">Password</label>
-                                <input type="password" class="form-control" id="login-password" placeholder="Password">
+                                <input type="password" class="form-control" id="login-password" placeholder="Password" required>
                             </div>
                         </div>
-                        <div class="form-group d-flex align-items-center mt-3 mb-5">
+                        <div class="d-flex align-items-md-center flex-column flex-md-row mt-3 mb-5">
                             <div class="custom-control custom-checkbox mb-0">
                                 <input type="checkbox" class="custom-control-input" id="keep-logged-in">
                                 <label class="custom-control-label text-white text-muted--70" for="keep-logged-in">Keep me logged in</label>
                             </div>
-                            <a href="#" class="btn btn-link ml-auto">
+                            <a href="#" class="btn btn-link text-left text-md-right ml-md-auto mt-3 mt-md-0">
                                 <span class="btn__text text-white text-muted--70">Forgot your password?</span>
                             </a>
                         </div>
                         <button type="submit" class="btn btn-white btn-block">
                             <span class="btn__text">Log in</span>
                         </button>
-                        <a href="#" class="btn btn-link text-right btn-block mt-7">
+                        <a href="/signup" class="btn btn-link text-md-right btn-block mt-4 mt-md-7">
                             <span class="btn__text text-white">
                                 <span class="text-muted--70">Not an account yet?</span>
                                 <span class="ml-1 font-weight-normal">Sign up</span>

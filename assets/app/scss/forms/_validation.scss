@@ -11,7 +11,7 @@
 
     &.form-control,
     &.custom-select {
-        border-color: $danger;
+        border-color: rgba($danger, 0.5);
 
         &:focus {
             box-shadow: 0 0 0 $input-focus-width rgba($danger, 0.25);
@@ -23,7 +23,7 @@
     [type="checkbox"],
     [type="radio"] {
         + label {
-            color: $danger;
+            border-color: rgba($danger, 0.5);
         }
     }
 
@@ -47,7 +47,7 @@
     margin-top: 10px;
     padding: 0;
     list-style: none;
-    color: $danger;
+    color: rgba($danger, 0.75);
 
     &:empty {
         display: none;
