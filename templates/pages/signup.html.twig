@@ -4,12 +4,8 @@
 
 {% block content %}
     <main class="main-content">
-        <section class="pane vh-100 overflow-hidden">
-            <div class="pane__background pane__background--overlay">
-                <img class="pane__background-image" src="{{ asset('build/app/img/login-background.jpg') }}"
-                    srcset="{{ asset('build/app/img/login-background@2x.jpg') }} 2x"
-                    alt="Hero">
-            </div>
+        {% include "elements/background.html.twig" %}
+        <section class="pane">
             <div class="pane__panel panel panel--login">
                 <div class="panel__body">
                     <h1 class="text-uppercase text-white mb-0">Sign up</h1>

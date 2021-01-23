@@ -1,0 +1,11 @@
+{% set background_classes = background_classes|default([])|merge(['background']) %}
+
+{% block background %}
+    <div class="{{ background_classes|join(' ') }}">
+        {% block background_image %}
+            <img class="background__image" src="{{ asset('build/app/img/login-background.jpg') }}"
+                srcset="{{ asset('build/app/img/login-background@2x.jpg') }} 2x"
+                alt="Hero">
+        {% endblock %}
+    </div>
+{% endblock %}

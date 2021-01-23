@@ -8,8 +8,10 @@
     margin-left: -$nav-link-padding-x;
 
     .nav-text {
+        position: relative;
         margin-right: 5px;
         margin-left: 5px;
+        text-transform: uppercase;
 
         &:first-child {
             margin-left: 0;
@@ -18,6 +20,19 @@
         &:last-child {
             margin-right: 0;
         }
+
+        &:after {
+            content: "";
+            position: absolute;
+            top: calc(100% + 3px);
+            left: 0;
+            right: 0;
+            height: 1px;
+            background-color: $white;
+            transform: scaleX(0);
+            transform-origin: right;
+            transition: transform 350ms ease;
+        }
     }
 
     // Root nav items
@@ -25,12 +40,14 @@
     > .nav-item {
         > .nav-link {
             text-decoration: none;
-            color: $color-base;
+            color: $white;
 
             // Hover state
 
-            &:hover {
-                color: tint($color-base, 80%);
+            &:hover .nav-text:after,
+            &.active .nav-text:after {
+                transform: unset;
+                transform-origin: left;
             }
         }
     }
