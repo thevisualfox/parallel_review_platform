@@ -1,10 +1,27 @@
 .panel--login {
-    @extend .h-100;
-
     position: absolute;
-    top: 0;
-    right: 0;
-    width: 560px;
+    bottom: spacer(5);
+    left: 50%;
+    width: calc(100% - #{spacer(10)});
+    height: calc(100% - 100px - #{spacer(10)}); // 100% - header height - spacing;
+    transform: translateX(-50%);
     background-color: rgba($primary, 0.7);
-    backdrop-filter: blur(25px);
+    backdrop-filter: blur(20px);
+
+    @include media-breakpoint-up(md) {
+        height: auto;
+        top: 50%;
+        bottom: auto;
+        transform: translate(-50%, -50%);
+    }
+
+    @include media-breakpoint-up(lg) {
+        top: 0;
+        right: 0;
+        bottom: auto;
+        left: auto;
+        height: 100%;
+        width: 560px;
+        transform: unset;
+    }
 }

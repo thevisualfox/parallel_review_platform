@@ -1,0 +1,20 @@
+.background {
+    @extend %fixed-fill;
+
+    &--blur:after {
+        @extend %absolute-fill;
+
+        content: "";
+        backdrop-filter: blur(30px);
+    }
+
+    &--blur-primary:after {
+        background: rgba($primary, 0.8);
+    }
+}
+
+.background__image {
+    @extend .w-100, .h-100;
+
+    object-fit: cover;
+}

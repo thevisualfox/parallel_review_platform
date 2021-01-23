@@ -3,5 +3,5 @@
 }
 
 .panel__body {
-    @extend .px-16;
+    @extend .p-8, .px-lg-16;
 }
