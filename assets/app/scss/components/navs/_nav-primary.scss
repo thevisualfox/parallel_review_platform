@@ -4,9 +4,6 @@
  */
 
 .nav--primary {
-    margin-right: -$nav-link-padding-x;
-    margin-left: -$nav-link-padding-x;
-
     .nav-text {
         position: relative;
         margin-right: 5px;
@@ -41,6 +38,7 @@
         > .nav-link {
             text-decoration: none;
             color: $white;
+            padding: 0 spacer(2);
 
             // Hover state
 

@@ -13,10 +13,10 @@
 
 .main-header--projects {
     @extend .position-relative;
-    @extend .pt-lg-12, .pb-lg-10;
+    @extend .pt-3, .pt-lg-12;
 
     > .container {
-        @extend .pb-3, .px-lg-3;
+        @extend .pb-3;
 
         border-bottom: $border-width solid rgba($white, 0.2);
     }

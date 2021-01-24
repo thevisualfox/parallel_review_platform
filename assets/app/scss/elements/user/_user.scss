@@ -1,0 +1,8 @@
+.user {}
+
+.user__image {
+    width: px-to-rem(25);
+    height: px-to-rem(25);
+
+    @include object-fit(cover);
+}

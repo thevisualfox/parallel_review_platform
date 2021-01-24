@@ -5,10 +5,50 @@
 {% block content %}
     <main class="main-content">
         {% include "elements/background.html.twig" with {
-            background_classes: ['background--blur background--blur-primary']
+            background: 'background-projects.jpg',
+            retina_background: 'background-projects@2x.jpg'
         } %}
-        <section class="pane">
-
+        <section class="pane py-5 py-lg-10 position-relative">
+            <div class="container">
+                <h1 class="h5 text-white mb-6">Projects</h1>
+                <div class="row row--equalized gutters-5 mx-md-n7">
+                    {% for item in [0, 1, 2, 3, 4] %}
+                        <div class="col-12 col-md-6 col-lg-4 col-xl-3">
+                            <a href="#" title="Productie loodsen" class="card card--link card--product">
+                                <div class="card__image has-overlay m-2">
+                                    <img class="card-img-top" src="https://picsum.photos/265/235" srcset="https://picsum.photos/530/470 2x" alt="Productie loodsen">
+                                </div>
+                                <div class="card-body">
+                                    <p class="mb-3">Productie loodsen</p>
+                                    <div class="row gutters-1">
+                                        {% for item in [0, 1] %}
+                                            <div class="col-auto">
+                                                <div class="user">
+                                                    <img class="user__image img-fluid rounded-circle" src="https://picsum.photos/25" srcset="https://picsum.photos/50 2x" alt="User">
+                                                </div>
+                                            </div>
+                                        {% endfor %}
+                                    </div>
+                                </div>
+                            </a>
+                        </div>
+                    {% endfor %}
+                    <div class="col-12 col-md-6 col-lg-4 col-xl-3">
+                        <article class="card card--link card--transparent">
+                            <div class="card-body d-flex align-items-center justify-content-center p-10">
+                                <button class="btn btn-link text-decoration-none stretched-link">
+                                    <span class="btn-text text-white text-muted--20">
+                                        {% include "elements/icon.html.twig" with {
+                                            icon_type: 'add',
+                                            icon_size: 75
+                                        } %}
+                                    </span>
+                                </button>
+                            </div>
+                        </article>
+                    </div>
+                </div>
+            </div>
         </section>
     </main>
 {% endblock %}

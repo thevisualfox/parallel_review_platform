@@ -1,10 +1,16 @@
 {% set background_classes = background_classes|default([])|merge(['background']) %}
 
+{% set background = background|default('background-login.jpg') %}
+{% set retina_background = retina_background|default('background-login@2x.jpg') %}
+
+{% set source = asset('build/app/img/'~background ) %}
+{% set retina_source = asset('build/app/img/'~retina_background ) %}
+
 {% block background %}
     <div class="{{ background_classes|join(' ') }}">
         {% block background_image %}
-            <img class="background__image" src="{{ asset('build/app/img/login-background.jpg') }}"
-                srcset="{{ asset('build/app/img/login-background@2x.jpg') }} 2x"
+            <img class="background__image" src="{{ source }}"
+                srcset="{{ retina_source }}"
                 alt="Hero">
         {% endblock %}
     </div>

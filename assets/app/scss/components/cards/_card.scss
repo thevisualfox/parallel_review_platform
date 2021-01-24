@@ -4,27 +4,33 @@
 
 }
 
-.card-badge {
-    position: absolute;
-    top: spacer(2);
-    left: spacer(2);
-    margin: 0;
-    max-width: calc(100% - #{$spacer});
-    overflow: hidden;
-    text-overflow: ellipsis;
-}
+.card--link {
+    @extend .text-reset;
 
-// Bordered card
+    transition: transform 350ms ease;
+    transform-origin: bottom;
 
-.card--bordered {
-    border: $card-border-width solid $card-border-color;
-
-    .card-body,
-    .card-footer {
-        padding: $card-spacer-y;
+    &:hover {
+        transform: translateY(-5px) scale(1.005);
     }
 }
 
+.card-body {
+    @extend .pt-3, .px-4, .pb-4;
+}
+
+.card__image {
+    &.has-overlay {
+        position: relative;
+
+        &:after {
+            @extend %absolute-fill;
+
+            content: "";
+            background: linear-gradient(to top, rgba($black, 0.7), rgba($black, 0));
+        }
+    }
+}
 // Horizontal card
 
 .card-horizontal-img {
@@ -34,38 +40,8 @@
     width: auto;
 }
 
-// Responsive horizontal cards
-
-@each $breakpoint in map-keys($grid-breakpoints) {
-    @include media-breakpoint-up($breakpoint) {
-        $infix: breakpoint-infix($breakpoint, $grid-breakpoints);
-
-        .card#{$infix}-horizontal {
-            flex-direction: row;
-        }
-    }
-}
-
-// Link card
-
-.card--link {
-    transition: transform $global-duration;
-    will-change: transform;
-
-    &:hover {
-        transform: translateY(-5px);
-    }
-}
-
-.card__link {
-    display: inherit;
-    flex-direction: inherit;
-    flex: inherit;
-    text-decoration: none;
-    color: inherit;
-
-    &:hover {
-        color: inherit;
-        text-decoration: inherit;
+@each $theme, $color in $theme-colors {
+    .card--#{$theme} {
+        background-color: $color;
     }
 }
