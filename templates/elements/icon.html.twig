@@ -1,0 +1,18 @@
+{% set icon_classes = icon_classes|default([])|merge([
+    'icon',
+    'icon--' ~ icon_size|default(16)
+]) %}
+
+{# Additional classes #}
+{% if icon_type|default %}
+    {% set icon_classes = icon_classes|merge(['icon--' ~ icon_type]) %}
+{% endif %}
+
+{% if icon_theme|default %}
+    {% set icon_classes = icon_classes|merge(['text-' ~ icon_theme]) %}
+{% endif %}
+
+{# Render #}
+<svg class="{{ icon_classes|join(' ') }}">
+    <use xlink:href="{{ asset('build/app/img/symbols.svg') }}#{{ icon_type }}"></use>
+</svg>

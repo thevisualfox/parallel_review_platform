@@ -7,4 +7,4 @@ $link-color: $primary;
 $link-decoration: underline;
 $link-hover-color: darken($link-color, 15%);
 
-$paragraph-margin-bottom: ($spacer / 2);
+$paragraph-margin-bottom: spacer(2);

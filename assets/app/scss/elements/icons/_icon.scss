@@ -1,0 +1,6 @@
+@each $size in $icon-sizes {
+    .icon--#{$size} {
+        width: px-to-rem($size);
+        height: px-to-rem($size);
+    }
+}
