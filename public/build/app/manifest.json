@@ -1,9 +1,9 @@
 {
-  "build/app/main.css": "/build/app/main.56e02517.css",
-  "build/app/main.js": "/build/app/main.51e1354b.js",
-  "build/app/img/background-login.jpg": "/build/app/img/background-login.955534e8.jpg",
-  "build/app/img/background-login@2x.jpg": "/build/app/img/background-login@2x.57f2a279.jpg",
-  "build/app/img/background-projects.jpg": "/build/app/img/background-projects.cb1cfe85.jpg",
-  "build/app/img/background-projects@2x.jpg": "/build/app/img/background-projects@2x.d63f4406.jpg",
-  "build/app/img/symbols.svg": "/build/app/img/symbols.aaec8176.svg"
+  "build/app/main.css": "/build/app/main.css",
+  "build/app/main.js": "/build/app/main.js",
+  "build/app/img/background-login.jpg": "/build/app/img/background-login.jpg",
+  "build/app/img/background-login@2x.jpg": "/build/app/img/background-login@2x.jpg",
+  "build/app/img/background-projects.jpg": "/build/app/img/background-projects.jpg",
+  "build/app/img/background-projects@2x.jpg": "/build/app/img/background-projects@2x.jpg",
+  "build/app/img/symbols.svg": "/build/app/img/symbols.svg"
 }

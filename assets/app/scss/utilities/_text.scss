@@ -7,6 +7,10 @@
     opacity: 0.6;
 }
 
+.text--sm {
+    font-size: $font-size-sm;
+}
+
 // Brand text colors
 
 @each $brand, $color in $brand-colors {

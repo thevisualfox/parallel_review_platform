@@ -1,8 +1,24 @@
-.user {}
+.user {
+    position: relative;
+}
 
 .user__image {
     width: px-to-rem(25);
     height: px-to-rem(25);
 
     @include object-fit(cover);
+}
+
+.user__leader {
+    @extend %center-flex;
+
+    $dimensions: 12px;
+
+    position: absolute;
+    top: -2px;
+    left: -2px;
+    height: $dimensions;
+    width: $dimensions;
+    background-color: $black;
+    border-radius: 50%;
 }

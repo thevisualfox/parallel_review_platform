@@ -1,0 +1,86 @@
+{% extends 'base/projects.html.twig' %}
+
+{% block title %}{{ project.title }}{% endblock %}
+
+{% block content %}
+    <main class="main-content">
+        {% include "elements/background.html.twig" with {
+            background: 'background-projects.jpg',
+            retina_background: 'background-projects@2x.jpg'
+        } %}
+        <section class="pane py-5 py-lg-10 position-relative">
+            <div class="container">
+                <div class="row gutters-5">
+                    <div class="col-lg-8">
+                        <div class="d-flex align-items-md-center flex-column flex-md-row mb-4 mb-md-2">
+                            <h3 class="text-white mb-1 mb-md-0">{{ project.title }}</h3>
+                            <div class="row gutters-2 ml-md-5">
+                                {% for item in [0, 1, 2] %}
+                                    {% set is_project_leader = loop.first %}
+
+                                    <div class="col-auto">
+                                        <div class="user">
+                                            {% if is_project_leader %}
+                                                <div class="user__leader">
+                                                    {% include "elements/icon.html.twig" with {
+                                                        icon_type: 'star',
+                                                        icon_size: 6,
+                                                        icon_classes: ['text-tertiary']
+                                                    } %}
+                                                </div>
+                                            {% endif %}
+                                            <img class="user__image img-fluid rounded-circle" src="https://picsum.photos/25" srcset="https://picsum.photos/50 2x" alt="User">
+                                        </div>
+                                    </div>
+                                {% endfor %}
+                            </div>
+                        </div>
+                        <p class="text-white">{{ project.description }}</p>
+                    </div>
+                    <div class="col-lg-auto ml-auto">
+                        <button class="btn btn-sm btn-white">
+                            <span class="btn__text">Share</span>
+                        </button>
+                    </div>
+                </div>
+                <div class="row row--equalized gutters-5 mt-5 mt-md-10">
+                    {% for item in [0, 1, 2] %}
+                        <div class="col-12 col-md-6 col-lg-4 col-xl-3">
+                            <a href="{{ path('app_project_detail', { slug: project.slug }) }}" title="{{ project.title }}" class="card card--link card--product">
+                                <div class="card__image has-overlay m-2">
+                                    <img class="card-img-top" src="{{ project.image }}" srcset="{{ project.image }} 2x" alt="{{ project.title }}">
+                                </div>
+                                <div class="card-body">
+                                    <div class="d-flex align-items-center">
+                                        <p class="mb-0">Image {{ loop.index }}</p>
+                                        <button class="btn btn-link p-0 text-white ml-auto" type="button">
+                                            {% include "elements/icon.html.twig" with {
+                                                icon_type: 'pencil',
+                                                icon_size: 14,
+                                            } %}
+                                        </button>
+                                    </div>
+                                </div>
+                            </a>
+                        </div>
+                    {% endfor %}
+                    <div class="col-12 col-md-6 col-lg-4 col-xl-3">
+                        <article class="card card--link card--transparent">
+                            <div class="card-body d-flex align-items-center justify-content-center p-10">
+                                <button class="btn btn-link text-decoration-none stretched-link">
+                                    <span class="btn-text d-flex flex-column align-items-center text-white text-muted--40">
+                                        {% include "elements/icon.html.twig" with {
+                                            icon_type: 'add_image',
+                                            icon_size: 48
+                                        } %}
+                                        <span class="text--sm mt-1">Add more images</span>
+                                    </span>
+                                </button>
+                            </div>
+                        </article>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+{% endblock %}

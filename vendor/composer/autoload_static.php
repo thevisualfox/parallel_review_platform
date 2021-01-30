@@ -102,6 +102,7 @@ class ComposerStaticInit022c90ea7d742ee8e4b9b4a1bbba9086
             'Symfony\\Bundle\\FrameworkBundle\\' => 31,
             'Symfony\\Bundle\\DebugBundle\\' => 27,
             'Symfony\\Bridge\\Twig\\' => 20,
+            'Symfony\\Bridge\\ProxyManager\\' => 28,
             'Symfony\\Bridge\\PhpUnit\\' => 23,
             'Symfony\\Bridge\\Monolog\\' => 23,
             'Symfony\\Bridge\\Doctrine\\' => 24,
@@ -420,6 +421,10 @@ class ComposerStaticInit022c90ea7d742ee8e4b9b4a1bbba9086
         'Symfony\\Bridge\\Twig\\' => 
         array (
             0 => __DIR__ . '/..' . '/symfony/twig-bridge',
+        ),
+        'Symfony\\Bridge\\ProxyManager\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/symfony/proxy-manager-bridge',
         ),
         'Symfony\\Bridge\\PhpUnit\\' => 
         array (
@@ -2334,6 +2339,10 @@ class ComposerStaticInit022c90ea7d742ee8e4b9b4a1bbba9086
         'Symfony\\Bridge\\PhpUnit\\SetUpTearDownTrait' => __DIR__ . '/..' . '/symfony/phpunit-bridge/SetUpTearDownTrait.php',
         'Symfony\\Bridge\\PhpUnit\\SymfonyTestsListener' => __DIR__ . '/..' . '/symfony/phpunit-bridge/SymfonyTestsListener.php',
         'Symfony\\Bridge\\PhpUnit\\TextUI\\Command' => __DIR__ . '/..' . '/symfony/phpunit-bridge/TextUI/Command.php',
+        'Symfony\\Bridge\\ProxyManager\\LazyProxy\\Instantiator\\LazyLoadingValueHolderFactory' => __DIR__ . '/..' . '/symfony/proxy-manager-bridge/LazyProxy/Instantiator/LazyLoadingValueHolderFactory.php',
+        'Symfony\\Bridge\\ProxyManager\\LazyProxy\\Instantiator\\RuntimeInstantiator' => __DIR__ . '/..' . '/symfony/proxy-manager-bridge/LazyProxy/Instantiator/RuntimeInstantiator.php',
+        'Symfony\\Bridge\\ProxyManager\\LazyProxy\\PhpDumper\\LazyLoadingValueHolderGenerator' => __DIR__ . '/..' . '/symfony/proxy-manager-bridge/LazyProxy/PhpDumper/LazyLoadingValueHolderGenerator.php',
+        'Symfony\\Bridge\\ProxyManager\\LazyProxy\\PhpDumper\\ProxyDumper' => __DIR__ . '/..' . '/symfony/proxy-manager-bridge/LazyProxy/PhpDumper/ProxyDumper.php',
         'Symfony\\Bridge\\Twig\\AppVariable' => __DIR__ . '/..' . '/symfony/twig-bridge/AppVariable.php',
         'Symfony\\Bridge\\Twig\\Command\\DebugCommand' => __DIR__ . '/..' . '/symfony/twig-bridge/Command/DebugCommand.php',
         'Symfony\\Bridge\\Twig\\Command\\LintCommand' => __DIR__ . '/..' . '/symfony/twig-bridge/Command/LintCommand.php',
