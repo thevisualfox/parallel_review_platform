@@ -40,6 +40,10 @@
             color: $white;
             padding: 0 spacer(2);
 
+            &:last-child {
+                padding-right: 0;
+            }
+
             // Hover state
 
             &:hover .nav-text:after,
