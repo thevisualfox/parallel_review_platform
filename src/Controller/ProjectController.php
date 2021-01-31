@@ -42,6 +42,11 @@ class ProjectController extends AbstractController
      */
     public function projects(ProjectRepository $repository)
     {
+        if (!$this->getUser()) {
+            $this->addFlash('not_logged_in', "Please log in first");
+            return $this->redirectToRoute('app_login');
+        }
+
         $projects = $repository->findAll();
 
         return $this->render('pages/project/project-overview.html.twig', [
