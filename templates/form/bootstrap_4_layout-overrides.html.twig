@@ -1,0 +1,200 @@
+{% extends 'bootstrap_4_layout.html.twig' %}
+
+{# Grid #}
+{%- block form_row_start -%}
+<div class="{{- block('form_row_class_name') -}}">
+    {%- endblock form_row_start -%}
+
+    {%- block form_row_class_name -%}
+        {%- set className = ['form-row-wrapper col-12 pt-0'] -%}
+        {% if attr.widthNumber|default %}
+            {% set className = className|merge(['col-lg-' ~ attr.widthNumber]) %}
+        {% endif %}
+        {{- className|join(' ') -}}
+    {%- endblock form_row_class_name -%}
+
+    {%- block form_row_end -%}
+</div>
+{%- endblock form_row_end -%}
+
+{# Rows #}
+{%- block form_rows -%}
+    <div class="row gutters-2">
+        {% for child in form %}
+            {{- form_row(child) -}}
+        {% endfor %}
+    </div>
+{%- endblock form_rows -%}
+
+{%- block form_row -%}
+    {{ block('form_row_start') }}
+    {{- form_label(form) -}}
+    {{- form_errors(form) -}}
+    {{- form_widget(form) -}}
+    {{ block('form_row_end') }}
+{%- endblock -%}
+
+{%- block button_row -%}
+    {{ block('form_row_start') }}
+    {{- form_widget(form) -}}
+    {{ block('form_row_end') }}
+{%- endblock button_row -%}
+
+{%- block hidden_row -%}
+    {%- if attr.type|default('') in ['spacer', 'freeText', 'headline'] -%}
+        {{ block('sulu_form_text_row') }}
+    {%- else -%}
+        {{ parent() }}
+    {%- endif -%}
+{%- endblock hidden_row -%}
+
+{# Widgets #}
+{%- block button_widget -%}
+    {%- set attr = attr|merge({class: ('btn mt-5 mt-lg-6 btn-md-inline ' ~ attr.class|default('btn-secondary'))|trim}) -%}
+    {%- if label is empty -%}
+        {%- if label_format is not empty -%}
+            {% set label = label_format|replace({
+                '%name%': name,
+                '%id%': id,
+            }) %}
+        {%- elseif label is same as(false) -%}
+            {% set translation_domain = false %}
+        {%- else -%}
+            {% set label = name|humanize %}
+        {%- endif -%}
+    {%- endif -%}
+    <button type="{{ type|default('button') }}" {{ block('button_attributes') }}>
+        <span
+                class="btn__text">{{ translation_domain is same as(false) ? label : label|trans(label_translation_parameters, translation_domain) }}</span>
+        <svg class="btn__arrow icon icon--20 icon--arrow-right">
+            <use xlink:href="{{ asset('build/app/img/symbols.svg') }}#arrow-right"></use>
+        </svg>
+    </button>
+{%- endblock button_widget -%}
+
+{% block submit_widget -%}
+    {%- set attr = attr|merge({class: (attr.class|default('btn-primary'))|trim}) -%}
+    {{- parent() -}}
+{%- endblock submit_widget %}
+
+{% block checkbox_widget -%}
+    {%- set label_attr = label_attr|merge({class: (label_attr.class|default('') ~ ' checkbox-custom')|trim}) -%}
+    {{- parent() -}}
+{%- endblock checkbox_widget %}
+
+{% block radio_widget -%}
+    {%- set label_attr = label_attr|merge({class: (label_attr.class|default('') ~ ' radio-custom')|trim}) -%}
+    {{- parent() -}}
+{%- endblock radio_widget %}
+
+{% block choice_widget_collapsed -%}
+    {%- set attr = attr|merge({class: (attr.class|default('') ~ ' custom-select')|trim}) -%}
+    {{- parent() -}}
+{%- endblock choice_widget_collapsed %}
+
+{%- block hidden_widget -%}
+    {{ parent() }}
+{%- endblock hidden_widget -%}
+
+{# Labels #}
+{%- block form_label -%}
+    {%- if label is not same as(false) -%}
+        {%- set label = label|striptags('<a><em><strong>') -%}
+        {{ parent() }}
+    {%- endif -%}
+{%- endblock form_label -%}
+
+{% block checkbox_radio_label -%}
+    {%- set parent_label_class = 'checkbox-custom' -%}
+
+    {#- Do not display the label if widget is not defined in order to prevent double label rendering -#}
+    {%- if widget is defined -%}
+        {% set is_parent_custom = parent_label_class is defined and ('checkbox-custom' in parent_label_class or 'radio-custom' in parent_label_class) %}
+        {% set is_custom = label_attr.class is defined and ('checkbox-custom' in label_attr.class or 'radio-custom' in label_attr.class) %}
+        {%- if is_parent_custom or is_custom -%}
+            {%- set label_attr = label_attr|merge({class: (label_attr.class|default('') ~ ' custom-control-label')|trim}) -%}
+        {%- else %}
+            {%- set label_attr = label_attr|merge({class: (label_attr.class|default('') ~ ' form-check-label')|trim}) -%}
+        {%- endif %}
+        {%- if not compound -%}
+            {% set label_attr = label_attr|merge({'for': id}) %}
+        {%- endif -%}
+        {%- if required -%}
+            {%- set label_attr = label_attr|merge({class: (label_attr.class|default('') ~ ' required')|trim}) -%}
+        {%- endif -%}
+        {%- if parent_label_class is defined -%}
+            {%- set label_attr = label_attr|merge({class: (label_attr.class|default('') ~ ' ' ~ parent_label_class)|replace({'checkbox-inline': '', 'radio-inline': '', 'checkbox-custom': '', 'radio-custom': ''})|trim}) -%}
+        {%- endif -%}
+        {%- if label is not same as(false) and label is empty -%}
+            {%- if label_format is not empty -%}
+                {%- set label = label_format|replace({
+                    '%name%': name,
+                    '%id%': id,
+                }) -%}
+            {%- else -%}
+                {%- set label = name|humanize -%}
+            {%- endif -%}
+        {%- endif -%}
+
+        {{ widget|raw }}
+        <label{% with { attr: label_attr } %}{{ block('attributes') }}{% endwith %}>
+            {{- label is not same as(false) ? (translation_domain is same as(false) ? label : label|trans(label_translation_parameters, translation_domain))|striptags('<sulu-link><a><em><strong><u><i>')|raw -}}
+            {{- form_errors(form) -}}
+        </label>
+    {%- endif -%}
+{%- endblock checkbox_radio_label %}
+
+{# Sulu form bundle #}
+
+{# Text fields #}
+{%- block sulu_form_text_row -%}
+    {{ block('form_row_start') }}
+    {{ block('sulu_form_text_' ~ attr.type ~ '_widget') }}
+    {{ block('form_row_end') }}
+{%- endblock -%}
+
+{%- block sulu_form_text_headline_widget -%}
+    <h4>{{- label|raw -}}</h4>
+{%- endblock sulu_form_text_headline_widget -%}
+
+{%- block sulu_form_text_spacer_widget -%}
+{%- endblock sulu_form_text_spacer_widget -%}
+
+{%- block sulu_form_text_freeText_widget -%}
+    <p>{{- label|raw -}}</p>
+{%- endblock sulu_form_text_freeText_widget -%}
+
+{# CSRF Token over ESI #}
+{%- block csrf_token_widget -%}
+    {% if sulu_context is defined and sulu_context != 'admin' %}
+        {{ render_esi(controller('Sulu\\Bundle\\FormBundle\\Controller\\FormTokenController::tokenAction', {
+            'form': form.parent.vars.name,
+            'html': true,
+            _requestAnalyzer: false
+        })) }}
+    {% else %}
+        {{ block('hidden_widget') }}
+    {% endif %}
+{%- endblock csrf_token_widget -%}
+
+{# Avoid control attributes to be rendered #}
+{% block attributes -%}
+    {%- for attrname, attrvalue in attr -%}
+        {{- " " -}}
+        {%- if attrname in ['width', 'widthNumber', 'lastWidth'] -%}
+            {# Avoid rendering of width and lastWidth attribute #}
+        {%- elseif attrname in ['placeholder', 'title'] -%}
+            {{- attrname }}="{{ translation_domain is same as(false) ? attrvalue : attrvalue|trans({}, translation_domain) }}"
+        {%- elseif attrvalue is same as(true) -%}
+            {{- attrname }}="{{ attrname }}"
+        {%- elseif attrvalue is not same as(false) -%}
+            {{- attrname }}="{{ attrvalue }}"
+        {%- endif -%}
+    {%- endfor -%}
+{%- endblock attributes -%}
+
+{%- block honeypot_row -%}
+    <div class="form-comparable">
+        {{- block('form_row') -}}
+    </div>
+{%- endblock -%}
