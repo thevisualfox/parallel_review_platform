@@ -18,13 +18,13 @@
                         <div class="row gutters-2">
                             <div class="col-12">
                                 {{ form_label(form.email, 'Email', { 'label_attr': {'class': 'sr-only'}}) }}
-                                {{ form_widget(form.email, {'attr': {'class': 'form-control', 'placeholder': 'Email'}}) }}
                                 {{ form_errors(form.email) }}
+                                {{ form_widget(form.email, {'attr': {'class': 'form-control', 'placeholder': 'Email'}}) }}
                             </div>
                             <div class="col-md-6">
                                 {{ form_label(form.plainPassword, 'Email', { 'label_attr': {'class': 'sr-only'}}) }}
-                                {{ form_widget(form.plainPassword, {'attr': {'class': 'form-control', 'placeholder': 'Password'}}) }}
                                 {{ form_errors(form.plainPassword) }}
+                                {{ form_widget(form.plainPassword, {'attr': {'class': 'form-control', 'placeholder': 'Password'}}) }}
                             </div>
                             <div class="col-md-6">
                                 <label class="sr-only" for="login-confirm-password">Confirm password</label>

@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Entity\Project;
 use App\Repository\ProjectRepository;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -15,6 +16,7 @@ class ProjectController extends AbstractController
      * @Route("/projects/add", name="app_project_add")
      * @param EntityManagerInterface $entityManager
      * @return Response
+     * @IsGranted("ROLE_ADMIN")
      */
     public function addProject(EntityManagerInterface $entityManager)
     {
@@ -61,6 +63,11 @@ class ProjectController extends AbstractController
      */
     public function project(Project $project = null)
     {
+        if (!$this->getUser()) {
+            $this->addFlash('not_logged_in', "Please log in first");
+            return $this->redirectToRoute('app_login');
+        }
+
         return $this->render('pages/project/project-detail.html.twig', [
             'project' => $project,
         ]);
