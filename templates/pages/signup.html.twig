@@ -10,15 +10,21 @@
                 <div class="panel__body">
                     <h1 class="text-uppercase text-white mb-0">Sign up</h1>
                     <p class="text-muted--70 text-white">Sign up with your e-mail and password</p>
-                    <form class="panel__form form mt-7">
+                    {% for flashError in app.flashes('verify_email_error') %}
+                        <div class="alert alert-danger" role="alert">{{ flashError }}</div>
+                    {% endfor %}
+
+                    {{ form_start(form) }}
                         <div class="row gutters-2">
                             <div class="col-12">
-                                <label class="sr-only" for="login-email">Email</label>
-                                <input type="email" class="form-control" id="login-email" placeholder="Email" required>
+                                {{ form_label(form.email, 'Email', { 'label_attr': {'class': 'sr-only'}}) }}
+                                {{ form_errors(form.email) }}
+                                {{ form_widget(form.email, {'attr': {'class': 'form-control', 'placeholder': 'Email'}}) }}
                             </div>
                             <div class="col-md-6">
-                                <label class="sr-only" for="login-password">Password</label>
-                                <input type="password" class="form-control" id="login-password" placeholder="Password" required data-parsley-equalto="#login-confirm-password">
+                                {{ form_label(form.plainPassword, 'Email', { 'label_attr': {'class': 'sr-only'}}) }}
+                                {{ form_errors(form.plainPassword) }}
+                                {{ form_widget(form.plainPassword, {'attr': {'class': 'form-control', 'placeholder': 'Password'}}) }}
                             </div>
                             <div class="col-md-6">
                                 <label class="sr-only" for="login-confirm-password">Confirm password</label>
@@ -28,13 +34,13 @@
                         <button type="submit" class="btn btn-white btn-block mt-4">
                             <span class="btn__text">Sign up</span>
                         </button>
-                        <a href="/" class="btn btn-link text-md-right btn-block mt-4 mt-md-7">
+                        <a href="{{ path('app_login') }}" class="btn btn-link text-md-right btn-block mt-4 mt-md-7">
                             <span class="btn__text text-white">
                                 <span class="text-muted--70">Already have an account?</span>
                                 <span class="ml-1 font-weight-normal">Log in</span>
                             </span>
                         </a>
-                    </form>
+                    {{ form_end(form) }}
                 </div>
             </div>
         </section>
