@@ -1,0 +1,24 @@
+.popover {
+    position: absolute;
+    top: 100px;
+    left: 100px;
+    width: 100%;
+    max-width: 350px;
+    background-color: #242424;
+    border: $border-width solid rgba($white, 0.2);
+    z-index: $zindex-popover;
+    opacity: 0;
+    visibility: hidden;
+    transform: translateX(25px);
+    transition: transform 350ms ease, opacity 350ms ease, visibility 350ms ease;
+
+    &.is-open {
+        transform: unset;
+        visibility: visible;
+        opacity: 1;
+    }
+}
+
+.popover__header {
+    border-bottom: $border-width solid rgba($white, 0.2);
+}
