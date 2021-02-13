@@ -14,6 +14,11 @@ use Symfony\Component\String\Slugger\AsciiSlugger;
 
 class ProjectController extends AbstractController
 {
+    public function __construct()
+    {
+        $this->slugger = new AsciiSlugger();
+    }
+
     /**
      * @Route("/projects/add", name="app_add_project", methods="POST")
      * @param EntityManagerInterface $entityManager
@@ -23,16 +28,14 @@ class ProjectController extends AbstractController
      */
     public function addProject(EntityManagerInterface $entityManager, Request $request)
     {
-        $slugger = new AsciiSlugger();
-
         $title = $request->request->get('title');
         $description = $request->request->get('description');
-        $slug = $slugger->slug(strtolower($title));
+        $slug = $this->slugger->slug(strtolower($title));
 
         $project = new Project();
         $project
             ->setTitle($title)
-            ->setImage('https://picsum.photos/530/470')
+            ->setImage('https://i.picsum.photos/id/953/530/470.jpg?hmac=4ZtOg6J5OD2r6BQbLup6NxStrxnVzpQ4y0x8vQFvO4M')
             ->setSlug($slug)
             ->setDescription($description);
 
@@ -43,17 +46,44 @@ class ProjectController extends AbstractController
     }
 
     /**
-     * @Route("/projects", name="app_show_projects")
+     * @Route("/projects/delete/{id}", name="app_delete_project", methods="DELETE")
+     * @param EntityManagerInterface $entityManager
+     * @param Request $request
      * @return Response
+     * @IsGranted("ROLE_ADMIN")
      */
-    public function projects()
+    public function deleteProject(EntityManagerInterface $entityManager, Project $project = null)
     {
-        if (!$this->getUser()) {
-            $this->addFlash('not_logged_in', "Please log in first");
-            return $this->redirectToRoute('app_login');
-        }
+        $entityManager->remove($project);
+        $entityManager->flush();
 
-        return $this->render('pages/project/project-overview.html.twig');
+        return $this->json(['success' => true]);
+    }
+
+    /**
+     * @Route("/projects/edit/{id}", name="app_edit_project", methods="POST")
+     * @param EntityManagerInterface $entityManager
+     * @param Request $request
+     * @return Response
+     * @IsGranted("ROLE_ADMIN")
+     */
+    public function editProject(EntityManagerInterface $entityManager, Project $project = null, Request $request)
+    {
+        $params = $request->request->all();
+
+        if (array_key_exists('title', $params)) {
+            $project->setTitle($params['title']);
+            $project->setSlug($this->slugger->slug(strtolower($params['title'])));
+        };
+
+        if (array_key_exists('description', $params)) {
+            $project->setDescription($params['description']);
+        };
+
+        $entityManager->persist($project);
+        $entityManager->flush();
+
+        return $this->json(['success' => true]);
     }
 
     /**
@@ -72,11 +102,25 @@ class ProjectController extends AbstractController
     }
 
     /**
+     * @Route("/projects", name="app_show_projects")
+     * @return Response
+     */
+    public function showProjects()
+    {
+        if (!$this->getUser()) {
+            $this->addFlash('not_logged_in', "Please log in first");
+            return $this->redirectToRoute('app_login');
+        }
+
+        return $this->render('pages/project/project-overview.html.twig');
+    }
+
+    /**
      * @Route("/projects/{slug}", name="app_show_project")
      * @param Project $project
      * @return Response
      */
-    public function project(Project $project = null)
+    public function showProject(Project $project = null)
     {
         if (!$this->getUser()) {
             $this->addFlash('not_logged_in', "Please log in first");

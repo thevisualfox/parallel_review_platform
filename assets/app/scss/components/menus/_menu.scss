@@ -1,0 +1,36 @@
+.menu {
+    @extend .position-relative;
+}
+
+.menu__dots {
+    @extend .d-flex, .align-items-center;
+}
+
+.menu__dot {
+    --dimensions: 5px;
+
+    width: var(--dimensions);
+    height: var(--dimensions);
+    background-color: rgba($white, 0.8);
+    transition: background-color 200ms ease;
+    border-radius: 50%;
+
+    &:not(:last-child) {
+        margin-right: calc(var(--dimensions) / 2);
+    }
+}
+
+.menu__dots:hover {
+    .menu__dot {
+        background-color: $white;
+    }
+}
+
+.menu__body {
+    @extend .p-3;
+
+    position: absolute;
+    top: 0;
+    right: 0;
+    background-color: #444;
+}

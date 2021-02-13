@@ -11,8 +11,10 @@
         "ios >= 7"
     ],
     "dependencies": {
+        "@rooks/use-boundingclientrect": "^4.8.1",
         "axios": "^0.21.1",
         "bootstrap": "^4.4.1",
+        "framer-motion": "^3.3.0",
         "jquery": "^3.3.1",
         "object-fit-images": "^3.2.4",
         "parsleyjs": "^2.8.1",

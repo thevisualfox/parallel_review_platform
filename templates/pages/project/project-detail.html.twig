@@ -35,7 +35,9 @@
                                 {% endfor %}
                             </div>
                         </div>
-                        <p class="text-white">{{ project.description }}</p>
+                        {% if project.description is not empty %}
+                            <p class="text-white">{{ project.description }}</p>
+                        {% endif %}
                     </div>
                     <div class="col-lg-auto ml-auto">
                         <button class="btn btn-sm btn-white">

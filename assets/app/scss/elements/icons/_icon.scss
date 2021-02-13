@@ -4,3 +4,8 @@
         height: px-to-rem($size);
     }
 }
+
+.icon {
+    margin-top: -0.3ex;
+    flex-shrink: 0;
+}
