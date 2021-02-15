@@ -1,0 +1,10 @@
+.alert--notification {
+    position: fixed !important;
+    bottom: spacer(5);
+    left: spacer(5);
+
+    @include media-breakpoint-up(lg) {
+        bottom: spacer(6);
+        left: spacer(6);
+    }
+}

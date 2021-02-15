@@ -108,7 +108,7 @@ class ProjectController extends AbstractController
     public function showProjects()
     {
         if (!$this->getUser()) {
-            $this->addFlash('not_logged_in', "Please log in first");
+            $this->addFlash('warning', "Please log in first!");
             return $this->redirectToRoute('app_login');
         }
 
@@ -123,7 +123,7 @@ class ProjectController extends AbstractController
     public function showProject(Project $project = null)
     {
         if (!$this->getUser()) {
-            $this->addFlash('not_logged_in', "Please log in first");
+            $this->addFlash('warning', "Please log in first!");
             return $this->redirectToRoute('app_login');
         }
 

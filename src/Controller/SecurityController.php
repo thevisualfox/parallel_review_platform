@@ -46,7 +46,7 @@ class SecurityController extends AbstractController
      */
     public function logoutMessage()
     {
-        $this->addFlash('logout_success', "Logout successful");
+        $this->addFlash('success', "Logout successful!");
         return $this->redirectToRoute('app_login');
     }
 }

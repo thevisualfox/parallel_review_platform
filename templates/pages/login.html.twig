@@ -6,8 +6,10 @@
     <main class="main-content">
         {% include "elements/background.html.twig" %}
         <section class="pane">
-            {% for message in app.flashes() %}
-                <div class="alert alert-success" role="alert">{{ message|first }}</div>
+            {% for type, message in app.flashes() %}
+                {% include "elements/alert.html.twig" with {
+                    message: message|first
+                } %}
             {% endfor %}
             <div class="pane__panel panel panel--login">
                 <div class="panel__body">
