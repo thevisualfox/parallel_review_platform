@@ -1,10 +1,13 @@
 .alert--notification {
     position: fixed !important;
-    bottom: spacer(5);
-    left: spacer(5);
+    bottom: 0;
+    right: 0;
+    left: 0;
+    z-index: $zindex-fixed;
 
     @include media-breakpoint-up(lg) {
         bottom: spacer(6);
         left: spacer(6);
+        right: auto;
     }
 }

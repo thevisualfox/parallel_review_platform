@@ -26,7 +26,7 @@ const FADE_IN = {
 const FADE_IN_UP = {
     initial: {
         opacity: 0,
-        y: 50,
+        y: 35,
     },
     animate: {
         opacity: 1,
@@ -34,7 +34,7 @@ const FADE_IN_UP = {
     },
     exit: {
         opacity: 0,
-        y: 50,
+        y: 35,
     },
     transition: {
         ease: EASE,
@@ -98,18 +98,9 @@ export default function Popover({ addProject, formRef, toggleModal }) {
                         </div>
                     </div>
                     <div className="popover__footer px-6 pb-6">
-                        <div className="row align-items-center gutters-4">
-                            <div className="col-auto">
-                                <button type="button" className="btn btn-link text-white">
-                                    <span className="btn-text text-muted--70">More options</span>
-                                </button>
-                            </div>
-                            <div className="col">
-                                <button type="submit" className="popover__btn btn btn-sm btn-block btn-white">
-                                    <span className="btn-text">Save project</span>
-                                </button>
-                            </div>
-                        </div>
+                        <button type="submit" className="popover__btn btn btn-sm btn-block btn-white">
+                            <span className="btn-text">Save project</span>
+                        </button>
                     </div>
                 </form>
             </motion.article>

@@ -4,7 +4,7 @@
 
     opacity: 0;
     transform: translateY(100%);
-    animation: pop-in 350ms 350ms 1 cubic-bezier(0.83, 0, 0.17, 1) forwards;
+    animation: pop-in 3500ms 350ms 1 cubic-bezier(0.83, 0, 0.17, 1) forwards;
 }
 
 $alert-themes: (
@@ -27,8 +27,18 @@ $alert-themes: (
         transform: translateY(100%);
     }
 
-    100% {
+    20% {
         opacity: 1;
         transform: unset;
+    }
+
+    90% {
+        opacity: 1;
+        transform: unset;
+    }
+
+    100% {
+        opacity: 0;
+        transform: translateY(100%);
     }
 }

@@ -17,11 +17,19 @@
 }
 
 .logo__title {
-    font-size: px-to-rem(40);
+    font-size: px-to-rem(30);
     line-height: 47px;
+
+    @include media-breakpoint-up(lg) {
+        font-size: px-to-rem(40);
+    }
 }
 
 .logo__subtitle {
-    font-size: px-to-rem(20);
+    font-size: px-to-rem(16);
     line-height: 24px;
+
+    @include media-breakpoint-up(lg) {
+        font-size: px-to-rem(20);
+    }
 }
