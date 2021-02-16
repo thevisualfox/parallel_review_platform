@@ -1,12 +1,19 @@
 .popover {
-    position: absolute;
-    top: 0;
-    left: calc(100% + #{spacer(4)});
-    width: 100%;
-    min-width: 350px;
+    @extend %center-flex, %fixed-fill;
+
+    z-index: $zindex-popover;
+}
+
+.popover__overlay {
+    @extend %absolute-fill;
+
+    background-color: rgba($primary, 0.75);
+}
+
+.popover__content {
+    position: relative;
     background-color: #242424;
     border: $border-width solid rgba($white, 0.2);
-    z-index: $zindex-popover;
 }
 
 .popover__header {

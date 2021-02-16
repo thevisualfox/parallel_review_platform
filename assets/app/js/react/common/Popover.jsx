@@ -1,55 +1,56 @@
 /* Packages */
-import React, { useLayoutEffect, useRef, useState } from "react";
+import React, { useState } from "react";
 import { motion } from "framer-motion";
 
 /* Assets */
 import closeIcon from "../../../symbols/close.svg";
 
-export default function Popover({ popOverActive, togglePopover, formRef, addProject }) {
-    /* Refs */
-    const popoverRef = useRef();
+/* Animations */
+const EASE = [0.65, 0, 0.35, 1];
+
+const FADE_IN = {
+    initial: {
+        opacity: 0,
+    },
+    animate: {
+        opacity: 1,
+    },
+    exit: {
+        opacity: 0,
+    },
+    transition: {
+        ease: EASE,
+    },
+};
+
+const FADE_IN_UP = {
+    initial: {
+        opacity: 0,
+        y: 50,
+    },
+    animate: {
+        opacity: 1,
+        y: 0,
+    },
+    exit: {
+        opacity: 0,
+        y: 50,
+    },
+    transition: {
+        ease: EASE,
+    },
+};
+
+export default function Popover({ addProject, formRef, toggleModal }) {
     /* State */
     const [projectTitle, setProjectTitle] = useState("");
-    const [position, setPosition] = useState({});
-
-    /* Effects */
-    useLayoutEffect(() => {
-        if (!popoverRef?.current) return;
-
-        const { x, width, y, height } = popoverRef.current.getBoundingClientRect();
-
-        if (y + height > window.innerHeight) {
-            setPosition({
-                ...position,
-                top: "auto",
-                bottom: "0",
-            });
-        }
-
-        if (x + width > window.innerWidth) {
-            setPosition({
-                ...position,
-                left: "auto",
-                right: "calc(100% + 20px)",
-            });
-        }
-    }, [popoverRef?.current]);
 
     /* Render */
     return (
-        <motion.article
-            ref={popoverRef}
-            className={`popover ${popOverActive && "is-open"}`}
-            tabIndex="-1"
-            role="dialog"
-            aria-hidden="true"
-            style={{ ...position }}
-            initial={{ opacity: 0, x: -25 }}
-            animate={{ opacity: 1, x: 0 }}
-            exit={{ opacity: 0, x: 25 }}
-            transition={{ ease: [0.65, 0, 0.35, 1] }}>
-            <div className="popover__document" role="document">
-                <form ref={formRef} method="POST" className="popover__content" onSubmit={addProject}>
+        <div className="popover">
+            <motion.div className="popover__overlay" {...FADE_IN} onClick={toggleModal} />
+            <motion.article className="popover__content" {...FADE_IN_UP}>
+                <form ref={formRef} method="POST" className="popover__form" onSubmit={addProject}>
                     <div className="popover__header d-flex align-items-center pt-6 mx-6 pb-3">
                         <p className="popover__title text-white text-muted--70 text--lg mb-0">
                             {projectTitle ? projectTitle : "Add project"}
@@ -59,7 +60,7 @@ export default function Popover({ popOverActive, togglePopover, formRef, addProj
                             className="popover__close btn btn-link ml-auto"
                             data-dismiss="modal"
                             aria-label="Close"
-                            onClick={togglePopover}>
+                            onClick={toggleModal}>
                             <svg className="icon icon--14 text-white">
                                 <use xlinkHref={closeIcon.url}></use>
                             </svg>
@@ -111,7 +112,7 @@ export default function Popover({ popOverActive, togglePopover, formRef, addProj
                         </div>
                     </div>
                 </form>
-            </div>
-        </motion.article>
+            </motion.article>
+        </div>
     );
 }
