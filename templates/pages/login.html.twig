@@ -11,15 +11,18 @@
                     message: message|first
                 } %}
             {% endfor %}
+            {% if error %}
+                {% include "elements/alert.html.twig" with {
+                    message: error.messageKey|trans(error.messageData, 'security'),
+                    type: 'danger'
+                } %}
+            {% endif %}
             <div class="pane__panel panel panel--login">
                 <div class="panel__body">
                     <h1 class="text-uppercase text-white mb-0">Login</h1>
                     <p class="text-muted--70 text-white">Login with your e-mail and password</p>
                     <form class="panel__form form mt-7" method="POST">
                         <input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}">
-                        {% if error %}
-                            <div class="alert alert-danger">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
-                        {% endif %}
                         <div class="row gutters-2">
                             <div class="col-12">
                                 <label class="sr-only" for="inputEmail">Email</label>

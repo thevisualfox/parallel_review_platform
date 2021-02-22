@@ -21,8 +21,10 @@
         "popper.js": "^1.16.1",
         "react": "^17.0.1",
         "react-dom": "^17.0.1",
+        "react-dropzone": "^11.3.1",
         "regenerator-runtime": "^0.13.7",
-        "svg4everybody": "^2.1.9"
+        "svg4everybody": "^2.1.9",
+        "uuid": "^8.3.2"
     },
     "devDependencies": {
         "@babel/plugin-proposal-class-properties": "^7.3.3",

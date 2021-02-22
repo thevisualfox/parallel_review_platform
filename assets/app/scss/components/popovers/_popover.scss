@@ -11,9 +11,20 @@
 }
 
 .popover__content {
-    position: relative;
+    position: absolute;
+    top: 0;
+    bottom: 0;
     background-color: #242424;
     border: $border-width solid rgba($white, 0.2);
+    overflow-y: auto;
+    overscroll-behavior: contain;
+    -webkit-overflow-scrolling: touch;
+
+    @include media-breakpoint-up(lg) {
+        position: relative;
+        overflow: visible;
+        width: 750px;
+    }
 }
 
 .popover__header {
