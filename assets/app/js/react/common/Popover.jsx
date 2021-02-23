@@ -1,6 +1,7 @@
 /* Packages */
 import React, { useState } from "react";
-import { motion } from "framer-motion";
+import CircularProgress from "@material-ui/core/CircularProgress";
+import { AnimatePresence, motion } from "framer-motion";
 
 /* Assets */
 import closeIcon from "../../../symbols/close.svg";
@@ -11,7 +12,7 @@ import { Dropzone } from "./";
 /* Animations */
 import { FADE_IN, FADE_IN_UP } from "./animations";
 
-export default function Popover({ addProject, formRef, toggleModal }) {
+export default function Popover({ addProject, formRef, toggleModal, loading }) {
     /* State */
     const [projectTitle, setProjectTitle] = useState("");
 
@@ -71,8 +72,19 @@ export default function Popover({ addProject, formRef, toggleModal }) {
                                         />
                                     </div>
                                     <div className="col-12 mt-4">
-                                        <button type="submit" className="popover__btn btn btn-sm btn-block btn-white">
-                                            <span className="btn-text">Save project</span>
+                                        <button
+                                            type="submit"
+                                            className="popover__btn btn btn-sm btn-block btn-white d-flex align-items-center justify-content-center">
+                                            <motion.span className="btn-text mr-2">
+                                                <span>{loading ? "Saving" : "Save project"}</span>
+                                            </motion.span>
+                                            <AnimatePresence>
+                                                {loading && (
+                                                    <motion.div {...FADE_IN} key="loader">
+                                                        <CircularProgress size={14} color="#141414" />
+                                                    </motion.div>
+                                                )}
+                                            </AnimatePresence>
                                         </button>
                                     </div>
                                 </div>

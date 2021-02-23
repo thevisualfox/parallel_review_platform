@@ -28,14 +28,25 @@ class ProjectController extends AbstractController
      */
     public function addProject(EntityManagerInterface $entityManager, Request $request)
     {
-        $title = $request->request->get('title');
-        $description = $request->request->get('description');
+        $params = $request->request->all();
+
+        $title = $params['title'];
+        $description = $params['description'];
         $slug = $this->slugger->slug(strtolower($title));
 
         $project = new Project();
         $project
             ->setTitle($title)
-            ->setImage('https://i.picsum.photos/id/953/530/470.jpg?hmac=4ZtOg6J5OD2r6BQbLup6NxStrxnVzpQ4y0x8vQFvO4M')
+            ->setImages([
+                [
+                    'source' => 'https://i.picsum.photos/id/953/530/470.jpg?hmac=4ZtOg6J5OD2r6BQbLup6NxStrxnVzpQ4y0x8vQFvO4M',
+                    'id' => rand(0, 9999)
+                ],
+                [
+                    'source' => 'https://i.picsum.photos/id/953/530/470.jpg?hmac=4ZtOg6J5OD2r6BQbLup6NxStrxnVzpQ4y0x8vQFvO4M',
+                    'id' => rand(0, 9999)
+                ]
+            ])
             ->setSlug($slug)
             ->setDescription($description);
 
@@ -91,7 +102,7 @@ class ProjectController extends AbstractController
      * @param ProjectRepository $repository
      * @return Response
      */
-    public function getProject(ProjectRepository $repository)
+    public function getProjects(ProjectRepository $repository)
     {
         $projects = $repository->findAll();
 
@@ -130,5 +141,28 @@ class ProjectController extends AbstractController
         return $this->render('pages/project/project-detail.html.twig', [
             'project' => $project,
         ]);
+    }
+
+    /**
+     * @Route("/projects/{slug}/review/{image_id}", name="app_show_project_review", requirements={"image_id"=".+"})
+     * @param Project $project
+     * @return Response
+     */
+    public function showProjectImage(Project $project = null, $image_id)
+    {
+        $images = $project->getImages();
+        $selectedImage = array_filter($images, function($image) use ($image_id) {
+            if (isset($image['id']) && $image['id'] == $image_id) {
+                return true;
+            }
+
+            return false;
+        });
+
+        dd($selectedImage);
+
+        // return $this->render('pages/project/project-detail.html.twig', [
+        //     'project' => $project,
+        // ]);
     }
 }

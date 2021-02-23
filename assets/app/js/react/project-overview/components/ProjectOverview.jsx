@@ -5,13 +5,17 @@ import axios from "axios";
 /* Components */
 import Project from "./Project";
 import ProjectAdd from "./ProjectAdd";
+import { Popover } from "../../common";
 import { AnimatePresence, motion } from "framer-motion";
+
+/* Animations */
+import { STAGGER_UP } from "../../common/animations";
 
 export default function ProjectOverview({ isAdmin }) {
     /* State */
     const [projectData, setProjectData] = useState([]);
-    const [popOverActive, setPopoverActive] = useState(false);
     const [loading, setLoading] = useState("get_initial_projects");
+    const [modalOpen, setModalOpen] = useState(false);
 
     /* Refs */
     const formRef = useRef();
@@ -23,6 +27,9 @@ export default function ProjectOverview({ isAdmin }) {
     useEffect(() => {
         getProjects();
     }, []);
+
+    /* Callbacks */
+    const toggleModal = () => setModalOpen(!modalOpen);
 
     const getProjects = async () => {
         try {
@@ -47,15 +54,13 @@ export default function ProjectOverview({ isAdmin }) {
 
             const result = await axios.post("/projects/add", params);
 
-            if (result.data.success) {
-                togglePopover();
-                getProjects();
-            }
+            if (result.data.success) getProjects();
         } catch (error) {
             /* TODO: add error management */
             throw new Error(error);
         } finally {
             setLoading(null);
+            setModalOpen(false);
         }
     };
 
@@ -93,45 +98,42 @@ export default function ProjectOverview({ isAdmin }) {
         }
     };
 
-    const togglePopover = () => setPopoverActive(!popOverActive);
-
     /* Render */
     return (
-        <div className="row row--equalized gutters-5">
-            <AnimatePresence initial={false}>
-                {projects.map((project, projectIndex) => (
-                    <motion.div
-                        {...animation(projectIndex)}
-                        key={project.id}
-                        className="col-12 col-md-6 col-lg-4 col-xl-3"
-                        layout>
-                        <Project {...{ ...project, deleteProject, editProject, projectsSlug }} />
-                    </motion.div>
-                ))}
-                {isAdmin && loading !== "get_initial_projects" && (
-                    <motion.div
-                        {...animation(projects.length)}
-                        key="add-project"
-                        className="col-12 col-md-6 col-lg-4 col-xl-3"
-                        layout>
-                        <ProjectAdd {...{ popOverActive, togglePopover, addProject, formRef }} />
-                    </motion.div>
-                )}
-            </AnimatePresence>
+        <>
+            <div className="row row--equalized gutters-5">
+                <AnimatePresence initial={false}>
+                    {projects.map((project, projectIndex) => (
+                        <motion.div
+                            {...STAGGER_UP(projectIndex)}
+                            key={project.id}
+                            className="col-12 col-md-6 col-lg-4 col-xl-3"
+                            layout>
+                            <Project {...{ ...project, deleteProject, editProject, projectsSlug }} />
+                        </motion.div>
+                    ))}
+                    {isAdmin && loading !== "get_initial_projects" && (
+                        <motion.div
+                            {...STAGGER_UP(projects.length)}
+                            key="add-project"
+                            className="col-12 col-md-6 col-lg-4 col-xl-3"
+                            layout>
+                            <ProjectAdd {...{ toggleModal }} />
+                        </motion.div>
+                    )}
+                </AnimatePresence>
+                <AnimatePresence>
+                    {!isAdmin && projects.length === 0 && (
+                        <motion.p
+                            {...STAGGER_UP()}
+                            className="col-12 text-white"
+                            layout>{`You don't have any projects yet`}</motion.p>
+                    )}
+                </AnimatePresence>
+            </div>
             <AnimatePresence>
-                {!isAdmin && projects.length === 0 && (
-                    <motion.p
-                        {...animation()}
-                        className="col-12 text-white"
-                        layout>{`You don't have any projects yet`}</motion.p>
-                )}
+                {modalOpen && <Popover {...{ addProject, formRef, toggleModal, loading }} />}
             </AnimatePresence>
-        </div>
+        </>
     );
 }
-
-const animation = (index) => ({
-    initial: { opacity: 0, y: 25 },
-    animate: { opacity: 1, y: 0, transition: { ease: [0.65, 0, 0.35, 1], delay: index ? index * 0.035 : 0 } },
-    exit: { opacity: 0, y: -25, transition: { ease: [0.65, 0, 0.35, 1] } },
-});

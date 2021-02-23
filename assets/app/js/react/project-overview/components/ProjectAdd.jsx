@@ -1,20 +1,12 @@
 /* Packages */
-import { AnimatePresence } from "framer-motion";
-import React, { useState } from "react";
+import React from "react";
 
 /* Assets */
 import addProjectIcon from "../../../../symbols/add_project.svg";
 
 /* Components */
-import { Popover } from "../../common";
 
-export default function ProjectAdd({ addProject, formRef }) {
-    /* State */
-    const [modalOpen, setModalOpen] = useState(false);
-
-    /* Functions */
-    const toggleModal = () => setModalOpen(!modalOpen);
-
+export default function ProjectAdd({ toggleModal }) {
     return (
         <div className="position-relative">
             <article className="card card--link card--transparent h-100 mb-0" style={{ minHeight: 335 }}>
@@ -29,9 +21,6 @@ export default function ProjectAdd({ addProject, formRef }) {
                     </button>
                 </div>
             </article>
-            <AnimatePresence exitBeforeEnter>
-                {modalOpen && <Popover {...{ addProject, formRef, toggleModal }} />}
-            </AnimatePresence>
         </div>
     );
 }

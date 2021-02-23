@@ -11,6 +11,7 @@
         "ios >= 7"
     ],
     "dependencies": {
+        "@material-ui/core": "^4.11.3",
         "@rooks/use-boundingclientrect": "^4.8.1",
         "axios": "^0.21.1",
         "bootstrap": "^4.4.1",

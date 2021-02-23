@@ -23,11 +23,6 @@ class Project
     private $title;
 
     /**
-     * @ORM\Column(type="string", length=255)
-     */
-    private $image;
-
-    /**
      * @ORM\Column(type="string", length=100, unique=true)
      */
     private $slug;
@@ -36,6 +31,11 @@ class Project
      * @ORM\Column(type="string", length=350, nullable=true)
      */
     private $description;
+
+    /**
+     * @ORM\Column(type="array", nullable=true)
+     */
+    private $images = [];
 
     public function getId(): ?int
     {
@@ -50,18 +50,6 @@ class Project
     public function setTitle(string $title): self
     {
         $this->title = $title;
-
-        return $this;
-    }
-
-    public function getImage(): ?string
-    {
-        return $this->image;
-    }
-
-    public function setImage(string $image): self
-    {
-        $this->image = $image;
 
         return $this;
     }
@@ -86,6 +74,18 @@ class Project
     public function setDescription(?string $description): self
     {
         $this->description = $description;
+
+        return $this;
+    }
+
+    public function getImages(): ?array
+    {
+        return $this->images;
+    }
+
+    public function setImages(?array $images): self
+    {
+        $this->images = $images;
 
         return $this;
     }
