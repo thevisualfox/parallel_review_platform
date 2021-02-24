@@ -1,5 +1,5 @@
 /* Packages */
-import React, { useEffect, useRef, useState } from "react";
+import React, { useEffect, useState } from "react";
 import axios from "axios";
 
 /* Components */
@@ -13,15 +13,9 @@ import { STAGGER_UP } from "../../common/animations";
 
 export default function ProjectOverview({ isAdmin }) {
     /* State */
-    const [projectData, setProjectData] = useState([]);
+    const [projects, setProjects] = useState([]);
     const [loading, setLoading] = useState("get_initial_projects");
     const [modalOpen, setModalOpen] = useState(false);
-
-    /* Refs */
-    const formRef = useRef();
-
-    /* Constants */
-    const { projects = [], projectsSlug = "" } = projectData;
 
     /* Effects */
     useEffect(() => {
@@ -35,32 +29,12 @@ export default function ProjectOverview({ isAdmin }) {
         try {
             const result = await axios.get("/projects/get");
 
-            if (result.data) setProjectData(result.data);
+            if (result.data) setProjects(result.data.projects);
         } catch (error) {
             /* TODO: add error management */
             throw new Error(error);
         } finally {
             setLoading(null);
-        }
-    };
-
-    const addProject = async (event) => {
-        event.preventDefault();
-
-        const params = new FormData(formRef.current);
-
-        try {
-            setLoading("add_project");
-
-            const result = await axios.post("/projects/add", params);
-
-            if (result.data.success) getProjects();
-        } catch (error) {
-            /* TODO: add error management */
-            throw new Error(error);
-        } finally {
-            setLoading(null);
-            setModalOpen(false);
         }
     };
 
@@ -109,7 +83,7 @@ export default function ProjectOverview({ isAdmin }) {
                             key={project.id}
                             className="col-12 col-md-6 col-lg-4 col-xl-3"
                             layout>
-                            <Project {...{ ...project, deleteProject, editProject, projectsSlug }} />
+                            <Project {...{ ...project, deleteProject, editProject }} />
                         </motion.div>
                     ))}
                     {isAdmin && loading !== "get_initial_projects" && (
@@ -131,9 +105,7 @@ export default function ProjectOverview({ isAdmin }) {
                     )}
                 </AnimatePresence>
             </div>
-            <AnimatePresence>
-                {modalOpen && <Popover {...{ addProject, formRef, toggleModal, loading }} />}
-            </AnimatePresence>
+            <AnimatePresence>{modalOpen && <Popover {...{ toggleModal, getProjects }} />}</AnimatePresence>
         </>
     );
 }

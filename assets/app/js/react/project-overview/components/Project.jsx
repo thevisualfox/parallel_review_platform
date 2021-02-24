@@ -8,7 +8,7 @@ import deleteIcon from "../../../../symbols/delete.svg";
 import archiveIcon from "../../../../symbols/archive.svg";
 import exitIcon from "../../../../symbols/exit.svg";
 
-export default function Project({ slug, title, images: [image], id, projectsSlug, deleteProject, editProject }) {
+export default function Project({ slug, title, projectImages, id, deleteProject, editProject }) {
     /* Constants */
     const users = [
         {
@@ -20,10 +20,12 @@ export default function Project({ slug, title, images: [image], id, projectsSlug
 
     /* Render */
     return (
-        <a href={`${projectsSlug}/${slug}`} title={title} className="card card--link card--product">
-            <div className="card__image has-overlay m-2">
-                <img className="card-img-top" src={image.source} srcSet={`${image.source} 2x`} alt={title} />
-            </div>
+        <a href={`projects/${slug}`} title={title} className="card card--link card--product">
+            {projectImages.slice(0, 1).map(({image, title}, imageIndex) => (
+                <div key={imageIndex} className="card__image has-overlay m-2">
+                    <img className="card-img-top" src={image} srcSet={`${image} 2x`} alt={title} />
+                </div>
+            ))}
             <div className="card-body">
                 <div className="d-flex align-items-center justify-content-between mb-3">
                     <p className="mb-0">{title}</p>

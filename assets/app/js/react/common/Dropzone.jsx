@@ -11,10 +11,7 @@ import addImageIcon from "../../../symbols/add_image.svg";
 /* Animations */
 import { FADE_IN } from "./animations";
 
-export default function Dropzone() {
-    /* State */
-    const [files, setFiles] = useState([]);
-
+export default function Dropzone({ images, setImages }) {
     /* Hooks */
     const { getRootProps, getInputProps, isDragActive } = useDropzone({
         accept: "image/*",
@@ -23,7 +20,7 @@ export default function Dropzone() {
 
     /* Callbacks */
     const addFiles = (acceptedFiles) => {
-        setFiles((files) => [
+        setImages((files) => [
             ...files,
             ...acceptedFiles.map((file) =>
                 Object.assign(file, {
@@ -37,21 +34,23 @@ export default function Dropzone() {
     const deleteFile = (event, id) => {
         event.stopPropagation();
 
-        setFiles((files) => [...files.filter((file) => file.id !== id)]);
+        setImages((files) => [...files.filter((file) => file.id !== id)]);
     };
 
     /* Render */
     return (
         <div
             className={`dropzone d-flex ${
-                files.length === 0 ? "align-items-center justify-content-center p-5 p-lg-1" : "align-items-baseline p-1"
+                images.length === 0
+                    ? "align-items-center justify-content-center p-5 p-lg-1"
+                    : "align-items-baseline p-1"
             }`}
             {...getRootProps()}>
             <input {...getInputProps()} />
-            {files.length > 0 && (
+            {images.length > 0 && (
                 <div className="row row--equalized gutters-1">
                     <AnimatePresence>
-                        {files.map(({ preview, id }) => (
+                        {images.map(({ preview, id }) => (
                             <motion.div layout {...FADE_IN} className="col-4" key={id}>
                                 <div className="dropzone__image-container">
                                     <img className="dropzone__image img-fluid" src={preview} />
@@ -69,7 +68,7 @@ export default function Dropzone() {
                     </AnimatePresence>
                 </div>
             )}
-            {files.length === 0 && (
+            {images.length === 0 && (
                 <div className="d-flex align-items-center flex-column">
                     <svg className="icon icon--48 text-white text-muted--40">
                         <use xlinkHref={addImageIcon.url}></use>

@@ -1,5 +1,6 @@
 /* Packages */
-import React, { useState } from "react";
+import React, { useRef, useState } from "react";
+import axios from "axios";
 import CircularProgress from "@material-ui/core/CircularProgress";
 import { AnimatePresence, motion } from "framer-motion";
 
@@ -12,9 +13,36 @@ import { Dropzone } from "./";
 /* Animations */
 import { FADE_IN, FADE_IN_UP } from "./animations";
 
-export default function Popover({ addProject, formRef, toggleModal, loading }) {
+export default function Popover({ toggleModal, getProjects }) {
     /* State */
     const [projectTitle, setProjectTitle] = useState("");
+    const [images, setImages] = useState([]);
+    const [loading, setLoading] = useState(false);
+
+    /* Refs */
+    const formRef = useRef();
+
+    /* Callbacks */
+    const addProject = async (event) => {
+        event.preventDefault();
+
+        const params = new FormData(formRef.current);
+        images.forEach((image) => params.append("images[]", image));
+
+        try {
+            setLoading("add_project");
+
+            const result = await axios.post("/projects/add", params);
+
+            if (result.data.success) {
+                getProjects();
+                toggleModal();
+            }
+        } catch (error) {
+            /* TODO: add error management */
+            throw new Error(error);
+        }
+    };
 
     /* Render */
     return (
@@ -40,7 +68,7 @@ export default function Popover({ addProject, formRef, toggleModal, loading }) {
                     <div className="popover__body p-6">
                         <div className="row gutters-2">
                             <div className="col-12 col-md-6">
-                                <Dropzone />
+                                <Dropzone {...{ images, setImages }} />
                             </div>
                             <div className="col-12 col-md-6">
                                 <div className="row gutters-2">
