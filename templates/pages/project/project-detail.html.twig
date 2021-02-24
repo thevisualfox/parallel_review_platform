@@ -54,7 +54,7 @@
                                 </div>
                                 <div class="card-body">
                                     <div class="d-flex align-items-center">
-                                        <p class="mb-0">Image {{ loop.index }}</p>
+                                        <p class="mb-0 text-truncate pr-6">{{ projectImage.title }}</p>
                                         <button class="btn btn-link p-0 text-white ml-auto" type="button">
                                             {% include "elements/icon.html.twig" with {
                                                 icon_type: 'pencil',

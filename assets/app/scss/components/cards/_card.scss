@@ -20,6 +20,12 @@
 }
 
 .card__image {
+    .card-img-top {
+        aspect-ratio: 1/1; /* stylelint-disable-line property-no-unknown */
+
+        @include object-fit(cover);
+    }
+
     &.has-overlay {
         position: relative;
 
