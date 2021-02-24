@@ -3,7 +3,9 @@
 namespace App\Entity;
 
 use App\Repository\ProjectImageRepository;
+use App\Service\UploaderHelper;
 use Doctrine\ORM\Mapping as ORM;
+use Gedmo\Sluggable\Util\Urlizer;
 
 /**
  * @ORM\Entity(repositoryClass=ProjectImageRepository::class)
@@ -52,7 +54,7 @@ class ProjectImage
 
     public function getImage(): ?string
     {
-        return $this->image;
+        return 'uploads/'.UploaderHelper::PROJECT_IMAGE_PATH.'/'.Urlizer::urlize($this->getProject()->getTitle()).'/'.$this->image;
     }
 
     public function setImage(string $image): self

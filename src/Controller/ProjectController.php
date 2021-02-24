@@ -5,37 +5,34 @@ namespace App\Controller;
 use App\Entity\Project;
 use App\Entity\ProjectImage;
 use App\Repository\ProjectRepository;
+use App\Service\UploaderHelper;
+use Gedmo\Sluggable\Util\Urlizer;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\Serializer\SerializerInterface;
-use Symfony\Component\String\Slugger\AsciiSlugger;
 
 class ProjectController extends AbstractController
 {
-    public function __construct()
-    {
-        $this->slugger = new AsciiSlugger();
-    }
-
     /**
      * @Route("/projects/add", name="app_add_project", methods="POST")
      * @param EntityManagerInterface $entityManager
      * @param Request $request
+     * @param UploaderHelper $uploaderHelper
      * @return Response
      * @IsGranted("ROLE_ADMIN")
      */
-    public function addProject(EntityManagerInterface $entityManager, Request $request)
+    public function addProject(EntityManagerInterface $entityManager, Request $request, UploaderHelper $uploaderHelper)
     {
-        $request = $request->request->all();
-        $requestImages = $request->files->get('images');
+        $requestBody = $request->request->all();
 
-        $title = $request['title'];
-        $description = $request['description'];
-        $slug = $this->slugger->slug(strtolower($title));
+        $title = $requestBody['title'];
+        $description = $requestBody['description'];
+        $slug = Urlizer::urlize($title);
 
         $project = new Project();
         $project
@@ -43,14 +40,24 @@ class ProjectController extends AbstractController
             ->setSlug($slug)
             ->setDescription($description);
 
-        $projectImage = new ProjectImage();
-        $projectImage
-            ->setTitle('titel')
-            ->setImage('https://i.picsum.photos/id/953/530/470.jpg?hmac=4ZtOg6J5OD2r6BQbLup6NxStrxnVzpQ4y0x8vQFvO4M')
-            ->setProject($project);
-
         $entityManager->persist($project);
-        $entityManager->persist($projectImage);
+
+        $requestImages = $request->files->get('images');
+
+        if (null !== $requestImages) {
+            foreach ($requestImages as &$image) {
+                $newFileName = $uploaderHelper->uploadProjectImage($image, $project);
+
+                $projectImage = new ProjectImage();
+                $projectImage
+                    ->setTitle($newFileName)
+                    ->setImage($newFileName)
+                    ->setProject($project);
+
+                $entityManager->persist($projectImage);
+            }
+        }
+
         $entityManager->flush();
 
         return $this->json(['success' => true]);
@@ -79,13 +86,13 @@ class ProjectController extends AbstractController
      * @return Response
      * @IsGranted("ROLE_ADMIN")
      */
-    public function editProject(EntityManagerInterface $entityManager, Project $project = null, Request $request)
+    public function editProject(EntityManagerInterface $entityManager, Project $project, Request $request)
     {
         $params = $request->request->all();
 
         if (array_key_exists('title', $params)) {
             $project->setTitle($params['title']);
-            $project->setSlug($this->slugger->slug(strtolower($params['title'])));
+            $project->setSlug(Urlizer::urlize($params['title']));
         };
 
         if (array_key_exists('description', $params)) {

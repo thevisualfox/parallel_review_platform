@@ -46,11 +46,11 @@
                     </div>
                 </div>
                 <div class="row row--equalized gutters-5 mt-5 mt-md-10">
-                    {% for image in project.images %}
+                    {% for projectImage in project.projectImages %}
                         <div class="col-12 col-md-6 col-lg-4 col-xl-3">
-                            <a href="{{ path('app_show_project_review', { slug: project.slug, image_id: image.id }) }}" title="{{ project.title }}" class="card card--link card--product">
+                            <a href="{{ path('app_show_project_review', { slug: project.slug, image_id: projectImage.id }) }}" title="{{ project.title }}" class="card card--link card--product">
                                 <div class="card__image has-overlay m-2">
-                                    <img class="card-img-top" src="{{ image.source }}" srcset="{{ image.source }} 2x" alt="{{ project.title }}">
+                                    <img class="card-img-top" src="{{ asset(projectImage.image) }}" srcset="{{ asset(projectImage.image) }} 2x" alt="{{ projectImage.title }}">
                                 </div>
                                 <div class="card-body">
                                     <div class="d-flex align-items-center">
