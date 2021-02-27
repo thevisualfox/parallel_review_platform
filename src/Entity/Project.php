@@ -35,7 +35,7 @@ class Project
     private $description;
 
     /**
-     * @ORM\OneToMany(targetEntity=ProjectImage::class, mappedBy="project")
+     * @ORM\OneToMany(targetEntity=ProjectImage::class, mappedBy="project", orphanRemoval=true))
      */
     private $projectImages;
 
