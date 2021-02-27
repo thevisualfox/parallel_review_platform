@@ -16,7 +16,7 @@ export default function Dropzone({ images, setImages }) {
     const COLUMN_LAYOUT = "col-12 col-md-6 col-lg-4 col-xl-3";
 
     /* Hooks */
-    const { getRootProps, getInputProps } = useDropzone({
+    const { getRootProps, getInputProps, isDragActive } = useDropzone({
         accept: "image/*",
         noClick: true,
         onDrop: (acceptedFiles) => addFiles(acceptedFiles),
@@ -63,7 +63,7 @@ export default function Dropzone({ images, setImages }) {
                         </motion.div>
                     ))}
                     <motion.div layout {...FADE_IN} className={COLUMN_LAYOUT} key="add_image">
-                        <DropzoneInner {...{ addFiles }} />
+                        <DropzoneInner {...{ addFiles, isParentDragActive: isDragActive }} />
                     </motion.div>
                 </AnimatePresence>
             </div>
@@ -71,7 +71,7 @@ export default function Dropzone({ images, setImages }) {
     );
 }
 
-const DropzoneInner = ({ addFiles }) => {
+const DropzoneInner = ({ addFiles, isParentDragActive }) => {
     const { getRootProps, getInputProps, isDragActive } = useDropzone({
         accept: "image/*",
         noDragEventsBubbling: true,
@@ -81,13 +81,18 @@ const DropzoneInner = ({ addFiles }) => {
     return (
         <div className="dropzone" {...getRootProps()}>
             <input {...getInputProps()} />
-            <article className="dropzone__container card card--link card--transparent h-100 mb-0">
+            <article
+                className={`dropzone__container card card--link ${
+                    (isDragActive || isParentDragActive) && "is-pulsing"
+                } card--transparent h-100 mb-0`}>
                 <div className="card-body d-flex align-items-center justify-content-center p-10">
                     <span className="btn-text d-flex flex-column align-items-center text-white text-muted--40">
                         <svg className="icon icon--48">
                             <use xlinkHref={addImageIcon.url}></use>
                         </svg>
-                        <span className="text--sm mt-1">{isDragActive ? "Drop 'em" : "Drop some images"}</span>
+                        <span className="text--sm mt-1">
+                            {isDragActive || isParentDragActive ? "Drop the images" : "Add some images"}
+                        </span>
                     </span>
                 </div>
             </article>
