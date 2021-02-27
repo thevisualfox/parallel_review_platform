@@ -10,5 +10,17 @@
 
 .form-control--text {
     resize: none;
-    min-height: 180px;
+}
+
+.form-control--clear {
+    background: none;
+    border: none;
+    padding: 0;
+    height: auto;
+
+    &:focus,
+    &:active {
+        background: none;
+        border: none;
+    }
 }

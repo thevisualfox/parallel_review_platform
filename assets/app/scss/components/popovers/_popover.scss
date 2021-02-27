@@ -11,22 +11,45 @@
 }
 
 .popover__content {
+    @extend .d-flex, .flex-column;
+
     position: absolute;
-    top: 0;
     bottom: 0;
-    background-color: #242424;
-    border: $border-width solid rgba($white, 0.2);
+    left: 0;
+    right: 0;
+    background-color: $color-base;
+    border-top: $border-width solid $border-color;
     overflow-y: auto;
     overscroll-behavior: contain;
     -webkit-overflow-scrolling: touch;
+    max-height: 95vh;
+    height: 100%;
 
     @include media-breakpoint-up(lg) {
-        position: relative;
-        overflow: visible;
-        width: 750px;
+        max-height: 80vh;
     }
 }
 
+.popover__form,
+.popover__body {
+    @extend .d-flex, .flex-column, .flex-grow-1;
+}
+
 .popover__header {
-    border-bottom: $border-width solid rgba($white, 0.2);
+    position: sticky;
+    top: 0;
+    z-index: $zindex-sticky;
+    background-color: $color-base;
+}
+
+.popover__close {
+    .icon {
+        color: rgba($white, 0.7);
+        transition: color 200ms ease;
+    }
+
+    &:hover .icon,
+    &:focus .icon {
+        color: $white;
+    }
 }

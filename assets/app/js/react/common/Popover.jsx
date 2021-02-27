@@ -2,6 +2,7 @@
 import React, { useRef, useState } from "react";
 import axios from "axios";
 import CircularProgress from "@material-ui/core/CircularProgress";
+import { TextareaAutosize } from "@material-ui/core";
 import { AnimatePresence, motion } from "framer-motion";
 
 /* Assets */
@@ -11,7 +12,7 @@ import closeIcon from "../../../symbols/close.svg";
 import { Dropzone } from "./";
 
 /* Animations */
-import { FADE_IN, FADE_IN_UP } from "./animations";
+import { FADE_IN, TRANSFORM_UP } from "./animations";
 
 export default function Popover({ toggleModal, getProjects }) {
     /* State */
@@ -46,81 +47,68 @@ export default function Popover({ toggleModal, getProjects }) {
 
     /* Render */
     return (
-        <div className="popover">
-            <motion.div className="popover__overlay" {...FADE_IN} onClick={toggleModal} />
-            <motion.article className="popover__content" {...FADE_IN_UP}>
-                <form ref={formRef} method="POST" className="popover__form" onSubmit={addProject}>
-                    <div className="popover__header d-flex align-items-center pt-6 mx-6 pb-3">
-                        <p className="popover__title text-white text-muted--70 text--lg mb-0">
-                            {projectTitle ? projectTitle : "New project"}
-                        </p>
-                        <button
-                            type="button"
-                            className="popover__close btn btn-link ml-auto"
-                            data-dismiss="modal"
-                            aria-label="Close"
-                            onClick={toggleModal}>
-                            <svg className="icon icon--14 text-white">
-                                <use xlinkHref={closeIcon.url}></use>
-                            </svg>
-                        </button>
-                    </div>
-                    <div className="popover__body p-6">
-                        <div className="row gutters-2">
-                            <div className="col-12 col-md-6">
-                                <Dropzone {...{ images, setImages }} />
-                            </div>
-                            <div className="col-12 col-md-6">
-                                <div className="row gutters-2">
-                                    <div className="col-12">
-                                        <label className="sr-only" htmlFor="projectTitle">
-                                            Project title
-                                        </label>
-                                        <input
-                                            type="text"
-                                            className="form-control"
-                                            id="projectTitle"
-                                            name="title"
-                                            placeholder="Project title"
-                                            value={projectTitle}
-                                            onChange={({ target: { value } }) => setProjectTitle(value)}
-                                            required
-                                            autoFocus
-                                        />
-                                    </div>
-                                    <div className="col-12">
-                                        <label className="sr-only" htmlFor="projectDescription">
-                                            {`What's this project about?`}
-                                        </label>
-                                        <textarea
-                                            className="form-control form-control--text"
-                                            id="projectDescription"
-                                            name="description"
-                                            placeholder="What's this project about?"
-                                        />
-                                    </div>
-                                    <div className="col-12 mt-4">
-                                        <button
-                                            type="submit"
-                                            className="popover__btn btn btn-sm btn-block btn-white d-flex align-items-center justify-content-center">
-                                            <motion.span className="btn-text mr-2">
-                                                <span>{loading ? "Saving" : "Save project"}</span>
-                                            </motion.span>
-                                            <AnimatePresence>
-                                                {loading && (
-                                                    <motion.div {...FADE_IN} key="loader">
-                                                        <CircularProgress size={14} color="#141414" />
-                                                    </motion.div>
-                                                )}
-                                            </AnimatePresence>
-                                        </button>
-                                    </div>
-                                </div>
-                            </div>
+        <motion.div key="popover" className="popover" {...FADE_IN}>
+            <div className="popover__overlay" onClick={toggleModal} />
+            <motion.article key="popover__content" className="popover__content" {...TRANSFORM_UP}>
+                <div className="container px-0">
+                    <form ref={formRef} method="POST" className="popover__form" onSubmit={addProject}>
+                        <div className="popover__header d-flex align-items-center pt-6 pt-md-12 px-6 pb-6">
+                            <label className="sr-only" htmlFor="projectTitle">
+                                {projectTitle}
+                            </label>
+                            <input
+                                type="text"
+                                className="form-control form-control--clear text--xl"
+                                id="projectTitle"
+                                name="title"
+                                placeholder="The project name"
+                                value={projectTitle}
+                                onChange={({ target: { value } }) => setProjectTitle(value)}
+                                required
+                                autoFocus
+                            />
+                            <button
+                                type="button"
+                                className="popover__close btn btn-link ml-auto"
+                                data-dismiss="modal"
+                                aria-label="Close"
+                                onClick={toggleModal}>
+                                <svg className="icon icon--14">
+                                    <use xlinkHref={closeIcon.url}></use>
+                                </svg>
+                            </button>
                         </div>
-                    </div>
-                </form>
+                        <div className="popover__body px-6 pb-12">
+                            <label className="sr-only" htmlFor="projectDescription">
+                                {`What's this project about?`}
+                            </label>
+                            <TextareaAutosize
+                                className="form-control form-control--text form-control--clear mb-10"
+                                id="projectDescription"
+                                name="description"
+                                placeholder="What's this project about?"
+                            />
+                            <Dropzone {...{ images, setImages }} />
+                        </div>
+                        <div className="popover__footer px-6 pb-6 pb-md-12">
+                            <button
+                                type="submit"
+                                className="popover__btn btn btn-sm btn-white d-flex align-items-center justify-content-center ml-auto px-8">
+                                <motion.span className="btn-text">
+                                    <span>{loading ? "Saving" : "Save"}</span>
+                                </motion.span>
+                                <AnimatePresence>
+                                    {loading && (
+                                        <motion.div className="ml-2" {...FADE_IN} key="loader">
+                                            <CircularProgress size={14} color="#141414" />
+                                        </motion.div>
+                                    )}
+                                </AnimatePresence>
+                            </button>
+                        </div>
+                    </form>
+                </div>
             </motion.article>
-        </div>
+        </motion.div>
     );
 }

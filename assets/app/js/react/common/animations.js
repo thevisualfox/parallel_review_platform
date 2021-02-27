@@ -15,18 +15,15 @@ const FADE_IN = {
     },
 };
 
-const FADE_IN_UP = {
+const TRANSFORM_UP = {
     initial: {
-        opacity: 0,
-        y: 35,
+        y: "100%",
     },
     animate: {
-        opacity: 1,
         y: 0,
     },
     exit: {
-        opacity: 0,
-        y: 35,
+        y: "100%",
     },
     transition: {
         ease: EASE,
@@ -39,4 +36,4 @@ const STAGGER_UP = (index) => ({
     exit: { opacity: 0, y: -25, transition: { ease: [0.65, 0, 0.35, 1] } },
 });
 
-export { FADE_IN, FADE_IN_UP, STAGGER_UP };
+export { FADE_IN, TRANSFORM_UP, STAGGER_UP };
