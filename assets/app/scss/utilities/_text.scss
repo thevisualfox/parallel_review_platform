@@ -11,6 +11,14 @@
     font-size: $font-size-sm;
 }
 
+.text--lg {
+    font-size: $font-size-lg;
+}
+
+.text--xl {
+    font-size: $font-size-xl;
+}
+
 // Brand text colors
 
 @each $brand, $color in $brand-colors {

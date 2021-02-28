@@ -1,0 +1,19 @@
+{% set alert_classes = alert_classes|default([])|merge([
+    'alert',
+    'alert--notification'
+]) %}
+
+{# Additional classes #}
+{% if type|default %}
+    {% set alert_classes = alert_classes|merge(['alert-' ~ type]) %}
+{% endif %}
+
+{# Render #}
+<div class="{{ alert_classes|join(' ') }}" role="alert">
+    {% include "elements/icon.html.twig" with {
+        icon_type: type,
+        icon_size: 16,
+        icon_classes: ['text-white', 'mr-2']
+    } %}
+    <span class="text-white">{{ message }}</span>
+</div>

@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\ProjectRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -23,11 +25,6 @@ class Project
     private $title;
 
     /**
-     * @ORM\Column(type="string", length=255)
-     */
-    private $image;
-
-    /**
      * @ORM\Column(type="string", length=100, unique=true)
      */
     private $slug;
@@ -36,6 +33,16 @@ class Project
      * @ORM\Column(type="string", length=350, nullable=true)
      */
     private $description;
+
+    /**
+     * @ORM\OneToMany(targetEntity=ProjectImage::class, mappedBy="project", orphanRemoval=true))
+     */
+    private $projectImages;
+
+    public function __construct()
+    {
+        $this->projectImages = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -50,18 +57,6 @@ class Project
     public function setTitle(string $title): self
     {
         $this->title = $title;
-
-        return $this;
-    }
-
-    public function getImage(): ?string
-    {
-        return $this->image;
-    }
-
-    public function setImage(string $image): self
-    {
-        $this->image = $image;
 
         return $this;
     }
@@ -86,6 +81,36 @@ class Project
     public function setDescription(?string $description): self
     {
         $this->description = $description;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|ProjectImage[]
+     */
+    public function getProjectImages(): Collection
+    {
+        return $this->projectImages;
+    }
+
+    public function addProjectImage(ProjectImage $projectImage): self
+    {
+        if (!$this->projectImages->contains($projectImage)) {
+            $this->projectImages[] = $projectImage;
+            $projectImage->setProject($this);
+        }
+
+        return $this;
+    }
+
+    public function removeProjectImage(ProjectImage $projectImage): self
+    {
+        if ($this->projectImages->removeElement($projectImage)) {
+            // set the owning side to null (unless already changed)
+            if ($projectImage->getProject() === $this) {
+                $projectImage->setProject(null);
+            }
+        }
 
         return $this;
     }

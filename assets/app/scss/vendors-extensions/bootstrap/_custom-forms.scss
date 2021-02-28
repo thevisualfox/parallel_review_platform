@@ -7,3 +7,20 @@
     margin-bottom: 0.5rem;
     min-height: $custom-control-indicator-size;
 }
+
+.form-control--text {
+    resize: none;
+}
+
+.form-control--clear {
+    background: none;
+    border: none;
+    padding: 0;
+    height: auto;
+
+    &:focus,
+    &:active {
+        background: none;
+        border: none;
+    }
+}

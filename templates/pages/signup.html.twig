@@ -10,10 +10,11 @@
                 <div class="panel__body">
                     <h1 class="text-uppercase text-white mb-0">Sign up</h1>
                     <p class="text-muted--70 text-white">Sign up with your e-mail and password</p>
-                    {% for flashError in app.flashes('verify_email_error') %}
-                        <div class="alert alert-danger" role="alert">{{ flashError }}</div>
+                    {% for type, message in app.flashes() %}
+                        {% include "elements/alert.html.twig" with {
+                            message: flashError
+                        } %}
                     {% endfor %}
-
                     {{ form_start(form) }}
                         <div class="row gutters-2">
                             <div class="col-12">

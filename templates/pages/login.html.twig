@@ -6,25 +6,30 @@
     <main class="main-content">
         {% include "elements/background.html.twig" %}
         <section class="pane">
-            {% for message in app.flashes() %}
-                <div class="alert alert-success" role="alert">{{ message|first }}</div>
+            {% for type, message in app.flashes() %}
+                {% include "elements/alert.html.twig" with {
+                    message: message|first
+                } %}
             {% endfor %}
+            {% if error %}
+                {% include "elements/alert.html.twig" with {
+                    message: error.messageKey|trans(error.messageData, 'security'),
+                    type: 'danger'
+                } %}
+            {% endif %}
             <div class="pane__panel panel panel--login">
                 <div class="panel__body">
                     <h1 class="text-uppercase text-white mb-0">Login</h1>
                     <p class="text-muted--70 text-white">Login with your e-mail and password</p>
                     <form class="panel__form form mt-7" method="POST">
                         <input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}">
-                        {% if error %}
-                            <div class="alert alert-danger">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
-                        {% endif %}
                         <div class="row gutters-2">
                             <div class="col-12">
-                                <label class="sr-only" for="login-email">Email</label>
+                                <label class="sr-only" for="inputEmail">Email</label>
                                 <input type="email" class="form-control" id="inputEmail" name="email" value="{{ last_username }}"  placeholder="Email" autofocus required>
                             </div>
                             <div class="col-12">
-                                <label class="sr-only" for="login-password">Password</label>
+                                <label class="sr-only" for="inputPassword">Password</label>
                                 <input type="password" class="form-control" id="inputPassword" name="password" placeholder="Password" required>
                             </div>
                         </div>
@@ -33,9 +38,9 @@
                                 <input type="checkbox" class="custom-control-input" id="inputRememberMe" name="_remember_me">
                                 <label class="custom-control-label text-white text-muted--70" for="inputRememberMe">Keep me logged in</label>
                             </div>
-                            <a href="#" class="btn btn-link text-left text-md-right ml-md-auto mt-3 mt-md-0">
+                            {# <a href="#" class="btn btn-link text-left text-md-right ml-md-auto mt-3 mt-md-0">
                                 <span class="btn__text text-white text-muted--70">Forgot your password?</span>
-                            </a>
+                            </a> #}
                         </div>
                         <button type="submit" class="btn btn-white btn-block">
                             <span class="btn__text">Log in</span>

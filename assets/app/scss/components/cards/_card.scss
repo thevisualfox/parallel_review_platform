@@ -5,13 +5,39 @@
 }
 
 .card--link {
-    @extend .text-reset;
+    @extend .text-reset, .text-decoration-none;
 
     transition: transform 350ms ease;
     transform-origin: bottom;
 
-    &:hover {
-        transform: translateY(-5px) scale(1.005);
+    &:before {
+        @extend %absolute-fill;
+
+        content: '';
+        border: $border-width solid $white;
+        opacity: 0;
+    }
+
+    &:hover:before,
+    &.is-pulsing:before {
+        animation: border-puls 1.5s infinite ease;
+    }
+}
+
+@keyframes border-puls {
+    0% {
+        opacity: 0;
+        transform: scale(1);
+    }
+
+    10% {
+        opacity: 0.5;
+        transform: scale(1.01);
+    }
+
+    100% {
+        opacity: 0;
+        transform: scale(1.075);
     }
 }
 
@@ -20,6 +46,12 @@
 }
 
 .card__image {
+    .card-img-top {
+        aspect-ratio: 1/1; /* stylelint-disable-line property-no-unknown */
+
+        @include object-fit(cover);
+    }
+
     &.has-overlay {
         position: relative;
 
