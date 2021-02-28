@@ -30,15 +30,11 @@ class ProjectController extends AbstractController
     {
         $requestBody = $request->request->all();
 
-        $title = $requestBody['title'];
-        $description = $requestBody['description'];
-        $slug = Urlizer::urlize($title);
-
         $project = new Project();
         $project
-            ->setTitle($title)
-            ->setSlug($slug)
-            ->setDescription($description);
+            ->setTitle($requestBody['title'])
+            ->setDescription($requestBody['title'])
+            ->setSlug(Urlizer::urlize($requestBody['title']));
 
         $entityManager->persist($project);
 
@@ -46,7 +42,7 @@ class ProjectController extends AbstractController
 
         if (null !== $requestImages) {
             foreach ($requestImages as &$image) {
-                $newFileName = $uploaderHelper->uploadProjectImage($image, $project);
+                $newFileName = $uploaderHelper->uploadProjectImage($image);
 
                 $projectImage = new ProjectImage();
                 $projectImage
@@ -88,16 +84,27 @@ class ProjectController extends AbstractController
      */
     public function editProject(EntityManagerInterface $entityManager, Project $project, Request $request)
     {
-        $params = $request->request->all();
+        $requestBody = $request->request->all();
 
-        if (array_key_exists('title', $params)) {
-            $project->setTitle($params['title']);
-            $project->setSlug(Urlizer::urlize($params['title']));
-        };
+        $project
+            ->setTitle($requestBody['title'])
+            ->setDescription($requestBody['description']);
 
-        if (array_key_exists('description', $params)) {
-            $project->setDescription($params['description']);
-        };
+        $requestImages = $request->files->get('images');
+
+        if (null !== $requestImages) {
+            foreach ($requestImages as &$image) {
+                $newFileName = $uploaderHelper->uploadProjectImage($image);
+
+                $projectImage = new ProjectImage();
+                $projectImage
+                    ->setTitle($newFileName)
+                    ->setImage($newFileName)
+                    ->setProject($project);
+
+                $entityManager->persist($projectImage);
+            }
+        }
 
         $entityManager->persist($project);
         $entityManager->flush();
@@ -115,7 +122,7 @@ class ProjectController extends AbstractController
     {
         $projects = $repository->findAll();
 
-        return new Response($serializer->serialize(array('projects' => $projects), 'json', [
+        return new Response($serializer->serialize($projects, 'json', [
             'circular_reference_handler' => function ($object) {
                 return $object->getId();
             }

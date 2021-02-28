@@ -54,7 +54,7 @@ class ProjectImage
 
     public function getImage(): ?string
     {
-        return 'uploads/'.UploaderHelper::PROJECT_IMAGE_PATH.'/'.Urlizer::urlize($this->getProject()->getTitle()).'/'.$this->image;
+        return 'uploads'.UploaderHelper::PROJECT_IMAGE_PATH.'/'.$this->image;
     }
 
     public function setImage(string $image): self

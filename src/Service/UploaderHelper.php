@@ -20,9 +20,9 @@ class UploaderHelper
         $this->uploadsPath = $uploadsPath;
     }
 
-    public function uploadProjectImage(UploadedFile $uploadedFile, $project): string
+    public function uploadProjectImage(UploadedFile $uploadedFile): string
     {
-        $uploadDestination = $this->uploadsPath.'/'.self::PROJECT_IMAGE_PATH.'/'.Urlizer::urlize($project->getTitle());
+        $uploadDestination = $this->uploadsPath.'/'.self::PROJECT_IMAGE_PATH;
 
         $newFileName =
             Urlizer::urlize(pathinfo($uploadedFile->getClientOriginalName(), PATHINFO_FILENAME))
