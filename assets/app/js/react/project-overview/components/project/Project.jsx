@@ -26,7 +26,7 @@ export default function Project({ project, getProjects }) {
         try {
             setLoading("delete_project");
 
-            const result = await axios.delete(`/projects/delete/${id}`);
+            const result = await axios.post(`/projects/delete/${id}`);
 
             if (result.data.success) getProjects();
         } catch (error) {

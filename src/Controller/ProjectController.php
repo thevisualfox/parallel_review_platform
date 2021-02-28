@@ -70,7 +70,7 @@ class ProjectController extends AbstractController
     }
 
     /**
-     * @Route("/projects/delete/{id}", name="app_delete_project", methods="DELETE")
+     * @Route("/projects/delete/{id}", name="app_delete_project", methods="POST")
      * @param EntityManagerInterface $entityManager
      * @param Project|null $project
      * @param UploaderHelper $uploaderHelper
