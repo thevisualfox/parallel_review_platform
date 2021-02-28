@@ -48,7 +48,7 @@
                 <div class="row row--equalized gutters-5 mt-5 mt-md-10">
                     {% for projectImage in project.projectImages %}
                         <div class="col-12 col-md-6 col-lg-4 col-xl-3">
-                            <a href="{{ path('app_show_project_review', { slug: project.slug, image_id: projectImage.id }) }}" title="{{ project.title }}" class="card card--link card--product">
+                            <a href="#" title="{{ project.title }}" class="card card--link card--product">
                                 <div class="card__image has-overlay m-2">
                                     <img class="card-img-top" src="{{ asset(projectImage.image) }}" srcset="{{ asset(projectImage.image) }} 2x" alt="{{ projectImage.title }}">
                                 </div>
