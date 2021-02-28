@@ -9,9 +9,9 @@ import closeIcon from "../../../symbols/close.svg";
 import addImageIcon from "../../../symbols/add_image.svg";
 
 /* Animations */
-import { FADE_IN } from "./animations";
+import { STAGGER_UP } from "./animations";
 
-export default function Dropzone({ images, setImages }) {
+export default function Dropzone({ images = [], setImages }) {
     /* Constants */
     const COLUMN_LAYOUT = "col-12 col-md-6 col-lg-4 col-xl-3";
 
@@ -46,9 +46,9 @@ export default function Dropzone({ images, setImages }) {
         <div className="dropzone" {...getRootProps()}>
             <input {...getInputProps()} />
             <div className="row row--equalized gutters-5">
-                <AnimatePresence>
-                    {images.map(({ preview, id }) => (
-                        <motion.div layout {...FADE_IN} className={COLUMN_LAYOUT} key={id}>
+                <AnimatePresence initial={false}>
+                    {images.map(({ preview, id }, imageIndex) => (
+                        <motion.div layout {...STAGGER_UP(imageIndex)} className={COLUMN_LAYOUT} key={id}>
                             <div className="dropzone__container">
                                 <img className="dropzone__image img-fluid" src={preview} />
                                 <button
@@ -62,7 +62,7 @@ export default function Dropzone({ images, setImages }) {
                             </div>
                         </motion.div>
                     ))}
-                    <motion.div layout {...FADE_IN} className={COLUMN_LAYOUT} key="add_image">
+                    <motion.div key="add-image" {...STAGGER_UP(images.length)} className={COLUMN_LAYOUT} layout>
                         <DropzoneInner {...{ addFiles, isParentDragActive: isDragActive }} />
                     </motion.div>
                 </AnimatePresence>

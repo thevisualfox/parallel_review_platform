@@ -9,7 +9,6 @@ use App\Service\UploaderHelper;
 use Gedmo\Sluggable\Util\Urlizer;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -18,6 +17,17 @@ use Symfony\Component\Serializer\SerializerInterface;
 
 class ProjectController extends AbstractController
 {
+    /**
+     * @var string
+     */
+    private $uploadsPath;
+
+    public function __construct(string $uploadsPath)
+    {
+
+        $this->uploadsPath = $uploadsPath;
+    }
+
     /**
      * @Route("/projects/add", name="app_add_project", methods="POST")
      * @param EntityManagerInterface $entityManager
@@ -33,7 +43,7 @@ class ProjectController extends AbstractController
         $project = new Project();
         $project
             ->setTitle($requestBody['title'])
-            ->setDescription($requestBody['title'])
+            ->setDescription($requestBody['description'])
             ->setSlug(Urlizer::urlize($requestBody['title']));
 
         $entityManager->persist($project);
@@ -63,11 +73,18 @@ class ProjectController extends AbstractController
      * @Route("/projects/delete/{id}", name="app_delete_project", methods="DELETE")
      * @param EntityManagerInterface $entityManager
      * @param Project|null $project
+     * @param UploaderHelper $uploaderHelper
      * @return Response
      * @IsGranted("ROLE_ADMIN")
      */
-    public function deleteProject(EntityManagerInterface $entityManager, Project $project = null)
+    public function deleteProject(EntityManagerInterface $entityManager, Project $project, UploaderHelper $uploaderHelper)
     {
+        $projectImages = $project->getProjectImages();
+
+        foreach ($projectImages as &$image) {
+            $uploaderHelper->deleteProjectImage($image);
+        }
+
         $entityManager->remove($project);
         $entityManager->flush();
 
@@ -79,10 +96,11 @@ class ProjectController extends AbstractController
      * @param EntityManagerInterface $entityManager
      * @param Project|null $project
      * @param Request $request
+     * @param UploaderHelper $uploaderHelper
      * @return Response
      * @IsGranted("ROLE_ADMIN")
      */
-    public function editProject(EntityManagerInterface $entityManager, Project $project, Request $request)
+    public function editProject(EntityManagerInterface $entityManager, Project $project, Request $request,  UploaderHelper $uploaderHelper)
     {
         $requestBody = $request->request->all();
 
@@ -91,8 +109,14 @@ class ProjectController extends AbstractController
             ->setDescription($requestBody['description']);
 
         $requestImages = $request->files->get('images');
+        $projectImages = $project->getProjectImages();
 
         if (null !== $requestImages) {
+            foreach ($projectImages as &$image) {
+                $uploaderHelper->deleteProjectImage($image);
+                $project->removeProjectImage($image);
+            }
+
             foreach ($requestImages as &$image) {
                 $newFileName = $uploaderHelper->uploadProjectImage($image);
 
@@ -160,27 +184,27 @@ class ProjectController extends AbstractController
         ]);
     }
 
-    /**
-     * @Route("/projects/{slug}/review/{image_id}", name="app_show_project_review", requirements={"image_id"=".+"})
-     * @param Project $project
-     * @param $image_id
-     * @return void
-     */
-    public function showProjectImage(Project $project = null, $image_id)
-    {
-        $images = $project->getImages();
-        $selectedImage = array_filter($images, function($image) use ($image_id) {
-            if (isset($image['id']) && $image['id'] == $image_id) {
-                return true;
-            }
-
-            return false;
-        });
-
-        dd($selectedImage);
-
-        // return $this->render('pages/project/project-detail.html.twig', [
-        //     'project' => $project,
-        // ]);
-    }
+//    /**
+//     * @Route("/projects/{slug}/review/{image_id}", name="app_show_project_review", requirements={"image_id"=".+"})
+//     * @param Project $project
+//     * @param $image_id
+//     * @return void
+//     */
+//    public function showProjectImage(Project $project = null, $image_id)
+//    {
+//        $images = $project->getImages();
+//        $selectedImage = array_filter($images, function($image) use ($image_id) {
+//            if (isset($image['id']) && $image['id'] == $image_id) {
+//                return true;
+//            }
+//
+//            return false;
+//        });
+//
+//        dd($selectedImage);
+//
+//        // return $this->render('pages/project/project-detail.html.twig', [
+//        //     'project' => $project,
+//        // ]);
+//    }
 }

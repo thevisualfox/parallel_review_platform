@@ -1,5 +1,5 @@
 /* Packages */
-import React, { useRef, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import CircularProgress from "@material-ui/core/CircularProgress";
 import { TextareaAutosize } from "@material-ui/core";
 import { AnimatePresence, motion } from "framer-motion";
@@ -32,8 +32,38 @@ export default function ProjectModal({
     /* State */
     const [projectTitle, setProjectTitle] = useState(title);
     const [projectDescription, setProjectDescription] = useState(description);
-    const [images, setImages] = useState(projectImages.map(({ image, id }) => ({ preview: image, id })));
+    const [images, setImages] = useState([]);
     const loading = useRecoilValue(loadingState);
+
+    /* Effects */
+    useEffect(() => {
+        if (projectImages.length === 0) return;
+
+        getBlobsFromImages();
+    }, []);
+
+    /* Callbacks */
+    const getBlobsFromImages = async () => {
+        const blobs = [];
+
+        for (let index = 0; index < projectImages.length; index++) {
+            const { image, title, id } = projectImages[index];
+            const fileType = title.includes("png") ? "png" : "jpeg";
+
+            const blob = await fetch(image)
+                .then((result) => result.blob())
+                .then((blobFile) => new File([blobFile], title, { type: `image/${fileType}` }));
+
+            Object.assign(blob, {
+                preview: URL.createObjectURL(blob),
+                id: id,
+            });
+
+            blobs.push(blob);
+        }
+
+        setImages(blobs);
+    };
 
     /* Render */
     return (
