@@ -1,71 +1,34 @@
 /* Packages */
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import axios from "axios";
+import { AnimatePresence, motion } from "framer-motion";
+import { useRecoilState } from "recoil";
 
 /* Components */
-import Project from "./Project";
-import ProjectAdd from "./ProjectAdd";
-import { Popover } from "../../common";
-import { AnimatePresence, motion } from "framer-motion";
+import { Project } from "./project";
+import { ProjectAdd } from "./project-add";
 
 /* Animations */
 import { STAGGER_UP } from "../../common/animations";
 
+/* Global state */
+import { loadingState, projectsState } from "../state";
+
 export default function ProjectOverview({ isAdmin }) {
     /* State */
-    const [projects, setProjects] = useState([]);
-    const [loading, setLoading] = useState("get_initial_projects");
-    const [modalOpen, setModalOpen] = useState(false);
+    const [projects, setProjects] = useRecoilState(projectsState);
+    const [loading, setLoading] = useRecoilState(loadingState);
 
     /* Effects */
-    useEffect(() => {
-        getProjects();
-    }, []);
+    useEffect(() => getProjects(), []);
 
     /* Callbacks */
-    const toggleModal = () => setModalOpen(!modalOpen);
-
     const getProjects = async () => {
         try {
             const result = await axios.get("/projects/get");
 
-            if (result.data) setProjects(result.data.projects);
+            if (result.data) setProjects(result.data);
         } catch (error) {
-            /* TODO: add error management */
-            throw new Error(error);
-        } finally {
-            setLoading(null);
-        }
-    };
-
-    const deleteProject = async (event, id) => {
-        event.preventDefault();
-
-        try {
-            setLoading("delete_project");
-
-            const result = await axios.delete(`/projects/delete/${id}`);
-
-            if (result.data.success) getProjects();
-        } catch (error) {
-            /* TODO: add error management */
-            throw new Error(error);
-        } finally {
-            setLoading(null);
-        }
-    };
-
-    const editProject = async (event, id, params) => {
-        event.preventDefault();
-
-        try {
-            setLoading("edit_project");
-
-            const result = await axios.post(`projects/edit/${id}`, params);
-
-            if (result.data.success) getProjects();
-        } catch (error) {
-            /* TODO: add error management */
             throw new Error(error);
         } finally {
             setLoading(null);
@@ -83,16 +46,16 @@ export default function ProjectOverview({ isAdmin }) {
                             key={project.id}
                             className="col-12 col-md-6 col-lg-4 col-xl-3"
                             layout>
-                            <Project {...{ ...project, deleteProject, editProject }} />
+                            <Project {...{ project, getProjects }} />
                         </motion.div>
                     ))}
-                    {isAdmin && loading !== "get_initial_projects" && (
+                    {isAdmin && loading !== "initial" && (
                         <motion.div
                             {...STAGGER_UP(projects.length)}
                             key="add-project"
                             className="col-12 col-md-6 col-lg-4 col-xl-3"
                             layout>
-                            <ProjectAdd {...{ toggleModal }} />
+                            <ProjectAdd {...{ getProjects }} />
                         </motion.div>
                     )}
                 </AnimatePresence>
@@ -105,7 +68,6 @@ export default function ProjectOverview({ isAdmin }) {
                     )}
                 </AnimatePresence>
             </div>
-            <AnimatePresence>{modalOpen && <Popover {...{ toggleModal, getProjects }} />}</AnimatePresence>
         </>
     );
 }
