@@ -18,6 +18,11 @@
                     {{ form_start(form) }}
                         <div class="row gutters-2">
                             <div class="col-12">
+                                {{ form_label(form.username, 'Full name', { 'label_attr': {'class': 'sr-only'}}) }}
+                                {{ form_errors(form.username) }}
+                                {{ form_widget(form.username, {'attr': {'class': 'form-control', 'placeholder': 'Full name'}}) }}
+                            </div>
+                            <div class="col-12">
                                 {{ form_label(form.email, 'Email', { 'label_attr': {'class': 'sr-only'}}) }}
                                 {{ form_errors(form.email) }}
                                 {{ form_widget(form.email, {'attr': {'class': 'form-control', 'placeholder': 'Email'}}) }}
