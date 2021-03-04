@@ -19,6 +19,10 @@
     }
 }
 
+.btn__loader {
+    @extend %absolute-fill;
+}
+
 .btn-link {
     font-weight: $font-weight-base;
     font-size: $font-size-base;

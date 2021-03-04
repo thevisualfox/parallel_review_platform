@@ -1,7 +1,7 @@
 /* Packages */
 import React, { useEffect, useRef, useState } from "react";
-import CircularProgress from "@material-ui/core/CircularProgress";
-import { TextareaAutosize } from "@material-ui/core";
+import LinearProgress from "@material-ui/core/LinearProgress";
+import TextareaAutosize from "@material-ui/core/TextareaAutosize";
 import { AnimatePresence, motion } from "framer-motion";
 import { useRecoilValue } from "recoil";
 
@@ -115,20 +115,26 @@ export default function ProjectModal({
                     <Dropzone {...{ images, setImages }} />
                 </div>
                 <div className="custom-modal__footer px-6 pb-6 pb-md-12">
-                    <button
-                        type="submit"
-                        className="custom-modal__btn btn btn-sm btn-white d-flex align-items-center justify-content-center ml-auto px-8">
-                        <motion.span className="btn-text">
-                            <span>{loading ? "Saving" : "Save"}</span>
-                        </motion.span>
-                        <AnimatePresence>
-                            {loading && (
-                                <motion.div className="ml-2" {...FADE_IN} key="loader">
-                                    <CircularProgress size={14} color="primary" />
-                                </motion.div>
-                            )}
-                        </AnimatePresence>
-                    </button>
+                    <div className="row gutters-0 w-100">
+                        <div className="col-12 col-lg-3 col-xl-2 ml-auto">
+                            <button
+                                type="submit"
+                                className="custom-modal__btn btn btn-block btn-sm btn-white d-flex align-items-center justify-content-center">
+                                <motion.span className="btn-text">
+                                    <span>{loading ? "Saving..." : "Save"}</span>
+                                </motion.span>
+                                <div className="btn__loader">
+                                    <AnimatePresence>
+                                        {loading && (
+                                            <motion.div {...FADE_IN} key="loader">
+                                                <LinearProgress />
+                                            </motion.div>
+                                        )}
+                                    </AnimatePresence>
+                                </div>
+                            </button>
+                        </div>
+                    </div>
                 </div>
             </form>
         </Modal>
