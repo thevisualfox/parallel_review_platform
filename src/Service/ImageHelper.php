@@ -6,7 +6,7 @@ use Gedmo\Sluggable\Util\Urlizer;
 use Symfony\Component\Filesystem\Filesystem;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 
-class UploaderHelper
+class ImageHelper
 {
     const PROJECT_IMAGE_PATH = '/projects';
 
@@ -25,7 +25,7 @@ class UploaderHelper
      * @param UploadedFile $uploadedFile
      * @return string
      */
-    public function uploadProjectImage(UploadedFile $uploadedFile): string
+    public function uploadImage(UploadedFile $uploadedFile): string
     {
         $uploadDestination = $this->uploadsPath.'/'.self::PROJECT_IMAGE_PATH;
 
@@ -41,15 +41,12 @@ class UploaderHelper
 
     /**
      * @param object $image
-     * @return string
      */
-    public function deleteProjectImage(object $image): string
+    public function removeImage(object $image): void
     {
         $imagePath = $this->uploadsPath.'/'.self::PROJECT_IMAGE_PATH;
 
         $filesystem = new Filesystem();
         $filesystem->remove($imagePath.'/'.$image->getTitle());
-
-        return $imagePath;
     }
 }

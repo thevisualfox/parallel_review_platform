@@ -4,20 +4,20 @@
 
 namespace Composer\Autoload;
 
-class ComposerStaticInit022c90ea7d742ee8e4b9b4a1bbba9086
+class ComposerStaticInit6936bfb4b702d8a176e5d05d3c585e99
 {
     public static $files = array (
         'a4a119a56e50fbb293281d9a48007e0e' => __DIR__ . '/..' . '/symfony/polyfill-php80/bootstrap.php',
         '6e3fae29631ef280660b3cdad06f25a8' => __DIR__ . '/..' . '/symfony/deprecation-contracts/function.php',
         '0e6d7bf4a5811bfa5cf40c5ccd6fae6a' => __DIR__ . '/..' . '/symfony/polyfill-mbstring/bootstrap.php',
-        'e69f7f6ee287b969198c3c9d6777bd38' => __DIR__ . '/..' . '/symfony/polyfill-intl-normalizer/bootstrap.php',
-        'f598d06aa772fa33d905e87be6398fb1' => __DIR__ . '/..' . '/symfony/polyfill-intl-idn/bootstrap.php',
         '0d59ee240a4cd96ddbb4ff164fccea4d' => __DIR__ . '/..' . '/symfony/polyfill-php73/bootstrap.php',
         '92c8763cd6170fce6fcfe7e26b4e8c10' => __DIR__ . '/..' . '/symfony/phpunit-bridge/bootstrap.php',
         '667aeda72477189d0494fecd327c3641' => __DIR__ . '/..' . '/symfony/var-dumper/Resources/functions/dump.php',
-        '6a47392539ca2329373e0d33e1dba053' => __DIR__ . '/..' . '/symfony/polyfill-intl-icu/bootstrap.php',
+        'e69f7f6ee287b969198c3c9d6777bd38' => __DIR__ . '/..' . '/symfony/polyfill-intl-normalizer/bootstrap.php',
+        'f598d06aa772fa33d905e87be6398fb1' => __DIR__ . '/..' . '/symfony/polyfill-intl-idn/bootstrap.php',
         '8825ede83f2f289127722d4e842cf7e8' => __DIR__ . '/..' . '/symfony/polyfill-intl-grapheme/bootstrap.php',
         'b6b991a57620e2fb6b2f66f03fe9ddc2' => __DIR__ . '/..' . '/symfony/string/Resources/functions.php',
+        '6a47392539ca2329373e0d33e1dba053' => __DIR__ . '/..' . '/symfony/polyfill-intl-icu/bootstrap.php',
     );
 
     public static $prefixLengthsPsr4 = array (
@@ -106,6 +106,7 @@ class ComposerStaticInit022c90ea7d742ee8e4b9b4a1bbba9086
             'Symfony\\Bridge\\PhpUnit\\' => 23,
             'Symfony\\Bridge\\Monolog\\' => 23,
             'Symfony\\Bridge\\Doctrine\\' => 24,
+            'Stof\\DoctrineExtensionsBundle\\' => 30,
             'Sensio\\Bundle\\FrameworkExtraBundle\\' => 35,
         ),
         'P' => 
@@ -163,8 +164,8 @@ class ComposerStaticInit022c90ea7d742ee8e4b9b4a1bbba9086
         'phpDocumentor\\Reflection\\' => 
         array (
             0 => __DIR__ . '/..' . '/phpdocumentor/reflection-common/src',
-            1 => __DIR__ . '/..' . '/phpdocumentor/reflection-docblock/src',
-            2 => __DIR__ . '/..' . '/phpdocumentor/type-resolver/src',
+            1 => __DIR__ . '/..' . '/phpdocumentor/type-resolver/src',
+            2 => __DIR__ . '/..' . '/phpdocumentor/reflection-docblock/src',
         ),
         'Zend\\EventManager\\' => 
         array (
@@ -446,6 +447,10 @@ class ComposerStaticInit022c90ea7d742ee8e4b9b4a1bbba9086
         array (
             0 => __DIR__ . '/..' . '/symfony/doctrine-bridge',
         ),
+        'Stof\\DoctrineExtensionsBundle\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/stof/doctrine-extensions-bundle',
+        ),
         'Sensio\\Bundle\\FrameworkExtraBundle\\' => 
         array (
             0 => __DIR__ . '/..' . '/sensio/framework-extra-bundle/src',
@@ -540,9 +545,9 @@ class ComposerStaticInit022c90ea7d742ee8e4b9b4a1bbba9086
         ),
         'Doctrine\\Common\\' => 
         array (
-            0 => __DIR__ . '/..' . '/doctrine/common/lib/Doctrine/Common',
-            1 => __DIR__ . '/..' . '/doctrine/event-manager/lib/Doctrine/Common',
-            2 => __DIR__ . '/..' . '/doctrine/persistence/lib/Doctrine/Common',
+            0 => __DIR__ . '/..' . '/doctrine/event-manager/lib/Doctrine/Common',
+            1 => __DIR__ . '/..' . '/doctrine/persistence/lib/Doctrine/Common',
+            2 => __DIR__ . '/..' . '/doctrine/common/lib/Doctrine/Common',
         ),
         'Doctrine\\Bundle\\MigrationsBundle\\' => 
         array (
@@ -577,6 +582,10 @@ class ComposerStaticInit022c90ea7d742ee8e4b9b4a1bbba9086
     );
 
     public static $classMap = array (
+        'App\\Controller\\Action\\Project\\ProjectAddAction' => __DIR__ . '/../..' . '/src/Controller/Action/Project/ProjectAddAction.php',
+        'App\\Controller\\Action\\Project\\ProjectDeleteAction' => __DIR__ . '/../..' . '/src/Controller/Action/Project/ProjectDeleteAction.php',
+        'App\\Controller\\Action\\Project\\ProjectEditAction' => __DIR__ . '/../..' . '/src/Controller/Action/Project/ProjectEditAction.php',
+        'App\\Controller\\Action\\Project\\ProjectGetAction' => __DIR__ . '/../..' . '/src/Controller/Action/Project/ProjectGetAction.php',
         'App\\Controller\\ProjectController' => __DIR__ . '/../..' . '/src/Controller/ProjectController.php',
         'App\\Controller\\RegistrationController' => __DIR__ . '/../..' . '/src/Controller/RegistrationController.php',
         'App\\Controller\\SecurityController' => __DIR__ . '/../..' . '/src/Controller/SecurityController.php',
@@ -589,6 +598,8 @@ class ComposerStaticInit022c90ea7d742ee8e4b9b4a1bbba9086
         'App\\Repository\\ProjectRepository' => __DIR__ . '/../..' . '/src/Repository/ProjectRepository.php',
         'App\\Repository\\UserRepository' => __DIR__ . '/../..' . '/src/Repository/UserRepository.php',
         'App\\Security\\AppAuthenticator' => __DIR__ . '/../..' . '/src/Security/AppAuthenticator.php',
+        'App\\Service\\ArrayHelper' => __DIR__ . '/../..' . '/src/Service/ArrayHelper.php',
+        'App\\Service\\ImageHelper' => __DIR__ . '/../..' . '/src/Service/ImageHelper.php',
         'Attribute' => __DIR__ . '/..' . '/symfony/polyfill-php80/Resources/stubs/Attribute.php',
         'Behat\\Transliterator\\SyncTool' => __DIR__ . '/..' . '/behat/transliterator/src/Behat/Transliterator/SyncTool.php',
         'Behat\\Transliterator\\Transliterator' => __DIR__ . '/..' . '/behat/transliterator/src/Behat/Transliterator/Transliterator.php',
@@ -2523,6 +2534,17 @@ class ComposerStaticInit022c90ea7d742ee8e4b9b4a1bbba9086
         'Sensio\\Bundle\\FrameworkExtraBundle\\Security\\ExpressionLanguage' => __DIR__ . '/..' . '/sensio/framework-extra-bundle/src/Security/ExpressionLanguage.php',
         'Sensio\\Bundle\\FrameworkExtraBundle\\SensioFrameworkExtraBundle' => __DIR__ . '/..' . '/sensio/framework-extra-bundle/src/SensioFrameworkExtraBundle.php',
         'Sensio\\Bundle\\FrameworkExtraBundle\\Templating\\TemplateGuesser' => __DIR__ . '/..' . '/sensio/framework-extra-bundle/src/Templating/TemplateGuesser.php',
+        'Stof\\DoctrineExtensionsBundle\\DependencyInjection\\Compiler\\ValidateExtensionConfigurationPass' => __DIR__ . '/..' . '/stof/doctrine-extensions-bundle/DependencyInjection/Compiler/ValidateExtensionConfigurationPass.php',
+        'Stof\\DoctrineExtensionsBundle\\DependencyInjection\\Configuration' => __DIR__ . '/..' . '/stof/doctrine-extensions-bundle/DependencyInjection/Configuration.php',
+        'Stof\\DoctrineExtensionsBundle\\DependencyInjection\\StofDoctrineExtensionsExtension' => __DIR__ . '/..' . '/stof/doctrine-extensions-bundle/DependencyInjection/StofDoctrineExtensionsExtension.php',
+        'Stof\\DoctrineExtensionsBundle\\EventListener\\BlameListener' => __DIR__ . '/..' . '/stof/doctrine-extensions-bundle/EventListener/BlameListener.php',
+        'Stof\\DoctrineExtensionsBundle\\EventListener\\LocaleListener' => __DIR__ . '/..' . '/stof/doctrine-extensions-bundle/EventListener/LocaleListener.php',
+        'Stof\\DoctrineExtensionsBundle\\EventListener\\LoggerListener' => __DIR__ . '/..' . '/stof/doctrine-extensions-bundle/EventListener/LoggerListener.php',
+        'Stof\\DoctrineExtensionsBundle\\StofDoctrineExtensionsBundle' => __DIR__ . '/..' . '/stof/doctrine-extensions-bundle/StofDoctrineExtensionsBundle.php',
+        'Stof\\DoctrineExtensionsBundle\\Uploadable\\MimeTypeGuesserAdapter' => __DIR__ . '/..' . '/stof/doctrine-extensions-bundle/Uploadable/MimeTypeGuesserAdapter.php',
+        'Stof\\DoctrineExtensionsBundle\\Uploadable\\UploadableManager' => __DIR__ . '/..' . '/stof/doctrine-extensions-bundle/Uploadable/UploadableManager.php',
+        'Stof\\DoctrineExtensionsBundle\\Uploadable\\UploadedFileInfo' => __DIR__ . '/..' . '/stof/doctrine-extensions-bundle/Uploadable/UploadedFileInfo.php',
+        'Stof\\DoctrineExtensionsBundle\\Uploadable\\ValidatorConfigurator' => __DIR__ . '/..' . '/stof/doctrine-extensions-bundle/Uploadable/ValidatorConfigurator.php',
         'Stringable' => __DIR__ . '/..' . '/symfony/polyfill-php80/Resources/stubs/Stringable.php',
         'Symfony\\Bridge\\Doctrine\\CacheWarmer\\ProxyCacheWarmer' => __DIR__ . '/..' . '/symfony/doctrine-bridge/CacheWarmer/ProxyCacheWarmer.php',
         'Symfony\\Bridge\\Doctrine\\ContainerAwareEventManager' => __DIR__ . '/..' . '/symfony/doctrine-bridge/ContainerAwareEventManager.php',
@@ -5483,10 +5505,10 @@ class ComposerStaticInit022c90ea7d742ee8e4b9b4a1bbba9086
     public static function getInitializer(ClassLoader $loader)
     {
         return \Closure::bind(function () use ($loader) {
-            $loader->prefixLengthsPsr4 = ComposerStaticInit022c90ea7d742ee8e4b9b4a1bbba9086::$prefixLengthsPsr4;
-            $loader->prefixDirsPsr4 = ComposerStaticInit022c90ea7d742ee8e4b9b4a1bbba9086::$prefixDirsPsr4;
-            $loader->prefixesPsr0 = ComposerStaticInit022c90ea7d742ee8e4b9b4a1bbba9086::$prefixesPsr0;
-            $loader->classMap = ComposerStaticInit022c90ea7d742ee8e4b9b4a1bbba9086::$classMap;
+            $loader->prefixLengthsPsr4 = ComposerStaticInit6936bfb4b702d8a176e5d05d3c585e99::$prefixLengthsPsr4;
+            $loader->prefixDirsPsr4 = ComposerStaticInit6936bfb4b702d8a176e5d05d3c585e99::$prefixDirsPsr4;
+            $loader->prefixesPsr0 = ComposerStaticInit6936bfb4b702d8a176e5d05d3c585e99::$prefixesPsr0;
+            $loader->classMap = ComposerStaticInit6936bfb4b702d8a176e5d05d3c585e99::$classMap;
 
         }, null, ClassLoader::class);
     }

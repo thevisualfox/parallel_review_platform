@@ -3,9 +3,11 @@
 namespace App\Entity;
 
 use App\Repository\ProjectRepository;
+use App\Service\ArrayHelper;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Gedmo\Mapping\Annotation as Gedmo;
 
 /**
  * @ORM\Entity(repositoryClass=ProjectRepository::class)
@@ -25,6 +27,7 @@ class Project
     private $title;
 
     /**
+     * @Gedmo\Slug(fields={"title"})
      * @ORM\Column(type="string", length=100, unique=true)
      */
     private $slug;
@@ -39,9 +42,15 @@ class Project
      */
     private $projectImages;
 
+    /**
+     * @ORM\ManyToMany(targetEntity=User::class, mappedBy="project")
+     */
+    private $users;
+
     public function __construct()
     {
         $this->projectImages = new ArrayCollection();
+        $this->users = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -85,6 +94,20 @@ class Project
         return $this;
     }
 
+    public function getJsonResponse($arrayHelper): array
+    {
+        /** @var ArrayHelper $arrayHelper  */
+
+        return [
+            'id' => $this->getId(),
+            'slug' => $this->getSlug(),
+            'title' => $this->getTitle(),
+            'description' => $this->getDescription(),
+            'projectImages' => $arrayHelper->mapToArray($this->getProjectImages()),
+            'users' => $arrayHelper->mapToArray($this->getUsers())
+        ];
+    }
+
     /**
      * @return Collection|ProjectImage[]
      */
@@ -110,6 +133,33 @@ class Project
             if ($projectImage->getProject() === $this) {
                 $projectImage->setProject(null);
             }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|User[]
+     */
+    public function getUsers(): Collection
+    {
+        return $this->users;
+    }
+
+    public function addUser(User $user): self
+    {
+        if (!$this->users->contains($user)) {
+            $this->users[] = $user;
+            $user->addProject($this);
+        }
+
+        return $this;
+    }
+
+    public function removeUser(User $user): self
+    {
+        if ($this->users->removeElement($user)) {
+            $user->removeProject($this);
         }
 
         return $this;

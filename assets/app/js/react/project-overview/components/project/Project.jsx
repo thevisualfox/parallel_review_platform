@@ -13,7 +13,7 @@ import ProjectMenu from "./ProjectMenu";
 
 export default function Project({ project, getProjects }) {
     /* Constants */
-    const { slug, title, projectImages, id } = project;
+    const { slug, title, projectImages, id, users } = project;
 
     /* State */
     const setLoading = useSetRecoilState(loadingState);
@@ -71,7 +71,7 @@ export default function Project({ project, getProjects }) {
                 <div className="d-flex justify-content-between">
                     <div className="d-flex flex-column">
                         <p className="mb-3">{title}</p>
-                        <ProjectUsers />
+                        <ProjectUsers {...{ users }} />
                     </div>
                     <ProjectMenu {...{ project, deleteProject, editProject, getProjects, modalOpen, toggleModal }} />
                 </div>

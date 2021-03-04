@@ -4,24 +4,15 @@ import React from "react";
 /* Assts */
 import starIcon from "../../../../../symbols/star.svg";
 
-export default function ProjectUsers() {
-    /* Constants */
-    const users = [
-        {
-            name: "bp",
-            image: "https://picsum.photos/50",
-            isLeader: true,
-        },
-    ];
-
+export default function ProjectUsers({ users }) {
     /* Render */
     return (
         <div className="row gutters-2">
-            {users.map(({ name, image, isLeader }, userIndex) => {
+            {users.map(({ username, image = "https://picsum.photos/50", roles }, userIndex) => {
                 return (
                     <div key={userIndex} className="col-auto">
                         <div className="user">
-                            {isLeader && (
+                            {roles.includes("ROLE_ADMIN") && (
                                 <div className="user__leader">
                                     <svg className="icon icon--6 text-tertiary">
                                         <use xlinkHref={starIcon.url}></use>
@@ -32,7 +23,7 @@ export default function ProjectUsers() {
                                 className="user__image img-fluid rounded-circle"
                                 src={image}
                                 srcSet={`${image} 2x`}
-                                alt={name}
+                                alt={username}
                             />
                         </div>
                     </div>

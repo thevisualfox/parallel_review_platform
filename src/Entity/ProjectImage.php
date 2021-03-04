@@ -3,7 +3,7 @@
 namespace App\Entity;
 
 use App\Repository\ProjectImageRepository;
-use App\Service\UploaderHelper;
+use App\Service\ImageHelper;
 use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Sluggable\Util\Urlizer;
 
@@ -54,7 +54,7 @@ class ProjectImage
 
     public function getImage(): ?string
     {
-        return 'uploads'.UploaderHelper::PROJECT_IMAGE_PATH.'/'.$this->image;
+        return 'uploads'.ImageHelper::PROJECT_IMAGE_PATH.'/'.$this->image;
     }
 
     public function setImage(string $image): self
@@ -74,5 +74,14 @@ class ProjectImage
         $this->project = $project;
 
         return $this;
+    }
+
+    public function getJsonResponse(): array
+    {
+        return [
+            'id' => $this->getId(),
+            'title' => $this->getTitle(),
+            'image' => $this->getImage(),
+        ];
     }
 }
