@@ -5,6 +5,11 @@ const loadingState = atom({
     default: "initial",
 });
 
+const userState = atom({
+    key: "userState",
+    default: {},
+});
+
 const successState = atom({
     key: "successState",
     default: false,
@@ -15,4 +20,4 @@ const projectsState = atom({
     default: [],
 });
 
-export { loadingState, successState, projectsState };
+export { loadingState, userState, successState, projectsState };

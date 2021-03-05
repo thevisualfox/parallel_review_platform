@@ -11,16 +11,16 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
+/**
+ * @Route("/api/projects/edit/{id}", name="app_edit_project", methods="POST")
+ * @param EntityManagerInterface $entityManager
+ * @param Project|null $project
+ * @param Request $request
+ * @param ImageHelper $imageHelper
+ * @return Response
+ */
 final class ProjectEditAction
 {
-    /**
-     * @Route("/projects/edit/{id}", name="app_edit_project", methods="POST")
-     * @param EntityManagerInterface $entityManager
-     * @param Project|null $project
-     * @param Request $request
-     * @param ImageHelper $imageHelper
-     * @return Response
-     */
     public function __invoke(EntityManagerInterface $entityManager, Project $project, Request $request, ImageHelper $imageHelper): Response
     {
         $requestBody = $request->request->all();

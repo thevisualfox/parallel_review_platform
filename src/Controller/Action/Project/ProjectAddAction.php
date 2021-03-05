@@ -12,16 +12,16 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
+/**
+ * @Route("/api/projects/add", name="app_add_project", methods="POST")
+ * @param EntityManagerInterface $entityManager
+ * @param Request $request
+ * @param ImageHelper $imageHelper
+ * @param UserRepository $userRepository
+ * @return Response
+ */
 final class ProjectAddAction
 {
-    /**
-     * @Route("/projects/add", name="app_add_project", methods="POST")
-     * @param EntityManagerInterface $entityManager
-     * @param Request $request
-     * @param ImageHelper $imageHelper
-     * @param UserRepository $userRepository
-     * @return Response
-     */
     public function __invoke(EntityManagerInterface $entityManager, Request $request, ImageHelper $imageHelper, UserRepository $userRepository): Response
     {
 

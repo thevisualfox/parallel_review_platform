@@ -12,22 +12,26 @@ import { ProjectAdd } from "./project-add";
 import { STAGGER_UP } from "../../common/animations";
 
 /* Global state */
-import { loadingState, projectsState } from "../state";
+import { loadingState, projectsState, userState } from "../state";
 
-export default function ProjectOverview({ isAdmin }) {
+export default function ProjectOverview() {
     /* State */
     const [projects, setProjects] = useRecoilState(projectsState);
+    const [user, setUser] = useRecoilState(userState);
     const [loading, setLoading] = useRecoilState(loadingState);
 
     /* Effects */
     useEffect(() => getProjects(), []);
 
-    /* Callbacks */
     const getProjects = async () => {
         try {
-            const result = await axios.get("/projects/get");
+            const result = await axios.get('/api/projects/get');
 
-            if (result.data) setProjects(result.data);
+            if (result.data) {
+                setProjects(result.data.projects);
+                setUser(result.data.user);
+
+            }
         } catch (error) {
             throw new Error(error);
         } finally {
@@ -49,7 +53,7 @@ export default function ProjectOverview({ isAdmin }) {
                             <Project {...{ project, getProjects }} />
                         </motion.div>
                     ))}
-                    {isAdmin && loading !== "initial" && (
+                    {user?.roles?.includes('ROLE_ADMIN') && loading !== "initial" && (
                         <motion.div
                             {...STAGGER_UP(projects.length)}
                             key="add-project"
@@ -60,7 +64,7 @@ export default function ProjectOverview({ isAdmin }) {
                     )}
                 </AnimatePresence>
                 <AnimatePresence>
-                    {!isAdmin && projects.length === 0 && (
+                    {!user?.roles?.includes('ROLE_ADMIN') && loading !== "initial"  && projects.length === 0 && (
                         <motion.p
                             {...STAGGER_UP()}
                             className="col-12 text-white"

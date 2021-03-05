@@ -28,7 +28,7 @@ export default function ProjectAdd({ getProjects }) {
         try {
             setLoading("add_project");
 
-            const result = await axios.post("/projects/add", params);
+            const result = await axios.post("/api/projects/add", params);
 
             if (result.data.success) {
                 getProjects();

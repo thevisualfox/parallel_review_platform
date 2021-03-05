@@ -9,15 +9,15 @@ use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
+/**
+ * @Route("/api/projects/delete/{id}", name="app_delete_project", methods="POST")
+ * @param EntityManagerInterface $entityManager
+ * @param Project|null $project
+ * @param ImageHelper $imageHelper
+ * @return Response
+ */
 final class ProjectDeleteAction
 {
-    /**
-     * @Route("/projects/delete/{id}", name="app_delete_project", methods="POST")
-     * @param EntityManagerInterface $entityManager
-     * @param Project|null $project
-     * @param ImageHelper $imageHelper
-     * @return Response
-     */
     public function __invoke(EntityManagerInterface $entityManager, Project $project, ImageHelper $imageHelper): Response
     {
         $projectImages = $project->getProjectImages();
