@@ -7,6 +7,15 @@
     height: px-to-rem(25);
 
     @include object-fit(cover);
+
+    &--initials {
+        @extend %center-flex;
+
+        font-family: $font-family-base;
+        font-size: px-to-rem(12);
+        background-color: rgba($primary, 0.2);
+        border: $border-width solid $border-color;
+    }
 }
 
 .user__leader {

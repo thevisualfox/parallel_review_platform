@@ -15,10 +15,7 @@ import { ProjectModal } from "../modals";
 
 export default function ProjectMenu({ project, deleteProject, editProject, modalOpen, toggleModal }) {
     /* Callbacks */
-    const toggleMenu = (event) => {
-        if (event) event.preventDefault();
-        setMenuOpen(!menuOpen);
-    };
+    const toggleMenu = () => setMenuOpen(!menuOpen);
 
     /* Constants */
     const MENU_ITEMS = [
@@ -41,7 +38,13 @@ export default function ProjectMenu({ project, deleteProject, editProject, modal
     return (
         <div className={`card__menu menu ${menuOpen && "is-active"}`}>
             <div className="menu__wrapper position-relative">
-                <button className="btn btn-link position-relative" type="button" onClick={toggleMenu}>
+                <button
+                    className="btn btn-link position-relative"
+                    type="button"
+                    onClick={(event) => {
+                        event.preventDefault();
+                        toggleMenu();
+                    }}>
                     <AnimatePresence exitBeforeEnter initial={false}>
                         {menuOpen ? (
                             <motion.div key="close" className="menu__dots" {...SCALE_FADE}>
@@ -70,8 +73,10 @@ export default function ProjectMenu({ project, deleteProject, editProject, modal
                                         <button
                                             className="btn btn-link text-white d-flex align-items-center"
                                             onClick={(event) => {
-                                                callback(event, project.id);
-                                                toggleMenu(event);
+                                                event.preventDefault();
+
+                                                callback(project.id);
+                                                toggleMenu();
                                             }}
                                             type="button">
                                             <svg className="icon icon--16 text-white mr-2">
@@ -87,13 +92,8 @@ export default function ProjectMenu({ project, deleteProject, editProject, modal
                 <AnimatePresence>
                     {modalOpen && (
                         <ProjectModal
-                            {...{
-                                toggleModal,
-                                ...project,
-                                onSubmit: editProject,
-                                titlePlaceholder: "The project name",
-                                descriptionPlaceholder: `What's this project about?`,
-                            }}
+                            {...{ toggleModal, projectId: project.id, ...project }}
+                            onSubmit={(formRef) => editProject(formRef, project.id, toggleModal)}
                         />
                     )}
                 </AnimatePresence>

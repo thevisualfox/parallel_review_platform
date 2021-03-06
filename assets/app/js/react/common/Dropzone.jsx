@@ -1,7 +1,7 @@
 /* Packages */
-import React from "react";
+import React, { useState } from "react";
+import axios from "axios";
 import { useDropzone } from "react-dropzone";
-import { v4 as generateUuid } from "uuid";
 import { AnimatePresence, motion } from "framer-motion";
 
 /* Assets */
@@ -11,34 +11,42 @@ import addImageIcon from "../../../symbols/add_image.svg";
 /* Animations */
 import { STAGGER_UP } from "./animations";
 
-export default function Dropzone({ images = [], setImages }) {
+export default function Dropzone({ projectId, projectImages }) {
     /* Constants */
     const COLUMN_LAYOUT = "col-12 col-md-6 col-lg-4 col-xl-3";
+
+    /* State */
+    const [images, setImages] = useState(projectImages);
 
     /* Hooks */
     const { getRootProps, getInputProps, isDragActive } = useDropzone({
         accept: "image/*",
         noClick: true,
-        onDrop: (acceptedFiles) => addFiles(acceptedFiles),
+        onDrop: (acceptedFiles) => addProjectImages(acceptedFiles),
     });
 
     /* Callbacks */
-    const addFiles = (acceptedFiles) => {
-        setImages((files) => [
-            ...files,
-            ...acceptedFiles.map((file) =>
-                Object.assign(file, {
-                    preview: URL.createObjectURL(file),
-                    id: generateUuid(),
-                })
-            ),
-        ]);
+    const addProjectImages = async (images) => {
+        const params = new FormData();
+        images.forEach((image) => params.append("images[]", image));
+
+        try {
+            const result = await axios.post(`/api/images/add/${projectId}`, params);
+
+            if (result.data) setImages(result.data);
+        } catch (error) {
+            throw new Error(error);
+        }
     };
 
-    const deleteFile = (event, id) => {
-        event.stopPropagation();
+    const deleteProjectImage = async (id) => {
+        try {
+            const result = await axios.post(`/api/images/delete/${projectId}`, { id });
 
-        setImages((files) => [...files.filter((file) => file.id !== id)]);
+            if (result.data) setImages(result.data);
+        } catch (error) {
+            throw new Error(error);
+        }
     };
 
     /* Render */
@@ -47,14 +55,17 @@ export default function Dropzone({ images = [], setImages }) {
             <input {...getInputProps()} />
             <div className="row row--equalized gutters-5">
                 <AnimatePresence initial={false}>
-                    {images.map(({ preview, id }, imageIndex) => (
+                    {images.map(({ image, title, id }, imageIndex) => (
                         <motion.div layout {...STAGGER_UP(imageIndex)} className={COLUMN_LAYOUT} key={id}>
                             <div className="dropzone__container">
-                                <img className="dropzone__image img-fluid" src={preview} />
+                                <img className="dropzone__image img-fluid" src={image} alt={title} />
                                 <button
                                     type="button"
                                     className="btn btn-link dropzone__image-delete p-0"
-                                    onClick={(event) => deleteFile(event, id)}>
+                                    onClick={(event) => {
+                                        event.stopPropagation();
+                                        deleteProjectImage(id);
+                                    }}>
                                     <svg className="icon icon--8 text-white mt-0">
                                         <use xlinkHref={closeIcon.url}></use>
                                     </svg>
@@ -63,7 +74,7 @@ export default function Dropzone({ images = [], setImages }) {
                         </motion.div>
                     ))}
                     <motion.div key="add-image" {...STAGGER_UP(images.length)} className={COLUMN_LAYOUT} layout>
-                        <DropzoneInner {...{ addFiles, isParentDragActive: isDragActive }} />
+                        <DropzoneInner {...{ addProjectImages, isParentDragActive: isDragActive }} />
                     </motion.div>
                 </AnimatePresence>
             </div>
@@ -71,11 +82,11 @@ export default function Dropzone({ images = [], setImages }) {
     );
 }
 
-const DropzoneInner = ({ addFiles, isParentDragActive }) => {
+const DropzoneInner = ({ addProjectImages, isParentDragActive }) => {
     const { getRootProps, getInputProps, isDragActive } = useDropzone({
         accept: "image/*",
         noDragEventsBubbling: true,
-        onDrop: (acceptedFiles) => addFiles(acceptedFiles),
+        onDrop: (acceptedFiles) => addProjectImages(acceptedFiles),
     });
 
     return (

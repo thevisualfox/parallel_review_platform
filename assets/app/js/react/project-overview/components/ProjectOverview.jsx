@@ -25,13 +25,45 @@ export default function ProjectOverview() {
 
     const getProjects = async () => {
         try {
-            const result = await axios.get('/api/projects/get');
+            const result = await axios.get("/api/projects/get");
 
             if (result.data) {
                 setProjects(result.data.projects);
                 setUser(result.data.user);
-
             }
+        } catch (error) {
+            throw new Error(error);
+        } finally {
+            setLoading(null);
+        }
+    };
+
+    const editProject = async (formRef, id, callback) => {
+        const params = new FormData(formRef.current);
+
+        try {
+            setLoading("edit_project");
+
+            const result = await axios.post(`/api/projects/edit/${id}`, params);
+
+            if (result.data.success) {
+                getProjects();
+                callback();
+            }
+        } catch (error) {
+            throw new Error(error);
+        } finally {
+            setLoading(null);
+        }
+    };
+
+    const deleteProject = async (id) => {
+        try {
+            setLoading("delete_project");
+
+            const result = await axios.post(`/api/projects/delete/${id}`);
+
+            if (result.data.success) getProjects();
         } catch (error) {
             throw new Error(error);
         } finally {
@@ -50,25 +82,24 @@ export default function ProjectOverview() {
                             key={project.id}
                             className="col-12 col-md-6 col-lg-4 col-xl-3"
                             layout>
-                            <Project {...{ project, getProjects }} />
+                            <Project {...{ project, editProject, deleteProject }} />
                         </motion.div>
                     ))}
-                    {user?.roles?.includes('ROLE_ADMIN') && loading !== "initial" && (
+                    {user?.roles?.includes("ROLE_ADMIN") && loading !== "initial" && (
                         <motion.div
                             {...STAGGER_UP(projects.length)}
                             key="add-project"
                             className="col-12 col-md-6 col-lg-4 col-xl-3"
                             layout>
-                            <ProjectAdd {...{ getProjects }} />
+                            <ProjectAdd {...{ getProjects, editProject }} />
                         </motion.div>
                     )}
                 </AnimatePresence>
                 <AnimatePresence>
-                    {!user?.roles?.includes('ROLE_ADMIN') && loading !== "initial"  && projects.length === 0 && (
-                        <motion.p
-                            {...STAGGER_UP()}
-                            className="col-12 text-white"
-                            layout>{`You don't have any projects yet`}</motion.p>
+                    {!user?.roles?.includes("ROLE_ADMIN") && loading !== "initial" && projects.length === 0 && (
+                        <motion.p {...STAGGER_UP()} className="col-12 text-white" layout>
+                            {`You don't have any projects yet`}
+                        </motion.p>
                     )}
                 </AnimatePresence>
             </div>

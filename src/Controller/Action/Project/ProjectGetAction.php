@@ -30,7 +30,7 @@ final class ProjectGetAction
     {
         $projects = $this->user->getProject();
 
-        $projectsResponse= [];
+        $projectsResponse = [];
         foreach ($projects as $project) {
             $projectsResponse[] = $project->getJsonResponse($arrayHelper);
         }

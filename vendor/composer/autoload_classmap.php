@@ -6,6 +6,8 @@ $vendorDir = dirname(dirname(__FILE__));
 $baseDir = dirname($vendorDir);
 
 return array(
+    'App\\Controller\\Action\\ProjectImage\\ProjectImageAddAction' => $baseDir . '/src/Controller/Action/ProjectImage/ProjectImageAddAction.php',
+    'App\\Controller\\Action\\ProjectImage\\ProjectImageDeleteAction' => $baseDir . '/src/Controller/Action/ProjectImage/ProjectImageDeleteAction.php',
     'App\\Controller\\Action\\Project\\ProjectAddAction' => $baseDir . '/src/Controller/Action/Project/ProjectAddAction.php',
     'App\\Controller\\Action\\Project\\ProjectDeleteAction' => $baseDir . '/src/Controller/Action/Project/ProjectDeleteAction.php',
     'App\\Controller\\Action\\Project\\ProjectEditAction' => $baseDir . '/src/Controller/Action/Project/ProjectEditAction.php',

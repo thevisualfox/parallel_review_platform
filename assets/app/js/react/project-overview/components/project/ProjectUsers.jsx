@@ -8,7 +8,7 @@ export default function ProjectUsers({ users }) {
     /* Render */
     return (
         <div className="row gutters-2">
-            {users.map(({ username, image = "https://picsum.photos/50", roles }, userIndex) => {
+            {users.map(({ username, image, roles }, userIndex) => {
                 return (
                     <div key={userIndex} className="col-auto">
                         <div className="user">
@@ -19,12 +19,7 @@ export default function ProjectUsers({ users }) {
                                     </svg>
                                 </div>
                             )}
-                            <img
-                                className="user__image img-fluid rounded-circle"
-                                src={image}
-                                srcSet={`${image} 2x`}
-                                alt={username}
-                            />
+                            <UserImage {...{ username, image }} />
                         </div>
                     </div>
                 );
@@ -32,3 +27,15 @@ export default function ProjectUsers({ users }) {
         </div>
     );
 }
+
+const UserImage = ({ username, image }) => {
+    const userInitials = username.split(" ").map((word) => word[0]);
+
+    if (image) {
+        return (
+            <img className="user__image img-fluid rounded-circle" src={image} srcSet={`${image} 2x`} alt={username} />
+        );
+    }
+
+    return <span className="user__image user__image--initials rounded-circle">{userInitials}</span>;
+};

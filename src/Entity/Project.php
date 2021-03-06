@@ -22,13 +22,13 @@ class Project
     private $id;
 
     /**
-     * @ORM\Column(type="string", length=150)
+     * @ORM\Column(type="string", length=150, nullable=true)
      */
     private $title;
 
     /**
      * @Gedmo\Slug(fields={"title"})
-     * @ORM\Column(type="string", length=100, unique=true)
+     * @ORM\Column(type="string", length=100, unique=true, nullable=true)
      */
     private $slug;
 

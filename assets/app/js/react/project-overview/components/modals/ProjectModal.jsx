@@ -1,5 +1,5 @@
 /* Packages */
-import React, { useEffect, useRef, useState } from "react";
+import React, { useRef, useState } from "react";
 import LinearProgress from "@material-ui/core/LinearProgress";
 import TextareaAutosize from "@material-ui/core/TextareaAutosize";
 import { AnimatePresence, motion } from "framer-motion";
@@ -19,12 +19,13 @@ import { FADE_IN } from "../../../common/animations";
 
 export default function ProjectModal({
     toggleModal,
+    projectId,
     onSubmit,
     title = "",
-    titlePlaceholder = "",
     description = "",
-    descriptionPlaceholder = "",
     projectImages = [],
+    titlePlaceholder = "The project name",
+    descriptionPlaceholder = "What's this project about?",
 }) {
     /* Refs */
     const formRef = useRef();
@@ -32,38 +33,7 @@ export default function ProjectModal({
     /* State */
     const [projectTitle, setProjectTitle] = useState(title);
     const [projectDescription, setProjectDescription] = useState(description);
-    const [images, setImages] = useState([]);
     const loading = useRecoilValue(loadingState);
-
-    /* Effects */
-    useEffect(() => {
-        if (projectImages.length === 0) return;
-
-        getBlobsFromImages();
-    }, []);
-
-    /* Callbacks */
-    const getBlobsFromImages = async () => {
-        const blobs = [];
-
-        for (let index = 0; index < projectImages.length; index++) {
-            const { image, title, id } = projectImages[index];
-            const fileType = title.includes("png") ? "png" : "jpeg";
-
-            const blob = await fetch(image)
-                .then((result) => result.blob())
-                .then((blobFile) => new File([blobFile], title, { type: `image/${fileType}` }));
-
-            Object.assign(blob, {
-                preview: URL.createObjectURL(blob),
-                id: id,
-            });
-
-            blobs.push(blob);
-        }
-
-        setImages(blobs);
-    };
 
     /* Render */
     return (
@@ -72,7 +42,10 @@ export default function ProjectModal({
                 ref={formRef}
                 method="POST"
                 className="custom-modal__form"
-                onSubmit={(event) => onSubmit(event, formRef, images)}>
+                onSubmit={(event) => {
+                    event.preventDefault();
+                    onSubmit(formRef);
+                }}>
                 <div className="custom-modal__header d-flex align-items-center pt-6 pt-md-12 px-6 pb-6">
                     <label className="sr-only" htmlFor="projectTitle">
                         {projectTitle}
@@ -93,7 +66,7 @@ export default function ProjectModal({
                         className="custom-modal__close btn btn-link ml-auto"
                         data-dismiss="modal"
                         aria-label="Close"
-                        onClick={toggleModal}
+                        onClick={() => toggleModal("close")}
                         tabIndex="-1">
                         <svg className="icon icon--14">
                             <use xlinkHref={closeIcon.url}></use>
@@ -112,7 +85,7 @@ export default function ProjectModal({
                         value={projectDescription}
                         onChange={({ target: { value } }) => setProjectDescription(value)}
                     />
-                    <Dropzone {...{ images, setImages }} />
+                    <Dropzone {...{ projectId, projectImages }} />
                 </div>
                 <div className="custom-modal__footer px-6 pb-6 pb-md-12">
                     <div className="row gutters-0 w-100">
