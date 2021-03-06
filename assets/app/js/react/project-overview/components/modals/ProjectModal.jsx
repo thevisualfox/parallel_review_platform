@@ -2,11 +2,12 @@
 import React, { useRef, useState } from "react";
 import LinearProgress from "@material-ui/core/LinearProgress";
 import TextareaAutosize from "@material-ui/core/TextareaAutosize";
+import { ReactSVG } from "react-svg";
 import { AnimatePresence, motion } from "framer-motion";
 import { useRecoilValue } from "recoil";
 
 /* Assets */
-import closeIcon from "../../../../../symbols/close.svg";
+import closeIcon from "icons/close.svg";
 
 /* Components */
 import { Modal, Dropzone } from "../../../common";
@@ -68,9 +69,7 @@ export default function ProjectModal({
                         aria-label="Close"
                         onClick={() => toggleModal("close")}
                         tabIndex="-1">
-                        <svg className="icon icon--14">
-                            <use xlinkHref={closeIcon.url}></use>
-                        </svg>
+                        <ReactSVG wrapper="svg" className="icon icon--14" src={closeIcon} />
                     </button>
                 </div>
                 <div className="custom-modal__body px-6 pb-12">

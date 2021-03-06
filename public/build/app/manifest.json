@@ -1,9 +1,20 @@
 {
   "build/app/main.css": "/build/app/main.css",
   "build/app/main.js": "/build/app/main.js",
+  "build/app/vendors~main.js": "/build/app/vendors~main.js",
+  "build/app/img/add.svg": "/build/app/img/add.svg",
+  "build/app/img/add_image.svg": "/build/app/img/add_image.svg",
+  "build/app/img/add_project.svg": "/build/app/img/add_project.svg",
+  "build/app/img/archive.svg": "/build/app/img/archive.svg",
   "build/app/img/background-login.jpg": "/build/app/img/background-login.jpg",
   "build/app/img/background-login@2x.jpg": "/build/app/img/background-login@2x.jpg",
   "build/app/img/background-projects.jpg": "/build/app/img/background-projects.jpg",
   "build/app/img/background-projects@2x.jpg": "/build/app/img/background-projects@2x.jpg",
-  "build/app/img/symbols.svg": "/build/app/img/symbols.svg"
+  "build/app/img/close.svg": "/build/app/img/close.svg",
+  "build/app/img/danger.svg": "/build/app/img/danger.svg",
+  "build/app/img/delete.svg": "/build/app/img/delete.svg",
+  "build/app/img/edit.svg": "/build/app/img/edit.svg",
+  "build/app/img/star.svg": "/build/app/img/star.svg",
+  "build/app/img/success.svg": "/build/app/img/success.svg",
+  "build/app/img/warning.svg": "/build/app/img/warning.svg"
 }

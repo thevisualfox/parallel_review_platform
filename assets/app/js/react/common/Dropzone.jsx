@@ -1,12 +1,13 @@
 /* Packages */
 import React, { useState } from "react";
 import axios from "axios";
+import { ReactSVG } from "react-svg";
 import { useDropzone } from "react-dropzone";
 import { AnimatePresence, motion } from "framer-motion";
 
 /* Assets */
-import closeIcon from "../../../symbols/close.svg";
-import addImageIcon from "../../../symbols/add_image.svg";
+import closeIcon from "icons/close.svg";
+import addImageIcon from "icons/add_image.svg";
 
 /* Animations */
 import { STAGGER_UP } from "./animations";
@@ -66,9 +67,7 @@ export default function Dropzone({ projectId, projectImages }) {
                                         event.stopPropagation();
                                         deleteProjectImage(id);
                                     }}>
-                                    <svg className="icon icon--8 text-white mt-0">
-                                        <use xlinkHref={closeIcon.url}></use>
-                                    </svg>
+                                    <ReactSVG wrapper="svg" className="icon icon--8 text-white mt-0" src={closeIcon} />
                                 </button>
                             </div>
                         </motion.div>
@@ -98,9 +97,7 @@ const DropzoneInner = ({ addProjectImages, isParentDragActive }) => {
                 } card--transparent h-100 mb-0`}>
                 <div className="card-body d-flex align-items-center justify-content-center p-10">
                     <span className="btn-text d-flex flex-column align-items-center text-white text-muted--40">
-                        <svg className="icon icon--48">
-                            <use xlinkHref={addImageIcon.url}></use>
-                        </svg>
+                        <ReactSVG wrapper="svg" className="icon icon--48" src={addImageIcon} />
                         <span className="text--sm mt-1">
                             {isDragActive || isParentDragActive ? "Drop the images" : "Add some images"}
                         </span>

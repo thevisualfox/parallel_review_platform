@@ -24,6 +24,7 @@
         "react-autosize-textarea": "^7.1.0",
         "react-dom": "^17.0.1",
         "react-dropzone": "^11.3.1",
+        "react-svg": "^12.1.0",
         "recoil": "^0.1.2",
         "regenerator-runtime": "^0.13.7",
         "svg4everybody": "^2.1.9",
@@ -62,12 +63,9 @@
         "webpack": "^4.0.0"
     },
     "scripts": {
-        "watch": "yarn; NODE_ENV=dev yarn encore dev --watch --config-name app",
-        "watch:config": "yarn; NODE_ENV=dev yarn encore dev --watch --config-name",
-        "watch:all": "yarn; NODE_ENV=dev yarn encore dev --watch",
-        "watch-dash": "yarn; NODE_ENV=dev webpack-dashboard -m -- yarn encore dev --watch --config-name app",
-        "watch-dash:config": "yarn; NODE_ENV=dev webpack-dashboard -m -- yarn encore dev --watch --config-name",
-        "watch-dash:all": "yarn; NODE_ENV=dev webpack-dashboard -m -- yarn encore dev --watch",
-        "build": "yarn; NODE_ENV=prod yarn encore production"
+        "dev-server": "encore dev-server",
+        "dev": "encore dev",
+        "watch": "encore dev --watch",
+        "build": "encore production --progress"
     }
 }

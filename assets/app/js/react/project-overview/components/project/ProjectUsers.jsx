@@ -1,8 +1,9 @@
 /* Packages */
 import React from "react";
+import { ReactSVG } from "react-svg";
 
 /* Assts */
-import starIcon from "../../../../../symbols/star.svg";
+import starIcon from "icons/star.svg";
 
 export default function ProjectUsers({ users }) {
     /* Render */
@@ -14,12 +15,10 @@ export default function ProjectUsers({ users }) {
                         <div className="user">
                             {roles.includes("ROLE_ADMIN") && (
                                 <div className="user__leader">
-                                    <svg className="icon icon--6 text-tertiary">
-                                        <use xlinkHref={starIcon.url}></use>
-                                    </svg>
+                                    <ReactSVG wrapper="svg" className="icon icon--6 text-tertiary" src={starIcon} />
                                 </div>
                             )}
-                            <UserImage {...{ ...rest}} />
+                            <UserImage {...{ ...rest }} />
                         </div>
                     </div>
                 );

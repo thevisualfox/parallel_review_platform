@@ -1,11 +1,12 @@
 /* Packages */
 import React, { useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
+import { ReactSVG } from "react-svg";
 
 /* Assets */
-import editIcon from "../../../../../symbols/edit.svg";
-import deleteIcon from "../../../../../symbols/delete.svg";
-import closeIcon from "../../../../../symbols/close.svg";
+import editIcon from "icons/edit.svg";
+import deleteIcon from "icons/delete.svg";
+import closeIcon from "icons/close.svg";
 
 /* Animations */
 import { SCALE_FADE, STAGGER_LEFT } from "../../../common/animations";
@@ -48,9 +49,7 @@ export default function ProjectMenu({ project, deleteProject, editProject, modal
                     <AnimatePresence exitBeforeEnter initial={false}>
                         {menuOpen ? (
                             <motion.div key="close" className="menu__dots" {...SCALE_FADE}>
-                                <svg className="icon icon--14 text-white">
-                                    <use xlinkHref={closeIcon.url}></use>
-                                </svg>
+                                <ReactSVG wrapper="svg" className="icon icon--14 text-white" src={closeIcon} />
                             </motion.div>
                         ) : (
                             <motion.div key="dots" className="menu__dots" {...SCALE_FADE}>
@@ -79,9 +78,11 @@ export default function ProjectMenu({ project, deleteProject, editProject, modal
                                                 toggleMenu();
                                             }}
                                             type="button">
-                                            <svg className="icon icon--16 text-white mr-2">
-                                                <use xlinkHref={icon.url}></use>
-                                            </svg>
+                                            <ReactSVG
+                                                wrapper="svg"
+                                                className="icon icon--16 text-white mr-2"
+                                                src={icon}
+                                            />
                                         </button>
                                     </motion.li>
                                 ))}

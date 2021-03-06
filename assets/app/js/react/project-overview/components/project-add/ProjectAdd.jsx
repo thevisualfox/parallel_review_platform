@@ -7,7 +7,8 @@ import { AnimatePresence } from "framer-motion";
 import { ProjectModal } from "../modals";
 
 /* Assets */
-import addProjectIcon from "../../../../../symbols/add_project.svg";
+import addProjectIcon from "icons/add_project.svg";
+import { ReactSVG } from "react-svg";
 
 export default function ProjectAdd({ getProjects, editProject }) {
     /* State */
@@ -38,9 +39,7 @@ export default function ProjectAdd({ getProjects, editProject }) {
             <div className="card-body d-flex align-items-center justify-content-center p-10">
                 <button className="btn btn-link text-decoration-none stretched-link" onClick={addProject}>
                     <span className="btn-text d-flex flex-column align-items-center text-white text-muted--40">
-                        <svg className="icon icon--48">
-                            <use xlinkHref={addProjectIcon.url}></use>
-                        </svg>
+                        <ReactSVG wrapper="svg" className="icon icon--48" src={addProjectIcon} />
                         <span className="text--sm mt-1">Add more projects</span>
                     </span>
                 </button>
