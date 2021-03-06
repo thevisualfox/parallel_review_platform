@@ -8,7 +8,7 @@ export default function ProjectUsers({ users }) {
     /* Render */
     return (
         <div className="row gutters-2">
-            {users.map(({ username, image, roles }, userIndex) => {
+            {users.map(({ roles, ...rest }, userIndex) => {
                 return (
                     <div key={userIndex} className="col-auto">
                         <div className="user">
@@ -19,7 +19,7 @@ export default function ProjectUsers({ users }) {
                                     </svg>
                                 </div>
                             )}
-                            <UserImage {...{ username, image }} />
+                            <UserImage {...{ ...rest}} />
                         </div>
                     </div>
                 );
@@ -28,7 +28,7 @@ export default function ProjectUsers({ users }) {
     );
 }
 
-const UserImage = ({ username, image }) => {
+const UserImage = ({ username, image, userColor }) => {
     const userInitials = username.split(" ").map((word) => word[0]);
 
     if (image) {
@@ -37,5 +37,9 @@ const UserImage = ({ username, image }) => {
         );
     }
 
-    return <span className="user__image user__image--initials rounded-circle">{userInitials}</span>;
+    return (
+        <span className="user__image user__image--initials rounded-circle" style={{ backgroundColor: userColor }}>
+            {userInitials}
+        </span>
+    );
 };

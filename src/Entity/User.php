@@ -48,6 +48,11 @@ class User implements UserInterface
      */
     private $project;
 
+    /**
+     * @ORM\Column(type="string", length=255)
+     */
+    private $color;
+
     public function __construct()
     {
         $this->project = new ArrayCollection();
@@ -144,6 +149,7 @@ class User implements UserInterface
             'id' => $this->getId(),
             'username' => $this->getUsername(),
             'roles' => $this->getRoles(),
+            'userColor' => $this->getColor(),
         ];
     }
 
@@ -167,6 +173,18 @@ class User implements UserInterface
     public function removeProject(Project $project): self
     {
         $this->project->removeElement($project);
+
+        return $this;
+    }
+
+    public function getColor(): ?string
+    {
+        return $this->color;
+    }
+
+    public function setColor(string $color): self
+    {
+        $this->color = $color;
 
         return $this;
     }

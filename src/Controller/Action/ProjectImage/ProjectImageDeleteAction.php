@@ -14,7 +14,7 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
 /**
- * @Route("/api/images/delete/{id}", name="app_project_image_add", methods="POST")
+ * @Route("/api/images/delete/{id}", name="app_project_image_delete", methods="POST")
  * @param EntityManagerInterface $entityManager
  * @param Project|null $project
  * @param Request $request

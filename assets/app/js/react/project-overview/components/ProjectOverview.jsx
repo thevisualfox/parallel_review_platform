@@ -2,7 +2,7 @@
 import React, { useEffect } from "react";
 import axios from "axios";
 import { AnimatePresence, motion } from "framer-motion";
-import { useRecoilState } from "recoil";
+import { useRecoilState, useRecoilValue, useSetRecoilState } from "recoil";
 
 /* Components */
 import { Project } from "./project";
@@ -12,13 +12,14 @@ import { ProjectAdd } from "./project-add";
 import { STAGGER_UP } from "../../common/animations";
 
 /* Global state */
-import { loadingState, projectsState, userState } from "../state";
+import { adminState, loadingState, projectsState, userState } from "../state";
 
 export default function ProjectOverview() {
     /* State */
     const [projects, setProjects] = useRecoilState(projectsState);
-    const [user, setUser] = useRecoilState(userState);
     const [loading, setLoading] = useRecoilState(loadingState);
+    const setUser = useSetRecoilState(userState);
+    const isAdmin = useRecoilValue(adminState);
 
     /* Effects */
     useEffect(() => getProjects(), []);
@@ -85,7 +86,7 @@ export default function ProjectOverview() {
                             <Project {...{ project, editProject, deleteProject }} />
                         </motion.div>
                     ))}
-                    {user?.roles?.includes("ROLE_ADMIN") && loading !== "initial" && (
+                    {isAdmin && loading !== "initial" && (
                         <motion.div
                             {...STAGGER_UP(projects.length)}
                             key="add-project"
@@ -96,7 +97,7 @@ export default function ProjectOverview() {
                     )}
                 </AnimatePresence>
                 <AnimatePresence>
-                    {!user?.roles?.includes("ROLE_ADMIN") && loading !== "initial" && projects.length === 0 && (
+                    {!isAdmin && loading !== "initial" && projects.length === 0 && (
                         <motion.p {...STAGGER_UP()} className="col-12 text-white" layout>
                             {`You don't have any projects yet`}
                         </motion.p>

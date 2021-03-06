@@ -30,6 +30,7 @@ return array(
     'Behat\\Transliterator\\SyncTool' => $vendorDir . '/behat/transliterator/src/Behat/Transliterator/SyncTool.php',
     'Behat\\Transliterator\\Transliterator' => $vendorDir . '/behat/transliterator/src/Behat/Transliterator/Transliterator.php',
     'Collator' => $vendorDir . '/symfony/intl/Resources/stubs/Collator.php',
+    'Colors\\RandomColor' => $vendorDir . '/mistic100/randomcolor/src/RandomColor.php',
     'Doctrine\\Bundle\\DoctrineBundle\\Command\\CreateDatabaseDoctrineCommand' => $vendorDir . '/doctrine/doctrine-bundle/Command/CreateDatabaseDoctrineCommand.php',
     'Doctrine\\Bundle\\DoctrineBundle\\Command\\DoctrineCommand' => $vendorDir . '/doctrine/doctrine-bundle/Command/DoctrineCommand.php',
     'Doctrine\\Bundle\\DoctrineBundle\\Command\\DropDatabaseDoctrineCommand' => $vendorDir . '/doctrine/doctrine-bundle/Command/DropDatabaseDoctrineCommand.php',

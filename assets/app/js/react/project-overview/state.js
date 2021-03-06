@@ -1,4 +1,4 @@
-import { atom } from "recoil";
+import { atom, selector } from "recoil";
 
 const loadingState = atom({
     key: "loadingState",
@@ -20,4 +20,17 @@ const projectsState = atom({
     default: [],
 });
 
-export { loadingState, userState, successState, projectsState };
+const adminState = selector({
+    key: "adminState",
+    get: ({ get }) => {
+        const user = get(userState);
+
+        if (user?.roles) {
+            return user.roles.includes("ROLE_ADMIN");
+        }
+
+        return false;
+    },
+});
+
+export { loadingState, userState, adminState, successState, projectsState };
