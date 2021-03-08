@@ -9,7 +9,6 @@ import 'regenerator-runtime/runtime';
 import 'bootstrap';
 
 // Core
-import './svg4everybody';
 import './validation';
 
 // React
