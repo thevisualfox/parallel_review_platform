@@ -1,7 +1,7 @@
 .custom-modal {
     @extend %center-flex, %fixed-fill;
 
-    z-index: $zindex-popover;
+    z-index: $zindex-fixed;
 }
 
 .custom-modal__overlay {

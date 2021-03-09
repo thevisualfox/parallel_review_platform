@@ -3,8 +3,10 @@
 }
 
 .user__image {
-    width: px-to-rem(25);
-    height: px-to-rem(25);
+    --dimensions: #{px-to-rem(25)};
+
+    width: var(--dimensions);
+    height: var(--dimensions);
 
     @include object-fit(cover);
 
@@ -13,8 +15,9 @@
 
         font-family: $font-family-base;
         font-size: px-to-rem(12);
-        background-color: rgba($primary, 0.2);
         border: $border-width solid $border-color;
+        color: $white;
+        transition: border-color 200ms ease;
     }
 }
 
@@ -30,4 +33,20 @@
     width: $dimensions;
     background-color: $black;
     border-radius: 50%;
+}
+
+.user--lg {
+    .user__image {
+        --dimensions: #{px-to-rem(30)};
+    }
+
+    .user__image--initials {
+        font-size: px-to-rem(14);
+    }
+}
+
+.user--add {
+    &:hover .user__image--initials {
+        border-color: $white;
+    }
 }

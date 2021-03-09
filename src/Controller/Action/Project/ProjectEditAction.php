@@ -28,28 +28,6 @@ final class ProjectEditAction
         $project->setTitle($requestBody['title']);
         $project->setDescription($requestBody['description']);
 
-        // $requestImages = $request->files->get('images');
-        // $projectImages = $project->getProjectImages();
-
-        // if (null !== $requestImages) {
-        //     foreach ($projectImages as &$image) {
-        //         $imageHelper->removeImage($image);
-        //         $project->removeProjectImage($image);
-        //     }
-
-        //     foreach ($requestImages as &$image) {
-        //         $newFileName = $imageHelper->uploadImage($image);
-
-        //         $projectImage = new ProjectImage();
-        //         $projectImage
-        //             ->setTitle($newFileName)
-        //             ->setImage($newFileName)
-        //             ->setProject($project);
-
-        //         $entityManager->persist($projectImage);
-        //     }
-        // }
-
         $entityManager->persist($project);
         $entityManager->flush();
 

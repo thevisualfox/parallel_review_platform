@@ -3,8 +3,8 @@ import React, { useState } from "react";
 
 /* Components */
 import ProjectImage from "./ProjectImage";
-import ProjectUsers from "./ProjectUsers";
 import ProjectMenu from "./ProjectMenu";
+import { Users } from "../../../common";
 
 export default function Project({ project, editProject, deleteProject }) {
     /* Constants */
@@ -24,7 +24,7 @@ export default function Project({ project, editProject, deleteProject }) {
                 <div className="d-flex justify-content-between">
                     <div className="d-flex flex-column">
                         <p className="mb-3">{title}</p>
-                        <ProjectUsers {...{ users }} />
+                        <Users {...{ users }} />
                     </div>
                     <ProjectMenu {...{ project, deleteProject, editProject, modalOpen, toggleModal }} />
                 </div>

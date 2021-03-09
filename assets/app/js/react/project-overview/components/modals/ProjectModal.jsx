@@ -10,7 +10,7 @@ import { useRecoilValue } from "recoil";
 import closeIcon from "icons/close.svg";
 
 /* Components */
-import { Modal, Dropzone } from "../../../common";
+import { Modal, Dropzone, Users } from "../../../common";
 
 /* Atoms */
 import { loadingState } from "../../state";
@@ -25,6 +25,7 @@ export default function ProjectModal({
     title = "",
     description = "",
     projectImages = [],
+    users = [],
     titlePlaceholder = "The project name",
     descriptionPlaceholder = "What's this project about?",
 }) {
@@ -38,7 +39,7 @@ export default function ProjectModal({
 
     /* Render */
     return (
-        <Modal {...{ toggleModal }}>
+        <Modal {...{ toggleModal }} domElement={document.body}>
             <form
                 ref={formRef}
                 method="POST"
@@ -73,17 +74,24 @@ export default function ProjectModal({
                     </button>
                 </div>
                 <div className="custom-modal__body px-6 pb-12">
-                    <label className="sr-only" htmlFor="projectDescription">
-                        {`What's this project about?`}
-                    </label>
-                    <TextareaAutosize
-                        className="form-control form-control--text form-control--clear mb-10"
-                        id="projectDescription"
-                        name="description"
-                        placeholder={descriptionPlaceholder}
-                        value={projectDescription}
-                        onChange={({ target: { value } }) => setProjectDescription(value)}
-                    />
+                    <div className="row gutters-2">
+                        <div className="col-6">
+                            <label className="sr-only" htmlFor="projectDescription">
+                                {`What's this project about?`}
+                            </label>
+                            <TextareaAutosize
+                                className="form-control form-control--text form-control--clear mb-10"
+                                id="projectDescription"
+                                name="description"
+                                placeholder={descriptionPlaceholder}
+                                value={projectDescription}
+                                onChange={({ target: { value } }) => setProjectDescription(value)}
+                            />
+                        </div>
+                        <div className="col-auto ml-auto">
+                            <Users {...{ users, formRef }} variant="lg" showAddUser />
+                        </div>
+                    </div>
                     <Dropzone {...{ projectId, projectImages }} />
                 </div>
                 <div className="custom-modal__footer px-6 pb-6 pb-md-12">
