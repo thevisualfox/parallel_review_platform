@@ -68,7 +68,7 @@ export default function ProjectModal({
                         className="custom-modal__close btn btn-link ml-auto"
                         data-dismiss="modal"
                         aria-label="Close"
-                        onClick={() => toggleModal("close")}
+                        onClick={toggleModal}
                         tabIndex="-1">
                         <ReactSVG wrapper="svg" className="icon icon--14" src={closeIcon} />
                     </button>

@@ -2,6 +2,7 @@
 import React, { useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 import { ReactSVG } from "react-svg";
+import { useMutation, useQueryClient } from "react-query";
 
 /* Assets */
 import editIcon from "icons/edit.svg";
@@ -14,26 +15,45 @@ import { SCALE_FADE, STAGGER_LEFT } from "../../../common/animations";
 /* Components */
 import { ProjectModal } from "../modals";
 
-export default function ProjectMenu({ project, deleteProject, editProject, modalOpen, toggleModal }) {
-    /* Callbacks */
-    const toggleMenu = () => setMenuOpen(!menuOpen);
+/* Api calls */
+import { API_KEYS, deleteProject, editProject } from "../../api";
 
+export default function ProjectMenu({ project }) {
     /* Constants */
-    const MENU_ITEMS = [
-        {
-            name: "edit",
-            icon: editIcon,
-            callback: toggleModal,
+    const queryClient = useQueryClient();
+    const { id: projectId } = project;
+
+    /* Hooks */
+    const deleteMutation = useMutation(deleteProject, {
+        onSuccess: () => queryClient.invalidateQueries(API_KEYS.PBU),
+    });
+
+    const editMutation = useMutation(editProject, {
+        onSuccess: () => {
+            queryClient.invalidateQueries(API_KEYS.PBU);
+            toggleEditModal();
         },
-        {
-            name: "delete",
-            icon: deleteIcon,
-            callback: deleteProject,
-        },
-    ];
+    });
 
     /* State */
     const [menuOpen, setMenuOpen] = useState(false);
+    const [modalOpen, setModalOpen] = useState(false);
+
+    /* Toggles */
+    const toggleMenu = () => setMenuOpen(!menuOpen);
+
+    const toggleEditModal = () => {
+        setMenuOpen(false);
+        setModalOpen(!modalOpen);
+    };
+
+    /* Callbacks */
+    const onSubmit = (formRef) => editMutation.mutate({ formRef, projectId });
+
+    const updateProject = (action) => {
+        if (action === "edit") toggleEditModal();
+        if (action === "delete") deleteMutation.mutate({ projectId: project.id });
+    };
 
     /* Render */
     return (
@@ -64,41 +84,32 @@ export default function ProjectMenu({ project, deleteProject, editProject, modal
                     {menuOpen && (
                         <div className="menu__body">
                             <ul className="menu__list list">
-                                {MENU_ITEMS.map(({ name, icon, callback }, itemIndex) => (
-                                    <motion.li
-                                        key={name}
-                                        className="list__item mr-2"
-                                        {...STAGGER_LEFT((itemIndex + 1) * -1 + MENU_ITEMS.length + 1)}>
-                                        <button
-                                            className="btn btn-link text-white d-flex align-items-center"
-                                            onClick={(event) => {
-                                                event.preventDefault();
-
-                                                callback(project.id);
-                                                toggleMenu();
-                                            }}
-                                            type="button">
-                                            <ReactSVG
-                                                wrapper="svg"
-                                                className="icon icon--16 text-white mr-2"
-                                                src={icon}
-                                            />
-                                        </button>
-                                    </motion.li>
-                                ))}
+                                <MenuItem icon={editIcon} index={1} callback={() => updateProject("edit")} />
+                                <MenuItem icon={deleteIcon} index={0} callback={() => updateProject("delete")} />
                             </ul>
                         </div>
                     )}
                 </AnimatePresence>
                 <AnimatePresence>
                     {modalOpen && (
-                        <ProjectModal
-                            {...{ toggleModal, projectId: project.id, ...project }}
-                            onSubmit={(formRef) => editProject(formRef, project.id, toggleModal)}
-                        />
+                        <ProjectModal toggleModal={toggleEditModal} {...{ ...project, projectId, onSubmit }} />
                     )}
                 </AnimatePresence>
             </div>
         </div>
     );
 }
+
+const MenuItem = ({ icon, index, callback }) => (
+    <motion.li className="list__item mr-2" {...STAGGER_LEFT(index)}>
+        <button
+            className="btn btn-link text-white d-flex align-items-center"
+            onClick={(event) => {
+                event.preventDefault();
+                callback();
+            }}
+            type="button">
+            <ReactSVG wrapper="svg" className="icon icon--16 text-white mr-2" src={icon} />
+        </button>
+    </motion.li>
+);
