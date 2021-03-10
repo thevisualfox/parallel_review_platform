@@ -1,9 +1,9 @@
 /* Packages */
 import React, { useState } from "react";
-import axios from "axios";
 import { ReactSVG } from "react-svg";
 import { useDropzone } from "react-dropzone";
 import { AnimatePresence, motion } from "framer-motion";
+import { useMutation, useQueryClient } from "react-query";
 
 /* Assets */
 import closeIcon from "icons/close.svg";
@@ -12,42 +12,42 @@ import addImageIcon from "icons/add_image.svg";
 /* Animations */
 import { STAGGER_UP } from "./animations";
 
+/* Api calls */
+import { addProjectImages, API_KEYS, deleteProjectImages } from "../project-overview/api";
+
 export default function Dropzone({ projectId, projectImages }) {
-    /* Constants */
+    /* Contants */
+    const queryClient = useQueryClient();
     const COLUMN_LAYOUT = "col-12 col-md-6 col-lg-4 col-xl-3";
+
+    /* Hooks */
+    const addProjectImagesMutation = useMutation(addProjectImages, {
+        onSuccess: ({ images }) => {
+            queryClient.invalidateQueries(API_KEYS.PBU);
+            setImages(images);
+        },
+    });
+
+    const deleteProjectImagesMutation = useMutation(deleteProjectImages, {
+        onSuccess: ({ images }) => {
+            queryClient.invalidateQueries(API_KEYS.PBU);
+            setImages(images);
+        },
+    });
+
+    const { getRootProps, getInputProps, isDragActive } = useDropzone({
+        accept: "image/*",
+        noClick: true,
+        onDrop: (acceptedFiles) => updateProjectImages("add", { images: acceptedFiles }),
+    });
 
     /* State */
     const [images, setImages] = useState(projectImages);
 
-    /* Hooks */
-    const { getRootProps, getInputProps, isDragActive } = useDropzone({
-        accept: "image/*",
-        noClick: true,
-        onDrop: (acceptedFiles) => addProjectImages(acceptedFiles),
-    });
-
-    /* Callbacks */
-    const addProjectImages = async (images) => {
-        const params = new FormData();
-        images.forEach((image) => params.append("images[]", image));
-
-        try {
-            const result = await axios.post(`/api/images/add/${projectId}`, params);
-
-            if (result.data) setImages(result.data);
-        } catch (error) {
-            throw new Error(error);
-        }
-    };
-
-    const deleteProjectImage = async (id) => {
-        try {
-            const result = await axios.post(`/api/images/delete/${projectId}`, { id });
-
-            if (result.data) setImages(result.data);
-        } catch (error) {
-            throw new Error(error);
-        }
+    /* Callbaks */
+    const updateProjectImages = (action, props) => {
+        if (action === "add") addProjectImagesMutation.mutate({ projectId, ...props });
+        if (action === "delete") deleteProjectImagesMutation.mutate({ projectId, ...props });
     };
 
     /* Render */
@@ -65,15 +65,15 @@ export default function Dropzone({ projectId, projectImages }) {
                                     className="btn btn-link dropzone__image-delete p-0"
                                     onClick={(event) => {
                                         event.stopPropagation();
-                                        deleteProjectImage(id);
+                                        updateProjectImages("delete", { id });
                                     }}>
-                                    <ReactSVG wrapper="svg" className="icon icon--8 text-white mt-0" src={closeIcon} />
+                                    <ReactSVG wrapper="svg" className="icon icon--8 text-base mt-0" src={closeIcon} />
                                 </button>
                             </div>
                         </motion.div>
                     ))}
                     <motion.div key="add-image" {...STAGGER_UP(images.length)} className={COLUMN_LAYOUT} layout>
-                        <DropzoneInner {...{ addProjectImages, isParentDragActive: isDragActive }} />
+                        <DropzoneInner {...{ updateProjectImages, isParentDragActive: isDragActive }} />
                     </motion.div>
                 </AnimatePresence>
             </div>
@@ -81,11 +81,12 @@ export default function Dropzone({ projectId, projectImages }) {
     );
 }
 
-const DropzoneInner = ({ addProjectImages, isParentDragActive }) => {
+/* Inner dropzone */
+const DropzoneInner = ({ updateProjectImages, isParentDragActive }) => {
     const { getRootProps, getInputProps, isDragActive } = useDropzone({
         accept: "image/*",
         noDragEventsBubbling: true,
-        onDrop: (acceptedFiles) => addProjectImages(acceptedFiles),
+        onDrop: (acceptedFiles) => updateProjectImages("add", { images: acceptedFiles }),
     });
 
     return (

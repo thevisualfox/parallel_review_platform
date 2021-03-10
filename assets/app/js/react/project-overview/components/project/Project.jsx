@@ -6,7 +6,7 @@ import ProjectImage from "./ProjectImage";
 import ProjectMenu from "./ProjectMenu";
 import { Users } from "../../../common";
 
-export default function Project({ project, editProject, deleteProject }) {
+export default function Project({ project }) {
     /* Constants */
     const { slug, title, projectImages, users } = project;
 
@@ -26,7 +26,7 @@ export default function Project({ project, editProject, deleteProject }) {
                         <p className="mb-3">{title}</p>
                         <Users {...{ users }} />
                     </div>
-                    <ProjectMenu {...{ project, deleteProject, editProject, modalOpen, toggleModal }} />
+                    <ProjectMenu {...{ project, modalOpen, toggleModal }} />
                 </div>
             </div>
         </a>

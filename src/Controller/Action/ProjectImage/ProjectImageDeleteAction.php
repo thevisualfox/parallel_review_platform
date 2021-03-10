@@ -36,6 +36,6 @@ final class ProjectImageDeleteAction
 
         $images = $arrayHelper->mapToArray($project->getProjectImages());
 
-        return new JsonResponse($images);
+        return new JsonResponse(['images' => $images]);
     }
 }

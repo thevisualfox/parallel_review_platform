@@ -1,7 +1,7 @@
 /* Packages */
-import React, { useEffect } from "react";
-import axios from "axios";
+import React from "react";
 import { AnimatePresence, motion } from "framer-motion";
+import { useQuery } from "react-query";
 import { useRecoilState, useRecoilValue, useSetRecoilState } from "recoil";
 
 /* Components */
@@ -12,65 +12,24 @@ import { ProjectAdd } from "./project-add";
 import { STAGGER_UP } from "../../common/animations";
 
 /* Global state */
-import { adminState, loadingState, projectsState, userState } from "../state";
+import { adminState, projectsState, userState } from "../state";
+
+/* Api calls */
+import { API_KEYS, fetchProjectsByUser } from "../api";
 
 export default function ProjectOverview() {
     /* State */
     const [projects, setProjects] = useRecoilState(projectsState);
-    const [loading, setLoading] = useRecoilState(loadingState);
     const setUser = useSetRecoilState(userState);
     const isAdmin = useRecoilValue(adminState);
 
-    /* Effects */
-    useEffect(() => getProjects(), []);
-
-    const getProjects = async () => {
-        try {
-            const result = await axios.get("/api/projects/get");
-
-            if (result.data) {
-                setProjects(result.data.projects);
-                setUser(result.data.user);
-            }
-        } catch (error) {
-            throw new Error(error);
-        } finally {
-            setLoading(null);
-        }
-    };
-
-    const editProject = async (formRef, id, callback) => {
-        const params = new FormData(formRef.current);
-
-        try {
-            setLoading("edit_project");
-
-            const result = await axios.post(`/api/projects/edit/${id}`, params);
-
-            if (result.data.success) {
-                getProjects();
-                callback();
-            }
-        } catch (error) {
-            throw new Error(error);
-        } finally {
-            setLoading(null);
-        }
-    };
-
-    const deleteProject = async (id) => {
-        try {
-            setLoading("delete_project");
-
-            const result = await axios.post(`/api/projects/delete/${id}`);
-
-            if (result.data.success) getProjects();
-        } catch (error) {
-            throw new Error(error);
-        } finally {
-            setLoading(null);
-        }
-    };
+    /* Hooks */
+    const { isLoading: projectsLoading } = useQuery(API_KEYS.PBU, fetchProjectsByUser, {
+        onSuccess: ({ projects, user }) => {
+            setProjects(projects);
+            setUser(user);
+        },
+    });
 
     /* Render */
     return (
@@ -83,21 +42,21 @@ export default function ProjectOverview() {
                             key={project.id}
                             className="col-12 col-md-6 col-lg-4 col-xl-3"
                             layout>
-                            <Project {...{ project, editProject, deleteProject }} />
+                            <Project {...{ project }} />
                         </motion.div>
                     ))}
-                    {isAdmin && loading !== "initial" && (
+                    {isAdmin && !projectsLoading && (
                         <motion.div
                             {...STAGGER_UP(projects.length)}
                             key="add-project"
                             className="col-12 col-md-6 col-lg-4 col-xl-3"
                             layout>
-                            <ProjectAdd {...{ getProjects, editProject }} />
+                            <ProjectAdd />
                         </motion.div>
                     )}
                 </AnimatePresence>
                 <AnimatePresence>
-                    {!isAdmin && loading !== "initial" && projects.length === 0 && (
+                    {!isAdmin && !projectsLoading && projects.length === 0 && (
                         <motion.p {...STAGGER_UP()} className="col-12 text-white" layout>
                             {`You don't have any projects yet`}
                         </motion.p>
