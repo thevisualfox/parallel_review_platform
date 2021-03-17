@@ -3,7 +3,7 @@ import React, { useState } from "react";
 import { ReactSVG } from "react-svg";
 import { useDropzone } from "react-dropzone";
 import { AnimatePresence, motion } from "framer-motion";
-import { useMutation, useQueryClient } from "react-query";
+import { useMutation } from "react-query";
 
 /* Assets */
 import closeIcon from "icons/close.svg";
@@ -13,26 +13,19 @@ import addImageIcon from "icons/add_image.svg";
 import { STAGGER_UP } from "./animations";
 
 /* Api calls */
-import { addProjectImages, API_KEYS, deleteProjectImages } from "../project-overview/api";
+import { addProjectImages, deleteProjectImages } from "../project-overview/api";
 
-export default function Dropzone({ projectId, projectImages }) {
+export default function Dropzone({ id, projectImages }) {
     /* Contants */
-    const queryClient = useQueryClient();
     const COLUMN_LAYOUT = "col-12 col-md-6 col-lg-4 col-xl-3";
 
     /* Hooks */
     const addProjectImagesMutation = useMutation(addProjectImages, {
-        onSuccess: ({ images }) => {
-            queryClient.invalidateQueries(API_KEYS.PBU);
-            setImages(images);
-        },
+        onSuccess: ({ images }) => setImages(images),
     });
 
     const deleteProjectImagesMutation = useMutation(deleteProjectImages, {
-        onSuccess: ({ images }) => {
-            queryClient.invalidateQueries(API_KEYS.PBU);
-            setImages(images);
-        },
+        onSuccess: ({ images }) => setImages(images),
     });
 
     const { getRootProps, getInputProps, isDragActive } = useDropzone({
@@ -44,10 +37,10 @@ export default function Dropzone({ projectId, projectImages }) {
     /* State */
     const [images, setImages] = useState(projectImages);
 
-    /* Callbaks */
+    /* Callbacks */
     const updateProjectImages = (action, props) => {
-        if (action === "add") addProjectImagesMutation.mutate({ projectId, ...props });
-        if (action === "delete") deleteProjectImagesMutation.mutate({ projectId, ...props });
+        if (action === "add") addProjectImagesMutation.mutate({ projectId: id, ...props });
+        if (action === "delete") deleteProjectImagesMutation.mutate({ projectId: id, ...props });
     };
 
     /* Render */

@@ -10,7 +10,8 @@ import { useRecoilValue } from "recoil";
 import closeIcon from "icons/close.svg";
 
 /* Components */
-import { Modal, Dropzone, Users } from "../../../common";
+import { Modal, Dropzone } from "../../../common";
+import { UserAdd, Users } from "../../../components/users";
 
 /* Atoms */
 import { loadingState } from "../../state";
@@ -20,7 +21,7 @@ import { FADE_IN } from "../../../common/animations";
 
 export default function ProjectModal({
     toggleModal,
-    projectId,
+    id,
     onSubmit,
     title = "",
     description = "",
@@ -88,11 +89,12 @@ export default function ProjectModal({
                                 onChange={({ target: { value } }) => setProjectDescription(value)}
                             />
                         </div>
-                        <div className="col-auto ml-auto">
-                            <Users {...{ users, formRef }} variant="lg" showAddUser />
+                        <div className="col-auto d-flex align-items-baseline ml-auto">
+                            <Users {...{ users }} variant="lg" />
+                            <UserAdd variant="lg" />
                         </div>
                     </div>
-                    <Dropzone {...{ projectId, projectImages }} />
+                    <Dropzone {...{ id, projectImages }} />
                 </div>
                 <div className="custom-modal__footer px-6 pb-6 pb-md-12">
                     <div className="row gutters-0 w-100">

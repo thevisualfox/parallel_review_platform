@@ -92,7 +92,7 @@ export default function ProjectMenu({ project }) {
                 </AnimatePresence>
                 <AnimatePresence>
                     {modalOpen && (
-                        <ProjectModal toggleModal={toggleEditModal} {...{ ...project, projectId, onSubmit }} />
+                        <ProjectModal toggleModal={toggleEditModal} {...{ ...project, onSubmit }} />
                     )}
                 </AnimatePresence>
             </div>

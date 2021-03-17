@@ -19,11 +19,11 @@ export default function ProjectAdd() {
 
     /* State */
     const [modalOpen, setModalOpen] = useState(false);
-    const [projectId, setProjectId] = useState(false);
+    const [project, setProject] = useState(false);
 
     /* Hooks */
     const addMutation = useMutation(addProject, {
-        onSuccess: ({ id }) => setProjectId(id),
+        onSuccess: ({ project }) => setProject(project),
     });
 
     const editMutation = useMutation(editProject, {
@@ -41,7 +41,7 @@ export default function ProjectAdd() {
         if (modalOpen) queryClient.invalidateQueries(API_KEYS.PBU);
     };
 
-    const onSubmit = (formRef) => editMutation.mutate({ formRef, projectId });
+    const onSubmit = (formRef) => editMutation.mutate({ formRef, projectId: project.id });
 
     /* Render */
     return (
@@ -58,7 +58,7 @@ export default function ProjectAdd() {
                 </button>
             </div>
             <AnimatePresence>
-                {modalOpen && <ProjectModal toggleModal={toggleAddModal} {...{ projectId, onSubmit }} />}
+                {modalOpen && <ProjectModal toggleModal={toggleAddModal} {...{ ...project, onSubmit }} />}
             </AnimatePresence>
         </article>
     );

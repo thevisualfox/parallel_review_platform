@@ -10,11 +10,6 @@ const userState = atom({
     default: {},
 });
 
-const successState = atom({
-    key: "successState",
-    default: false,
-});
-
 const projectsState = atom({
     key: "projectsState",
     default: [],
@@ -33,4 +28,4 @@ const adminState = selector({
     },
 });
 
-export { loadingState, userState, adminState, successState, projectsState };
+export { loadingState, userState, adminState, projectsState };

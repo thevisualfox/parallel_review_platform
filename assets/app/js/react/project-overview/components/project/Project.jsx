@@ -4,7 +4,7 @@ import React, { useState } from "react";
 /* Components */
 import ProjectImage from "./ProjectImage";
 import ProjectMenu from "./ProjectMenu";
-import { Users } from "../../../common";
+import { Users } from "../../../components/users";
 
 export default function Project({ project }) {
     /* Constants */

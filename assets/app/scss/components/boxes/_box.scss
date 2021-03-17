@@ -1,16 +1,8 @@
 .box {
-    position: fixed;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
+    position: absolute;
+    top: calc(100% + #{spacer(2)});
+    right: spacer(1);
     background-color: $color-base;
     z-index: $zindex-fixed;
     min-width: 350px;
-}
-
-.box-overlay {
-    @extend %fixed-fill;
-
-    background-color: rgba($primary, 0.75);
-    z-index: $zindex-fixed;
 }

@@ -40,3 +40,14 @@ export const deleteProjectImages = async ({ projectId, id }) => {
     const result = await axios.post(`/api/images/delete/${projectId}`, { id });
     return result?.data;
 };
+
+/* User related calls */
+export const addUser = async ({ projectId, user }) => {
+    const result = await axios.post(`/api/users/add/${projectId}`, user);
+    return result?.data;
+};
+
+export const deleteUser = async ({ projectId, id }) => {
+    const result = await axios.post(`/api/users/delete/${projectId}`, id);
+    return result?.data;
+};
