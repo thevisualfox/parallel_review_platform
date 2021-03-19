@@ -40,7 +40,7 @@ final class UserAddAction
         return new JsonResponse(['user' => $user->getJsonResponse()]);
     }
 
-    private function getExistingUser(UserRepository $userRepository, string $email): User
+    private function getExistingUser(UserRepository $userRepository, string $email)
     {
         return $userRepository->findOneBy(['email' => $email]);
     }
