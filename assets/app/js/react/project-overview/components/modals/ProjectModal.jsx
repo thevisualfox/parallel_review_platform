@@ -1,10 +1,8 @@
 /* Packages */
 import React, { useRef, useState } from "react";
-import LinearProgress from "@material-ui/core/LinearProgress";
 import TextareaAutosize from "@material-ui/core/TextareaAutosize";
 import { ReactSVG } from "react-svg";
-import { AnimatePresence, motion } from "framer-motion";
-import { useRecoilValue } from "recoil";
+import { motion } from "framer-motion";
 
 /* Assets */
 import closeIcon from "icons/close.svg";
@@ -13,30 +11,22 @@ import closeIcon from "icons/close.svg";
 import { Modal, Dropzone } from "../../../common";
 import { UserAdd, Users } from "../../../components/users";
 
-/* Atoms */
-import { loadingState } from "../../state";
-
-/* Animations */
-import { FADE_IN } from "../../../common/animations";
-
 export default function ProjectModal({
+    project = {},
     toggleModal,
-    id,
     onSubmit,
-    title = "",
-    description = "",
-    projectImages = [],
-    users = [],
     titlePlaceholder = "The project name",
     descriptionPlaceholder = "What's this project about?",
 }) {
-    /* Refs */
-    const formRef = useRef();
+    /* Constants  */
+    const { id = null, title = "", description = "", projectImages = [], users = [] } = project;
 
     /* State */
     const [projectTitle, setProjectTitle] = useState(title);
     const [projectDescription, setProjectDescription] = useState(description);
-    const loading = useRecoilValue(loadingState);
+
+    /* Refs */
+    const formRef = useRef();
 
     /* Render */
     return (
@@ -91,7 +81,7 @@ export default function ProjectModal({
                         </div>
                         <div className="col-auto d-flex align-items-baseline ml-auto">
                             <Users {...{ users }} variant="lg" />
-                            <UserAdd variant="lg" />
+                            <UserAdd {...{ id }} variant="lg" />
                         </div>
                     </div>
                     <Dropzone {...{ id, projectImages }} />
@@ -103,17 +93,8 @@ export default function ProjectModal({
                                 type="submit"
                                 className="custom-modal__btn btn btn-block btn-sm btn-white d-flex align-items-center justify-content-center">
                                 <motion.span className="btn-text">
-                                    <span>{loading ? "Saving..." : "Save"}</span>
+                                    <span>Save</span>
                                 </motion.span>
-                                <div className="btn__loader">
-                                    <AnimatePresence>
-                                        {loading && (
-                                            <motion.div {...FADE_IN} key="loader">
-                                                <LinearProgress />
-                                            </motion.div>
-                                        )}
-                                    </AnimatePresence>
-                                </div>
                             </button>
                         </div>
                     </div>

@@ -18,6 +18,7 @@ use Symfony\Component\Routing\Annotation\Route;
  * @param Project|null $project
  * @param Request $request
  * @param ImageHelper $imageHelper
+ * @param ArrayHelper $arrayHelper
  * @return Response
  */
 final class ProjectImageAddAction

@@ -2,7 +2,7 @@
 import React, { useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 import { ReactSVG } from "react-svg";
-import { useMutation, useQueryClient } from "react-query";
+import { useMutation, useQuery, useQueryClient } from "react-query";
 
 /* Assets */
 import editIcon from "icons/edit.svg";
@@ -12,27 +12,21 @@ import closeIcon from "icons/close.svg";
 /* Animations */
 import { SCALE_FADE, STAGGER_LEFT } from "../../../common/animations";
 
-/* Components */
+/* Api calls */
+import { QUERY_KEYS, deleteProject, fetchProjectById, editProject } from "../../api";
 import { ProjectModal } from "../modals";
 
-/* Api calls */
-import { API_KEYS, deleteProject, editProject } from "../../api";
-
-export default function ProjectMenu({ project }) {
-    /* Constants */
-    const queryClient = useQueryClient();
-    const { id: projectId } = project;
-
+export default function ProjectMenu({ projectId }) {
     /* Hooks */
+    const queryClient = useQueryClient();
+
+    /* Mutations */
     const deleteMutation = useMutation(deleteProject, {
-        onSuccess: () => queryClient.invalidateQueries(API_KEYS.PBU),
+        onSuccess: () => queryClient.invalidateQueries(QUERY_KEYS.PROJECT_BY_USER),
     });
 
     const editMutation = useMutation(editProject, {
-        onSuccess: () => {
-            queryClient.invalidateQueries(API_KEYS.PBU);
-            toggleEditModal();
-        },
+        onSuccess: () => toggleModal(),
     });
 
     /* State */
@@ -42,17 +36,10 @@ export default function ProjectMenu({ project }) {
     /* Toggles */
     const toggleMenu = () => setMenuOpen(!menuOpen);
 
-    const toggleEditModal = () => {
-        setMenuOpen(false);
+    const toggleModal = () => {
         setModalOpen(!modalOpen);
-    };
 
-    /* Callbacks */
-    const onSubmit = (formRef) => editMutation.mutate({ formRef, projectId });
-
-    const updateProject = (action) => {
-        if (action === "edit") toggleEditModal();
-        if (action === "delete") deleteMutation.mutate({ projectId: project.id });
+        if (modalOpen) queryClient.invalidateQueries(QUERY_KEYS.PROJECT_BY_USER);
     };
 
     /* Render */
@@ -82,23 +69,43 @@ export default function ProjectMenu({ project }) {
                 </button>
                 <AnimatePresence>
                     {menuOpen && (
-                        <div className="menu__body">
-                            <ul className="menu__list list">
-                                <MenuItem icon={editIcon} index={1} callback={() => updateProject("edit")} />
-                                <MenuItem icon={deleteIcon} index={0} callback={() => updateProject("delete")} />
-                            </ul>
-                        </div>
-                    )}
-                </AnimatePresence>
-                <AnimatePresence>
-                    {modalOpen && (
-                        <ProjectModal toggleModal={toggleEditModal} {...{ ...project, onSubmit }} />
+                        <MenuBody
+                            {...{ projectId, editMutation, deleteMutation, modalOpen, toggleModal, toggleMenu }}
+                        />
                     )}
                 </AnimatePresence>
             </div>
         </div>
     );
 }
+
+const MenuBody = ({ projectId, editMutation, deleteMutation, modalOpen, toggleModal, toggleMenu }) => {
+    /* Queries */
+    const { data: project } = useQuery([QUERY_KEYS.PROJECT_BY_ID, projectId], () => fetchProjectById({ projectId }), {
+        enabled: !!projectId,
+    });
+
+    /* Callbacks */
+    const updateProject = (action) => {
+        if (action === "edit") toggleModal();
+        if (action === "delete") deleteMutation.mutate({ projectId });
+    };
+
+    const onSubmit = (formRef) => editMutation.mutate({ formRef, projectId });
+
+    /* Render */
+    return (
+        <div className="menu__body">
+            <ul className="menu__list list">
+                <MenuItem icon={editIcon} index={1} callback={() => updateProject("edit")} />
+                <MenuItem icon={deleteIcon} index={0} callback={() => updateProject("delete")} />
+            </ul>
+            <AnimatePresence onExitComplete={() => toggleMenu()}>
+                {modalOpen && <ProjectModal {...{ project, onSubmit, toggleModal }} />}
+            </AnimatePresence>
+        </div>
+    );
+};
 
 const MenuItem = ({ icon, index, callback }) => (
     <motion.li className="list__item mr-2" {...STAGGER_LEFT(index)}>

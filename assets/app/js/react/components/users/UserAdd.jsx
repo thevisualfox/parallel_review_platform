@@ -1,9 +1,9 @@
 /* Packages */
 import React, { useState } from "react";
 import { ReactSVG } from "react-svg";
-import { useMutation } from "react-query";
+import { useMutation, useQueryClient } from "react-query";
 
-/* Assts */
+/* Assets */
 import addIcon from "icons/add.svg";
 
 /* Components */
@@ -13,11 +13,19 @@ import { Box } from "../../common";
 import { isEmail } from "../../helpers";
 
 /* Api calls */
-import { addUser } from "../../project-overview/api";
+import { addUser, QUERY_KEYS } from "../../project-overview/api";
 
-export default function UserAdd({ variant }) {
+export default function UserAdd({ id, variant }) {
     /* Hooks */
-    const addUserMutation = useMutation(addUser);
+    const queryClient = useQueryClient();
+
+    /* Mutations */
+    const addUserMutation = useMutation(addUser, {
+        onSuccess: () => {
+            queryClient.invalidateQueries([QUERY_KEYS.PROJECT_BY_ID, id]);
+            setValue("");
+        },
+    });
 
     /* State */
     const [boxOpen, setBoxOpen] = useState(false);
@@ -35,8 +43,7 @@ export default function UserAdd({ variant }) {
             event.preventDefault();
 
             if (isEmail(value)) {
-                addUserMutation.mutate({ email: value });
-                setValue("");
+                addUserMutation.mutate({ projectId: id, email: value });
             }
         }
     };

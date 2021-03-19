@@ -8,7 +8,13 @@ import { RecoilRoot } from "recoil";
 import ProjectOverview from "./components/ProjectOverview";
 
 /* Client */
-const client = new QueryClient();
+const client = new QueryClient({
+    defaultOptions: {
+        queries: {
+            refetchOnWindowFocus: false,
+        },
+    },
+});
 
 /* Render */
 const projectOverviewNode = document.getElementById("projectOverview");

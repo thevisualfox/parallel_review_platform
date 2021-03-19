@@ -1,12 +1,18 @@
 import axios from "axios";
 
-export const API_KEYS = {
-    PBU: "project_by_user",
+export const QUERY_KEYS = {
+    PROJECT_BY_USER: "project_by_user",
+    PROJECT_BY_ID: "project_by_id",
 };
 
 /* Project related calls */
 export const fetchProjectsByUser = async () => {
     const result = await axios.get("/api/projects/get");
+    return result?.data;
+};
+
+export const fetchProjectById = async ({ projectId }) => {
+    const result = await axios.get(`/api/projects/get/${projectId}`);
     return result?.data;
 };
 
@@ -42,12 +48,12 @@ export const deleteProjectImages = async ({ projectId, id }) => {
 };
 
 /* User related calls */
-export const addUser = async ({ projectId, user }) => {
-    const result = await axios.post(`/api/users/add/${projectId}`, user);
+export const addUser = async ({ projectId, email }) => {
+    const result = await axios.post(`/api/users/add/${projectId}`, { email });
     return result?.data;
 };
 
 export const deleteUser = async ({ projectId, id }) => {
-    const result = await axios.post(`/api/users/delete/${projectId}`, id);
+    const result = await axios.post(`/api/users/delete/${projectId}`, { id });
     return result?.data;
 };

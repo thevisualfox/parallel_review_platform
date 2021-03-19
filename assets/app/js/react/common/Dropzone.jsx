@@ -1,9 +1,9 @@
 /* Packages */
-import React, { useState } from "react";
+import React from "react";
 import { ReactSVG } from "react-svg";
 import { useDropzone } from "react-dropzone";
 import { AnimatePresence, motion } from "framer-motion";
-import { useMutation } from "react-query";
+import { useMutation, useQueryClient } from "react-query";
 
 /* Assets */
 import closeIcon from "icons/close.svg";
@@ -13,20 +13,14 @@ import addImageIcon from "icons/add_image.svg";
 import { STAGGER_UP } from "./animations";
 
 /* Api calls */
-import { addProjectImages, deleteProjectImages } from "../project-overview/api";
+import { addProjectImages, deleteProjectImages, QUERY_KEYS } from "../project-overview/api";
 
 export default function Dropzone({ id, projectImages }) {
     /* Contants */
     const COLUMN_LAYOUT = "col-12 col-md-6 col-lg-4 col-xl-3";
 
     /* Hooks */
-    const addProjectImagesMutation = useMutation(addProjectImages, {
-        onSuccess: ({ images }) => setImages(images),
-    });
-
-    const deleteProjectImagesMutation = useMutation(deleteProjectImages, {
-        onSuccess: ({ images }) => setImages(images),
-    });
+    const queryClient = useQueryClient();
 
     const { getRootProps, getInputProps, isDragActive } = useDropzone({
         accept: "image/*",
@@ -34,8 +28,14 @@ export default function Dropzone({ id, projectImages }) {
         onDrop: (acceptedFiles) => updateProjectImages("add", { images: acceptedFiles }),
     });
 
-    /* State */
-    const [images, setImages] = useState(projectImages);
+    /* Mutations */
+    const addProjectImagesMutation = useMutation(addProjectImages, {
+        onSuccess: () => queryClient.invalidateQueries([QUERY_KEYS.PROJECT_BY_ID, id]),
+    });
+
+    const deleteProjectImagesMutation = useMutation(deleteProjectImages, {
+        onSuccess: () => queryClient.invalidateQueries([QUERY_KEYS.PROJECT_BY_ID, id]),
+    });
 
     /* Callbacks */
     const updateProjectImages = (action, props) => {
@@ -49,7 +49,7 @@ export default function Dropzone({ id, projectImages }) {
             <input {...getInputProps()} />
             <div className="row row--equalized gutters-5">
                 <AnimatePresence initial={false}>
-                    {images.map(({ image, title, id }, imageIndex) => (
+                    {projectImages.map(({ image, title, id }, imageIndex) => (
                         <motion.div layout {...STAGGER_UP(imageIndex)} className={COLUMN_LAYOUT} key={id}>
                             <div className="dropzone__container">
                                 <img className="dropzone__image img-fluid" src={image} alt={title} />
@@ -65,7 +65,7 @@ export default function Dropzone({ id, projectImages }) {
                             </div>
                         </motion.div>
                     ))}
-                    <motion.div key="add-image" {...STAGGER_UP(images.length)} className={COLUMN_LAYOUT} layout>
+                    <motion.div key="add-image" {...STAGGER_UP(projectImages.length)} className={COLUMN_LAYOUT} layout>
                         <DropzoneInner {...{ updateProjectImages, isParentDragActive: isDragActive }} />
                     </motion.div>
                 </AnimatePresence>
@@ -76,12 +76,14 @@ export default function Dropzone({ id, projectImages }) {
 
 /* Inner dropzone */
 const DropzoneInner = ({ updateProjectImages, isParentDragActive }) => {
+    /* Hooks */
     const { getRootProps, getInputProps, isDragActive } = useDropzone({
         accept: "image/*",
         noDragEventsBubbling: true,
         onDrop: (acceptedFiles) => updateProjectImages("add", { images: acceptedFiles }),
     });
 
+    /* Render */
     return (
         <div className="dropzone" {...getRootProps()}>
             <input {...getInputProps()} />

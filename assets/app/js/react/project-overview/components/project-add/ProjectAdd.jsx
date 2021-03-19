@@ -1,47 +1,55 @@
 /* Packages */
 import React, { useState } from "react";
+import { ReactSVG } from "react-svg";
 import { AnimatePresence } from "framer-motion";
-import { useMutation, useQueryClient } from "react-query";
+import { useMutation, useQuery, useQueryClient } from "react-query";
 
 /* Components */
 import { ProjectModal } from "../modals";
 
 /* Assets */
 import addProjectIcon from "icons/add_project.svg";
-import { ReactSVG } from "react-svg";
 
 /* Api calls */
-import { addProject, API_KEYS, editProject } from "../../api";
+import { addProject, fetchProjectById, QUERY_KEYS, editProject } from "../../api";
 
 export default function ProjectAdd() {
-    /* Constants */
-    const queryClient = useQueryClient();
-
     /* State */
+    const [projectId, setProjectId] = useState(null);
     const [modalOpen, setModalOpen] = useState(false);
-    const [project, setProject] = useState(false);
 
     /* Hooks */
+    const queryClient = useQueryClient();
+
+    /* Queries */
+    const { data: project } = useQuery([QUERY_KEYS.PROJECT_BY_ID, projectId], () => fetchProjectById({ projectId }), {
+        enabled: !!projectId,
+    });
+
+    /* Mutations */
     const addMutation = useMutation(addProject, {
-        onSuccess: ({ project }) => setProject(project),
+        onSuccess: ({ id }) => setProjectId(id),
     });
 
     const editMutation = useMutation(editProject, {
-        onSuccess: () => toggleAddModal(),
+        onSuccess: () => toggleModal(),
     });
 
     /* Callbacks */
-    const toggleAddModal = () => {
+    const toggleModal = () => {
         setModalOpen(!modalOpen);
 
         /* Mutate on modal open */
         if (!modalOpen) addMutation.mutate();
 
         /* Invalidate project_by_user on close modal */
-        if (modalOpen) queryClient.invalidateQueries(API_KEYS.PBU);
+        if (modalOpen) {
+            queryClient.invalidateQueries(QUERY_KEYS.PROJECT_BY_USER);
+            setProjectId(null);
+        }
     };
 
-    const onSubmit = (formRef) => editMutation.mutate({ formRef, projectId: project.id });
+    const onSubmit = (formRef) => editMutation.mutate({ formRef, projectId });
 
     /* Render */
     return (
@@ -49,7 +57,7 @@ export default function ProjectAdd() {
             <div className="card-body d-flex align-items-center justify-content-center p-10">
                 <button
                     className="btn btn-link text-decoration-none stretched-link"
-                    onClick={toggleAddModal}
+                    onClick={toggleModal}
                     type="button">
                     <span className="btn-text d-flex flex-column align-items-center text-white text-muted--40">
                         <ReactSVG wrapper="svg" className="icon icon--48" src={addProjectIcon} />
@@ -57,9 +65,7 @@ export default function ProjectAdd() {
                     </span>
                 </button>
             </div>
-            <AnimatePresence>
-                {modalOpen && <ProjectModal toggleModal={toggleAddModal} {...{ ...project, onSubmit }} />}
-            </AnimatePresence>
+            <AnimatePresence>{modalOpen && <ProjectModal {...{ project, onSubmit, toggleModal }} />}</AnimatePresence>
         </article>
     );
 }

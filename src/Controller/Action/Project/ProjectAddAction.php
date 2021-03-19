@@ -6,7 +6,6 @@ use App\Entity\Project;
 use App\Entity\ProjectImage;
 use App\Repository\UserRepository;
 use App\Service\ImageHelper;
-use App\Service\ArrayHelper;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
@@ -16,14 +15,12 @@ use Symfony\Component\Routing\Annotation\Route;
 /**
  * @Route("/api/projects/add", name="app_add_project", methods="POST")
  * @param EntityManagerInterface $entityManager
- * @param ArrayHelper $imageHelper
- * @param ImageHelper $arrayHelper
  * @param UserRepository $userRepository
  * @return Response
  */
 final class ProjectAddAction
 {
-    public function __invoke(EntityManagerInterface $entityManager, ImageHelper $imageHelper, UserRepository $userRepository, ArrayHelper $arrayHelper): Response
+    public function __invoke(EntityManagerInterface $entityManager, ImageHelper $imageHelper, UserRepository $userRepository): Response
     {
 
         $projectLeader = $userRepository->findByRole('ROLE_ADMIN')[0];
@@ -34,6 +31,6 @@ final class ProjectAddAction
         $entityManager->persist($project);
         $entityManager->flush();
 
-        return new JsonResponse(['project' => $project->getJsonResponse($arrayHelper)]);
+        return new JsonResponse(['id' => $project->getId()]);
     }
 }

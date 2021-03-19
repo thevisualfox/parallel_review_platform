@@ -2,6 +2,7 @@
 
 namespace App\Controller\Action\Project;
 
+use App\Entity\User;
 use App\Repository\ProjectRepository;
 use App\Service\ArrayHelper;
 use Symfony\Component\HttpFoundation\JsonResponse;
@@ -17,7 +18,10 @@ use Symfony\Component\Security\Core\Security;
  */
 final class ProjectGetAction
 {
+    /* @var Security $security */
     private $security;
+
+    /* @var User $user */
     private $user;
 
     public function __construct(Security $security)

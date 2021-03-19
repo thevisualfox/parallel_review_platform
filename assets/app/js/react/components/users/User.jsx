@@ -1,8 +1,8 @@
 /* Packages */
-import React, {  } from "react";
+import React from "react";
 import { ReactSVG } from "react-svg";
 
-/* Assts */
+/* Assets */
 import starIcon from "icons/star.svg";
 
 export default function User({ roles, variant = "default", ...rest }) {
@@ -22,8 +22,10 @@ export default function User({ roles, variant = "default", ...rest }) {
 }
 
 const UserImage = ({ username, image, userColor }) => {
-    const userInitials = username.split(" ").map((word) => word[0]);
+    /* Constants */
+    const userInitials = username.split(" ").map((word) => word[0].toUpperCase());
 
+    /* Render */
     if (image) {
         return (
             <img className="user__image img-fluid rounded-circle" src={image} srcSet={`${image} 2x`} alt={username} />

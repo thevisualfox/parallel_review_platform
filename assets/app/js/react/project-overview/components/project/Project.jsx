@@ -1,5 +1,5 @@
 /* Packages */
-import React, { useState } from "react";
+import React from "react";
 
 /* Components */
 import ProjectImage from "./ProjectImage";
@@ -9,12 +9,6 @@ import { Users } from "../../../components/users";
 export default function Project({ project }) {
     /* Constants */
     const { slug, title, projectImages, users } = project;
-
-    /* State */
-    const [modalOpen, setModalOpen] = useState(false);
-
-    /* Callbacks */
-    const toggleModal = () => setModalOpen(!modalOpen);
 
     /* Render */
     return (
@@ -26,7 +20,7 @@ export default function Project({ project }) {
                         <p className="mb-3">{title}</p>
                         <Users {...{ users }} />
                     </div>
-                    <ProjectMenu {...{ project, modalOpen, toggleModal }} />
+                    <ProjectMenu {...{ projectId: project.id }} />
                 </div>
             </div>
         </a>
