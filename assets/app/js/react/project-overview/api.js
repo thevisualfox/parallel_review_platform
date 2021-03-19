@@ -53,7 +53,7 @@ export const addUser = async ({ projectId, email }) => {
     return result?.data;
 };
 
-export const deleteUser = async ({ projectId, id }) => {
-    const result = await axios.post(`/api/users/delete/${projectId}`, { id });
+export const deleteUser = async ({ projectId, userId }) => {
+    const result = await axios.post(`/api/users/delete/${projectId}`, { userId });
     return result?.data;
 };

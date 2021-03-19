@@ -15,7 +15,7 @@ import { STAGGER_UP } from "./animations";
 /* Api calls */
 import { addProjectImages, deleteProjectImages, QUERY_KEYS } from "../project-overview/api";
 
-export default function Dropzone({ id, projectImages }) {
+export default function Dropzone({ projectId, projectImages }) {
     /* Contants */
     const COLUMN_LAYOUT = "col-12 col-md-6 col-lg-4 col-xl-3";
 
@@ -30,17 +30,17 @@ export default function Dropzone({ id, projectImages }) {
 
     /* Mutations */
     const addProjectImagesMutation = useMutation(addProjectImages, {
-        onSuccess: () => queryClient.invalidateQueries([QUERY_KEYS.PROJECT_BY_ID, id]),
+        onSuccess: () => queryClient.invalidateQueries([QUERY_KEYS.PROJECT_BY_ID, projectId]),
     });
 
     const deleteProjectImagesMutation = useMutation(deleteProjectImages, {
-        onSuccess: () => queryClient.invalidateQueries([QUERY_KEYS.PROJECT_BY_ID, id]),
+        onSuccess: () => queryClient.invalidateQueries([QUERY_KEYS.PROJECT_BY_ID, projectId]),
     });
 
     /* Callbacks */
     const updateProjectImages = (action, props) => {
-        if (action === "add") addProjectImagesMutation.mutate({ projectId: id, ...props });
-        if (action === "delete") deleteProjectImagesMutation.mutate({ projectId: id, ...props });
+        if (action === "add") addProjectImagesMutation.mutate({ projectId, ...props });
+        if (action === "delete") deleteProjectImagesMutation.mutate({ projectId, ...props });
     };
 
     /* Render */

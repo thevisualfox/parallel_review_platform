@@ -21,7 +21,7 @@
     }
 }
 
-.user__leader {
+.user__toggle {
     @extend %center-flex;
 
     $dimensions: 12px;
@@ -31,8 +31,26 @@
     left: -2px;
     height: $dimensions;
     width: $dimensions;
-    background-color: $black;
     border-radius: 50%;
+}
+
+.user__toggle--leader {
+    background-color: $black;
+}
+
+.user__toggle--delete {
+    position: absolute;
+    left: auto;
+    right: -2px;
+    background-color: $white;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 200ms ease, visibility 200ms ease;
+
+    .user:hover & {
+        opacity: 1;
+        visibility: visible;
+    }
 }
 
 .user--lg {

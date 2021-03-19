@@ -15,14 +15,14 @@ import { isEmail } from "../../helpers";
 /* Api calls */
 import { addUser, QUERY_KEYS } from "../../project-overview/api";
 
-export default function UserAdd({ id, variant }) {
+export default function UserAdd({ projectId }) {
     /* Hooks */
     const queryClient = useQueryClient();
 
     /* Mutations */
     const addUserMutation = useMutation(addUser, {
         onSuccess: () => {
-            queryClient.invalidateQueries([QUERY_KEYS.PROJECT_BY_ID, id]);
+            queryClient.invalidateQueries([QUERY_KEYS.PROJECT_BY_ID, projectId]);
             setValue("");
         },
     });
@@ -43,7 +43,7 @@ export default function UserAdd({ id, variant }) {
             event.preventDefault();
 
             if (isEmail(value)) {
-                addUserMutation.mutate({ projectId: id, email: value });
+                addUserMutation.mutate({ projectId, email: value });
             }
         }
     };
@@ -51,7 +51,7 @@ export default function UserAdd({ id, variant }) {
     /* Render */
     return (
         <div className="position-relative ml-2">
-            <button className={`btn btn-link user user--${variant} user--add`} type="button" onClick={toggleBox}>
+            <button className="btn btn-link user user--lg user--add" type="button" onClick={toggleBox}>
                 <span className="user__image user__image--initials rounded-circle">
                     <ReactSVG wrapper="svg" className="icon icon--8 text-white mt-0" src={addIcon} />
                 </span>

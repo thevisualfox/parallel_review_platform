@@ -19,7 +19,7 @@ export default function ProjectModal({
     descriptionPlaceholder = "What's this project about?",
 }) {
     /* Constants  */
-    const { id = null, title = "", description = "", projectImages = [], users = [] } = project;
+    const { id: projectId = null, title = "", description = "", projectImages = [], users = [] } = project;
 
     /* State */
     const [projectTitle, setProjectTitle] = useState(title);
@@ -39,7 +39,7 @@ export default function ProjectModal({
                     event.preventDefault();
                     onSubmit(formRef);
                 }}>
-                <div className="custom-modal__header d-flex align-items-center pt-6 pt-md-12 px-6 pb-6">
+                <div className="custom-modal__header d-flex align-items-center pt-6 pt-md-12 px-6 pb-3">
                     <label className="sr-only" htmlFor="projectTitle">
                         {projectTitle}
                     </label>
@@ -64,7 +64,7 @@ export default function ProjectModal({
                         <ReactSVG wrapper="svg" className="icon icon--14" src={closeIcon} />
                     </button>
                 </div>
-                <div className="custom-modal__body px-6 pb-12">
+                <div className="custom-modal__body pt-3 px-6 pb-12">
                     <div className="row gutters-2">
                         <div className="col-6">
                             <label className="sr-only" htmlFor="projectDescription">
@@ -80,11 +80,11 @@ export default function ProjectModal({
                             />
                         </div>
                         <div className="col-auto d-flex align-items-baseline ml-auto">
-                            <Users {...{ users }} variant="lg" />
-                            <UserAdd {...{ id }} variant="lg" />
+                            <Users {...{ users, projectId }} variant="interactive" />
+                            <UserAdd {...{ projectId }} />
                         </div>
                     </div>
-                    <Dropzone {...{ id, projectImages }} />
+                    <Dropzone {...{ projectId, projectImages }} />
                 </div>
                 <div className="custom-modal__footer px-6 pb-6 pb-md-12">
                     <div className="row gutters-0 w-100">
