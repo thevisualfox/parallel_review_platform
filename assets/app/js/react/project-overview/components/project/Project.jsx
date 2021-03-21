@@ -8,7 +8,7 @@ import { Users } from "../../../components/users";
 
 export default function Project({ project }) {
     /* Constants */
-    const { slug, title, projectImages, users } = project;
+    const { slug, title, projectImages, users, author } = project;
 
     /* Render */
     return (
@@ -18,7 +18,7 @@ export default function Project({ project }) {
                 <div className="d-flex justify-content-between">
                     <div className="d-flex flex-column">
                         <p className="mb-3">{title}</p>
-                        <Users {...{ users }} />
+                        <Users {...{ users, project: { author } }} />
                     </div>
                     <ProjectMenu {...{ projectId: project.id }} />
                 </div>

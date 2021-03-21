@@ -4,12 +4,11 @@ import { AnimatePresence, motion } from "framer-motion";
 
 /* Components */
 import Project from "./Project";
-import ProjectAdd from "../project-add/ProjectAdd";
 
 /* Animations */
 import { STAGGER_UP } from "../../../common/animations";
 
-export default function ProjectResults({ projects, isAdmin, projectsLoading }) {
+export default function ProjectResults({ projects, children }) {
     /* Render */
     return (
         <div className="row row--equalized gutters-5">
@@ -23,15 +22,7 @@ export default function ProjectResults({ projects, isAdmin, projectsLoading }) {
                         <Project {...{ project }} />
                     </motion.div>
                 ))}
-                {isAdmin && !projectsLoading && (
-                    <motion.div
-                        {...STAGGER_UP(projects.length)}
-                        key="add-project"
-                        className="col-12 col-md-6 col-lg-4 col-xl-3"
-                        layout>
-                        <ProjectAdd />
-                    </motion.div>
-                )}
+                {children}
             </AnimatePresence>
         </div>
     );

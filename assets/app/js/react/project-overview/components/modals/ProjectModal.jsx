@@ -19,7 +19,7 @@ export default function ProjectModal({
     descriptionPlaceholder = "What's this project about?",
 }) {
     /* Constants  */
-    const { id: projectId = null, title = "", description = "", projectImages = [], users = [] } = project;
+    const { id: projectId = null, title = "", description = "", projectImages = [], users = [], author } = project;
 
     /* State */
     const [projectTitle, setProjectTitle] = useState(title);
@@ -80,7 +80,7 @@ export default function ProjectModal({
                             />
                         </div>
                         <div className="col-auto d-flex align-items-baseline ml-auto">
-                            <Users {...{ users, projectId }} variant="interactive" />
+                            <Users {...{ users, project: { projectId, author } }} variant="interactive" />
                             <UserAdd {...{ projectId }} />
                         </div>
                     </div>

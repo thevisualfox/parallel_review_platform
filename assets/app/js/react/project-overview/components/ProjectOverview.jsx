@@ -5,6 +5,7 @@ import { useQuery } from "react-query";
 
 /* Components */
 import { ProjectResults } from "./project";
+import { ProjectAdd } from "./project-add";
 
 /* Animations */
 import { STAGGER_UP } from "../../common/animations";
@@ -26,15 +27,25 @@ export default function ProjectOverview() {
 
     /* Render */
     return (
-        <>
-            <ProjectResults {...{ projects, isAdmin, projectsLoading }} />
-            <AnimatePresence>
-                {!isAdmin && !projectsLoading && projects.length === 0 && (
-                    <motion.p {...STAGGER_UP()} className="text-white" layout>
-                        {`You don't have any projects yet`}
-                    </motion.p>
-                )}
-            </AnimatePresence>
-        </>
+        <ProjectResults {...{ projects }}>
+            {isAdmin && !projectsLoading && (
+                <motion.div
+                    {...STAGGER_UP(projects.length)}
+                    key="add-project"
+                    className="col-12 col-md-6 col-lg-4 col-xl-3"
+                    layout>
+                    <ProjectAdd />
+                </motion.div>
+            )}
+            <div className="col-12">
+                <AnimatePresence>
+                    {!isAdmin && !projectsLoading && projects.length === 0 && (
+                        <motion.p {...STAGGER_UP()} className="text-white" layout>
+                            {`You don't have any projects yet`}
+                        </motion.p>
+                    )}
+                </AnimatePresence>
+            </div>
+        </ProjectResults>
     );
 }

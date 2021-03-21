@@ -6,6 +6,7 @@ use App\Repository\ProjectRepository;
 use App\Service\ArrayHelper;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
+use Gedmo\Timestampable\Traits\TimestampableEntity;
 use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Mapping\Annotation as Gedmo;
 
@@ -14,6 +15,8 @@ use Gedmo\Mapping\Annotation as Gedmo;
  */
 class Project
 {
+    use TimestampableEntity;
+
     /**
      * @ORM\Id
      * @ORM\GeneratedValue
@@ -46,6 +49,11 @@ class Project
      * @ORM\ManyToMany(targetEntity=User::class, mappedBy="project")
      */
     private $users;
+
+    /**
+     * @ORM\Column(type="string", length=255)
+     */
+    private $author;
 
     public function __construct()
     {
@@ -100,6 +108,7 @@ class Project
 
         return [
             'id' => $this->getId(),
+            'author' => $this->getAuthor(),
             'slug' => $this->getSlug(),
             'title' => $this->getTitle(),
             'description' => $this->getDescription(),
@@ -161,6 +170,18 @@ class Project
         if ($this->users->removeElement($user)) {
             $user->removeProject($this);
         }
+
+        return $this;
+    }
+
+    public function getAuthor(): ?string
+    {
+        return $this->author;
+    }
+
+    public function setAuthor(string $author): self
+    {
+        $this->author = $author;
 
         return $this;
     }

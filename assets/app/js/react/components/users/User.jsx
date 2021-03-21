@@ -10,17 +10,19 @@ import closeIcon from "icons/close.svg";
 /* Api calls */
 import { deleteUser, QUERY_KEYS } from "../../project-overview/api";
 
-export default function User({ user, projectId, variant = "default" }) {
+export default function User({ user, project, variant = "default" }) {
+    /* Hooks */
+    const queryClient = useQueryClient();
+
     /* Constants */
-    const { roles, id: userId, ...rest } = user;
+    const { projectId, author } = project;
+    const { id: userId, email, ...rest } = user;
+    const isAuthor = email === author;
 
     const classes = {
         default: "user",
         interactive: "user user--lg",
     };
-
-    /* Hooks */
-    const queryClient = useQueryClient();
 
     /* Mutations */
     const deleteUserMutation = useMutation(deleteUser, {
@@ -31,12 +33,12 @@ export default function User({ user, projectId, variant = "default" }) {
     return (
         <div className="col-auto">
             <div className={classes[variant]}>
-                {roles.includes("ROLE_ADMIN") && (
+                {isAuthor && (
                     <div className="user__toggle user__toggle--leader">
                         <ReactSVG wrapper="svg" className="icon icon--6 text-tertiary mt-0" src={starIcon} />
                     </div>
                 )}
-                {variant === "interactive" && !roles.includes("ROLE_ADMIN") && (
+                {variant === "interactive" && !isAuthor && (
                     <button
                         className="btn btn-link user__toggle user__toggle--delete"
                         type="button"
