@@ -4,20 +4,21 @@
 
 namespace Composer\Autoload;
 
-class ComposerStaticInit5f3de822fd783be593754a0d03a23d02
+class ComposerStaticInitad8dae23d6f65b7c8e3a29a5a3d65696
 {
     public static $files = array (
         'a4a119a56e50fbb293281d9a48007e0e' => __DIR__ . '/..' . '/symfony/polyfill-php80/bootstrap.php',
         '6e3fae29631ef280660b3cdad06f25a8' => __DIR__ . '/..' . '/symfony/deprecation-contracts/function.php',
         '0e6d7bf4a5811bfa5cf40c5ccd6fae6a' => __DIR__ . '/..' . '/symfony/polyfill-mbstring/bootstrap.php',
-        'e69f7f6ee287b969198c3c9d6777bd38' => __DIR__ . '/..' . '/symfony/polyfill-intl-normalizer/bootstrap.php',
-        'f598d06aa772fa33d905e87be6398fb1' => __DIR__ . '/..' . '/symfony/polyfill-intl-idn/bootstrap.php',
         '0d59ee240a4cd96ddbb4ff164fccea4d' => __DIR__ . '/..' . '/symfony/polyfill-php73/bootstrap.php',
         '92c8763cd6170fce6fcfe7e26b4e8c10' => __DIR__ . '/..' . '/symfony/phpunit-bridge/bootstrap.php',
         '667aeda72477189d0494fecd327c3641' => __DIR__ . '/..' . '/symfony/var-dumper/Resources/functions/dump.php',
-        '6a47392539ca2329373e0d33e1dba053' => __DIR__ . '/..' . '/symfony/polyfill-intl-icu/bootstrap.php',
+        'e69f7f6ee287b969198c3c9d6777bd38' => __DIR__ . '/..' . '/symfony/polyfill-intl-normalizer/bootstrap.php',
+        'f598d06aa772fa33d905e87be6398fb1' => __DIR__ . '/..' . '/symfony/polyfill-intl-idn/bootstrap.php',
         '8825ede83f2f289127722d4e842cf7e8' => __DIR__ . '/..' . '/symfony/polyfill-intl-grapheme/bootstrap.php',
         'b6b991a57620e2fb6b2f66f03fe9ddc2' => __DIR__ . '/..' . '/symfony/string/Resources/functions.php',
+        '6a47392539ca2329373e0d33e1dba053' => __DIR__ . '/..' . '/symfony/polyfill-intl-icu/bootstrap.php',
+        'c899bf3d7cf083b79d5e2b2575ed07d5' => __DIR__ . '/..' . '/lorenzo/pinky/src/pinky.php',
     );
 
     public static $prefixLengthsPsr4 = array (
@@ -37,7 +38,10 @@ class ComposerStaticInit5f3de822fd783be593754a0d03a23d02
         'T' => 
         array (
             'Twig\\Extra\\TwigExtraBundle\\' => 27,
+            'Twig\\Extra\\Inky\\' => 16,
+            'Twig\\Extra\\CssInliner\\' => 22,
             'Twig\\' => 5,
+            'TijsVerkoyen\\CssToInlineStyles\\' => 31,
         ),
         'S' => 
         array (
@@ -168,8 +172,8 @@ class ComposerStaticInit5f3de822fd783be593754a0d03a23d02
         'phpDocumentor\\Reflection\\' => 
         array (
             0 => __DIR__ . '/..' . '/phpdocumentor/reflection-common/src',
-            1 => __DIR__ . '/..' . '/phpdocumentor/reflection-docblock/src',
-            2 => __DIR__ . '/..' . '/phpdocumentor/type-resolver/src',
+            1 => __DIR__ . '/..' . '/phpdocumentor/type-resolver/src',
+            2 => __DIR__ . '/..' . '/phpdocumentor/reflection-docblock/src',
         ),
         'Zend\\EventManager\\' => 
         array (
@@ -187,9 +191,21 @@ class ComposerStaticInit5f3de822fd783be593754a0d03a23d02
         array (
             0 => __DIR__ . '/..' . '/twig/extra-bundle/src',
         ),
+        'Twig\\Extra\\Inky\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/twig/inky-extra',
+        ),
+        'Twig\\Extra\\CssInliner\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/twig/cssinliner-extra',
+        ),
         'Twig\\' => 
         array (
             0 => __DIR__ . '/..' . '/twig/twig/src',
+        ),
+        'TijsVerkoyen\\CssToInlineStyles\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/tijsverkoyen/css-to-inline-styles/src',
         ),
         'Symfony\\WebpackEncoreBundle\\' => 
         array (
@@ -549,9 +565,9 @@ class ComposerStaticInit5f3de822fd783be593754a0d03a23d02
         ),
         'Doctrine\\Common\\' => 
         array (
-            0 => __DIR__ . '/..' . '/doctrine/common/lib/Doctrine/Common',
-            1 => __DIR__ . '/..' . '/doctrine/event-manager/lib/Doctrine/Common',
-            2 => __DIR__ . '/..' . '/doctrine/persistence/lib/Doctrine/Common',
+            0 => __DIR__ . '/..' . '/doctrine/event-manager/lib/Doctrine/Common',
+            1 => __DIR__ . '/..' . '/doctrine/persistence/lib/Doctrine/Common',
+            2 => __DIR__ . '/..' . '/doctrine/common/lib/Doctrine/Common',
         ),
         'Doctrine\\Bundle\\MigrationsBundle\\' => 
         array (
@@ -596,6 +612,9 @@ class ComposerStaticInit5f3de822fd783be593754a0d03a23d02
         'App\\Controller\\Action\\Project\\ProjectDeleteAction' => __DIR__ . '/../..' . '/src/Controller/Action/Project/ProjectDeleteAction.php',
         'App\\Controller\\Action\\Project\\ProjectEditAction' => __DIR__ . '/../..' . '/src/Controller/Action/Project/ProjectEditAction.php',
         'App\\Controller\\Action\\Project\\ProjectGetAction' => __DIR__ . '/../..' . '/src/Controller/Action/Project/ProjectGetAction.php',
+        'App\\Controller\\Action\\Project\\ProjectGetByIdAction' => __DIR__ . '/../..' . '/src/Controller/Action/Project/ProjectGetByIdAction.php',
+        'App\\Controller\\Action\\User\\UserAddAction' => __DIR__ . '/../..' . '/src/Controller/Action/User/UserAddAction.php',
+        'App\\Controller\\Action\\User\\UserDeleteAction' => __DIR__ . '/../..' . '/src/Controller/Action/User/UserDeleteAction.php',
         'App\\Controller\\ProjectController' => __DIR__ . '/../..' . '/src/Controller/ProjectController.php',
         'App\\Controller\\RegistrationController' => __DIR__ . '/../..' . '/src/Controller/RegistrationController.php',
         'App\\Controller\\SecurityController' => __DIR__ . '/../..' . '/src/Controller/SecurityController.php',
@@ -610,6 +629,8 @@ class ComposerStaticInit5f3de822fd783be593754a0d03a23d02
         'App\\Security\\AppAuthenticator' => __DIR__ . '/../..' . '/src/Security/AppAuthenticator.php',
         'App\\Service\\ArrayHelper' => __DIR__ . '/../..' . '/src/Service/ArrayHelper.php',
         'App\\Service\\ImageHelper' => __DIR__ . '/../..' . '/src/Service/ImageHelper.php',
+        'App\\Service\\Mailer' => __DIR__ . '/../..' . '/src/Service/Mailer.php',
+        'App\\Twig\\AppExtension' => __DIR__ . '/../..' . '/src/Twig/AppExtension.php',
         'Attribute' => __DIR__ . '/..' . '/symfony/polyfill-php80/Resources/stubs/Attribute.php',
         'Behat\\Transliterator\\SyncTool' => __DIR__ . '/..' . '/behat/transliterator/src/Behat/Transliterator/SyncTool.php',
         'Behat\\Transliterator\\Transliterator' => __DIR__ . '/..' . '/behat/transliterator/src/Behat/Transliterator/Transliterator.php',
@@ -5131,6 +5152,12 @@ class ComposerStaticInit5f3de822fd783be593754a0d03a23d02
         'Symfony\\WebpackEncoreBundle\\Exception\\UndefinedBuildException' => __DIR__ . '/..' . '/symfony/webpack-encore-bundle/src/Exception/UndefinedBuildException.php',
         'Symfony\\WebpackEncoreBundle\\Twig\\EntryFilesTwigExtension' => __DIR__ . '/..' . '/symfony/webpack-encore-bundle/src/Twig/EntryFilesTwigExtension.php',
         'Symfony\\WebpackEncoreBundle\\WebpackEncoreBundle' => __DIR__ . '/..' . '/symfony/webpack-encore-bundle/src/WebpackEncoreBundle.php',
+        'TijsVerkoyen\\CssToInlineStyles\\CssToInlineStyles' => __DIR__ . '/..' . '/tijsverkoyen/css-to-inline-styles/src/CssToInlineStyles.php',
+        'TijsVerkoyen\\CssToInlineStyles\\Css\\Processor' => __DIR__ . '/..' . '/tijsverkoyen/css-to-inline-styles/src/Css/Processor.php',
+        'TijsVerkoyen\\CssToInlineStyles\\Css\\Property\\Processor' => __DIR__ . '/..' . '/tijsverkoyen/css-to-inline-styles/src/Css/Property/Processor.php',
+        'TijsVerkoyen\\CssToInlineStyles\\Css\\Property\\Property' => __DIR__ . '/..' . '/tijsverkoyen/css-to-inline-styles/src/Css/Property/Property.php',
+        'TijsVerkoyen\\CssToInlineStyles\\Css\\Rule\\Processor' => __DIR__ . '/..' . '/tijsverkoyen/css-to-inline-styles/src/Css/Rule/Processor.php',
+        'TijsVerkoyen\\CssToInlineStyles\\Css\\Rule\\Rule' => __DIR__ . '/..' . '/tijsverkoyen/css-to-inline-styles/src/Css/Rule/Rule.php',
         'Twig\\Cache\\CacheInterface' => __DIR__ . '/..' . '/twig/twig/src/Cache/CacheInterface.php',
         'Twig\\Cache\\FilesystemCache' => __DIR__ . '/..' . '/twig/twig/src/Cache/FilesystemCache.php',
         'Twig\\Cache\\NullCache' => __DIR__ . '/..' . '/twig/twig/src/Cache/NullCache.php',
@@ -5154,6 +5181,8 @@ class ComposerStaticInit5f3de822fd783be593754a0d03a23d02
         'Twig\\Extension\\SandboxExtension' => __DIR__ . '/..' . '/twig/twig/src/Extension/SandboxExtension.php',
         'Twig\\Extension\\StagingExtension' => __DIR__ . '/..' . '/twig/twig/src/Extension/StagingExtension.php',
         'Twig\\Extension\\StringLoaderExtension' => __DIR__ . '/..' . '/twig/twig/src/Extension/StringLoaderExtension.php',
+        'Twig\\Extra\\CssInliner\\CssInlinerExtension' => __DIR__ . '/..' . '/twig/cssinliner-extra/CssInlinerExtension.php',
+        'Twig\\Extra\\Inky\\InkyExtension' => __DIR__ . '/..' . '/twig/inky-extra/InkyExtension.php',
         'Twig\\Extra\\TwigExtraBundle\\DependencyInjection\\Compiler\\MissingExtensionSuggestorPass' => __DIR__ . '/..' . '/twig/extra-bundle/src/DependencyInjection/Compiler/MissingExtensionSuggestorPass.php',
         'Twig\\Extra\\TwigExtraBundle\\DependencyInjection\\Configuration' => __DIR__ . '/..' . '/twig/extra-bundle/src/DependencyInjection/Configuration.php',
         'Twig\\Extra\\TwigExtraBundle\\DependencyInjection\\TwigExtraExtension' => __DIR__ . '/..' . '/twig/extra-bundle/src/DependencyInjection/TwigExtraExtension.php',
@@ -5516,10 +5545,10 @@ class ComposerStaticInit5f3de822fd783be593754a0d03a23d02
     public static function getInitializer(ClassLoader $loader)
     {
         return \Closure::bind(function () use ($loader) {
-            $loader->prefixLengthsPsr4 = ComposerStaticInit5f3de822fd783be593754a0d03a23d02::$prefixLengthsPsr4;
-            $loader->prefixDirsPsr4 = ComposerStaticInit5f3de822fd783be593754a0d03a23d02::$prefixDirsPsr4;
-            $loader->prefixesPsr0 = ComposerStaticInit5f3de822fd783be593754a0d03a23d02::$prefixesPsr0;
-            $loader->classMap = ComposerStaticInit5f3de822fd783be593754a0d03a23d02::$classMap;
+            $loader->prefixLengthsPsr4 = ComposerStaticInitad8dae23d6f65b7c8e3a29a5a3d65696::$prefixLengthsPsr4;
+            $loader->prefixDirsPsr4 = ComposerStaticInitad8dae23d6f65b7c8e3a29a5a3d65696::$prefixDirsPsr4;
+            $loader->prefixesPsr0 = ComposerStaticInitad8dae23d6f65b7c8e3a29a5a3d65696::$prefixesPsr0;
+            $loader->classMap = ComposerStaticInitad8dae23d6f65b7c8e3a29a5a3d65696::$classMap;
 
         }, null, ClassLoader::class);
     }

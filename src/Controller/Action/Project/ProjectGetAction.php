@@ -11,8 +11,9 @@ use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Security\Core\Security;
 
 /**
- * @Route("/api/projects/get", name="app_get_projects", methods="GET")
+ * @Route("/api/projects/get/{id}", defaults={"id" = null}, requirements={"id" = "\d+"}, name="app_get_projects", methods="GET")
  * @param ProjectRepository $repository
+ * @param User $user
  * @param ArrayHelper $arrayHelper
  * @return Response
  */
@@ -30,9 +31,10 @@ final class ProjectGetAction
         $this->user = $this->security->getUser();
     }
 
-    public function __invoke(ProjectRepository $repository, ArrayHelper $arrayHelper): Response
+    public function __invoke(ProjectRepository $repository, User $user = null, ArrayHelper $arrayHelper): Response
     {
-        $projects = $this->user->getProject();
+        $currentUser = null !== $this->user ? $this->user : $user;
+        $projects = $currentUser->getProject();
 
         $projectsResponse = [];
         foreach ($projects as $project) {
@@ -41,7 +43,7 @@ final class ProjectGetAction
 
         return new JsonResponse([
             'projects' => $projectsResponse,
-            'user' => $this->user->getJsonResponse()
+            'user' => $currentUser->getJsonResponse()
         ]);
     }
 }

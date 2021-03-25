@@ -5,6 +5,7 @@ namespace App\Controller\Action\User;
 use App\Entity\Project;
 use App\Entity\User;
 use App\Repository\UserRepository;
+use App\Service\Mailer;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
@@ -22,27 +23,29 @@ use Colors\RandomColor;
  */
 final class UserAddAction
 {
-    public function __invoke(EntityManagerInterface $entityManager, UserRepository $userRepository, Project $project, Request $request): Response
+    public function __invoke(EntityManagerInterface $entityManager, UserRepository $userRepository, Project $project, Request $request, Mailer $mailer): Response
     {
         $requestBody = json_decode($request->getContent(), true);
         $email = $requestBody['email'];
 
-        $user = $this->getExistingUser($userRepository, $email);
+        try {
+            $user = $userRepository->findOneBy(['email' => $email]);
 
-        if (null === $user) {
-            $user = $this->createNewUser($email);
+            if (null === $user) {
+                $user = $this->createNewUser($email);
+            }
+
+            $user->addProject($project);
+            $entityManager->persist($user);
+            $entityManager->flush();
+
+            // Send mail
+            $mailer->sendUserAddMail($user, $project);
+
+            return new JsonResponse(['user' => $user->getJsonResponse()]);
+        } catch (\Throwable $th) {
+            throw $th;
         }
-
-        $user->addProject($project);
-        $entityManager->persist($user);
-        $entityManager->flush();
-
-        return new JsonResponse(['user' => $user->getJsonResponse()]);
-    }
-
-    private function getExistingUser(UserRepository $userRepository, string $email)
-    {
-        return $userRepository->findOneBy(['email' => $email]);
     }
 
     private function createNewUser(string $email): User

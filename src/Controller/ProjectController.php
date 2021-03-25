@@ -15,11 +15,6 @@ class ProjectController extends AbstractController
      */
     public function showProjects(): Response
     {
-        if (!$this->getUser()) {
-            $this->addFlash('warning', "Please log in first!");
-            return $this->redirectToRoute('app_login');
-        }
-
         return $this->render('pages/project/project-overview.html.twig');
     }
 
@@ -30,12 +25,6 @@ class ProjectController extends AbstractController
      */
     public function showProject(Project $project = null): Response
     {
-        if (!$this->getUser()) {
-            $this->addFlash('warning', "Please log in first!");
-
-            return $this->redirectToRoute('app_login');
-        }
-
         return $this->render('pages/project/project-detail.html.twig', [
             'project' => $project,
         ]);

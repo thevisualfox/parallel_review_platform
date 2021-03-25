@@ -6,13 +6,18 @@ export const QUERY_KEYS = {
 };
 
 /* Project related calls */
-export const fetchProjectsByUser = async () => {
-    const result = await axios.get("/api/projects/get");
+export const fetchProjectsByUser = async ({ userId }) => {
+    let url = "/api/projects/get";
+    if (userId) {
+        url = `${url}/${userId}`;
+    }
+
+    const result = await axios.get(url);
     return result?.data;
 };
 
 export const fetchProjectById = async ({ projectId }) => {
-    const result = await axios.get(`/api/projects/get/${projectId}`);
+    const result = await axios.get(`/api/project/get/${projectId}`);
     return result?.data;
 };
 

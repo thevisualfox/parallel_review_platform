@@ -9,7 +9,7 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
 /**
- * @Route("/api/projects/get/{id}", name="app_get_project_by_id", methods="GET")
+ * @Route("/api/project/get/{id}", name="app_get_project_by_id", methods="GET")
  * @param ArrayHelper $arrayHelper
  * @return Response
  */

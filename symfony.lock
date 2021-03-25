@@ -87,6 +87,9 @@
     "gedmo/doctrine-extensions": {
         "version": "v3.0.3"
     },
+    "lorenzo/pinky": {
+        "version": "1.0.5"
+    },
     "mistic100/randomcolor": {
         "version": "1.0.4"
     },
@@ -551,8 +554,17 @@
     "symfony/yaml": {
         "version": "v5.1.8"
     },
+    "tijsverkoyen/css-to-inline-styles": {
+        "version": "2.2.3"
+    },
+    "twig/cssinliner-extra": {
+        "version": "v3.3.0"
+    },
     "twig/extra-bundle": {
         "version": "v3.1.1"
+    },
+    "twig/inky-extra": {
+        "version": "v3.3.0"
     },
     "twig/twig": {
         "version": "v3.1.1"

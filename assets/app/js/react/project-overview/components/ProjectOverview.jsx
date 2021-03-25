@@ -16,11 +16,16 @@ import { fetchProjectsByUser, QUERY_KEYS } from "../api";
 export default function ProjectOverview() {
     /* State */
     const [isAdmin, setIsAdmin] = useState(false);
+    const userId = atob(location.search.replace("?", ""));
 
     /* Hooks */
-    const { isLoading: projectsLoading, data = {} } = useQuery(QUERY_KEYS.PROJECT_BY_USER, fetchProjectsByUser, {
-        onSuccess: ({ user }) => setIsAdmin(user.roles.includes("ROLE_ADMIN")),
-    });
+    const { isLoading: projectsLoading, data = {} } = useQuery(
+        QUERY_KEYS.PROJECT_BY_USER,
+        () => fetchProjectsByUser({ userId }),
+        {
+            onSuccess: ({ user }) => setIsAdmin(user.roles.includes("ROLE_ADMIN")),
+        }
+    );
 
     /* Constants  */
     const { projects = [] } = data;
