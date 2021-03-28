@@ -1,4 +1,4 @@
 {
-  "build/mail/main.js": "/build/mail/main.js",
-  "build/mail/img/btn-arrow.png": "/build/mail/img/btn-arrow.png"
+  "build/mail/main.js": "http://localhost:8080/build/mail/main.js",
+  "build/mail/img/btn-arrow.png": "http://localhost:8080/build/mail/img/btn-arrow.png"
 }

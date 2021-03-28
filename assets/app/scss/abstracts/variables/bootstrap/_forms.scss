@@ -7,17 +7,18 @@ $input-font-size:                       $font-size-base;
 $input-font-weight:                     $font-weight-light;
 $input-line-height:                     $line-height-base;
 
-$input-bg:                              rgba($white, 0.07);
-$input-color:                           rgba($white, 0.7);
-$input-border-color:                    rgba($white, 0.1);
+$input-bg:                              $primary;
+$input-color:                           rgba($white, 0.75);
+$input-border-color:                    $border-color;
 $input-border-width:                    $input-btn-border-width;
+$input-border-radius:                   $border-radius;
 $input-box-shadow:                      none;
 
-$input-focus-border-color:              $border-color;
+$input-focus-border-color:              rgba($secondary, 0.5);
 $input-focus-width:                     0;
 $input-focus-box-shadow:                none;
 
-$input-placeholder-color:               rgba($white, 0.3);
+$input-placeholder-color:               rgba($white, 0.5);
 
 $form-group-margin-bottom:              spacer(2);
 
@@ -25,6 +26,6 @@ $custom-control-gutter:                 px-to-rem(10);
 $custom-control-indicator-size:         px-to-rem(20);
 $custom-control-indicator-border-color: $input-border-color;
 
-$custom-control-indicator-checked-color:        $white;
+$custom-control-indicator-checked-color:        $secondary;
 $custom-control-indicator-checked-bg:           $input-bg;
 $custom-control-indicator-checked-border-color: $input-border-color;

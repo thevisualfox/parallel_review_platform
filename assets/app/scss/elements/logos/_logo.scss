@@ -5,6 +5,11 @@
 
 .logo {
     display: inline-block;
+    color: $white;
+
+    @include media-breakpoint-up(md) {
+        color: $color-base;
+    }
 }
 
 .logo__link {

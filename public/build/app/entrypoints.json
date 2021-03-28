@@ -2,11 +2,12 @@
   "entrypoints": {
     "main": {
       "js": [
-        "/build/app/vendors~main.js",
-        "/build/app/main.js"
+        "http://localhost:8080/build/app/vendors~_tmp_copy~main.js",
+        "http://localhost:8080/build/app/vendors~main.js",
+        "http://localhost:8080/build/app/main.js"
       ],
       "css": [
-        "/build/app/main.css"
+        "http://localhost:8080/build/app/main.css"
       ]
     }
   }
