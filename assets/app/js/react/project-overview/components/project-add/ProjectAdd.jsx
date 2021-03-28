@@ -28,7 +28,7 @@ export default function ProjectAdd() {
 
     /* Mutations */
     const addMutation = useMutation(addProject, {
-        onSuccess: ({ id }) => setProjectId(id),
+        onSuccess: ({ project }) => setProjectId(project.id),
     });
 
     const editMutation = useMutation(editProject, {
