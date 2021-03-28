@@ -20,13 +20,20 @@ const TRANSFORM_UP = {
         y: "100%",
     },
     animate: {
-        y: 0,
+        y: "0%",
+        transition: {
+            type: "spring",
+            damping: 41,
+            stiffness: 600,
+        },
     },
     exit: {
         y: "100%",
-    },
-    transition: {
-        ease: EASE,
+        transition: {
+            type: "spring",
+            damping: 41,
+            stiffness: 1200,
+        },
     },
 };
 
@@ -50,15 +57,15 @@ const SCALE_FADE = {
 };
 
 const STAGGER_UP = (index = 0) => ({
-    initial: { opacity: 0, y: 25 },
-    animate: { opacity: 1, y: 0, transition: { ease: EASE, delay: index * 0.035 } },
-    exit: { opacity: 0, y: -25, transition: { ease: EASE } },
+    initial: { opacity: 0, y: 35 },
+    animate: { opacity: 1, y: 0, transition: { type: "spring", damping: 30, stiffness: 450, delay: index * 0.035 } },
+    exit: { opacity: 0, scale: 0.25, transition: { type: "spring", damping: 30, stiffness: 600 } },
 });
 
 const STAGGER_LEFT = (index = 0) => ({
     initial: { opacity: 0, x: 10 },
-    animate: { opacity: 1, x: 0, transition: { ease: EASE, delay: index * 0.035 } },
-    exit: { opacity: 0, x: 10, transition: { ease: EASE } },
+    animate: { opacity: 1, x: 0, transition: { type: "spring", damping: 30, stiffness: 300, delay: index * 0.035 } },
+    exit: { opacity: 0, x: 10, transition: { type: "spring", damping: 30, stiffness: 600 } },
 });
 
 export { FADE_IN, TRANSFORM_UP, SCALE_FADE, STAGGER_UP, STAGGER_LEFT };
