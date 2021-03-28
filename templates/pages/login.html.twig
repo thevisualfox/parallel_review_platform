@@ -33,24 +33,24 @@
                                 <input type="password" class="form-control" id="inputPassword" name="password" placeholder="Password" required>
                             </div>
                         </div>
-                        <div class="d-flex align-items-md-center flex-column flex-md-row mt-3 mb-5">
+                        <div class="d-flex align-items-md-center flex-column flex-md-row mb-4">
                             <div class="custom-control custom-checkbox mb-0">
                                 <input type="checkbox" class="custom-control-input" id="inputRememberMe" name="_remember_me">
                                 <label class="custom-control-label text-white text-muted--70" for="inputRememberMe">Keep me logged in</label>
                             </div>
-                            {# <a href="#" class="btn btn-link text-left text-md-right ml-md-auto mt-3 mt-md-0">
-                                <span class="btn__text text-white text-muted--70">Forgot your password?</span>
-                            </a> #}
                         </div>
-                        <button type="submit" class="btn btn-white btn-block">
-                            <span class="btn__text">Log in</span>
-                        </button>
-                        <a href="{{ path('app_signup') }}" class="btn btn-link text-md-right btn-block mt-4 mt-md-7">
-                            <span class="btn__text text-white">
-                                <span class="text-muted--70">Not an account yet?</span>
-                                <span class="ml-1 font-weight-normal">Sign up</span>
-                            </span>
-                        </a>
+                        <div class="row gutters-2">
+                            <div class="col-12 col-md-6">
+                                <button type="submit" class="btn btn-secondary btn-block">
+                                    <span class="btn__text">Log in</span>
+                                </button>
+                            </div>
+                            <div class="col-12 col-md-6">
+                                <a class="btn btn-outline-white btn-block" href="{{ path('app_signup') }}" title="sign up">
+                                    <span class="btn__text">Sign up</span>
+                                </a>
+                            </div>
+                        </div>
                     </form>
                 </div>
             </div>
