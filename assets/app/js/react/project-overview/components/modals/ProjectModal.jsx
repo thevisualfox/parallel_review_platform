@@ -88,10 +88,10 @@ export default function ProjectModal({
                 </div>
                 <div className="custom-modal__footer px-6 pb-6 pb-md-12">
                     <div className="row gutters-0 w-100">
-                        <div className="col-12 col-lg-3 col-xl-2 ml-auto">
+                        <div className="col-12 col-lg-2 ml-auto">
                             <button
                                 type="submit"
-                                className="custom-modal__btn btn btn-block btn-sm btn-white d-flex align-items-center justify-content-center">
+                                className="custom-modal__btn btn btn-block btn-secondary d-flex align-items-center justify-content-center">
                                 <motion.span className="btn-text">
                                     <span>Save</span>
                                 </motion.span>

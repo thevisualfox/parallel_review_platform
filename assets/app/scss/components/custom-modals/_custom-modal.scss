@@ -7,7 +7,7 @@
 .custom-modal__overlay {
     @extend %absolute-fill;
 
-    background-color: rgba($primary, 0.75);
+    background-color: rgba($color-base, 0.9);
 }
 
 .custom-modal__content {
@@ -17,7 +17,7 @@
     bottom: 0;
     left: 0;
     right: 0;
-    background-color: $color-base;
+    background-color: $primary;
     border-top: $border-width solid $border-color;
     overflow-y: auto;
     overscroll-behavior: contain;
@@ -26,7 +26,8 @@
     height: 100%;
 
     @include media-breakpoint-up(lg) {
-        max-height: 80vh;
+        max-height: 90vh;
+        height: auto;
     }
 }
 
@@ -39,7 +40,7 @@
     position: sticky;
     top: 0;
     z-index: $zindex-sticky;
-    background-color: $color-base;
+    background-color: $primary;
 }
 
 .custom-modal__close {

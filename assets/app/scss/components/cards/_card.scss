@@ -14,7 +14,8 @@
         @extend %absolute-fill;
 
         content: '';
-        border: $border-width solid $white;
+        border: $border-width solid $secondary;
+        border-radius: $border-radius;
         opacity: 0;
     }
 
