@@ -10,7 +10,7 @@ import closeIcon from "icons/close.svg";
 /* Api calls */
 import { deleteUser, QUERY_KEYS } from "../../project-overview/api";
 
-export default function User({ user, project, variant = "default" }) {
+export default function User({ user, project, variant = "default", size = "md" }) {
     /* Hooks */
     const queryClient = useQueryClient();
 
@@ -19,10 +19,7 @@ export default function User({ user, project, variant = "default" }) {
     const { id: userId, email, ...rest } = user;
     const isAuthor = email === author;
 
-    const classes = {
-        default: "user",
-        interactive: "user user--lg",
-    };
+    const classes = ["user", `user--${size}`, `user--${variant}`].join(" ");
 
     /* Mutations */
     const deleteUserMutation = useMutation(deleteUser, {
@@ -32,20 +29,20 @@ export default function User({ user, project, variant = "default" }) {
     /* Render */
     return (
         <div className="col-auto">
-            <div className={classes[variant]}>
+            <div className={classes}>
                 {isAuthor && (
-                    <div className="user__toggle user__toggle--leader">
-                        <ReactSVG wrapper="svg" className="icon icon--6 text-tertiary mt-0" src={starIcon} />
+                    <div className="user__status user__status--leader">
+                        <ReactSVG wrapper="svg" className="user__status-icon icon text-tertiary mt-0" src={starIcon} />
                     </div>
                 )}
                 {variant === "interactive" && !isAuthor && (
                     <button
-                        className="btn btn-link user__toggle user__toggle--delete"
+                        className="btn btn-link user__status user__status--delete"
                         type="button"
                         onClick={() => {
                             deleteUserMutation.mutate({ projectId, userId });
                         }}>
-                        <ReactSVG wrapper="svg" className="icon icon--6 text-base mt-0" src={closeIcon} />
+                        <ReactSVG wrapper="svg" className="user__status-icon icon text-base mt-0" src={closeIcon} />
                     </button>
                 )}
                 <UserImage {...rest} />
@@ -61,12 +58,12 @@ const UserImage = ({ username, image, userColor }) => {
     /* Render */
     if (image) {
         return (
-            <img className="user__image img-fluid rounded-circle" src={image} srcSet={`${image} 2x`} alt={username} />
+            <img className="user__avatar img-fluid rounded-circle" src={image} srcSet={`${image} 2x`} alt={username} />
         );
     }
 
     return (
-        <span className="user__image user__image--initials rounded-circle" style={{ backgroundColor: userColor }}>
+        <span className="user__avatar user__avatar--initials rounded-circle" style={{ backgroundColor: userColor }}>
             {userInitials}
         </span>
     );

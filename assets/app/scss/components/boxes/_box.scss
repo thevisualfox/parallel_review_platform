@@ -1,8 +1,19 @@
 .box {
-    position: absolute;
-    top: calc(100% + #{spacer(2)});
-    right: spacer(1);
-    background-color: $color-base;
+    @extend %center-flex, %absolute-fill;
+
     z-index: $zindex-fixed;
-    min-width: 350px;
+}
+
+.box__content {
+    background-color: $primary;
+    border-radius: $border-radius;
+    z-index: $zindex-fixed;
+    min-width: 400px;
+    max-width: 400px;
+}
+
+.box-overlay {
+    @extend %absolute-fill;
+
+    background-color: rgba($color-base, 0.5);
 }

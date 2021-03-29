@@ -67,3 +67,8 @@ h6,
 .h6 {
     text-transform: uppercase;
 }
+
+hr {
+    margin: 0;
+    border: $border-width solid $border-color;
+}

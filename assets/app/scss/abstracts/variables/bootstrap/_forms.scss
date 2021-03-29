@@ -7,14 +7,14 @@ $input-font-size:                       $font-size-base;
 $input-font-weight:                     $font-weight-light;
 $input-line-height:                     $line-height-base;
 
-$input-bg:                              $primary;
+$input-bg:                              lighten($primary, 3%);
 $input-color:                           rgba($white, 0.75);
 $input-border-color:                    $border-color;
 $input-border-width:                    $input-btn-border-width;
 $input-border-radius:                   $border-radius;
 $input-box-shadow:                      none;
 
-$input-focus-border-color:              rgba($secondary, 0.5);
+$input-focus-border-color:              lighten($border-color, 7%);
 $input-focus-width:                     0;
 $input-focus-box-shadow:                none;
 

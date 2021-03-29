@@ -3,6 +3,7 @@ import axios from "axios";
 export const QUERY_KEYS = {
     PROJECT_BY_USER: "project_by_user",
     PROJECT_BY_ID: "project_by_id",
+    GLOBAL_USERS: "global_users"
 };
 
 /* Project related calls */
@@ -53,6 +54,11 @@ export const deleteProjectImages = async ({ projectId, id }) => {
 };
 
 /* User related calls */
+export const fetchGobalUsers = async () => {
+    const result = await axios.get("/api/users/get");
+    return result?.data;
+};
+
 export const addUser = async ({ projectId, email }) => {
     const result = await axios.post(`/api/users/add/${projectId}`, { email });
     return result?.data;

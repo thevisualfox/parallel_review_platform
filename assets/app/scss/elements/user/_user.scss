@@ -1,12 +1,15 @@
+:root {
+    --avatar-dimensions: 26px;
+    --status-dimensions: 12px;
+}
+
 .user {
     position: relative;
 }
 
-.user__image {
-    --dimensions: #{px-to-rem(25)};
-
-    width: var(--dimensions);
-    height: var(--dimensions);
+.user__avatar {
+    width: var(--avatar-dimensions);
+    height: var(--avatar-dimensions);
 
     @include object-fit(cover);
 
@@ -14,31 +17,33 @@
         @extend %center-flex;
 
         font-family: $font-family-base;
-        font-size: px-to-rem(12);
+        font-size: calc(var(--avatar-dimensions) * 0.4);
         border: $border-width solid $border-color;
-        color: $white;
         transition: border-color 200ms ease;
     }
 }
 
-.user__toggle {
+.user__status {
     @extend %center-flex;
 
-    $dimensions: 12px;
-
     position: absolute;
-    top: -2px;
-    left: -2px;
-    height: $dimensions;
-    width: $dimensions;
+    top: calc(var(--status-dimensions) / 4 * -1);
+    left: calc(var(--status-dimensions) / 4 * -1);
+    height: var(--status-dimensions);
+    width: var(--status-dimensions);
     border-radius: 50%;
 }
 
-.user__toggle--leader {
+.user__status-icon {
+    width: calc(var(--status-dimensions) / 2);
+    height: calc(var(--status-dimensions) / 2);
+}
+
+.user__status--leader {
     background-color: $black;
 }
 
-.user__toggle--delete {
+.user__status--delete {
     position: absolute;
     left: auto;
     right: -2px;
@@ -54,17 +59,17 @@
 }
 
 .user--lg {
-    .user__image {
-        --dimensions: #{px-to-rem(30)};
-    }
+    --avatar-dimensions: 30px;
+    --status-dimensions: 16px;
+}
 
-    .user__image--initials {
-        font-size: px-to-rem(14);
-    }
+.user--xl {
+    --avatar-dimensions: 40px;
+    --status-dimensions: 20px;
 }
 
 .user--add {
-    &:hover .user__image--initials {
+    &:hover .user__avatar--initials {
         border-color: $white;
     }
 }

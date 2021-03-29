@@ -27,6 +27,7 @@
 
     @include media-breakpoint-up(lg) {
         max-height: 90vh;
+        min-height: 80vh;
         height: auto;
     }
 }

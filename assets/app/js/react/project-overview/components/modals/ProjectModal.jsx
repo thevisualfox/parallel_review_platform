@@ -9,7 +9,8 @@ import closeIcon from "icons/close.svg";
 
 /* Components */
 import { Modal, Dropzone } from "../../../common";
-import { UserAdd, Users } from "../../../components/users";
+import { Users } from "../../../components/users";
+import { UserAdd } from "../../../components/user-add";
 
 export default function ProjectModal({
     project = {},
@@ -19,7 +20,7 @@ export default function ProjectModal({
     descriptionPlaceholder = "What's this project about?",
 }) {
     /* Constants  */
-    const { id: projectId = null, title = "", description = "", projectImages = [], users = [], author } = project;
+    const { id: projectId = null, title = "", description = "", projectImages = [], users = [] } = project;
 
     /* State */
     const [projectTitle, setProjectTitle] = useState(title);
@@ -80,8 +81,8 @@ export default function ProjectModal({
                             />
                         </div>
                         <div className="col-auto d-flex align-items-baseline ml-auto">
-                            <Users {...{ users, project: { projectId, author } }} variant="interactive" />
-                            <UserAdd {...{ projectId }} />
+                            <Users {...{ users, project }} variant="interactive" size="lg" />
+                            <UserAdd {...{ users, project }} />
                         </div>
                     </div>
                     <Dropzone {...{ projectId, projectImages }} />

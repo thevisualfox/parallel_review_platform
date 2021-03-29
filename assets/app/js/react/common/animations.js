@@ -15,6 +15,31 @@ const FADE_IN = {
     },
 };
 
+const FADE_IN_UP = {
+    initial: {
+        y: 200,
+        opacity: 0,
+    },
+    animate: {
+        y: 0,
+        opacity: 1,
+        transition: {
+            type: "spring",
+            damping: 42,
+            stiffness: 800,
+        },
+    },
+    exit: {
+        y: 200,
+        opacity: 0,
+        transition: {
+            type: "spring",
+            damping: 42,
+            stiffness: 1200,
+        },
+    },
+};
+
 const TRANSFORM_UP = {
     initial: {
         y: "100%",
@@ -68,4 +93,4 @@ const STAGGER_LEFT = (index = 0) => ({
     exit: { opacity: 0, x: 10, transition: { type: "spring", damping: 30, stiffness: 600 } },
 });
 
-export { FADE_IN, TRANSFORM_UP, SCALE_FADE, STAGGER_UP, STAGGER_LEFT };
+export { FADE_IN, FADE_IN_UP, TRANSFORM_UP, SCALE_FADE, STAGGER_UP, STAGGER_LEFT };

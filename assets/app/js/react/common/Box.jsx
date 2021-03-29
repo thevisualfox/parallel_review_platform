@@ -3,26 +3,37 @@ import React from "react";
 import { AnimatePresence, motion } from "framer-motion";
 
 /* Animations */
-import { FADE_IN } from "./animations";
+import { FADE_IN, FADE_IN_UP } from "./animations";
 import { ReactSVG } from "react-svg";
 
 /* Assets */
 import closeIcon from "icons/close.svg";
+import { createPortal } from "react-dom";
 
-export default function Box({ header, boxOpen, toggleBox, children }) {
-    return (
+export default function Box({ header, content, boxOpen, toggleBox, children }) {
+    return createPortal(
         <AnimatePresence>
             {boxOpen && (
-                <motion.div key="box" className="box border p-5" {...FADE_IN}>
-                    <div className="box__header d-flex align-items-center">
-                        <p className="text-white mb-0">{header}</p>
-                        <button type="button" className="custom-modal__close btn btn-link ml-auto" onClick={toggleBox}>
-                            <ReactSVG wrapper="svg" className="icon icon--12" src={closeIcon} />
-                        </button>
-                    </div>
-                    <div className="box__body d-flex mt-4">{children}</div>
-                </motion.div>
+                <div className="box">
+                    <motion.div className="box-overlay" {...FADE_IN} onClick={toggleBox} />
+                    <motion.div key="box-content" className="box__content border p-5" {...FADE_IN_UP}>
+                        <div className="box__header d-flex align-items-baseline">
+                            <div className="d-flex flex-column">
+                                <p className="text--lg mb-1">{header}</p>
+                                <p className="text-muted--60 mb-0">{content}</p>
+                            </div>
+                            <button
+                                type="button"
+                                className="custom-modal__close btn btn-link ml-auto"
+                                onClick={toggleBox}>
+                                <ReactSVG wrapper="svg" className="icon icon--12" src={closeIcon} />
+                            </button>
+                        </div>
+                        <div className="box__body d-flex mt-4">{children}</div>
+                    </motion.div>
+                </div>
             )}
-        </AnimatePresence>
+        </AnimatePresence>,
+        document.body
     );
 }
