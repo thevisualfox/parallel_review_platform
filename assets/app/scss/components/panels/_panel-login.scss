@@ -29,8 +29,6 @@
     }
 
     .panel__body {
-        overflow: auto;
-        overscroll-behavior: contain;
-        -webkit-overflow-scrolling: touch;
+        @extend %scroll-auto ;
     }
 }

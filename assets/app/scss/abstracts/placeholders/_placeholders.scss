@@ -23,3 +23,9 @@
 %center-flex {
     @extend .d-flex, .align-items-center, .justify-content-center;
 }
+
+%scroll-auto {
+    overflow-y: auto;
+    overscroll-behavior: contain;
+    -webkit-overflow-scrolling: touch;
+}
