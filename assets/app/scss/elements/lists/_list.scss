@@ -11,6 +11,6 @@
 
 .list--spaced {
     .list__item {
-        @extend %vertical-rhythm-1;
+        @extend .vr-1;
     }
 }
