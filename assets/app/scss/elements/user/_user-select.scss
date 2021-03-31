@@ -1,0 +1,51 @@
+.user--select {
+    @extend .btn, .btn-block;
+
+    text-align: left;
+    font-weight: $font-weight-base;
+    padding: 0;
+
+    &:before {
+        content: '';
+        position: absolute;
+        top: - spacer(2);
+        right: - spacer(6);
+        bottom: - spacer(2);
+        left: - spacer(6);
+        background-color: rgba($secondary, 0.1);
+        opacity: 0;
+        transition: opacity 200ms ease;
+    }
+
+    .user__add {
+        @extend %center-flex;
+
+        width: 25px;
+        height: 25px;
+        background-color: transparent;
+        border: $border-width solid $border-color;
+        transition: background-color 200ms ease, background-color 200ms ease;
+    }
+
+    .user__add-icon {
+        opacity: 0;
+        transition: opacity 200ms ease;
+    }
+
+    &:hover,
+    &:focus,
+    &.is-focused {
+        &:before {
+            opacity: 1;
+        }
+
+        .user__add {
+            background-color: $secondary;
+            border-color: $secondary;
+        }
+
+        .user__add-icon {
+            opacity: 1;
+        }
+    }
+}

@@ -5,15 +5,21 @@
 }
 
 .box__content {
+    @extend .d-flex, .flex-column, .overflow-hidden;
+
     background-color: $primary;
     border-radius: $border-radius;
     z-index: $zindex-fixed;
-    min-width: 400px;
-    max-width: 400px;
+    width: 450px;
+    height: 520px;
+}
+
+.box__body {
+    @extend .flex-grow-1;
 }
 
 .box-overlay {
     @extend %absolute-fill;
 
-    background-color: rgba($color-base, 0.5);
+    background-color: rgba($color-base, 0.75);
 }

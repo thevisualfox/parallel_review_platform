@@ -12,6 +12,7 @@ const FADE_IN = {
     },
     transition: {
         ease: EASE,
+        duration: 0.2,
     },
 };
 

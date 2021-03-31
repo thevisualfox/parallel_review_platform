@@ -1,21 +1,21 @@
 /* Packages */
 import React from "react";
+import { createPortal } from "react-dom";
 import { AnimatePresence, motion } from "framer-motion";
+import { ReactSVG } from "react-svg";
 
 /* Animations */
 import { FADE_IN, FADE_IN_UP } from "./animations";
-import { ReactSVG } from "react-svg";
 
 /* Assets */
 import closeIcon from "icons/close.svg";
-import { createPortal } from "react-dom";
 
 export default function Box({ header, content, boxOpen, toggleBox, children }) {
     return createPortal(
         <AnimatePresence>
             {boxOpen && (
                 <div className="box">
-                    <motion.div className="box-overlay" {...FADE_IN} onClick={toggleBox} />
+                    <motion.div className="box-overlay" {...FADE_IN} />
                     <motion.div key="box-content" className="box__content border p-5" {...FADE_IN_UP}>
                         <div className="box__header d-flex align-items-baseline">
                             <div className="d-flex flex-column">

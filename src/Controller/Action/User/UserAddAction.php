@@ -39,9 +39,6 @@ final class UserAddAction
             $entityManager->persist($user);
             $entityManager->flush();
 
-            // Send mail
-            $mailer->sendUserAddMail($user, $project);
-
             return new JsonResponse(['user' => $user->getJsonResponse()]);
         } catch (\Throwable $th) {
             throw $th;

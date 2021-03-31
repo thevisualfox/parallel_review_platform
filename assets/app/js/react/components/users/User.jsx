@@ -5,7 +5,7 @@ import { useMutation, useQueryClient } from "react-query";
 
 /* Assets */
 import starIcon from "icons/star.svg";
-import closeIcon from "icons/close.svg";
+import deleteIcon from "icons/delete.svg";
 
 /* Api calls */
 import { deleteUser, QUERY_KEYS } from "../../project-overview/api";
@@ -15,10 +15,10 @@ export default function User({ user, project, variant = "default", size = "md" }
     const queryClient = useQueryClient();
 
     /* Constants */
-    const { projectId, author } = project;
-    const { id: userId, email, ...rest } = user;
-    const isAuthor = email === author;
+    const { id: projectId, author } = project;
+    const { id: userId, email } = user;
 
+    const isAuthor = email === author;
     const classes = ["user", `user--${size}`, `user--${variant}`].join(" ");
 
     /* Mutations */
@@ -28,43 +28,46 @@ export default function User({ user, project, variant = "default", size = "md" }
 
     /* Render */
     return (
-        <div className="col-auto">
-            <div className={classes}>
-                {isAuthor && (
-                    <div className="user__status user__status--leader">
-                        <ReactSVG wrapper="svg" className="user__status-icon icon text-tertiary mt-0" src={starIcon} />
-                    </div>
-                )}
+        <div className={classes}>
+            <UserAvatar {...user}>
                 {variant === "interactive" && !isAuthor && (
                     <button
-                        className="btn btn-link user__status user__status--delete"
+                        className="user__action btn btn-link p-0"
                         type="button"
-                        onClick={() => {
-                            deleteUserMutation.mutate({ projectId, userId });
-                        }}>
-                        <ReactSVG wrapper="svg" className="user__status-icon icon text-base mt-0" src={closeIcon} />
+                        onClick={() => deleteUserMutation.mutate({ projectId, userId })}>
+                        <ReactSVG
+                            wrapper="svg"
+                            className="user__action-icon icon icon--14 text-white"
+                            src={deleteIcon}
+                        />
                     </button>
                 )}
-                <UserImage {...rest} />
-            </div>
+            </UserAvatar>
+            {isAuthor && (
+                <div className="user__status user__status--leader">
+                    <ReactSVG wrapper="svg" className="user__status-icon icon text-tertiary mt-0" src={starIcon} />
+                </div>
+            )}
         </div>
     );
 }
 
-const UserImage = ({ username, image, userColor }) => {
+export const UserAvatar = ({ username, userColor, children }) => {
     /* Constants */
     const userInitials = username.split(" ").map((word) => word[0].toUpperCase());
 
     /* Render */
-    if (image) {
-        return (
-            <img className="user__avatar img-fluid rounded-circle" src={image} srcSet={`${image} 2x`} alt={username} />
-        );
-    }
-
     return (
-        <span className="user__avatar user__avatar--initials rounded-circle" style={{ backgroundColor: userColor }}>
-            {userInitials}
-        </span>
+        <div className="user__avatar" style={{ backgroundColor: userColor }}>
+            <span className="user__initials">{userInitials}</span>
+            {children}
+        </div>
     );
 };
+
+export const UserInfo = ({ username, email }) => (
+    <div className="d-flex flex-column ml-2">
+        <p className="mb-0">{username}</p>
+        <p className="text-muted--60 text--xs">{email}</p>
+    </div>
+);

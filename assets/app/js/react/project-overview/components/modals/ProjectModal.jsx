@@ -81,7 +81,7 @@ export default function ProjectModal({
                             />
                         </div>
                         <div className="col-auto d-flex align-items-baseline ml-auto">
-                            <Users {...{ users, project }} variant="interactive" size="lg" />
+                            <Users {...{ users, project }} size="lg" />
                             <UserAdd {...{ users, project }} />
                         </div>
                     </div>

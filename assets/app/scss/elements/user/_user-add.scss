@@ -1,0 +1,12 @@
+.user--add {
+    .user__avatar {
+        border-color: rgba($white, 0.5);
+        color: rgba($white, 0.5);
+        transition: border-color 200ms ease, color 200ms ease;
+    }
+
+    &:hover .user__avatar {
+        border-color: $white;
+        color: $white;
+    }
+}
