@@ -27,7 +27,7 @@ export default function UserAdd({ users, project }) {
                 </span>
             </button>
             <Box header="Select users" content="Choose some users to collaborate with." {...{ boxOpen, toggleBox }}>
-                <UserAddSearch {...{ users, project }} />
+                <UserAddSearch {...{ users, project, toggleBox }} />
             </Box>
         </div>
     );

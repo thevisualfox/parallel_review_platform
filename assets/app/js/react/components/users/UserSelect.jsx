@@ -11,14 +11,21 @@ import { UserAvatar, UserInfo } from "./User";
 export default function UserSelect({ user, handleClick, isFocused, setFocusedUser }) {
     /* Effects */
     useEffect(() => {
-        isFocused && setFocusedUser && setFocusedUser(user);
+        isFocused && setFocusedUser(user);
     }, [isFocused]);
+
+    /* Callbacks */
+    const handleStatus = (action) => {
+        setFocusedUser(action === "enter" ? user : null);
+    };
 
     /* Render */
     return (
         <button
             className={`user user--select ${isFocused && "is-focused"} user--xl`}
-            onClick={() => handleClick(user.email)}>
+            onClick={() => handleClick(user.email)}
+            onMouseEnter={() => handleStatus("enter")}
+            onMouseLeave={() => handleStatus("leave")}>
             <div className="d-flex align-items-center">
                 <UserAvatar {...user} />
                 <UserInfo {...user} />

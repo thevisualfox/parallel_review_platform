@@ -5,17 +5,29 @@
 }
 
 .box__content {
-    @extend .d-flex, .flex-column, .overflow-hidden;
+    @extend .d-flex, .flex-column;
 
     background-color: $primary;
     border-radius: $border-radius;
     z-index: $zindex-fixed;
-    width: 450px;
-    height: 520px;
+    width: 400px;
 }
 
 .box__body {
     @extend .flex-grow-1;
+}
+
+.box__list {
+    @extend %scroll-auto;
+    @extend .bg-primary, .border, .rounded, .p-3;
+
+    position: absolute;
+    top: calc(100% - #{spacer(1)});
+    left: - spacer(3);
+    right: - spacer(3);
+    overflow-x: hidden;
+    z-index: $zindex-dropdown;
+    max-height: 200px;
 }
 
 .box-overlay {

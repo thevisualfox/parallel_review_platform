@@ -11,3 +11,7 @@ $input-btn-focus-width:                      2px;
 $btn-border-radius:                          px-to-rem(30);
 $btn-padding-y:                              px-to-rem(8);
 $btn-padding-x:                              px-to-rem(15);
+
+$btn-border-radius-sm:                       $btn-border-radius;
+$btn-padding-y-sm:                           px-to-rem(6);
+$btn-padding-x-sm:                           px-to-rem(15);

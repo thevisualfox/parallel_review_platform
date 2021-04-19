@@ -23,6 +23,10 @@
     font-size: $font-size-xl;
 }
 
+.text-decoration-underline {
+    text-decoration: underline;
+}
+
 // Brand text colors
 
 @each $brand, $color in $brand-colors {
