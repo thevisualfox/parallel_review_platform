@@ -5,8 +5,9 @@ namespace App\Controller;
 use App\Entity\User;
 use App\Form\RegistrationFormType;
 use App\Security\AppAuthenticator;
-use App\Service\Mailer;
+use App\Message\RegisterEmail;
 use Colors\RandomColor;
+use Symfony\Component\Messenger\MessageBusInterface;
 use Symfony\Bridge\Twig\Mime\TemplatedEmail;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -21,7 +22,7 @@ class RegistrationController extends AbstractController
 {
     /**
      * @Route("/signup", name="app_signup")
-     * @param Mailer $mailer
+     * @param MessageBusInterface $messageBus
      * @param Request $request
      * @param UserPasswordEncoderInterface $passwordEncoder
      * @param GuardAuthenticatorHandler $guardHandler
@@ -29,7 +30,7 @@ class RegistrationController extends AbstractController
      * @return Response
      * @throws \Symfony\Component\Mailer\Exception\TransportExceptionInterface
      */
-    public function register(Mailer $mailer, Request $request, UserPasswordEncoderInterface $passwordEncoder, GuardAuthenticatorHandler $guardHandler, AppAuthenticator $authenticator): Response
+    public function register(MessageBusInterface $messageBus, Request $request, UserPasswordEncoderInterface $passwordEncoder, GuardAuthenticatorHandler $guardHandler, AppAuthenticator $authenticator): Response
     {
         $user = new User();
         $form = $this->createForm(RegistrationFormType::class, $user);
@@ -52,7 +53,7 @@ class RegistrationController extends AbstractController
             $entityManager->flush();
 
             // Send mail
-            $mailer->sendRegistrationMail($user);
+            $messageBus->dispatch(new RegisterEmail($user->getId()));
 
             return $guardHandler->authenticateUserAndHandleSuccess(
                 $user,

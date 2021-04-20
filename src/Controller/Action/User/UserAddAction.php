@@ -5,12 +5,13 @@ namespace App\Controller\Action\User;
 use App\Entity\Project;
 use App\Entity\User;
 use App\Repository\UserRepository;
-use App\Service\Mailer;
+use App\Message\ProjectUserAddEmail;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Messenger\MessageBusInterface;
 use Colors\RandomColor;
 
 /**
@@ -23,7 +24,7 @@ use Colors\RandomColor;
  */
 final class UserAddAction
 {
-    public function __invoke(EntityManagerInterface $entityManager, UserRepository $userRepository, Project $project, Request $request, Mailer $mailer): Response
+    public function __invoke(EntityManagerInterface $entityManager, UserRepository $userRepository, Project $project, Request $request, MessageBusInterface $messageBus): Response
     {
         $requestBody = json_decode($request->getContent(), true);
         $email = $requestBody['email'];
@@ -38,6 +39,10 @@ final class UserAddAction
             $user->addProject($project);
             $entityManager->persist($user);
             $entityManager->flush();
+
+            $messageBus->dispatch(
+                new ProjectUserAddEmail($user->getId(), $project->getId())
+            );
 
             return new JsonResponse(['user' => $user->getJsonResponse()]);
         } catch (\Throwable $th) {
