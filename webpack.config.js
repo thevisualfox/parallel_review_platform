@@ -1,6 +1,7 @@
-const dotenv = require("dotenv");
-dotenv.config();
+const app = require('./webpack.config.app');
+const mail = require('./webpack.config.mail');
 
-const app = require("./webpack.config.app");
-
-module.exports = [app];
+module.exports = [
+    app,
+    mail,
+];

@@ -1,44 +1,46 @@
 /* Packages */
 import React from "react";
+import { ReactSVG } from "react-svg";
 import { useDropzone } from "react-dropzone";
-import { v4 as generateUuid } from "uuid";
 import { AnimatePresence, motion } from "framer-motion";
+import { useMutation, useQueryClient } from "react-query";
 
 /* Assets */
-import closeIcon from "../../../symbols/close.svg";
-import addImageIcon from "../../../symbols/add_image.svg";
+import closeIcon from "icons/close.svg";
+import addImageIcon from "icons/add_image.svg";
 
 /* Animations */
 import { STAGGER_UP } from "./animations";
 
-export default function Dropzone({ images = [], setImages }) {
-    /* Constants */
+/* Api calls */
+import { addProjectImages, deleteProjectImages, QUERY_KEYS } from "../project-overview/api";
+
+export default function Dropzone({ projectId, projectImages }) {
+    /* Contants */
     const COLUMN_LAYOUT = "col-12 col-md-6 col-lg-4 col-xl-3";
 
     /* Hooks */
+    const queryClient = useQueryClient();
+
     const { getRootProps, getInputProps, isDragActive } = useDropzone({
         accept: "image/*",
         noClick: true,
-        onDrop: (acceptedFiles) => addFiles(acceptedFiles),
+        onDrop: (acceptedFiles) => updateProjectImages("add", { images: acceptedFiles }),
+    });
+
+    /* Mutations */
+    const addProjectImagesMutation = useMutation(addProjectImages, {
+        onSuccess: () => queryClient.invalidateQueries([QUERY_KEYS.PROJECT_BY_ID, projectId]),
+    });
+
+    const deleteProjectImagesMutation = useMutation(deleteProjectImages, {
+        onSuccess: () => queryClient.invalidateQueries([QUERY_KEYS.PROJECT_BY_ID, projectId]),
     });
 
     /* Callbacks */
-    const addFiles = (acceptedFiles) => {
-        setImages((files) => [
-            ...files,
-            ...acceptedFiles.map((file) =>
-                Object.assign(file, {
-                    preview: URL.createObjectURL(file),
-                    id: generateUuid(),
-                })
-            ),
-        ]);
-    };
-
-    const deleteFile = (event, id) => {
-        event.stopPropagation();
-
-        setImages((files) => [...files.filter((file) => file.id !== id)]);
+    const updateProjectImages = (action, props) => {
+        if (action === "add") addProjectImagesMutation.mutate({ projectId, ...props });
+        if (action === "delete") deleteProjectImagesMutation.mutate({ projectId, ...props });
     };
 
     /* Render */
@@ -47,23 +49,24 @@ export default function Dropzone({ images = [], setImages }) {
             <input {...getInputProps()} />
             <div className="row row--equalized gutters-5">
                 <AnimatePresence initial={false}>
-                    {images.map(({ preview, id }, imageIndex) => (
+                    {projectImages.map(({ image, title, id }, imageIndex) => (
                         <motion.div layout {...STAGGER_UP(imageIndex)} className={COLUMN_LAYOUT} key={id}>
                             <div className="dropzone__container">
-                                <img className="dropzone__image img-fluid" src={preview} />
+                                <img className="dropzone__image img-fluid" src={image} alt={title} />
                                 <button
                                     type="button"
                                     className="btn btn-link dropzone__image-delete p-0"
-                                    onClick={(event) => deleteFile(event, id)}>
-                                    <svg className="icon icon--8 text-white mt-0">
-                                        <use xlinkHref={closeIcon.url}></use>
-                                    </svg>
+                                    onClick={(event) => {
+                                        event.stopPropagation();
+                                        updateProjectImages("delete", { id });
+                                    }}>
+                                    <ReactSVG wrapper="svg" className="icon icon--8 text-base mt-0" src={closeIcon} />
                                 </button>
                             </div>
                         </motion.div>
                     ))}
-                    <motion.div key="add-image" {...STAGGER_UP(images.length)} className={COLUMN_LAYOUT} layout>
-                        <DropzoneInner {...{ addFiles, isParentDragActive: isDragActive }} />
+                    <motion.div key="add-image" {...STAGGER_UP(projectImages.length)} className={COLUMN_LAYOUT} layout>
+                        <DropzoneInner {...{ updateProjectImages, isParentDragActive: isDragActive }} />
                     </motion.div>
                 </AnimatePresence>
             </div>
@@ -71,13 +74,16 @@ export default function Dropzone({ images = [], setImages }) {
     );
 }
 
-const DropzoneInner = ({ addFiles, isParentDragActive }) => {
+/* Inner dropzone */
+const DropzoneInner = ({ updateProjectImages, isParentDragActive }) => {
+    /* Hooks */
     const { getRootProps, getInputProps, isDragActive } = useDropzone({
         accept: "image/*",
         noDragEventsBubbling: true,
-        onDrop: (acceptedFiles) => addFiles(acceptedFiles),
+        onDrop: (acceptedFiles) => updateProjectImages("add", { images: acceptedFiles }),
     });
 
+    /* Render */
     return (
         <div className="dropzone" {...getRootProps()}>
             <input {...getInputProps()} />
@@ -87,9 +93,7 @@ const DropzoneInner = ({ addFiles, isParentDragActive }) => {
                 } card--transparent h-100 mb-0`}>
                 <div className="card-body d-flex align-items-center justify-content-center p-10">
                     <span className="btn-text d-flex flex-column align-items-center text-white text-muted--40">
-                        <svg className="icon icon--48">
-                            <use xlinkHref={addImageIcon.url}></use>
-                        </svg>
+                        <ReactSVG wrapper="svg" className="icon icon--48" src={addImageIcon} />
                         <span className="text--sm mt-1">
                             {isDragActive || isParentDragActive ? "Drop the images" : "Add some images"}
                         </span>

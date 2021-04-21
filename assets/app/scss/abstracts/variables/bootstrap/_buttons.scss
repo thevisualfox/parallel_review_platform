@@ -2,8 +2,16 @@
 
 $input-btn-border-width:                     1px;
 $input-btn-font-family:                      $font-family-sans-serif;
-$input-btn-font-size:                        $font-size-lg;
+$input-btn-font-size:                        $font-size-base;
 $input-btn-padding-y:                        px-to-rem(9);
 $input-btn-padding-x:                        px-to-rem(15);
 
 $input-btn-focus-width:                      2px;
+
+$btn-border-radius:                          px-to-rem(30);
+$btn-padding-y:                              px-to-rem(8);
+$btn-padding-x:                              px-to-rem(15);
+
+$btn-border-radius-sm:                       $btn-border-radius;
+$btn-padding-y-sm:                           px-to-rem(6);
+$btn-padding-x-sm:                           px-to-rem(15);

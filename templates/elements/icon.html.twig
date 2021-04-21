@@ -14,5 +14,5 @@
 
 {# Render #}
 <svg class="{{ icon_classes|join(' ') }}">
-    <use xlink:href="{{ asset('build/app/img/symbols.svg') }}#{{ icon_type }}"></use>
+    <use xlink:href="{{ asset('build/app/img/icons/'~ icon_type ~'.svg') }}"></use>
 </svg>

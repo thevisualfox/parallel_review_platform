@@ -12,11 +12,9 @@
     ],
     "dependencies": {
         "@material-ui/core": "^4.11.3",
-        "@rooks/use-boundingclientrect": "^4.8.1",
         "axios": "^0.21.1",
         "bootstrap": "^4.4.1",
         "framer-motion": "^3.3.0",
-        "jquery": "^3.3.1",
         "object-fit-images": "^3.2.4",
         "parsleyjs": "^2.8.1",
         "popper.js": "^1.16.1",
@@ -24,10 +22,10 @@
         "react-autosize-textarea": "^7.1.0",
         "react-dom": "^17.0.1",
         "react-dropzone": "^11.3.1",
-        "recoil": "^0.1.2",
-        "regenerator-runtime": "^0.13.7",
-        "svg4everybody": "^2.1.9",
-        "uuid": "^8.3.2"
+        "react-query": "^3.12.1",
+        "react-router-dom": "^5.2.0",
+        "react-svg": "^12.1.0",
+        "regenerator-runtime": "^0.13.7"
     },
     "devDependencies": {
         "@babel/plugin-proposal-class-properties": "^7.3.3",
@@ -41,6 +39,7 @@
         "eslint": "^5.14.1",
         "eslint-loader": "^2.1.2",
         "eslint-plugin-react": "^7.12.4",
+        "foundation-emails": "^2.3.1",
         "node-sass": "^4.11.0",
         "postcss-loader": "^3.0.0",
         "react-test-renderer": "^16.13.1",
@@ -50,10 +49,9 @@
         "stylelint-config-standard": "^18.2.0",
         "stylelint-scss": "^3.5.3",
         "stylelint-webpack-plugin": "^1.2.3",
-        "svg-sprite-loader": "^4.2.5",
         "svgo": "^1.3.2",
         "svgo-loader": "^2.2.1",
-        "tde-webpack-mjml-plugin": "^1.4.0",
+        "tde-webpack-mjml-plugin": "^2.0.0",
         "webpack-dashboard": "^3.2.0",
         "webpack-notifier": "^1.8.0"
     },
@@ -62,12 +60,9 @@
         "webpack": "^4.0.0"
     },
     "scripts": {
-        "watch": "yarn; NODE_ENV=dev yarn encore dev --watch --config-name app",
-        "watch:config": "yarn; NODE_ENV=dev yarn encore dev --watch --config-name",
-        "watch:all": "yarn; NODE_ENV=dev yarn encore dev --watch",
-        "watch-dash": "yarn; NODE_ENV=dev webpack-dashboard -m -- yarn encore dev --watch --config-name app",
-        "watch-dash:config": "yarn; NODE_ENV=dev webpack-dashboard -m -- yarn encore dev --watch --config-name",
-        "watch-dash:all": "yarn; NODE_ENV=dev webpack-dashboard -m -- yarn encore dev --watch",
-        "build": "yarn; NODE_ENV=prod yarn encore production"
+        "dev-server": "encore dev-server",
+        "dev": "encore dev",
+        "watch": "encore dev --watch",
+        "build": "encore production --progress"
     }
 }

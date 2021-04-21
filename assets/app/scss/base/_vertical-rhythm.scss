@@ -1,6 +1,8 @@
 /**
  * Vertical rhythm
  *
+ * @author Webstores <info at webstores dot nl>
+ *         Copyright (c) Webstores Digital Partner <https://www.webstores.nl/>
  */
 
 @each $breakpoint in map-keys($grid-breakpoints) {
@@ -8,17 +10,21 @@
         $infix: breakpoint-infix($breakpoint, $grid-breakpoints);
 
         @each $size, $length in $spacers {
-            %vertical-rhythm#{$infix}-#{$size} {
+            .vr#{$infix}-#{$size} {
                 margin-bottom: $length;
+
+                &:last-child {
+                    margin-bottom: 0;
+                }
             }
         }
     }
 }
 
-// Map default placeholder to whole $spacer (= %vertical-rhythm-4)
+// Map default placeholder to whole $spacer (= .vr-4)
 
-%vertical-rhythm {
-    @extend %vertical-rhythm-4;
+.vr {
+    @extend .vr-4;
 }
 
 // Reset margin

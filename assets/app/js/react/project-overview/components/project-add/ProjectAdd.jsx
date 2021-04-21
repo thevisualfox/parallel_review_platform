@@ -1,71 +1,71 @@
 /* Packages */
 import React, { useState } from "react";
-import axios from "axios";
+import { ReactSVG } from "react-svg";
 import { AnimatePresence } from "framer-motion";
-import { useSetRecoilState } from "recoil";
+import { useMutation, useQuery, useQueryClient } from "react-query";
 
 /* Components */
 import { ProjectModal } from "../modals";
 
 /* Assets */
-import addProjectIcon from "../../../../../symbols/add_project.svg";
+import addProjectIcon from "icons/add_project.svg";
 
-/* Atoms */
-import { loadingState } from "../../state";
+/* Api calls */
+import { addProject, fetchProjectById, QUERY_KEYS, editProject } from "../../api";
 
-export default function ProjectAdd({ getProjects }) {
+export default function ProjectAdd() {
     /* State */
+    const [projectId, setProjectId] = useState(null);
     const [modalOpen, setModalOpen] = useState(false);
-    const setLoading = useSetRecoilState(loadingState);
+
+    /* Hooks */
+    const queryClient = useQueryClient();
+
+    /* Queries */
+    const { data: project } = useQuery([QUERY_KEYS.PROJECT_BY_ID, projectId], () => fetchProjectById({ projectId }), {
+        enabled: !!projectId,
+    });
+
+    /* Mutations */
+    const addMutation = useMutation(addProject, {
+        onSuccess: ({ id }) => setProjectId(id),
+    });
+
+    const editMutation = useMutation(editProject, {
+        onSuccess: () => toggleModal(),
+    });
 
     /* Callbacks */
-    const addProject = async (event, formRef, images) => {
-        event.preventDefault();
+    const toggleModal = () => {
+        setModalOpen(!modalOpen);
 
-        const params = new FormData(formRef.current);
-        images.forEach((image) => params.append("images[]", image));
+        /* Mutate on modal open */
+        if (!modalOpen) addMutation.mutate();
 
-        try {
-            setLoading("add_project");
-
-            const result = await axios.post("/projects/add", params);
-
-            if (result.data.success) {
-                getProjects();
-                toggleModal();
-            }
-        } catch (error) {
-            throw new Error(error);
+        /* Invalidate project_by_user on close modal */
+        if (modalOpen) {
+            queryClient.invalidateQueries(QUERY_KEYS.PROJECT_BY_USER);
+            setProjectId(null);
         }
     };
 
-    const toggleModal = () => setModalOpen(!modalOpen);
+    const onSubmit = (formRef) => editMutation.mutate({ formRef, projectId });
 
     /* Render */
     return (
         <article className="card card--link card--transparent h-100 mb-0" style={{ minHeight: 385 }}>
             <div className="card-body d-flex align-items-center justify-content-center p-10">
-                <button className="btn btn-link text-decoration-none stretched-link" onClick={toggleModal}>
+                <button
+                    className="btn btn-link text-decoration-none stretched-link"
+                    onClick={toggleModal}
+                    type="button">
                     <span className="btn-text d-flex flex-column align-items-center text-white text-muted--40">
-                        <svg className="icon icon--48">
-                            <use xlinkHref={addProjectIcon.url}></use>
-                        </svg>
+                        <ReactSVG wrapper="svg" className="icon icon--48" src={addProjectIcon} />
                         <span className="text--sm mt-1">Add more projects</span>
                     </span>
                 </button>
             </div>
-            <AnimatePresence>
-                {modalOpen && (
-                    <ProjectModal
-                        {...{
-                            toggleModal,
-                            onSubmit: addProject,
-                            titlePlaceholder: "The project name",
-                            descriptionPlaceholder: `What's this project about?`,
-                        }}
-                    />
-                )}
-            </AnimatePresence>
+            <AnimatePresence>{modalOpen && <ProjectModal {...{ project, onSubmit, toggleModal }} />}</AnimatePresence>
         </article>
     );
 }

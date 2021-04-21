@@ -1,9 +1,9 @@
 // Base (body, links, paragraphs)
 
-$body-color: $color-base;
-$body-bg: $primary;
+$body-color: $white;
+$body-bg: $color-base;
 
-$link-color: $primary;
+$link-color: $secondary;
 $link-decoration: underline;
 $link-hover-color: darken($link-color, 15%);
 

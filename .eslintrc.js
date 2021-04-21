@@ -10,7 +10,8 @@ module.exports = {
             }
         ],
         'react/prop-types': [0],
-        'no-console': process.env.NODE_ENV === 'development' ? 1 : 2
+        'no-console': 1,
+        'no-undef': 1
     },
     parser: 'babel-eslint',
     env: {

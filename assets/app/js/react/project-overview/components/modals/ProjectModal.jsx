@@ -1,79 +1,46 @@
 /* Packages */
-import React, { useEffect, useRef, useState } from "react";
-import CircularProgress from "@material-ui/core/CircularProgress";
-import { TextareaAutosize } from "@material-ui/core";
-import { AnimatePresence, motion } from "framer-motion";
-import { useRecoilValue } from "recoil";
+import React, { useRef, useState } from "react";
+import TextareaAutosize from "@material-ui/core/TextareaAutosize";
+import { ReactSVG } from "react-svg";
+import { motion } from "framer-motion";
 
 /* Assets */
-import closeIcon from "../../../../../symbols/close.svg";
+import closeIcon from "icons/close.svg";
 
 /* Components */
 import { Modal, Dropzone } from "../../../common";
-
-/* Atoms */
-import { loadingState } from "../../state";
-
-/* Animations */
-import { FADE_IN } from "../../../common/animations";
+import { Users } from "../../../components/users";
+import { UserAdd } from "../../../components/user-add";
 
 export default function ProjectModal({
+    project = {},
     toggleModal,
     onSubmit,
-    title = "",
-    titlePlaceholder = "",
-    description = "",
-    descriptionPlaceholder = "",
-    projectImages = [],
+    titlePlaceholder = "The project name",
+    descriptionPlaceholder = "What's this project about?",
 }) {
-    /* Refs */
-    const formRef = useRef();
+    /* Constants  */
+    const { id: projectId = null, title = "", description = "", projectImages = [], users = [] } = project;
 
     /* State */
     const [projectTitle, setProjectTitle] = useState(title);
     const [projectDescription, setProjectDescription] = useState(description);
-    const [images, setImages] = useState([]);
-    const loading = useRecoilValue(loadingState);
 
-    /* Effects */
-    useEffect(() => {
-        if (projectImages.length === 0) return;
-
-        getBlobsFromImages();
-    }, []);
-
-    /* Callbacks */
-    const getBlobsFromImages = async () => {
-        const blobs = [];
-
-        for (let index = 0; index < projectImages.length; index++) {
-            const { image, title, id } = projectImages[index];
-            const fileType = title.includes("png") ? "png" : "jpeg";
-
-            const blob = await fetch(image)
-                .then((result) => result.blob())
-                .then((blobFile) => new File([blobFile], title, { type: `image/${fileType}` }));
-
-            Object.assign(blob, {
-                preview: URL.createObjectURL(blob),
-                id: id,
-            });
-
-            blobs.push(blob);
-        }
-
-        setImages(blobs);
-    };
+    /* Refs */
+    const formRef = useRef();
 
     /* Render */
     return (
-        <Modal {...{ toggleModal }}>
+        <Modal {...{ toggleModal }} domElement={document.body}>
             <form
                 ref={formRef}
                 method="POST"
                 className="custom-modal__form"
-                onSubmit={(event) => onSubmit(event, formRef, images)}>
-                <div className="custom-modal__header d-flex align-items-center pt-6 pt-md-12 px-6 pb-6">
+                onSubmit={(event) => {
+                    event.preventDefault();
+                    onSubmit(formRef);
+                }}>
+                <div className="custom-modal__header d-flex align-items-center pt-6 pt-md-12 px-6 pb-3">
                     <label className="sr-only" htmlFor="projectTitle">
                         {projectTitle}
                     </label>
@@ -95,40 +62,43 @@ export default function ProjectModal({
                         aria-label="Close"
                         onClick={toggleModal}
                         tabIndex="-1">
-                        <svg className="icon icon--14">
-                            <use xlinkHref={closeIcon.url}></use>
-                        </svg>
+                        <ReactSVG wrapper="svg" className="icon icon--14" src={closeIcon} />
                     </button>
                 </div>
-                <div className="custom-modal__body px-6 pb-12">
-                    <label className="sr-only" htmlFor="projectDescription">
-                        {`What's this project about?`}
-                    </label>
-                    <TextareaAutosize
-                        className="form-control form-control--text form-control--clear mb-10"
-                        id="projectDescription"
-                        name="description"
-                        placeholder={descriptionPlaceholder}
-                        value={projectDescription}
-                        onChange={({ target: { value } }) => setProjectDescription(value)}
-                    />
-                    <Dropzone {...{ images, setImages }} />
+                <div className="custom-modal__body pt-3 px-6 pb-12">
+                    <div className="row gutters-2">
+                        <div className="col-6">
+                            <label className="sr-only" htmlFor="projectDescription">
+                                {`What's this project about?`}
+                            </label>
+                            <TextareaAutosize
+                                className="form-control form-control--text form-control--clear mb-10"
+                                id="projectDescription"
+                                name="description"
+                                placeholder={descriptionPlaceholder}
+                                value={projectDescription}
+                                onChange={({ target: { value } }) => setProjectDescription(value)}
+                            />
+                        </div>
+                        <div className="col-auto d-flex align-items-baseline ml-auto">
+                            <Users {...{ users, project }} size="lg" />
+                            <UserAdd {...{ users, project }} />
+                        </div>
+                    </div>
+                    <Dropzone {...{ projectId, projectImages }} />
                 </div>
                 <div className="custom-modal__footer px-6 pb-6 pb-md-12">
-                    <button
-                        type="submit"
-                        className="custom-modal__btn btn btn-sm btn-white d-flex align-items-center justify-content-center ml-auto px-8">
-                        <motion.span className="btn-text">
-                            <span>{loading ? "Saving" : "Save"}</span>
-                        </motion.span>
-                        <AnimatePresence>
-                            {loading && (
-                                <motion.div className="ml-2" {...FADE_IN} key="loader">
-                                    <CircularProgress size={14} color="primary" />
-                                </motion.div>
-                            )}
-                        </AnimatePresence>
-                    </button>
+                    <div className="row gutters-0 w-100">
+                        <div className="col-12 col-lg-1 ml-auto">
+                            <button
+                                type="submit"
+                                className="custom-modal__btn btn btn-block btn-secondary d-flex align-items-center justify-content-center">
+                                <motion.span className="btn-text">
+                                    <span>Save</span>
+                                </motion.span>
+                            </button>
+                        </div>
+                    </div>
                 </div>
             </form>
         </Modal>

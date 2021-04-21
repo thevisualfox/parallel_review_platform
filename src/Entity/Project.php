@@ -3,15 +3,20 @@
 namespace App\Entity;
 
 use App\Repository\ProjectRepository;
+use App\Service\ArrayHelper;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
+use Gedmo\Timestampable\Traits\TimestampableEntity;
 use Doctrine\ORM\Mapping as ORM;
+use Gedmo\Mapping\Annotation as Gedmo;
 
 /**
  * @ORM\Entity(repositoryClass=ProjectRepository::class)
  */
 class Project
 {
+    use TimestampableEntity;
+
     /**
      * @ORM\Id
      * @ORM\GeneratedValue
@@ -20,12 +25,13 @@ class Project
     private $id;
 
     /**
-     * @ORM\Column(type="string", length=150)
+     * @ORM\Column(type="string", length=150, nullable=true)
      */
     private $title;
 
     /**
-     * @ORM\Column(type="string", length=100, unique=true)
+     * @Gedmo\Slug(fields={"title"})
+     * @ORM\Column(type="string", length=100, unique=true, nullable=true)
      */
     private $slug;
 
@@ -39,9 +45,20 @@ class Project
      */
     private $projectImages;
 
+    /**
+     * @ORM\ManyToMany(targetEntity=User::class, mappedBy="project")
+     */
+    private $users;
+
+    /**
+     * @ORM\Column(type="string", length=255)
+     */
+    private $author;
+
     public function __construct()
     {
         $this->projectImages = new ArrayCollection();
+        $this->users = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -85,6 +102,21 @@ class Project
         return $this;
     }
 
+    public function getJsonResponse($arrayHelper): array
+    {
+        /** @var ArrayHelper $arrayHelper  */
+
+        return [
+            'id' => $this->getId(),
+            'author' => $this->getAuthor(),
+            'slug' => $this->getSlug(),
+            'title' => $this->getTitle(),
+            'description' => $this->getDescription(),
+            'projectImages' => $arrayHelper->mapToArray($this->getProjectImages()),
+            'users' => $arrayHelper->mapToArray($this->getUsers())
+        ];
+    }
+
     /**
      * @return Collection|ProjectImage[]
      */
@@ -111,6 +143,45 @@ class Project
                 $projectImage->setProject(null);
             }
         }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|User[]
+     */
+    public function getUsers(): Collection
+    {
+        return $this->users;
+    }
+
+    public function addUser(User $user): self
+    {
+        if (!$this->users->contains($user)) {
+            $this->users[] = $user;
+            $user->addProject($this);
+        }
+
+        return $this;
+    }
+
+    public function removeUser(User $user): self
+    {
+        if ($this->users->removeElement($user)) {
+            $user->removeProject($this);
+        }
+
+        return $this;
+    }
+
+    public function getAuthor(): ?string
+    {
+        return $this->author;
+    }
+
+    public function setAuthor(string $author): self
+    {
+        $this->author = $author;
 
         return $this;
     }

@@ -1,18 +1,27 @@
 /* Packages */
 import React from "react";
 import { render } from "react-dom";
-import { RecoilRoot } from "recoil";
+import { QueryClient, QueryClientProvider } from "react-query";
 
 /* Components */
 import ProjectOverview from "./components/ProjectOverview";
+
+/* Client */
+const client = new QueryClient({
+    defaultOptions: {
+        queries: {
+            refetchOnWindowFocus: false,
+        },
+    },
+});
 
 /* Render */
 const projectOverviewNode = document.getElementById("projectOverview");
 if (projectOverviewNode !== null) {
     render(
-        <RecoilRoot>
+        <QueryClientProvider {...{ client }}>
             <ProjectOverview {...projectOverviewNode.dataset} />
-        </RecoilRoot>,
+        </QueryClientProvider>,
         projectOverviewNode
     );
 }

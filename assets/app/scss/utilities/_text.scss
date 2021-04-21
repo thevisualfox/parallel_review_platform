@@ -7,6 +7,10 @@
     opacity: 0.6;
 }
 
+.text--xs {
+    font-size: $font-size-sm;
+}
+
 .text--sm {
     font-size: $font-size-sm;
 }
@@ -17,6 +21,10 @@
 
 .text--xl {
     font-size: $font-size-xl;
+}
+
+.text-decoration-underline {
+    text-decoration: underline;
 }
 
 // Brand text colors

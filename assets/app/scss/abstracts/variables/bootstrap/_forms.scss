@@ -2,18 +2,25 @@
 
 $input-padding-y:                       px-to-rem(15);
 $input-padding-x:                       px-to-rem(15);
-$input-font-family:                     $font-family-sans-serif;
 $input-font-size:                       $font-size-base;
-$input-font-weight:                     $font-weight-light;
 $input-line-height:                     $line-height-base;
 
-$input-bg:                              rgba($white, 0.07);
-$input-color:                           rgba($white, 0.7);
-$input-border-color:                    rgba($white, 0.1);
+$input-btn-padding-y-sm:                px-to-rem(12);
+$input-btn-padding-x-sm:                px-to-rem(12);
+$input-btn-font-size-sm:                $font-size-base;
+$input-btn-line-height-sm:              $line-height-base;
+
+$input-font-family:                     $font-family-sans-serif;
+$input-font-weight:                     $font-weight-light;
+
+$input-bg:                              lighten($primary, 3%);
+$input-color:                           rgba($white, 0.75);
+$input-border-color:                    $border-color;
 $input-border-width:                    $input-btn-border-width;
+$input-border-radius:                   $border-radius;
 $input-box-shadow:                      none;
 
-$input-focus-border-color:              $border-color;
+$input-focus-border-color:              lighten($border-color, 7%);
 $input-focus-width:                     0;
 $input-focus-box-shadow:                none;
 
@@ -25,6 +32,6 @@ $custom-control-gutter:                 px-to-rem(10);
 $custom-control-indicator-size:         px-to-rem(20);
 $custom-control-indicator-border-color: $input-border-color;
 
-$custom-control-indicator-checked-color:        $white;
+$custom-control-indicator-checked-color:        $secondary;
 $custom-control-indicator-checked-bg:           $input-bg;
 $custom-control-indicator-checked-border-color: $input-border-color;

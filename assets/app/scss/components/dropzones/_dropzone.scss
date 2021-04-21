@@ -11,7 +11,7 @@
 }
 
 .dropzone__image {
-    @extend .w-100, .h-100;
+    @extend .w-100, .h-100, .rounded, .border;
 
     @include object-fit(cover);
 }
@@ -31,7 +31,7 @@
         width: var(--dimensions);
         height: var(--dimensions);
         border-radius: 50%;
-        background-color: $color-base;
+        background-color: $white;
         z-index: $zindex-popover;
 
         @include media-breakpoint-up(lg) {

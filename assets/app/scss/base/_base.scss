@@ -35,7 +35,7 @@ ol,
 ul,
 form,
 table {
-    @extend %vertical-rhythm;
+    @extend .vr;
 }
 
 label[for] {
@@ -66,4 +66,9 @@ h5,
 h6,
 .h6 {
     text-transform: uppercase;
+}
+
+hr {
+    margin: 0;
+    border: $border-width solid $border-color;
 }

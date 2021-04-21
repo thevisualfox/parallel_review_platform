@@ -1,7 +1,9 @@
-const Encore = require("@symfony/webpack-encore");
-const SpriteLoaderPlugin = require("svg-sprite-loader/plugin");
+var Encore = require("@symfony/webpack-encore");
 const StyleLintPlugin = require("stylelint-webpack-plugin");
-const configureDevTools = require("./webpack.tools.dev");
+
+if (!Encore.isRuntimeEnvironmentConfigured()) {
+    Encore.configureRuntimeEnvironment(process.env.NODE_ENV || "dev");
+}
 
 const path = require("path");
 
@@ -12,6 +14,8 @@ Encore.setOutputPath("public/build/app/")
     .addEntry("main", "./assets/app/js/main.js")
     .disableSingleRuntimeChunk()
     .cleanupOutputBeforeBuild()
+    .splitEntryChunks()
+    .enableBuildNotifications()
     .enableSourceMaps(!Encore.isProduction())
     .enableVersioning(Encore.isProduction())
     .enableSassLoader(() => {}, {
@@ -19,21 +23,8 @@ Encore.setOutputPath("public/build/app/")
     })
     .enablePostCssLoader()
     .enableReactPreset()
-    .autoProvidejQuery()
     .disableImagesLoader()
-    .configureFilenames({
-        fonts: Encore.isProduction() ? "fonts/[name].[contenthash:8].[ext]" : "fonts/[name].[ext]",
-    })
-    .configureManifestPlugin((options) => {
-        options.map = (file) => {
-            // Remove contenthash from SVG sprite key
-            if (/symbols\.[a-z0-9]*\.svg$/.test(file.name)) {
-                file.name = file.name.replace(/\.[a-z0-9]*/, "");
-            }
-
-            return file;
-        };
-    })
+    .configureManifestPlugin()
     .copyFiles([
         {
             from: "./assets/app/img",
@@ -44,7 +35,6 @@ Encore.setOutputPath("public/build/app/")
     .addLoader({
         test: /\.(png|jpg|jpeg|gif|ico|svg|webp)$/,
         loader: "file-loader",
-        exclude: path.resolve(__dirname, "assets/app/symbols"),
         options: {
             name: Encore.isProduction() ? "img/[name].[contenthash:8].[ext]" : "img/[name].[ext]",
         },
@@ -54,32 +44,17 @@ Encore.setOutputPath("public/build/app/")
         exclude: /node_modules/,
         loader: "eslint-loader",
     })
-    .addLoader({
-        test: /\.svg$/,
-        use: [
-            {
-                loader: "svg-sprite-loader",
-                options: {
-                    extract: true,
-                    spriteFilename: Encore.isProduction() ? "img/symbols.[contenthash:8].svg" : "img/symbols.svg",
-                },
-            },
-            "svgo-loader",
-        ],
-        include: path.resolve(__dirname, "assets/app/symbols"),
-    })
-    .addPlugin(
-        new SpriteLoaderPlugin({
-            plainSprite: true,
-        })
-    )
     .addPlugin(
         new StyleLintPlugin({
             files: "assets/app/**/*.s?(a|c)ss",
         })
     );
 
-let config = configureDevTools(Encore);
-config.name = "app";
+const config = Encore.getWebpackConfig();
+config.resolve.alias = {
+    ...config.resolve.alias,
+    icons: path.resolve(__dirname, "assets/app/img/icons"),
+};
+config.name = 'app'
 
 module.exports = config;

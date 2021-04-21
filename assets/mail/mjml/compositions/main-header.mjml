@@ -1,0 +1,10 @@
+<mj-section padding-top="50px" padding-bottom="0" full-width="full-width">
+    <mj-column>
+        <mj-text padding-bottom="0px" line-height="15px" color="white" align="center" font-size="40px">
+            PARALLEL
+        </mj-text>
+        <mj-text padding-bottom="25px" color="white" line-height="24px" align="center" font-size="20px">
+            DASHBOARD
+        </mj-text>
+    </mj-column>
+</mj-section>

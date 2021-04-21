@@ -4,7 +4,7 @@
  */
 
 .card {
-    @extend %vertical-rhythm;
+    @extend .vr;
 
     text-align: left;
 }
@@ -12,19 +12,19 @@
 // Card elements
 
 .card-title {
-    @extend %vertical-rhythm-2;
+    @extend .vr-2;
 
     font-size: $h3-font-size;
 }
 
 .card-text {
-    @extend %vertical-rhythm-2;
+    @extend .vr-2;
 }
 
 // Card groups
 
 .card-group {
-    @extend %vertical-rhythm;
+    @extend .vr;
 }
 
 // Bordered card resets (see: components/cards/_card-bordered.scss)

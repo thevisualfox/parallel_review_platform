@@ -4,7 +4,7 @@
 
 namespace Composer\Autoload;
 
-class ComposerStaticInit022c90ea7d742ee8e4b9b4a1bbba9086
+class ComposerStaticInitad8dae23d6f65b7c8e3a29a5a3d65696
 {
     public static $files = array (
         'a4a119a56e50fbb293281d9a48007e0e' => __DIR__ . '/..' . '/symfony/polyfill-php80/bootstrap.php',
@@ -15,9 +15,10 @@ class ComposerStaticInit022c90ea7d742ee8e4b9b4a1bbba9086
         '0d59ee240a4cd96ddbb4ff164fccea4d' => __DIR__ . '/..' . '/symfony/polyfill-php73/bootstrap.php',
         '92c8763cd6170fce6fcfe7e26b4e8c10' => __DIR__ . '/..' . '/symfony/phpunit-bridge/bootstrap.php',
         '667aeda72477189d0494fecd327c3641' => __DIR__ . '/..' . '/symfony/var-dumper/Resources/functions/dump.php',
-        '6a47392539ca2329373e0d33e1dba053' => __DIR__ . '/..' . '/symfony/polyfill-intl-icu/bootstrap.php',
         '8825ede83f2f289127722d4e842cf7e8' => __DIR__ . '/..' . '/symfony/polyfill-intl-grapheme/bootstrap.php',
         'b6b991a57620e2fb6b2f66f03fe9ddc2' => __DIR__ . '/..' . '/symfony/string/Resources/functions.php',
+        '6a47392539ca2329373e0d33e1dba053' => __DIR__ . '/..' . '/symfony/polyfill-intl-icu/bootstrap.php',
+        'c899bf3d7cf083b79d5e2b2575ed07d5' => __DIR__ . '/..' . '/lorenzo/pinky/src/pinky.php',
     );
 
     public static $prefixLengthsPsr4 = array (
@@ -37,7 +38,10 @@ class ComposerStaticInit022c90ea7d742ee8e4b9b4a1bbba9086
         'T' => 
         array (
             'Twig\\Extra\\TwigExtraBundle\\' => 27,
+            'Twig\\Extra\\Inky\\' => 16,
+            'Twig\\Extra\\CssInliner\\' => 22,
             'Twig\\' => 5,
+            'TijsVerkoyen\\CssToInlineStyles\\' => 31,
         ),
         'S' => 
         array (
@@ -74,6 +78,10 @@ class ComposerStaticInit022c90ea7d742ee8e4b9b4a1bbba9086
             'Symfony\\Component\\OptionsResolver\\' => 34,
             'Symfony\\Component\\Notifier\\' => 27,
             'Symfony\\Component\\Mime\\' => 23,
+            'Symfony\\Component\\Messenger\\Bridge\\Redis\\' => 41,
+            'Symfony\\Component\\Messenger\\Bridge\\Doctrine\\' => 44,
+            'Symfony\\Component\\Messenger\\Bridge\\Amqp\\' => 40,
+            'Symfony\\Component\\Messenger\\' => 28,
             'Symfony\\Component\\Mailer\\' => 25,
             'Symfony\\Component\\Intl\\' => 23,
             'Symfony\\Component\\HttpKernel\\' => 29,
@@ -106,6 +114,7 @@ class ComposerStaticInit022c90ea7d742ee8e4b9b4a1bbba9086
             'Symfony\\Bridge\\PhpUnit\\' => 23,
             'Symfony\\Bridge\\Monolog\\' => 23,
             'Symfony\\Bridge\\Doctrine\\' => 24,
+            'Stof\\DoctrineExtensionsBundle\\' => 30,
             'Sensio\\Bundle\\FrameworkExtraBundle\\' => 35,
         ),
         'P' => 
@@ -148,6 +157,10 @@ class ComposerStaticInit022c90ea7d742ee8e4b9b4a1bbba9086
             'Doctrine\\Bundle\\MigrationsBundle\\' => 33,
             'Doctrine\\Bundle\\DoctrineBundle\\' => 31,
         ),
+        'C' => 
+        array (
+            'Colors\\' => 7,
+        ),
         'B' => 
         array (
             'Behat\\Transliterator\\' => 21,
@@ -182,9 +195,21 @@ class ComposerStaticInit022c90ea7d742ee8e4b9b4a1bbba9086
         array (
             0 => __DIR__ . '/..' . '/twig/extra-bundle/src',
         ),
+        'Twig\\Extra\\Inky\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/twig/inky-extra',
+        ),
+        'Twig\\Extra\\CssInliner\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/twig/cssinliner-extra',
+        ),
         'Twig\\' => 
         array (
             0 => __DIR__ . '/..' . '/twig/twig/src',
+        ),
+        'TijsVerkoyen\\CssToInlineStyles\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/tijsverkoyen/css-to-inline-styles/src',
         ),
         'Symfony\\WebpackEncoreBundle\\' => 
         array (
@@ -318,6 +343,22 @@ class ComposerStaticInit022c90ea7d742ee8e4b9b4a1bbba9086
         array (
             0 => __DIR__ . '/..' . '/symfony/mime',
         ),
+        'Symfony\\Component\\Messenger\\Bridge\\Redis\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/symfony/redis-messenger',
+        ),
+        'Symfony\\Component\\Messenger\\Bridge\\Doctrine\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/symfony/doctrine-messenger',
+        ),
+        'Symfony\\Component\\Messenger\\Bridge\\Amqp\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/symfony/amqp-messenger',
+        ),
+        'Symfony\\Component\\Messenger\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/symfony/messenger',
+        ),
         'Symfony\\Component\\Mailer\\' => 
         array (
             0 => __DIR__ . '/..' . '/symfony/mailer',
@@ -446,6 +487,10 @@ class ComposerStaticInit022c90ea7d742ee8e4b9b4a1bbba9086
         array (
             0 => __DIR__ . '/..' . '/symfony/doctrine-bridge',
         ),
+        'Stof\\DoctrineExtensionsBundle\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/stof/doctrine-extensions-bundle',
+        ),
         'Sensio\\Bundle\\FrameworkExtraBundle\\' => 
         array (
             0 => __DIR__ . '/..' . '/sensio/framework-extra-bundle/src',
@@ -552,6 +597,10 @@ class ComposerStaticInit022c90ea7d742ee8e4b9b4a1bbba9086
         array (
             0 => __DIR__ . '/..' . '/doctrine/doctrine-bundle',
         ),
+        'Colors\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/mistic100/randomcolor/src',
+        ),
         'Behat\\Transliterator\\' => 
         array (
             0 => __DIR__ . '/..' . '/behat/transliterator/src/Behat/Transliterator',
@@ -577,6 +626,16 @@ class ComposerStaticInit022c90ea7d742ee8e4b9b4a1bbba9086
     );
 
     public static $classMap = array (
+        'App\\Controller\\Action\\ProjectImage\\ProjectImageAddAction' => __DIR__ . '/../..' . '/src/Controller/Action/ProjectImage/ProjectImageAddAction.php',
+        'App\\Controller\\Action\\ProjectImage\\ProjectImageDeleteAction' => __DIR__ . '/../..' . '/src/Controller/Action/ProjectImage/ProjectImageDeleteAction.php',
+        'App\\Controller\\Action\\Project\\ProjectAddAction' => __DIR__ . '/../..' . '/src/Controller/Action/Project/ProjectAddAction.php',
+        'App\\Controller\\Action\\Project\\ProjectDeleteAction' => __DIR__ . '/../..' . '/src/Controller/Action/Project/ProjectDeleteAction.php',
+        'App\\Controller\\Action\\Project\\ProjectEditAction' => __DIR__ . '/../..' . '/src/Controller/Action/Project/ProjectEditAction.php',
+        'App\\Controller\\Action\\Project\\ProjectGetAction' => __DIR__ . '/../..' . '/src/Controller/Action/Project/ProjectGetAction.php',
+        'App\\Controller\\Action\\Project\\ProjectGetByIdAction' => __DIR__ . '/../..' . '/src/Controller/Action/Project/ProjectGetByIdAction.php',
+        'App\\Controller\\Action\\User\\UserAddAction' => __DIR__ . '/../..' . '/src/Controller/Action/User/UserAddAction.php',
+        'App\\Controller\\Action\\User\\UserDeleteAction' => __DIR__ . '/../..' . '/src/Controller/Action/User/UserDeleteAction.php',
+        'App\\Controller\\Action\\User\\UserGetAction' => __DIR__ . '/../..' . '/src/Controller/Action/User/UserGetAction.php',
         'App\\Controller\\ProjectController' => __DIR__ . '/../..' . '/src/Controller/ProjectController.php',
         'App\\Controller\\RegistrationController' => __DIR__ . '/../..' . '/src/Controller/RegistrationController.php',
         'App\\Controller\\SecurityController' => __DIR__ . '/../..' . '/src/Controller/SecurityController.php',
@@ -589,10 +648,14 @@ class ComposerStaticInit022c90ea7d742ee8e4b9b4a1bbba9086
         'App\\Repository\\ProjectRepository' => __DIR__ . '/../..' . '/src/Repository/ProjectRepository.php',
         'App\\Repository\\UserRepository' => __DIR__ . '/../..' . '/src/Repository/UserRepository.php',
         'App\\Security\\AppAuthenticator' => __DIR__ . '/../..' . '/src/Security/AppAuthenticator.php',
+        'App\\Service\\ArrayHelper' => __DIR__ . '/../..' . '/src/Service/ArrayHelper.php',
+        'App\\Service\\ImageHelper' => __DIR__ . '/../..' . '/src/Service/ImageHelper.php',
+        'App\\Service\\Mailer' => __DIR__ . '/../..' . '/src/Service/Mailer.php',
         'Attribute' => __DIR__ . '/..' . '/symfony/polyfill-php80/Resources/stubs/Attribute.php',
         'Behat\\Transliterator\\SyncTool' => __DIR__ . '/..' . '/behat/transliterator/src/Behat/Transliterator/SyncTool.php',
         'Behat\\Transliterator\\Transliterator' => __DIR__ . '/..' . '/behat/transliterator/src/Behat/Transliterator/Transliterator.php',
         'Collator' => __DIR__ . '/..' . '/symfony/intl/Resources/stubs/Collator.php',
+        'Colors\\RandomColor' => __DIR__ . '/..' . '/mistic100/randomcolor/src/RandomColor.php',
         'Doctrine\\Bundle\\DoctrineBundle\\Command\\CreateDatabaseDoctrineCommand' => __DIR__ . '/..' . '/doctrine/doctrine-bundle/Command/CreateDatabaseDoctrineCommand.php',
         'Doctrine\\Bundle\\DoctrineBundle\\Command\\DoctrineCommand' => __DIR__ . '/..' . '/doctrine/doctrine-bundle/Command/DoctrineCommand.php',
         'Doctrine\\Bundle\\DoctrineBundle\\Command\\DropDatabaseDoctrineCommand' => __DIR__ . '/..' . '/doctrine/doctrine-bundle/Command/DropDatabaseDoctrineCommand.php',
@@ -2523,6 +2586,17 @@ class ComposerStaticInit022c90ea7d742ee8e4b9b4a1bbba9086
         'Sensio\\Bundle\\FrameworkExtraBundle\\Security\\ExpressionLanguage' => __DIR__ . '/..' . '/sensio/framework-extra-bundle/src/Security/ExpressionLanguage.php',
         'Sensio\\Bundle\\FrameworkExtraBundle\\SensioFrameworkExtraBundle' => __DIR__ . '/..' . '/sensio/framework-extra-bundle/src/SensioFrameworkExtraBundle.php',
         'Sensio\\Bundle\\FrameworkExtraBundle\\Templating\\TemplateGuesser' => __DIR__ . '/..' . '/sensio/framework-extra-bundle/src/Templating/TemplateGuesser.php',
+        'Stof\\DoctrineExtensionsBundle\\DependencyInjection\\Compiler\\ValidateExtensionConfigurationPass' => __DIR__ . '/..' . '/stof/doctrine-extensions-bundle/DependencyInjection/Compiler/ValidateExtensionConfigurationPass.php',
+        'Stof\\DoctrineExtensionsBundle\\DependencyInjection\\Configuration' => __DIR__ . '/..' . '/stof/doctrine-extensions-bundle/DependencyInjection/Configuration.php',
+        'Stof\\DoctrineExtensionsBundle\\DependencyInjection\\StofDoctrineExtensionsExtension' => __DIR__ . '/..' . '/stof/doctrine-extensions-bundle/DependencyInjection/StofDoctrineExtensionsExtension.php',
+        'Stof\\DoctrineExtensionsBundle\\EventListener\\BlameListener' => __DIR__ . '/..' . '/stof/doctrine-extensions-bundle/EventListener/BlameListener.php',
+        'Stof\\DoctrineExtensionsBundle\\EventListener\\LocaleListener' => __DIR__ . '/..' . '/stof/doctrine-extensions-bundle/EventListener/LocaleListener.php',
+        'Stof\\DoctrineExtensionsBundle\\EventListener\\LoggerListener' => __DIR__ . '/..' . '/stof/doctrine-extensions-bundle/EventListener/LoggerListener.php',
+        'Stof\\DoctrineExtensionsBundle\\StofDoctrineExtensionsBundle' => __DIR__ . '/..' . '/stof/doctrine-extensions-bundle/StofDoctrineExtensionsBundle.php',
+        'Stof\\DoctrineExtensionsBundle\\Uploadable\\MimeTypeGuesserAdapter' => __DIR__ . '/..' . '/stof/doctrine-extensions-bundle/Uploadable/MimeTypeGuesserAdapter.php',
+        'Stof\\DoctrineExtensionsBundle\\Uploadable\\UploadableManager' => __DIR__ . '/..' . '/stof/doctrine-extensions-bundle/Uploadable/UploadableManager.php',
+        'Stof\\DoctrineExtensionsBundle\\Uploadable\\UploadedFileInfo' => __DIR__ . '/..' . '/stof/doctrine-extensions-bundle/Uploadable/UploadedFileInfo.php',
+        'Stof\\DoctrineExtensionsBundle\\Uploadable\\ValidatorConfigurator' => __DIR__ . '/..' . '/stof/doctrine-extensions-bundle/Uploadable/ValidatorConfigurator.php',
         'Stringable' => __DIR__ . '/..' . '/symfony/polyfill-php80/Resources/stubs/Stringable.php',
         'Symfony\\Bridge\\Doctrine\\CacheWarmer\\ProxyCacheWarmer' => __DIR__ . '/..' . '/symfony/doctrine-bridge/CacheWarmer/ProxyCacheWarmer.php',
         'Symfony\\Bridge\\Doctrine\\ContainerAwareEventManager' => __DIR__ . '/..' . '/symfony/doctrine-bridge/ContainerAwareEventManager.php',
@@ -4079,6 +4153,151 @@ class ComposerStaticInit022c90ea7d742ee8e4b9b4a1bbba9086
         'Symfony\\Component\\Mailer\\Transport\\TransportFactoryInterface' => __DIR__ . '/..' . '/symfony/mailer/Transport/TransportFactoryInterface.php',
         'Symfony\\Component\\Mailer\\Transport\\TransportInterface' => __DIR__ . '/..' . '/symfony/mailer/Transport/TransportInterface.php',
         'Symfony\\Component\\Mailer\\Transport\\Transports' => __DIR__ . '/..' . '/symfony/mailer/Transport/Transports.php',
+        'Symfony\\Component\\Messenger\\Bridge\\Amqp\\Transport\\AmqpFactory' => __DIR__ . '/..' . '/symfony/amqp-messenger/Transport/AmqpFactory.php',
+        'Symfony\\Component\\Messenger\\Bridge\\Amqp\\Transport\\AmqpReceivedStamp' => __DIR__ . '/..' . '/symfony/amqp-messenger/Transport/AmqpReceivedStamp.php',
+        'Symfony\\Component\\Messenger\\Bridge\\Amqp\\Transport\\AmqpReceiver' => __DIR__ . '/..' . '/symfony/amqp-messenger/Transport/AmqpReceiver.php',
+        'Symfony\\Component\\Messenger\\Bridge\\Amqp\\Transport\\AmqpSender' => __DIR__ . '/..' . '/symfony/amqp-messenger/Transport/AmqpSender.php',
+        'Symfony\\Component\\Messenger\\Bridge\\Amqp\\Transport\\AmqpStamp' => __DIR__ . '/..' . '/symfony/amqp-messenger/Transport/AmqpStamp.php',
+        'Symfony\\Component\\Messenger\\Bridge\\Amqp\\Transport\\AmqpTransport' => __DIR__ . '/..' . '/symfony/amqp-messenger/Transport/AmqpTransport.php',
+        'Symfony\\Component\\Messenger\\Bridge\\Amqp\\Transport\\AmqpTransportFactory' => __DIR__ . '/..' . '/symfony/amqp-messenger/Transport/AmqpTransportFactory.php',
+        'Symfony\\Component\\Messenger\\Bridge\\Amqp\\Transport\\Connection' => __DIR__ . '/..' . '/symfony/amqp-messenger/Transport/Connection.php',
+        'Symfony\\Component\\Messenger\\Bridge\\Doctrine\\Transport\\Connection' => __DIR__ . '/..' . '/symfony/doctrine-messenger/Transport/Connection.php',
+        'Symfony\\Component\\Messenger\\Bridge\\Doctrine\\Transport\\DoctrineReceivedStamp' => __DIR__ . '/..' . '/symfony/doctrine-messenger/Transport/DoctrineReceivedStamp.php',
+        'Symfony\\Component\\Messenger\\Bridge\\Doctrine\\Transport\\DoctrineReceiver' => __DIR__ . '/..' . '/symfony/doctrine-messenger/Transport/DoctrineReceiver.php',
+        'Symfony\\Component\\Messenger\\Bridge\\Doctrine\\Transport\\DoctrineSender' => __DIR__ . '/..' . '/symfony/doctrine-messenger/Transport/DoctrineSender.php',
+        'Symfony\\Component\\Messenger\\Bridge\\Doctrine\\Transport\\DoctrineTransport' => __DIR__ . '/..' . '/symfony/doctrine-messenger/Transport/DoctrineTransport.php',
+        'Symfony\\Component\\Messenger\\Bridge\\Doctrine\\Transport\\DoctrineTransportFactory' => __DIR__ . '/..' . '/symfony/doctrine-messenger/Transport/DoctrineTransportFactory.php',
+        'Symfony\\Component\\Messenger\\Bridge\\Doctrine\\Transport\\PostgreSqlConnection' => __DIR__ . '/..' . '/symfony/doctrine-messenger/Transport/PostgreSqlConnection.php',
+        'Symfony\\Component\\Messenger\\Bridge\\Redis\\Transport\\Connection' => __DIR__ . '/..' . '/symfony/redis-messenger/Transport/Connection.php',
+        'Symfony\\Component\\Messenger\\Bridge\\Redis\\Transport\\RedisReceivedStamp' => __DIR__ . '/..' . '/symfony/redis-messenger/Transport/RedisReceivedStamp.php',
+        'Symfony\\Component\\Messenger\\Bridge\\Redis\\Transport\\RedisReceiver' => __DIR__ . '/..' . '/symfony/redis-messenger/Transport/RedisReceiver.php',
+        'Symfony\\Component\\Messenger\\Bridge\\Redis\\Transport\\RedisSender' => __DIR__ . '/..' . '/symfony/redis-messenger/Transport/RedisSender.php',
+        'Symfony\\Component\\Messenger\\Bridge\\Redis\\Transport\\RedisTransport' => __DIR__ . '/..' . '/symfony/redis-messenger/Transport/RedisTransport.php',
+        'Symfony\\Component\\Messenger\\Bridge\\Redis\\Transport\\RedisTransportFactory' => __DIR__ . '/..' . '/symfony/redis-messenger/Transport/RedisTransportFactory.php',
+        'Symfony\\Component\\Messenger\\Command\\AbstractFailedMessagesCommand' => __DIR__ . '/..' . '/symfony/messenger/Command/AbstractFailedMessagesCommand.php',
+        'Symfony\\Component\\Messenger\\Command\\ConsumeMessagesCommand' => __DIR__ . '/..' . '/symfony/messenger/Command/ConsumeMessagesCommand.php',
+        'Symfony\\Component\\Messenger\\Command\\DebugCommand' => __DIR__ . '/..' . '/symfony/messenger/Command/DebugCommand.php',
+        'Symfony\\Component\\Messenger\\Command\\FailedMessagesRemoveCommand' => __DIR__ . '/..' . '/symfony/messenger/Command/FailedMessagesRemoveCommand.php',
+        'Symfony\\Component\\Messenger\\Command\\FailedMessagesRetryCommand' => __DIR__ . '/..' . '/symfony/messenger/Command/FailedMessagesRetryCommand.php',
+        'Symfony\\Component\\Messenger\\Command\\FailedMessagesShowCommand' => __DIR__ . '/..' . '/symfony/messenger/Command/FailedMessagesShowCommand.php',
+        'Symfony\\Component\\Messenger\\Command\\SetupTransportsCommand' => __DIR__ . '/..' . '/symfony/messenger/Command/SetupTransportsCommand.php',
+        'Symfony\\Component\\Messenger\\Command\\StopWorkersCommand' => __DIR__ . '/..' . '/symfony/messenger/Command/StopWorkersCommand.php',
+        'Symfony\\Component\\Messenger\\DataCollector\\MessengerDataCollector' => __DIR__ . '/..' . '/symfony/messenger/DataCollector/MessengerDataCollector.php',
+        'Symfony\\Component\\Messenger\\DependencyInjection\\MessengerPass' => __DIR__ . '/..' . '/symfony/messenger/DependencyInjection/MessengerPass.php',
+        'Symfony\\Component\\Messenger\\Envelope' => __DIR__ . '/..' . '/symfony/messenger/Envelope.php',
+        'Symfony\\Component\\Messenger\\EventListener\\DispatchPcntlSignalListener' => __DIR__ . '/..' . '/symfony/messenger/EventListener/DispatchPcntlSignalListener.php',
+        'Symfony\\Component\\Messenger\\EventListener\\SendFailedMessageForRetryListener' => __DIR__ . '/..' . '/symfony/messenger/EventListener/SendFailedMessageForRetryListener.php',
+        'Symfony\\Component\\Messenger\\EventListener\\SendFailedMessageToFailureTransportListener' => __DIR__ . '/..' . '/symfony/messenger/EventListener/SendFailedMessageToFailureTransportListener.php',
+        'Symfony\\Component\\Messenger\\EventListener\\StopWorkerOnFailureLimitListener' => __DIR__ . '/..' . '/symfony/messenger/EventListener/StopWorkerOnFailureLimitListener.php',
+        'Symfony\\Component\\Messenger\\EventListener\\StopWorkerOnMemoryLimitListener' => __DIR__ . '/..' . '/symfony/messenger/EventListener/StopWorkerOnMemoryLimitListener.php',
+        'Symfony\\Component\\Messenger\\EventListener\\StopWorkerOnMessageLimitListener' => __DIR__ . '/..' . '/symfony/messenger/EventListener/StopWorkerOnMessageLimitListener.php',
+        'Symfony\\Component\\Messenger\\EventListener\\StopWorkerOnRestartSignalListener' => __DIR__ . '/..' . '/symfony/messenger/EventListener/StopWorkerOnRestartSignalListener.php',
+        'Symfony\\Component\\Messenger\\EventListener\\StopWorkerOnSigtermSignalListener' => __DIR__ . '/..' . '/symfony/messenger/EventListener/StopWorkerOnSigtermSignalListener.php',
+        'Symfony\\Component\\Messenger\\EventListener\\StopWorkerOnTimeLimitListener' => __DIR__ . '/..' . '/symfony/messenger/EventListener/StopWorkerOnTimeLimitListener.php',
+        'Symfony\\Component\\Messenger\\Event\\AbstractWorkerMessageEvent' => __DIR__ . '/..' . '/symfony/messenger/Event/AbstractWorkerMessageEvent.php',
+        'Symfony\\Component\\Messenger\\Event\\SendMessageToTransportsEvent' => __DIR__ . '/..' . '/symfony/messenger/Event/SendMessageToTransportsEvent.php',
+        'Symfony\\Component\\Messenger\\Event\\WorkerMessageFailedEvent' => __DIR__ . '/..' . '/symfony/messenger/Event/WorkerMessageFailedEvent.php',
+        'Symfony\\Component\\Messenger\\Event\\WorkerMessageHandledEvent' => __DIR__ . '/..' . '/symfony/messenger/Event/WorkerMessageHandledEvent.php',
+        'Symfony\\Component\\Messenger\\Event\\WorkerMessageReceivedEvent' => __DIR__ . '/..' . '/symfony/messenger/Event/WorkerMessageReceivedEvent.php',
+        'Symfony\\Component\\Messenger\\Event\\WorkerRunningEvent' => __DIR__ . '/..' . '/symfony/messenger/Event/WorkerRunningEvent.php',
+        'Symfony\\Component\\Messenger\\Event\\WorkerStartedEvent' => __DIR__ . '/..' . '/symfony/messenger/Event/WorkerStartedEvent.php',
+        'Symfony\\Component\\Messenger\\Event\\WorkerStoppedEvent' => __DIR__ . '/..' . '/symfony/messenger/Event/WorkerStoppedEvent.php',
+        'Symfony\\Component\\Messenger\\Exception\\DelayedMessageHandlingException' => __DIR__ . '/..' . '/symfony/messenger/Exception/DelayedMessageHandlingException.php',
+        'Symfony\\Component\\Messenger\\Exception\\ExceptionInterface' => __DIR__ . '/..' . '/symfony/messenger/Exception/ExceptionInterface.php',
+        'Symfony\\Component\\Messenger\\Exception\\HandlerFailedException' => __DIR__ . '/..' . '/symfony/messenger/Exception/HandlerFailedException.php',
+        'Symfony\\Component\\Messenger\\Exception\\InvalidArgumentException' => __DIR__ . '/..' . '/symfony/messenger/Exception/InvalidArgumentException.php',
+        'Symfony\\Component\\Messenger\\Exception\\LogicException' => __DIR__ . '/..' . '/symfony/messenger/Exception/LogicException.php',
+        'Symfony\\Component\\Messenger\\Exception\\MessageDecodingFailedException' => __DIR__ . '/..' . '/symfony/messenger/Exception/MessageDecodingFailedException.php',
+        'Symfony\\Component\\Messenger\\Exception\\NoHandlerForMessageException' => __DIR__ . '/..' . '/symfony/messenger/Exception/NoHandlerForMessageException.php',
+        'Symfony\\Component\\Messenger\\Exception\\RecoverableExceptionInterface' => __DIR__ . '/..' . '/symfony/messenger/Exception/RecoverableExceptionInterface.php',
+        'Symfony\\Component\\Messenger\\Exception\\RecoverableMessageHandlingException' => __DIR__ . '/..' . '/symfony/messenger/Exception/RecoverableMessageHandlingException.php',
+        'Symfony\\Component\\Messenger\\Exception\\RejectRedeliveredMessageException' => __DIR__ . '/..' . '/symfony/messenger/Exception/RejectRedeliveredMessageException.php',
+        'Symfony\\Component\\Messenger\\Exception\\RuntimeException' => __DIR__ . '/..' . '/symfony/messenger/Exception/RuntimeException.php',
+        'Symfony\\Component\\Messenger\\Exception\\TransportException' => __DIR__ . '/..' . '/symfony/messenger/Exception/TransportException.php',
+        'Symfony\\Component\\Messenger\\Exception\\UnrecoverableExceptionInterface' => __DIR__ . '/..' . '/symfony/messenger/Exception/UnrecoverableExceptionInterface.php',
+        'Symfony\\Component\\Messenger\\Exception\\UnrecoverableMessageHandlingException' => __DIR__ . '/..' . '/symfony/messenger/Exception/UnrecoverableMessageHandlingException.php',
+        'Symfony\\Component\\Messenger\\Exception\\ValidationFailedException' => __DIR__ . '/..' . '/symfony/messenger/Exception/ValidationFailedException.php',
+        'Symfony\\Component\\Messenger\\HandleTrait' => __DIR__ . '/..' . '/symfony/messenger/HandleTrait.php',
+        'Symfony\\Component\\Messenger\\Handler\\HandlerDescriptor' => __DIR__ . '/..' . '/symfony/messenger/Handler/HandlerDescriptor.php',
+        'Symfony\\Component\\Messenger\\Handler\\HandlersLocator' => __DIR__ . '/..' . '/symfony/messenger/Handler/HandlersLocator.php',
+        'Symfony\\Component\\Messenger\\Handler\\HandlersLocatorInterface' => __DIR__ . '/..' . '/symfony/messenger/Handler/HandlersLocatorInterface.php',
+        'Symfony\\Component\\Messenger\\Handler\\MessageHandlerInterface' => __DIR__ . '/..' . '/symfony/messenger/Handler/MessageHandlerInterface.php',
+        'Symfony\\Component\\Messenger\\Handler\\MessageSubscriberInterface' => __DIR__ . '/..' . '/symfony/messenger/Handler/MessageSubscriberInterface.php',
+        'Symfony\\Component\\Messenger\\MessageBus' => __DIR__ . '/..' . '/symfony/messenger/MessageBus.php',
+        'Symfony\\Component\\Messenger\\MessageBusInterface' => __DIR__ . '/..' . '/symfony/messenger/MessageBusInterface.php',
+        'Symfony\\Component\\Messenger\\Middleware\\ActivationMiddleware' => __DIR__ . '/..' . '/symfony/messenger/Middleware/ActivationMiddleware.php',
+        'Symfony\\Component\\Messenger\\Middleware\\AddBusNameStampMiddleware' => __DIR__ . '/..' . '/symfony/messenger/Middleware/AddBusNameStampMiddleware.php',
+        'Symfony\\Component\\Messenger\\Middleware\\DispatchAfterCurrentBusMiddleware' => __DIR__ . '/..' . '/symfony/messenger/Middleware/DispatchAfterCurrentBusMiddleware.php',
+        'Symfony\\Component\\Messenger\\Middleware\\FailedMessageProcessingMiddleware' => __DIR__ . '/..' . '/symfony/messenger/Middleware/FailedMessageProcessingMiddleware.php',
+        'Symfony\\Component\\Messenger\\Middleware\\HandleMessageMiddleware' => __DIR__ . '/..' . '/symfony/messenger/Middleware/HandleMessageMiddleware.php',
+        'Symfony\\Component\\Messenger\\Middleware\\MiddlewareInterface' => __DIR__ . '/..' . '/symfony/messenger/Middleware/MiddlewareInterface.php',
+        'Symfony\\Component\\Messenger\\Middleware\\MiddlewareStack' => __DIR__ . '/..' . '/symfony/messenger/Middleware/StackMiddleware.php',
+        'Symfony\\Component\\Messenger\\Middleware\\QueuedEnvelope' => __DIR__ . '/..' . '/symfony/messenger/Middleware/DispatchAfterCurrentBusMiddleware.php',
+        'Symfony\\Component\\Messenger\\Middleware\\RejectRedeliveredMessageMiddleware' => __DIR__ . '/..' . '/symfony/messenger/Middleware/RejectRedeliveredMessageMiddleware.php',
+        'Symfony\\Component\\Messenger\\Middleware\\SendMessageMiddleware' => __DIR__ . '/..' . '/symfony/messenger/Middleware/SendMessageMiddleware.php',
+        'Symfony\\Component\\Messenger\\Middleware\\StackInterface' => __DIR__ . '/..' . '/symfony/messenger/Middleware/StackInterface.php',
+        'Symfony\\Component\\Messenger\\Middleware\\StackMiddleware' => __DIR__ . '/..' . '/symfony/messenger/Middleware/StackMiddleware.php',
+        'Symfony\\Component\\Messenger\\Middleware\\TraceableMiddleware' => __DIR__ . '/..' . '/symfony/messenger/Middleware/TraceableMiddleware.php',
+        'Symfony\\Component\\Messenger\\Middleware\\TraceableStack' => __DIR__ . '/..' . '/symfony/messenger/Middleware/TraceableMiddleware.php',
+        'Symfony\\Component\\Messenger\\Middleware\\ValidationMiddleware' => __DIR__ . '/..' . '/symfony/messenger/Middleware/ValidationMiddleware.php',
+        'Symfony\\Component\\Messenger\\Retry\\MultiplierRetryStrategy' => __DIR__ . '/..' . '/symfony/messenger/Retry/MultiplierRetryStrategy.php',
+        'Symfony\\Component\\Messenger\\Retry\\RetryStrategyInterface' => __DIR__ . '/..' . '/symfony/messenger/Retry/RetryStrategyInterface.php',
+        'Symfony\\Component\\Messenger\\RoutableMessageBus' => __DIR__ . '/..' . '/symfony/messenger/RoutableMessageBus.php',
+        'Symfony\\Component\\Messenger\\Stamp\\BusNameStamp' => __DIR__ . '/..' . '/symfony/messenger/Stamp/BusNameStamp.php',
+        'Symfony\\Component\\Messenger\\Stamp\\ConsumedByWorkerStamp' => __DIR__ . '/..' . '/symfony/messenger/Stamp/ConsumedByWorkerStamp.php',
+        'Symfony\\Component\\Messenger\\Stamp\\DelayStamp' => __DIR__ . '/..' . '/symfony/messenger/Stamp/DelayStamp.php',
+        'Symfony\\Component\\Messenger\\Stamp\\DispatchAfterCurrentBusStamp' => __DIR__ . '/..' . '/symfony/messenger/Stamp/DispatchAfterCurrentBusStamp.php',
+        'Symfony\\Component\\Messenger\\Stamp\\HandledStamp' => __DIR__ . '/..' . '/symfony/messenger/Stamp/HandledStamp.php',
+        'Symfony\\Component\\Messenger\\Stamp\\NonSendableStampInterface' => __DIR__ . '/..' . '/symfony/messenger/Stamp/NonSendableStampInterface.php',
+        'Symfony\\Component\\Messenger\\Stamp\\ReceivedStamp' => __DIR__ . '/..' . '/symfony/messenger/Stamp/ReceivedStamp.php',
+        'Symfony\\Component\\Messenger\\Stamp\\RedeliveryStamp' => __DIR__ . '/..' . '/symfony/messenger/Stamp/RedeliveryStamp.php',
+        'Symfony\\Component\\Messenger\\Stamp\\SentStamp' => __DIR__ . '/..' . '/symfony/messenger/Stamp/SentStamp.php',
+        'Symfony\\Component\\Messenger\\Stamp\\SentToFailureTransportStamp' => __DIR__ . '/..' . '/symfony/messenger/Stamp/SentToFailureTransportStamp.php',
+        'Symfony\\Component\\Messenger\\Stamp\\SerializerStamp' => __DIR__ . '/..' . '/symfony/messenger/Stamp/SerializerStamp.php',
+        'Symfony\\Component\\Messenger\\Stamp\\StampInterface' => __DIR__ . '/..' . '/symfony/messenger/Stamp/StampInterface.php',
+        'Symfony\\Component\\Messenger\\Stamp\\TransportMessageIdStamp' => __DIR__ . '/..' . '/symfony/messenger/Stamp/TransportMessageIdStamp.php',
+        'Symfony\\Component\\Messenger\\Stamp\\ValidationStamp' => __DIR__ . '/..' . '/symfony/messenger/Stamp/ValidationStamp.php',
+        'Symfony\\Component\\Messenger\\Test\\Middleware\\MiddlewareTestCase' => __DIR__ . '/..' . '/symfony/messenger/Test/Middleware/MiddlewareTestCase.php',
+        'Symfony\\Component\\Messenger\\TraceableMessageBus' => __DIR__ . '/..' . '/symfony/messenger/TraceableMessageBus.php',
+        'Symfony\\Component\\Messenger\\Transport\\AmqpExt\\AmqpFactory' => __DIR__ . '/..' . '/symfony/messenger/Transport/AmqpExt/AmqpFactory.php',
+        'Symfony\\Component\\Messenger\\Transport\\AmqpExt\\AmqpReceivedStamp' => __DIR__ . '/..' . '/symfony/messenger/Transport/AmqpExt/AmqpReceivedStamp.php',
+        'Symfony\\Component\\Messenger\\Transport\\AmqpExt\\AmqpReceiver' => __DIR__ . '/..' . '/symfony/messenger/Transport/AmqpExt/AmqpReceiver.php',
+        'Symfony\\Component\\Messenger\\Transport\\AmqpExt\\AmqpSender' => __DIR__ . '/..' . '/symfony/messenger/Transport/AmqpExt/AmqpSender.php',
+        'Symfony\\Component\\Messenger\\Transport\\AmqpExt\\AmqpStamp' => __DIR__ . '/..' . '/symfony/messenger/Transport/AmqpExt/AmqpStamp.php',
+        'Symfony\\Component\\Messenger\\Transport\\AmqpExt\\AmqpTransport' => __DIR__ . '/..' . '/symfony/messenger/Transport/AmqpExt/AmqpTransport.php',
+        'Symfony\\Component\\Messenger\\Transport\\AmqpExt\\AmqpTransportFactory' => __DIR__ . '/..' . '/symfony/messenger/Transport/AmqpExt/AmqpTransportFactory.php',
+        'Symfony\\Component\\Messenger\\Transport\\AmqpExt\\Connection' => __DIR__ . '/..' . '/symfony/messenger/Transport/AmqpExt/Connection.php',
+        'Symfony\\Component\\Messenger\\Transport\\Doctrine\\Connection' => __DIR__ . '/..' . '/symfony/messenger/Transport/Doctrine/Connection.php',
+        'Symfony\\Component\\Messenger\\Transport\\Doctrine\\DoctrineReceivedStamp' => __DIR__ . '/..' . '/symfony/messenger/Transport/Doctrine/DoctrineReceivedStamp.php',
+        'Symfony\\Component\\Messenger\\Transport\\Doctrine\\DoctrineReceiver' => __DIR__ . '/..' . '/symfony/messenger/Transport/Doctrine/DoctrineReceiver.php',
+        'Symfony\\Component\\Messenger\\Transport\\Doctrine\\DoctrineSender' => __DIR__ . '/..' . '/symfony/messenger/Transport/Doctrine/DoctrineSender.php',
+        'Symfony\\Component\\Messenger\\Transport\\Doctrine\\DoctrineTransport' => __DIR__ . '/..' . '/symfony/messenger/Transport/Doctrine/DoctrineTransport.php',
+        'Symfony\\Component\\Messenger\\Transport\\Doctrine\\DoctrineTransportFactory' => __DIR__ . '/..' . '/symfony/messenger/Transport/Doctrine/DoctrineTransportFactory.php',
+        'Symfony\\Component\\Messenger\\Transport\\InMemoryTransport' => __DIR__ . '/..' . '/symfony/messenger/Transport/InMemoryTransport.php',
+        'Symfony\\Component\\Messenger\\Transport\\InMemoryTransportFactory' => __DIR__ . '/..' . '/symfony/messenger/Transport/InMemoryTransportFactory.php',
+        'Symfony\\Component\\Messenger\\Transport\\Receiver\\ListableReceiverInterface' => __DIR__ . '/..' . '/symfony/messenger/Transport/Receiver/ListableReceiverInterface.php',
+        'Symfony\\Component\\Messenger\\Transport\\Receiver\\MessageCountAwareInterface' => __DIR__ . '/..' . '/symfony/messenger/Transport/Receiver/MessageCountAwareInterface.php',
+        'Symfony\\Component\\Messenger\\Transport\\Receiver\\ReceiverInterface' => __DIR__ . '/..' . '/symfony/messenger/Transport/Receiver/ReceiverInterface.php',
+        'Symfony\\Component\\Messenger\\Transport\\Receiver\\SingleMessageReceiver' => __DIR__ . '/..' . '/symfony/messenger/Transport/Receiver/SingleMessageReceiver.php',
+        'Symfony\\Component\\Messenger\\Transport\\RedisExt\\Connection' => __DIR__ . '/..' . '/symfony/messenger/Transport/RedisExt/Connection.php',
+        'Symfony\\Component\\Messenger\\Transport\\RedisExt\\RedisReceivedStamp' => __DIR__ . '/..' . '/symfony/messenger/Transport/RedisExt/RedisReceivedStamp.php',
+        'Symfony\\Component\\Messenger\\Transport\\RedisExt\\RedisReceiver' => __DIR__ . '/..' . '/symfony/messenger/Transport/RedisExt/RedisReceiver.php',
+        'Symfony\\Component\\Messenger\\Transport\\RedisExt\\RedisSender' => __DIR__ . '/..' . '/symfony/messenger/Transport/RedisExt/RedisSender.php',
+        'Symfony\\Component\\Messenger\\Transport\\RedisExt\\RedisTransport' => __DIR__ . '/..' . '/symfony/messenger/Transport/RedisExt/RedisTransport.php',
+        'Symfony\\Component\\Messenger\\Transport\\RedisExt\\RedisTransportFactory' => __DIR__ . '/..' . '/symfony/messenger/Transport/RedisExt/RedisTransportFactory.php',
+        'Symfony\\Component\\Messenger\\Transport\\Sender\\SenderInterface' => __DIR__ . '/..' . '/symfony/messenger/Transport/Sender/SenderInterface.php',
+        'Symfony\\Component\\Messenger\\Transport\\Sender\\SendersLocator' => __DIR__ . '/..' . '/symfony/messenger/Transport/Sender/SendersLocator.php',
+        'Symfony\\Component\\Messenger\\Transport\\Sender\\SendersLocatorInterface' => __DIR__ . '/..' . '/symfony/messenger/Transport/Sender/SendersLocatorInterface.php',
+        'Symfony\\Component\\Messenger\\Transport\\Serialization\\PhpSerializer' => __DIR__ . '/..' . '/symfony/messenger/Transport/Serialization/PhpSerializer.php',
+        'Symfony\\Component\\Messenger\\Transport\\Serialization\\Serializer' => __DIR__ . '/..' . '/symfony/messenger/Transport/Serialization/Serializer.php',
+        'Symfony\\Component\\Messenger\\Transport\\Serialization\\SerializerInterface' => __DIR__ . '/..' . '/symfony/messenger/Transport/Serialization/SerializerInterface.php',
+        'Symfony\\Component\\Messenger\\Transport\\SetupableTransportInterface' => __DIR__ . '/..' . '/symfony/messenger/Transport/SetupableTransportInterface.php',
+        'Symfony\\Component\\Messenger\\Transport\\Sync\\SyncTransport' => __DIR__ . '/..' . '/symfony/messenger/Transport/Sync/SyncTransport.php',
+        'Symfony\\Component\\Messenger\\Transport\\Sync\\SyncTransportFactory' => __DIR__ . '/..' . '/symfony/messenger/Transport/Sync/SyncTransportFactory.php',
+        'Symfony\\Component\\Messenger\\Transport\\TransportFactory' => __DIR__ . '/..' . '/symfony/messenger/Transport/TransportFactory.php',
+        'Symfony\\Component\\Messenger\\Transport\\TransportFactoryInterface' => __DIR__ . '/..' . '/symfony/messenger/Transport/TransportFactoryInterface.php',
+        'Symfony\\Component\\Messenger\\Transport\\TransportInterface' => __DIR__ . '/..' . '/symfony/messenger/Transport/TransportInterface.php',
+        'Symfony\\Component\\Messenger\\Worker' => __DIR__ . '/..' . '/symfony/messenger/Worker.php',
         'Symfony\\Component\\Mime\\Address' => __DIR__ . '/..' . '/symfony/mime/Address.php',
         'Symfony\\Component\\Mime\\BodyRendererInterface' => __DIR__ . '/..' . '/symfony/mime/BodyRendererInterface.php',
         'Symfony\\Component\\Mime\\CharacterStream' => __DIR__ . '/..' . '/symfony/mime/CharacterStream.php',
@@ -5098,6 +5317,12 @@ class ComposerStaticInit022c90ea7d742ee8e4b9b4a1bbba9086
         'Symfony\\WebpackEncoreBundle\\Exception\\UndefinedBuildException' => __DIR__ . '/..' . '/symfony/webpack-encore-bundle/src/Exception/UndefinedBuildException.php',
         'Symfony\\WebpackEncoreBundle\\Twig\\EntryFilesTwigExtension' => __DIR__ . '/..' . '/symfony/webpack-encore-bundle/src/Twig/EntryFilesTwigExtension.php',
         'Symfony\\WebpackEncoreBundle\\WebpackEncoreBundle' => __DIR__ . '/..' . '/symfony/webpack-encore-bundle/src/WebpackEncoreBundle.php',
+        'TijsVerkoyen\\CssToInlineStyles\\CssToInlineStyles' => __DIR__ . '/..' . '/tijsverkoyen/css-to-inline-styles/src/CssToInlineStyles.php',
+        'TijsVerkoyen\\CssToInlineStyles\\Css\\Processor' => __DIR__ . '/..' . '/tijsverkoyen/css-to-inline-styles/src/Css/Processor.php',
+        'TijsVerkoyen\\CssToInlineStyles\\Css\\Property\\Processor' => __DIR__ . '/..' . '/tijsverkoyen/css-to-inline-styles/src/Css/Property/Processor.php',
+        'TijsVerkoyen\\CssToInlineStyles\\Css\\Property\\Property' => __DIR__ . '/..' . '/tijsverkoyen/css-to-inline-styles/src/Css/Property/Property.php',
+        'TijsVerkoyen\\CssToInlineStyles\\Css\\Rule\\Processor' => __DIR__ . '/..' . '/tijsverkoyen/css-to-inline-styles/src/Css/Rule/Processor.php',
+        'TijsVerkoyen\\CssToInlineStyles\\Css\\Rule\\Rule' => __DIR__ . '/..' . '/tijsverkoyen/css-to-inline-styles/src/Css/Rule/Rule.php',
         'Twig\\Cache\\CacheInterface' => __DIR__ . '/..' . '/twig/twig/src/Cache/CacheInterface.php',
         'Twig\\Cache\\FilesystemCache' => __DIR__ . '/..' . '/twig/twig/src/Cache/FilesystemCache.php',
         'Twig\\Cache\\NullCache' => __DIR__ . '/..' . '/twig/twig/src/Cache/NullCache.php',
@@ -5121,6 +5346,8 @@ class ComposerStaticInit022c90ea7d742ee8e4b9b4a1bbba9086
         'Twig\\Extension\\SandboxExtension' => __DIR__ . '/..' . '/twig/twig/src/Extension/SandboxExtension.php',
         'Twig\\Extension\\StagingExtension' => __DIR__ . '/..' . '/twig/twig/src/Extension/StagingExtension.php',
         'Twig\\Extension\\StringLoaderExtension' => __DIR__ . '/..' . '/twig/twig/src/Extension/StringLoaderExtension.php',
+        'Twig\\Extra\\CssInliner\\CssInlinerExtension' => __DIR__ . '/..' . '/twig/cssinliner-extra/CssInlinerExtension.php',
+        'Twig\\Extra\\Inky\\InkyExtension' => __DIR__ . '/..' . '/twig/inky-extra/InkyExtension.php',
         'Twig\\Extra\\TwigExtraBundle\\DependencyInjection\\Compiler\\MissingExtensionSuggestorPass' => __DIR__ . '/..' . '/twig/extra-bundle/src/DependencyInjection/Compiler/MissingExtensionSuggestorPass.php',
         'Twig\\Extra\\TwigExtraBundle\\DependencyInjection\\Configuration' => __DIR__ . '/..' . '/twig/extra-bundle/src/DependencyInjection/Configuration.php',
         'Twig\\Extra\\TwigExtraBundle\\DependencyInjection\\TwigExtraExtension' => __DIR__ . '/..' . '/twig/extra-bundle/src/DependencyInjection/TwigExtraExtension.php',
@@ -5483,10 +5710,10 @@ class ComposerStaticInit022c90ea7d742ee8e4b9b4a1bbba9086
     public static function getInitializer(ClassLoader $loader)
     {
         return \Closure::bind(function () use ($loader) {
-            $loader->prefixLengthsPsr4 = ComposerStaticInit022c90ea7d742ee8e4b9b4a1bbba9086::$prefixLengthsPsr4;
-            $loader->prefixDirsPsr4 = ComposerStaticInit022c90ea7d742ee8e4b9b4a1bbba9086::$prefixDirsPsr4;
-            $loader->prefixesPsr0 = ComposerStaticInit022c90ea7d742ee8e4b9b4a1bbba9086::$prefixesPsr0;
-            $loader->classMap = ComposerStaticInit022c90ea7d742ee8e4b9b4a1bbba9086::$classMap;
+            $loader->prefixLengthsPsr4 = ComposerStaticInitad8dae23d6f65b7c8e3a29a5a3d65696::$prefixLengthsPsr4;
+            $loader->prefixDirsPsr4 = ComposerStaticInitad8dae23d6f65b7c8e3a29a5a3d65696::$prefixDirsPsr4;
+            $loader->prefixesPsr0 = ComposerStaticInitad8dae23d6f65b7c8e3a29a5a3d65696::$prefixesPsr0;
+            $loader->classMap = ComposerStaticInitad8dae23d6f65b7c8e3a29a5a3d65696::$classMap;
 
         }, null, ClassLoader::class);
     }

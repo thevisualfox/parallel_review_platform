@@ -6,10 +6,6 @@
 .btn {
     text-decoration: none;
 
-    &:not(.btn-link) {
-        text-transform: uppercase;
-    }
-
     // Active state
 
     @at-root {
@@ -17,6 +13,10 @@
             box-shadow: none !important;
         }
     }
+}
+
+.btn__loader {
+    @extend %absolute-fill;
 }
 
 .btn-link {

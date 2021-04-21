@@ -1,24 +1,82 @@
+:root {
+    --avatar-dimensions: 26px;
+    --status-dimensions: 12px;
+}
+
 .user {
     position: relative;
 }
 
-.user__image {
-    width: px-to-rem(25);
-    height: px-to-rem(25);
+.user__avatar {
+    @extend %center-flex;
+    @extend .position-relative, .rounded-circle;
 
+    width: var(--avatar-dimensions);
+    height: var(--avatar-dimensions);
+    border: $border-width solid $border-color;
+}
+
+.user__image {
     @include object-fit(cover);
 }
 
-.user__leader {
+.user__initials {
     @extend %center-flex;
 
-    $dimensions: 12px;
+    font-family: $font-family-base;
+    font-size: calc(var(--avatar-dimensions) * 0.4);
+}
+
+.user__action {
+    @extend %absolute-fill, %center-flex;
+    @extend .btn, .btn-link, .p-0;
+
+    background-color: $secondary;
+    width: 100%;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 150ms ease, visibility 150ms ease;
+
+    .user__action-icon {
+        width: calc(var(--avatar-dimensions) * 0.4);
+        height: calc(var(--avatar-dimensions) * 0.4);
+    }
+}
+
+.user__status {
+    @extend %center-flex;
 
     position: absolute;
-    top: -2px;
-    left: -2px;
-    height: $dimensions;
-    width: $dimensions;
-    background-color: $black;
+    top: calc(var(--status-dimensions) / 4 * -1);
+    left: calc(var(--status-dimensions) / 4 * -1);
+    height: var(--status-dimensions);
+    width: var(--status-dimensions);
     border-radius: 50%;
+}
+
+.user__status-icon {
+    width: calc(var(--status-dimensions) / 2);
+    height: calc(var(--status-dimensions) / 2);
+}
+
+.user__status--leader {
+    background-color: $black;
+}
+
+.user--lg {
+    --avatar-dimensions: 30px;
+    --status-dimensions: 16px;
+}
+
+.user--xl {
+    --avatar-dimensions: 40px;
+    --status-dimensions: 20px;
+}
+
+/* Hover states */
+.user:hover {
+    .user__action {
+        opacity: 1;
+        visibility: visible;
+    }
 }

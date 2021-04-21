@@ -1,73 +1,56 @@
 /* Packages */
-import React, { useEffect } from "react";
-import axios from "axios";
+import React, { useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
-import { useRecoilState } from "recoil";
+import { useQuery } from "react-query";
 
 /* Components */
-import { Project } from "./project";
+import { ProjectResults } from "./project";
 import { ProjectAdd } from "./project-add";
 
 /* Animations */
 import { STAGGER_UP } from "../../common/animations";
 
-/* Global state */
-import { loadingState, projectsState } from "../state";
+/* Api calls */
+import { fetchProjectsByUser, QUERY_KEYS } from "../api";
 
-export default function ProjectOverview({ isAdmin }) {
+export default function ProjectOverview() {
     /* State */
-    const [projects, setProjects] = useRecoilState(projectsState);
-    const [loading, setLoading] = useRecoilState(loadingState);
+    const [isAdmin, setIsAdmin] = useState(false);
+    const userId = atob(location.search.replace("?", ""));
 
-    /* Effects */
-    useEffect(() => getProjects(), []);
-
-    /* Callbacks */
-    const getProjects = async () => {
-        try {
-            const result = await axios.get("/projects/get");
-
-            if (result.data) setProjects(result.data);
-        } catch (error) {
-            throw new Error(error);
-        } finally {
-            setLoading(null);
+    /* Hooks */
+    const { isLoading: projectsLoading, data = {} } = useQuery(
+        QUERY_KEYS.PROJECT_BY_USER,
+        () => fetchProjectsByUser({ userId }),
+        {
+            onSuccess: ({ user }) => setIsAdmin(user.roles.includes("ROLE_ADMIN")),
         }
-    };
+    );
+
+    /* Constants  */
+    const { projects = [] } = data;
 
     /* Render */
     return (
-        <>
-            <div className="row row--equalized gutters-5">
-                <AnimatePresence initial={false}>
-                    {projects.map((project, projectIndex) => (
-                        <motion.div
-                            {...STAGGER_UP(projectIndex)}
-                            key={project.id}
-                            className="col-12 col-md-6 col-lg-4 col-xl-3"
-                            layout>
-                            <Project {...{ project, getProjects }} />
-                        </motion.div>
-                    ))}
-                    {isAdmin && loading !== "initial" && (
-                        <motion.div
-                            {...STAGGER_UP(projects.length)}
-                            key="add-project"
-                            className="col-12 col-md-6 col-lg-4 col-xl-3"
-                            layout>
-                            <ProjectAdd {...{ getProjects }} />
-                        </motion.div>
-                    )}
-                </AnimatePresence>
+        <ProjectResults {...{ projects }}>
+            {isAdmin && !projectsLoading && (
+                <motion.div
+                    {...STAGGER_UP(projects.length)}
+                    key="add-project"
+                    className="col-12 col-md-6 col-lg-4 col-xl-3"
+                    layout>
+                    <ProjectAdd />
+                </motion.div>
+            )}
+            <div className="col-12">
                 <AnimatePresence>
-                    {!isAdmin && projects.length === 0 && (
-                        <motion.p
-                            {...STAGGER_UP()}
-                            className="col-12 text-white"
-                            layout>{`You don't have any projects yet`}</motion.p>
+                    {!isAdmin && !projectsLoading && projects.length === 0 && (
+                        <motion.p {...STAGGER_UP()} className="text-white" layout>
+                            {`You don't have any projects yet`}
+                        </motion.p>
                     )}
                 </AnimatePresence>
             </div>
-        </>
+        </ProjectResults>
     );
 }
