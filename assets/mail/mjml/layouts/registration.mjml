@@ -30,7 +30,7 @@
                 </mj-column>
                 <mj-column width="100%">
                     <mj-button href="{{ url('app_show_projects') }}" padding-left="0" padding-top="20px" padding-bottom="0" background-color="#0587FF" color="white" font-size="16px" align="left" inner-padding="5px 20px" font-weight="400">
-                        To my projects &nbsp;<img src="{{ absolute_url(asset('build/mail/img/btn-arrow.png')) }}" style="width:20px; vertical-align:middle;margin-left:10px;" />
+                        To my projects &nbsp;<img src="{{ email.image('@images/btn-arrow.png') }}" style="width:20px; vertical-align:middle;margin-left:10px;" />
                     </mj-button>
                 </mj-column>
             </mj-section>
