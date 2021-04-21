@@ -56,7 +56,7 @@ class Mailer
         $email = (new TemplatedEmail())
             ->from($this->from)
             ->to(new Address($user->getEmail(), $user->getUsername()))
-            ->subject("You've been added to project {$project->getTitle()}!")
+            ->subject("You've been added to project '{$project->getTitle()}'!")
             ->htmlTemplate('mail/project-add-user.twig')
             ->context([
                 'userId' => base64_encode($user->getId()),
