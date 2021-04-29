@@ -1,13 +1,42 @@
 .alert--notification {
+    --icon-size: 22px;
+
+    @extend .bg-primary, .text-white, .border, .rounded;
+    @extend .flex-column, .align-items-baseline;
+
     position: fixed !important;
     bottom: 0;
     right: 0;
     left: 0;
     z-index: $zindex-fixed;
+    min-width: 240px;
 
     @include media-breakpoint-up(lg) {
         bottom: spacer(6);
         left: spacer(6);
         right: auto;
+    }
+
+    @include media-breakpoint-up(xl) {
+        bottom: spacer(12);
+        left: spacer(12);
+    }
+
+    .alert__icon-wrapper {
+        @extend %center-flex;
+        @extend .rounded-circle;
+
+        width: var(--icon-size);
+        height: var(--icon-size);
+
+        @each $color, $theme in $alert-themes {
+            &--#{$color} {
+                background-color: rgba($theme, 0.2);
+            }
+        }
+    }
+
+    .alert__message {
+        margin-left: calc(#{var(--icon-size)} + #{spacer(2)});
     }
 }

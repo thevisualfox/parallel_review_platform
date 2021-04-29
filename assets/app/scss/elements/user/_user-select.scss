@@ -40,8 +40,8 @@
         }
 
         .user__add {
-            background-color: $secondary;
-            border-color: $secondary;
+            background-color: rgba($secondary, $opacity-level);
+            border-color: rgba($secondary, $opacity-level);
         }
 
         .user__add-icon {

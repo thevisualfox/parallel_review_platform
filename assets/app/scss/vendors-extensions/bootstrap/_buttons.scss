@@ -32,6 +32,30 @@
     }
 }
 
+// Button states
+
+@each $color, $value in $theme-colors {
+    .btn-#{$color} {
+        @include button-variant(rgba($value, $opacity-level), transparent, rgba($value, $opacity-level), rgba($value, $opacity-level-active), rgba($value, 0.25), rgba($value, $opacity-level-active));
+
+        color: $value !important;
+    }
+
+    .btn-outline-#{$color} {
+        @include button-outline-variant(rgba($value, $opacity-level), $value, rgba($value, 0.1), rgba($value, $opacity-level-active));
+
+        color: $value !important;
+
+        &:hover {
+            background-color: transparent;
+        }
+
+        &:focus {
+            border-color: rgba($value, $opacity-level-active);
+        }
+    }
+}
+
 // Button sizes
 
 @each $breakpoint in map-keys($grid-breakpoints) {

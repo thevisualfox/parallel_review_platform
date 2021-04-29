@@ -47,6 +47,10 @@
 }
 
 .card__image {
+    @extend %center-flex;
+
+    aspect-ratio: 1/1; /* stylelint-disable-line property-no-unknown */
+
     .card-img-top {
         aspect-ratio: 1/1; /* stylelint-disable-line property-no-unknown */
 

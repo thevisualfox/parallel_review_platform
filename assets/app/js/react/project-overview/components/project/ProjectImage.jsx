@@ -1,11 +1,19 @@
 /* Packages */
 import React from "react";
+import { ReactSVG } from "react-svg";
+
+/* Assets */
+import addImageIcon from "icons/add_image.svg";
 
 export default function ProjectImage({ projectImages }) {
+    /* Constants */
+    const { image, title } = projectImages[0] || {};
+
     /* Render */
-    return projectImages.slice(0, 1).map(({ image, title }, imageIndex) => (
-        <div key={imageIndex} className="card__image has-overlay m-2">
-            <img className="card-img-top" src={image} srcSet={`${image} 2x`} alt={title} />
+    return (
+        <div className="card__image border m-2">
+            {image && <img className="card-img-top" src={image} srcSet={`${image} 2x`} alt={title} />}
+            {!image && <ReactSVG wrapper="svg" className="icon icon--48 text-muted--40" src={addImageIcon} />}
         </div>
-    ));
+    );
 }

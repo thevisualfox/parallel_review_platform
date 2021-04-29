@@ -69,9 +69,12 @@
 // Elements
 
 @import "elements/lists/list";
+@import "elements/loaders/linear-progress";
+@import "elements/loaders/circular-progress";
 @import "elements/logos/logo";
 @import "elements/background/background";
 @import "elements/user/user";
+@import "elements/user/user-interactive";
 @import "elements/user/user-add";
 @import "elements/user/user-select";
 @import "elements/icons/icon";

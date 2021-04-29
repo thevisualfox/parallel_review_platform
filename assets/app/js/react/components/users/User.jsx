@@ -19,7 +19,7 @@ export default function User({ user, project, variant = "default", size = "md" }
     const { id: userId, email } = user;
 
     const isAuthor = email === author;
-    const classes = ["user", `user--${size}`, `user--${variant}`].join(" ");
+    const classes = ["user", `user--${size}`, `user--${variant}`, isAuthor && "user--author"].join(" ");
 
     /* Mutations */
     const deleteUserMutation = useMutation(deleteUser, {
@@ -35,11 +35,7 @@ export default function User({ user, project, variant = "default", size = "md" }
                         className="user__action btn btn-link p-0"
                         type="button"
                         onClick={() => deleteUserMutation.mutate({ projectId, userId })}>
-                        <ReactSVG
-                            wrapper="svg"
-                            className="user__action-icon icon icon--14 text-white"
-                            src={deleteIcon}
-                        />
+                        <ReactSVG wrapper="svg" className="user__action-icon icon icon--14" src={deleteIcon} />
                     </button>
                 )}
             </UserAvatar>
@@ -58,7 +54,7 @@ export const UserAvatar = ({ username, userColor, children }) => {
 
     /* Render */
     return (
-        <div className="user__avatar" style={{ backgroundColor: userColor }}>
+        <div className="user__avatar" style={{ "--theme": userColor }}>
             <span className="user__initials">{userInitials}</span>
             {children}
         </div>
@@ -66,7 +62,7 @@ export const UserAvatar = ({ username, userColor, children }) => {
 };
 
 export const UserInfo = ({ username, email }) => (
-    <div className="d-flex flex-column ml-2">
+    <div className="d-flex flex-column ml-3">
         <p className="mb-0">{username}</p>
         <p className="text-muted--60 text--xs">{email}</p>
     </div>

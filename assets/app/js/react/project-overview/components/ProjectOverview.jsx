@@ -1,5 +1,6 @@
 /* Packages */
 import React, { useState } from "react";
+import LinearProgress from "@material-ui/core/LinearProgress";
 import { AnimatePresence, motion } from "framer-motion";
 import { useQuery } from "react-query";
 
@@ -8,7 +9,7 @@ import { ProjectResults } from "./project";
 import { ProjectAdd } from "./project-add";
 
 /* Animations */
-import { STAGGER_UP } from "../../common/animations";
+import { FADE_IN, STAGGER_UP } from "../../common/animations";
 
 /* Api calls */
 import { fetchProjectsByUser, QUERY_KEYS } from "../api";
@@ -32,25 +33,34 @@ export default function ProjectOverview() {
 
     /* Render */
     return (
-        <ProjectResults {...{ projects }}>
-            {isAdmin && !projectsLoading && (
-                <motion.div
-                    {...STAGGER_UP(projects.length)}
-                    key="add-project"
-                    className="col-12 col-md-6 col-lg-4 col-xl-3"
-                    layout>
-                    <ProjectAdd />
-                </motion.div>
-            )}
-            <div className="col-12">
-                <AnimatePresence>
-                    {!isAdmin && !projectsLoading && projects.length === 0 && (
-                        <motion.p {...STAGGER_UP()} className="text-white" layout>
-                            {`You don't have any projects yet`}
-                        </motion.p>
-                    )}
-                </AnimatePresence>
-            </div>
-        </ProjectResults>
+        <>
+            <AnimatePresence>
+                {projectsLoading && (
+                    <motion.div {...FADE_IN}>
+                        <LinearProgress color="secondary" />
+                    </motion.div>
+                )}
+            </AnimatePresence>
+            <ProjectResults {...{ projects }}>
+                {isAdmin && !projectsLoading && (
+                    <motion.div
+                        {...STAGGER_UP(projects.length)}
+                        key="add-project"
+                        className="col-12 col-md-6 col-lg-4 col-xl-3"
+                        layout>
+                        <ProjectAdd />
+                    </motion.div>
+                )}
+                <div className="col-12">
+                    <AnimatePresence>
+                        {!isAdmin && !projectsLoading && projects.length === 0 && (
+                            <motion.p {...STAGGER_UP()} className="text-white" layout>
+                                {`You don't have any projects yet`}
+                            </motion.p>
+                        )}
+                    </AnimatePresence>
+                </div>
+            </ProjectResults>
+        </>
     );
 }

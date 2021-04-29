@@ -92,7 +92,7 @@ export default function UserAddSearch({ users, project, toggleBox }) {
                     title="Remove all users">
                     <span className="btn__text">Remove all users</span>
                 </a>
-                <button type="button" className="btn btn-sm btn-secondary ml-auto" onClick={toggleBox}>
+                <button type="button" className="btn btn-sm btn-secondary ml-auto px-8" onClick={toggleBox}>
                     <span className="btn__text">Done</span>
                 </button>
             </div>

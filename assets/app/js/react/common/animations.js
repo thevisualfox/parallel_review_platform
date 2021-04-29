@@ -1,3 +1,6 @@
+import React from "react";
+import { motion } from "framer-motion";
+
 const EASE = [0.65, 0, 0.35, 1];
 
 const FADE_IN = {
@@ -65,7 +68,7 @@ const TRANSFORM_UP = {
 
 const SCALE_FADE = {
     initial: {
-        scale: 0.5,
+        scale: 0,
         opacity: 0,
     },
     animate: {
@@ -73,12 +76,12 @@ const SCALE_FADE = {
         opacity: 1,
     },
     exit: {
-        scale: 0.5,
+        scale: 0,
         opacity: 0,
     },
     transition: {
         ease: EASE,
-        duration: 0.1,
+        duration: 0.2,
     },
 };
 
@@ -94,4 +97,7 @@ const STAGGER_LEFT = (index = 0) => ({
     exit: { opacity: 0, x: 10, transition: { type: "spring", damping: 30, stiffness: 600 } },
 });
 
+const AnimationWrapper = ({ children, ...props }) => <motion.div {...props}>{children}</motion.div>;
+
 export { FADE_IN, FADE_IN_UP, TRANSFORM_UP, SCALE_FADE, STAGGER_UP, STAGGER_LEFT };
+export default AnimationWrapper;

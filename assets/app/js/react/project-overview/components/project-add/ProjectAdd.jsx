@@ -53,7 +53,7 @@ export default function ProjectAdd() {
 
     /* Render */
     return (
-        <article className="card card--link card--transparent h-100 mb-0" style={{ minHeight: 385 }}>
+        <article className="card card--link h-100 mb-0" style={{ minHeight: 427 }}>
             <div className="card-body d-flex align-items-center justify-content-center p-10">
                 <button
                     className="btn btn-link text-decoration-none stretched-link"

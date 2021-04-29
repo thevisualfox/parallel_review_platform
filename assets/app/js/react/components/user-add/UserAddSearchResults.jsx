@@ -1,5 +1,5 @@
 /* Packages */
-import React from "react";
+import React, { useEffect } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 import { useQuery } from "react-query";
 
@@ -11,6 +11,9 @@ import { UserSelect } from "../users";
 
 /* Api calls */
 import { fetchGobalUsers, QUERY_KEYS } from "../../project-overview/api";
+
+/* Helpers */
+import filterUsers from "../../helpers/filterUsers";
 
 export default function UserAddSearchResults({
     users,
@@ -27,31 +30,18 @@ export default function UserAddSearchResults({
     );
 
     /* Constants */
-    const lowerQuery = query.toLowerCase();
-    const existingUsersByEmail = users.map(({ email }) => email);
+    const filteredUsers = filterUsers(globalUsers, users, query);
 
-    const filterUsers = (users) => {
-        let filteredUsers = users
-            .filter(({ email }) => {
-                /* Only return users that are not part of the project */
-                return !existingUsersByEmail.includes(email);
-            })
-            .filter(({ email, username }) => {
-                /* Only return users that match the query on email || username */
-                return email.toLowerCase().includes(lowerQuery) || username.toLowerCase().includes(lowerQuery);
-            });
-
+    /* Effects */
+    useEffect(() => {
         if (filteredUsers.length > 0 && !userMutationLoading) {
             setFocusedUser(filteredUsers[0]);
         }
-
-        return filteredUsers;
-    };
+    }, [filteredUsers]);
 
     /* Render filtered results */
     const filteredResults = () => {
-        const filteredUsers = filterUsers(globalUsers);
-        const newUser = { email: query, username: "New user", userColor: "#6A3F5B" };
+        const newUser = { email: query, username: "New user", userColor: "#CC25E8" };
 
         if (filteredUsers.length > 0) {
             return filteredUsers.map((user) => (
@@ -59,6 +49,7 @@ export default function UserAddSearchResults({
                     <UserSelect
                         {...{ user, handleClick, setFocusedUser }}
                         isFocused={user.email === focusedUser?.email && query}
+                        isLoading={userMutationLoading}
                     />
                 </motion.li>
             ));
@@ -67,7 +58,11 @@ export default function UserAddSearchResults({
         if (!globalUsersLoading) {
             return (
                 <motion.li {...FADE_IN} key="New user" className="list__item is-focused vr-3">
-                    <UserSelect {...{ user: newUser, handleClick, setFocusedUser }} isFocused={query.length} />
+                    <UserSelect
+                        {...{ user: newUser, handleClick, setFocusedUser }}
+                        isFocused={query.length}
+                        isLoading={userMutationLoading}
+                    />
                 </motion.li>
             );
         }

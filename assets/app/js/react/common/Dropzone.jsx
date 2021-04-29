@@ -90,7 +90,7 @@ const DropzoneInner = ({ updateProjectImages, isParentDragActive }) => {
             <article
                 className={`dropzone__container card card--link ${
                     (isDragActive || isParentDragActive) && "is-pulsing"
-                } card--transparent h-100 mb-0`}>
+                } h-100 mb-0`}>
                 <div className="card-body d-flex align-items-center justify-content-center p-10">
                     <span className="btn-text d-flex flex-column align-items-center text-white text-muted--40">
                         <ReactSVG wrapper="svg" className="icon icon--48" src={addImageIcon} />

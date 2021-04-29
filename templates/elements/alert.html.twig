@@ -8,12 +8,29 @@
     {% set alert_classes = alert_classes|merge(['alert-' ~ type]) %}
 {% endif %}
 
+{% set titles = {
+    warning: 'Warning',
+    danger: 'Error',
+    success: 'Success'
+} %}
+
 {# Render #}
-<div class="{{ alert_classes|join(' ') }}" role="alert">
-    {% include "elements/icon.html.twig" with {
-        icon_type: type,
-        icon_size: 16,
-        icon_classes: ['text-white', 'mr-2']
-    } %}
-    <span class="text-white">{{ message }}</span>
+<div class="{{ alert_classes|join(' ') }}" role="alert" data-alert>
+    <div class="d-flex align-items-center w-100">
+        <div class="alert__icon-wrapper alert__icon-wrapper--{{ type }} mr-2">
+            {% include "elements/icon.html.twig" with {
+                icon_type: type,
+                icon_size: 12,
+                icon_classes: ['alert__icon']
+            } %}
+        </div>
+        <p class="mb-0">{{ titles[type]}}</p>
+        <button class="alert__btn btn btn-link ml-auto" type="button">
+            {% include "elements/icon.html.twig" with {
+                icon_type: 'close-white',
+                icon_size: 10,
+            } %}
+        </button>
+    </div>
+    <span class="alert__message text--xs text-muted--70 mr-lg-8">{{ message }}</span>
 </div>

@@ -1,4 +1,4 @@
-<mj-section padding-top="50px" padding-bottom="0" full-width="full-width">
+<mj-section padding-top="50px" padding-bottom="30px" full-width="full-width">
     <mj-column>
          <mj-image width="185px" src="{{ email.image('@images/logo.png') }}" padding="0" />
     </mj-column>

@@ -17,8 +17,10 @@ export default function Project({ project }) {
             <div className="card-body">
                 <div className="d-flex justify-content-between">
                     <div className="d-flex flex-column">
-                        <p className="mb-3">{title}</p>
-                        <Users {...{ users, project: { author } }} />
+                        <p className="mb-2">{title ? title : "Add a nice title"}</p>
+                        <div className="d-flex align-items-center">
+                            <Users {...{ users, project: { author }, layout: "minimal" }} />
+                        </div>
                     </div>
                     <ProjectMenu {...{ projectId: project.id }} />
                 </div>
