@@ -51,7 +51,7 @@ export default function UserAddSearch({ users, project, toggleBox }) {
 			event.preventDefault();
 
 			if (query !== '' && focusedUser !== null) {
-				const user = filteredUsers[focusedUser];
+				const user = focusedUser in filteredUsers ? filteredUsers[focusedUser] : focusedUser;
 
 				if (isEmail(user.email)) {
 					addUserMutation.mutate({ projectId: project.id, email: user.email });

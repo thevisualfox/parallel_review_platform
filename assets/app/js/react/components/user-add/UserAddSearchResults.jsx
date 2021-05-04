@@ -37,7 +37,7 @@ export default function UserAddSearchResults({
 			return (
 				<motion.li {...FADE_IN} key="New user" className="list__item is-focused vr-3">
 					<UserSelect
-						{...{ user: newUser, handleClick, setFocusedUser }}
+						{...{ user: newUser, userIndex: newUser, handleClick, setFocusedUser }}
 						isFocused={query.length}
 						isLoading={userMutationLoading}
 					/>
