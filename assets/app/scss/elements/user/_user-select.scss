@@ -24,7 +24,7 @@
         height: 25px;
         background-color: transparent;
         border: $border-width solid $border-color;
-        transition: background-color 200ms ease, background-color 200ms ease;
+        transition: background-color 200ms ease, border-color 200ms ease;
     }
 
     .user__add-icon {

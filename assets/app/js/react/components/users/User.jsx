@@ -2,8 +2,6 @@
 import React from 'react';
 import { ReactSVG } from 'react-svg';
 import { useMutation, useQueryClient } from 'react-query';
-import CircularProgress from '@material-ui/core/CircularProgress';
-import { AnimatePresence } from 'framer-motion';
 
 /* Assets */
 import starIcon from 'icons/star.svg';
@@ -12,8 +10,8 @@ import deleteIcon from 'icons/delete.svg';
 /* Api calls */
 import { deleteUser, QUERY_KEYS } from '../../project-overview/api';
 
-/* Animations */
-import AnimationWrapper, { SCALE_FADE } from '../../common/animations';
+/* Components */
+import { LoadingWrapper } from '../../common';
 
 export default function User({ user, project, variant = 'default', size = 'md' }) {
 	/* Hooks */
@@ -60,18 +58,10 @@ export const UserAvatar = ({ username, userColor, isLoading, children }) => {
 	/* Render */
 	return (
 		<div className="user__avatar" style={{ '--theme': userColor }}>
-			<AnimatePresence>
-				{isLoading ? (
-					<AnimationWrapper key="loader" className="position-absolute d-flex" {...SCALE_FADE}>
-						<CircularProgress color="inherit" size={16} />
-					</AnimationWrapper>
-				) : (
-					<AnimationWrapper key="default" {...SCALE_FADE}>
-						<span className="user__initials">{userInitials}</span>
-						{children}
-					</AnimationWrapper>
-				)}
-			</AnimatePresence>
+			<LoadingWrapper loading={isLoading} loaderSize={16}>
+				<span className="user__initials">{userInitials}</span>
+				{children}
+			</LoadingWrapper>
 		</div>
 	);
 };

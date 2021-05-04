@@ -28,7 +28,8 @@
     }
 
     /* Hover states */
-    &:hover {
+    &:hover,
+    &:focus {
         .user__initials {
             opacity: 0;
             visibility: hidden;
