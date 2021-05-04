@@ -1,7 +1,5 @@
 /* Packages */
 import React, { useEffect } from 'react';
-import CircularProgress from '@material-ui/core/CircularProgress';
-import { AnimatePresence } from 'framer-motion';
 import { ReactSVG } from 'react-svg';
 
 /* Assets */
@@ -10,26 +8,19 @@ import addUserIcon from 'icons/add_user.svg';
 /* Components */
 import { UserAvatar, UserInfo } from './User';
 
-/* Animations */
-import AnimationWrapper, { SCALE_FADE } from '../../common/animations';
-
-export default function UserSelect({ user, handleClick, isFocused, setFocusedUser, setHoveredUser, isLoading }) {
+export default function UserSelect({ user, userIndex, handleClick, isFocused, setFocusedUser, isLoading }) {
 	/* Effects */
 	useEffect(() => {
-		isFocused && setFocusedUser(user);
+		isFocused && setFocusedUser(userIndex);
 	}, [isFocused]);
 
 	useEffect(() => {
-		return () => {
-			setFocusedUser(null);
-			setHoveredUser(false);
-		};
+		return () => setFocusedUser(0);
 	}, []);
 
 	/* Callbacks */
 	const handleStatus = (action) => {
-		setFocusedUser(action === 'enter' ? user : null);
-		setHoveredUser(action === 'enter');
+		setFocusedUser(action === 'enter' ? userIndex : 0);
 	};
 
 	/* Render */
@@ -40,26 +31,12 @@ export default function UserSelect({ user, handleClick, isFocused, setFocusedUse
 			onMouseEnter={() => handleStatus('enter')}
 			onMouseLeave={() => handleStatus('leave')}>
 			<div className="d-flex align-items-center">
-				<UserAvatar {...user} />
+				<UserAvatar isLoading={isLoading && isFocused} {...user} />
 				<UserInfo {...user} />
 				<div className="user__add text-secondary rounded-circle ml-auto">
-					<UserStatus loading={isLoading && isFocused} />
+					<ReactSVG wrapper="svg" className="user__add-icon icon icon--12 text-secondary" src={addUserIcon} />
 				</div>
 			</div>
 		</button>
 	);
 }
-
-const UserStatus = ({ loading }) => (
-	<AnimatePresence>
-		{loading ? (
-			<AnimationWrapper key="loader" className="position-absolute d-flex" {...SCALE_FADE}>
-				<CircularProgress color="inherit" size={12} />
-			</AnimationWrapper>
-		) : (
-			<AnimationWrapper key="default" className="position-absolute d-flex" {...SCALE_FADE}>
-				<ReactSVG wrapper="svg" className="user__add-icon icon icon--12 text-secondary" src={addUserIcon} />
-			</AnimationWrapper>
-		)}
-	</AnimatePresence>
-);
