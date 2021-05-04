@@ -1,81 +1,84 @@
 /* Packages */
-import React, { useEffect } from "react";
-import { AnimatePresence, motion } from "framer-motion";
-import { useQuery } from "react-query";
+import React, { useEffect, useState } from 'react';
+import { AnimatePresence, motion } from 'framer-motion';
+import { useQuery } from 'react-query';
 
 /* Animations */
-import { FADE_IN } from "../../common/animations";
+import { FADE_IN } from '../../common/animations';
 
 /* Components */
-import { UserSelect } from "../users";
+import { UserSelect } from '../users';
 
 /* Api calls */
-import { fetchGobalUsers, QUERY_KEYS } from "../../project-overview/api";
+import { fetchGobalUsers, QUERY_KEYS } from '../../project-overview/api';
 
 /* Helpers */
-import filterUsers from "../../helpers/filterUsers";
+import filterUsers from '../../helpers/filterUsers';
 
 export default function UserAddSearchResults({
-    users,
-    query,
-    handleClick,
-    focusedUser,
-    setFocusedUser,
-    userMutationLoading,
+	users,
+	query,
+	handleClick,
+	focusedUser,
+	setFocusedUser,
+	userMutationLoading,
 }) {
-    /* Queries */
-    const { data: globalUsers = [], isLoading: globalUsersLoading } = useQuery(
-        QUERY_KEYS.GLOBAL_USERS,
-        fetchGobalUsers
-    );
+	/* Queries */
+	const { data: globalUsers = [], isLoading: globalUsersLoading } = useQuery(
+		QUERY_KEYS.GLOBAL_USERS,
+		fetchGobalUsers
+	);
 
-    /* Constants */
-    const filteredUsers = filterUsers(globalUsers, users, query);
+	/* Constants */
+	const filteredUsers = filterUsers(globalUsers, users, query);
 
-    /* Effects */
-    useEffect(() => {
-        if (filteredUsers.length > 0 && !userMutationLoading) {
-            setFocusedUser(filteredUsers[0]);
-        }
-    }, [filteredUsers]);
+    /* State */
+	const [hoveredUser, setHoveredUser] = useState(false);
 
-    /* Render filtered results */
-    const filteredResults = () => {
-        const newUser = { email: query, username: "New user", userColor: "#CC25E8" };
+	/* Effects */
+	useEffect(() => {
+		if (filteredUsers.length > 0 && !userMutationLoading) {
+			setFocusedUser(filteredUsers[0]);
+		}
+	}, [filteredUsers]);
 
-        if (filteredUsers.length > 0) {
-            return filteredUsers.map((user) => (
-                <motion.li {...FADE_IN} key={user.id} className="list__item vr-3">
-                    <UserSelect
-                        {...{ user, handleClick, setFocusedUser }}
-                        isFocused={user.email === focusedUser?.email && query}
-                        isLoading={userMutationLoading}
-                    />
-                </motion.li>
-            ));
-        }
+	/* Render filtered results */
+	const filteredResults = () => {
+		const newUser = { email: query, username: 'New user', userColor: '#CC25E8' };
 
-        if (!globalUsersLoading) {
-            return (
-                <motion.li {...FADE_IN} key="New user" className="list__item is-focused vr-3">
-                    <UserSelect
-                        {...{ user: newUser, handleClick, setFocusedUser }}
-                        isFocused={query.length}
-                        isLoading={userMutationLoading}
-                    />
-                </motion.li>
-            );
-        }
-    };
+		if (filteredUsers.length > 0) {
+			return filteredUsers.map((user) => (
+				<motion.li {...FADE_IN} key={user.id} className="list__item vr-3">
+					<UserSelect
+						{...{ user, handleClick, setFocusedUser, setHoveredUser }}
+						isFocused={user.email === focusedUser?.email && query && !hoveredUser}
+						isLoading={userMutationLoading}
+					/>
+				</motion.li>
+			));
+		}
 
-    /* Render */
-    return (
-        <AnimatePresence>
-            {query && (
-                <motion.ul {...FADE_IN} className="box__list list">
-                    {filteredResults()}
-                </motion.ul>
-            )}
-        </AnimatePresence>
-    );
+		if (!globalUsersLoading) {
+			return (
+				<motion.li {...FADE_IN} key="New user" className="list__item is-focused vr-3">
+					<UserSelect
+						{...{ user: newUser, handleClick, setFocusedUser, setHoveredUser }}
+						isFocused={query.length}
+						isLoading={userMutationLoading}
+					/>
+				</motion.li>
+			);
+		}
+	};
+
+	/* Render */
+	return (
+		<AnimatePresence>
+			{query && (
+				<motion.ul {...FADE_IN} className="box__list list">
+					{filteredResults()}
+				</motion.ul>
+			)}
+		</AnimatePresence>
+	);
 }
