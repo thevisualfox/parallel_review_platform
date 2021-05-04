@@ -17,6 +17,7 @@ import { fetchProjectsByUser, QUERY_KEYS } from '../api';
 export default function ProjectOverview() {
 	/* State */
 	const [isAdmin, setIsAdmin] = useState(false);
+	const [newProjectId, setNewProjectId] = useState();
 	const userId = atob(location.search.replace('?', ''));
 
 	/* Hooks */
@@ -41,13 +42,14 @@ export default function ProjectOverview() {
 					</motion.div>
 				)}
 			</AnimatePresence>
-			<ProjectResults {...{ projects }}>
+			<ProjectResults {...{ projects, newProjectId }}>
 				{isAdmin && !projectsLoading && (
 					<motion.div
+						layout
 						{...STAGGER_UP(projects.length)}
 						key="add-project"
 						className="col-12 col-md-6 col-lg-4 col-xl-3">
-						<ProjectAdd />
+						<ProjectAdd {...{ setNewProjectId }} />
 					</motion.div>
 				)}
 				<div className="col-12">

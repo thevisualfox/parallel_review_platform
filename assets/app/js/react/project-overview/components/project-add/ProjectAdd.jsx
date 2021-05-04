@@ -1,5 +1,5 @@
 /* Packages */
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { ReactSVG } from 'react-svg';
 import { AnimatePresence } from 'framer-motion';
 import { useMutation, useQuery, useQueryClient } from 'react-query';
@@ -13,7 +13,7 @@ import addProjectIcon from 'icons/add_project.svg';
 /* Api calls */
 import { addProject, QUERY_KEYS, editProject, fetchProjectById } from '../../api';
 
-export default function ProjectAdd() {
+export default function ProjectAdd({ setNewProjectId }) {
 	/* State */
 	const [projectId, setProjectId] = useState(null);
 	const [modalOpen, setModalOpen] = useState(false);
@@ -25,6 +25,10 @@ export default function ProjectAdd() {
 	const { data: project } = useQuery([QUERY_KEYS.PROJECT_BY_ID, projectId], () => fetchProjectById({ projectId }), {
 		enabled: !!projectId,
 	});
+
+	useEffect(() => {
+		setNewProjectId(projectId);
+	}, [projectId]);
 
 	/* Mutations */
 	const addMutation = useMutation(addProject, {
