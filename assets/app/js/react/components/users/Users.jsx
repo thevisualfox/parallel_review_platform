@@ -12,7 +12,7 @@ export default function Users({ users, layout = "full", ...rest }) {
     /* Render */
     return (
         <div className="row align-items-center gutters-1">
-            <AnimatePresence initial={false}>
+            <AnimatePresence>
                 {users.slice(0, sliceAmount).map((user) => {
                     return (
                         <motion.div layout {...SCALE_FADE} className="col-auto" key={user.id}>

@@ -36,6 +36,15 @@ export const deleteProjects = async ({ projectIds }) => {
 	return result?.data;
 };
 
+export const leaveProjects = async ({ projectIds, userId }) => {
+	const params = new FormData();
+	projectIds.forEach((id) => params.append('projects[]', id));
+
+	const result = await axios.post(`/api/projects/leave/${userId}`, params);
+
+	return result?.data;
+};
+
 export const editProject = async ({ formRef, projectId }) => {
 	const params = new FormData(formRef.current);
 

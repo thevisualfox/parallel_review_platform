@@ -30,7 +30,7 @@ export default function ProjectModal({ project = {}, updateProject, toggleModal 
 					event.preventDefault();
 					toggleModal();
 				}}>
-				<div className="custom-modal__header d-flex align-items-center pt-6 pt-md-12 px-6 pb-3">
+				<div className="custom-modal__header d-flex align-items-center pt-6 pt-md-12 pb-3">
 					<label className="sr-only" htmlFor="projectTitle">
 						{title}
 					</label>
@@ -53,7 +53,7 @@ export default function ProjectModal({ project = {}, updateProject, toggleModal 
 						<ReactSVG wrapper="svg" className="icon icon--14" src={closeIcon} />
 					</button>
 				</div>
-				<div className="custom-modal__body pt-3 px-6 pb-12">
+				<div className="custom-modal__body pt-3 pb-12">
 					<div className="row gutters-2">
 						<div className="col-6">
 							<label className="sr-only" htmlFor="projectDescription">
@@ -74,7 +74,7 @@ export default function ProjectModal({ project = {}, updateProject, toggleModal 
 					</div>
 					<Dropzone {...{ projectId, projectImages }} />
 				</div>
-				<div className="custom-modal__footer px-6 pb-6 pb-md-12">
+				<div className="custom-modal__footer pb-6 pb-md-12">
 					<div className="row gutters-0 w-100">
 						<div className="col-12 col-lg-1 ml-auto">
 							<button

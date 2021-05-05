@@ -70,3 +70,7 @@
         }
     }
 }
+
+.container-fluid {
+    @extend .px-lg-12;
+}

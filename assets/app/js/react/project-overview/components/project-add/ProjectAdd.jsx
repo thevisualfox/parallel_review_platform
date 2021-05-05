@@ -1,7 +1,7 @@
 /* Packages */
 import React, { useEffect, useState } from 'react';
 import { ReactSVG } from 'react-svg';
-import { AnimatePresence } from 'framer-motion';
+import { AnimatePresence, motion } from 'framer-motion';
 import { useMutation, useQuery, useQueryClient } from 'react-query';
 
 /* Components */
@@ -12,6 +12,9 @@ import addProjectIcon from 'icons/add_project.svg';
 
 /* Api calls */
 import { addProject, QUERY_KEYS, editProject, fetchProjectById } from '../../api';
+
+/* Animations */
+import { SCALE_FADE } from '../../../common/animations';
 
 export default function ProjectAdd({ setNewProjectId }) {
 	/* State */
@@ -48,7 +51,10 @@ export default function ProjectAdd({ setNewProjectId }) {
 
 		/* Reset id on close modal */
 		if (modalOpen) {
-			setProjectId(null);
+			setTimeout(() => {
+				setProjectId(null);
+			}, 250);
+
 			invalidateProject();
 		}
 	};
@@ -58,21 +64,19 @@ export default function ProjectAdd({ setNewProjectId }) {
 
 	/* Render */
 	return (
-		<article className="card card--link h-100 mb-0" style={{ minHeight: 427 }}>
-			<div className="card-body d-flex align-items-center justify-content-center p-10">
-				<button
-					className="btn btn-link text-decoration-none stretched-link"
-					onClick={toggleModal}
-					type="button">
-					<span className="btn-text d-flex flex-column align-items-center text-white text-muted--40">
-						<ReactSVG wrapper="svg" className="icon icon--48" src={addProjectIcon} />
-						<span className="text--sm mt-1">Add more projects</span>
-					</span>
-				</button>
-			</div>
+		<>
+			<motion.button
+				{...SCALE_FADE}
+				key="add-project"
+				type="button"
+				className="icon-wrapper icon-wrapper--interactive icon-wrapper--default btn btn-link btn--project-add"
+				style={{ '--size': '75px' }}
+				onClick={toggleModal}>
+				<ReactSVG wrapper="svg" className="icon icon--30 text-secondary" src={addProjectIcon} />
+			</motion.button>
 			<AnimatePresence>
 				{modalOpen && <ProjectModal {...{ project, updateProject, toggleModal }} />}
 			</AnimatePresence>
-		</article>
+		</>
 	);
 }

@@ -59,7 +59,7 @@
         transform: scale(var(--scale));
 
         &:before {
-            opacity: $opacity-level-active;
+            opacity: $opacity-level-active-border;
             transform: scale(calc(1 / var(--scale)));
         }
 
