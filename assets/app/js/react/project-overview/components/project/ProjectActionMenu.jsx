@@ -69,11 +69,16 @@ export default function ProjectActionMenu({ selectedProjects, resetSelectedProje
 											})
 										}>
 										<div className="icon-wrapper icon-wrapper--warning icon-wrapper--interactive">
-											<ReactSVG
-												wrapper="svg"
-												className="icon icon--12 text-warning"
-												src={leaveIcon}
-											/>
+											<LoadingWrapper
+												loading={leaveProjectsMutation.isLoading}
+												loaderSize={12}
+												classes={{ loaderClasses: 'position-absolute d-flex text-warning' }}>
+												<ReactSVG
+													wrapper="svg"
+													className="icon icon--12 text-warning"
+													src={leaveIcon}
+												/>
+											</LoadingWrapper>
 										</div>
 										<span className="btn__text text-white ml-2">Leave</span>
 									</button>

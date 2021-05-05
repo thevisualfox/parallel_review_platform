@@ -19,6 +19,15 @@ export default function Project({ project, selectedProjects, updateSelectedProje
 			href={`projects/${slug}`}
 			title={title}
 			className={`card card--link card--product ${selectedProjects.includes(id) && 'is-selected'}`}>
+			<ProjectImage {...{ projectImages }} />
+			<div className="card-body">
+				<div className="d-flex flex-column">
+					<p className="mb-2">{title ? title : 'Add a nice title'}</p>
+					<div className="d-flex align-items-center">
+						<Users {...{ users, project: { author }, layout: 'minimal' }} />
+					</div>
+				</div>
+			</div>
 			<div className="card__select">
 				<div
 					className="card__select-toggle"
@@ -27,15 +36,6 @@ export default function Project({ project, selectedProjects, updateSelectedProje
 						updateSelectedProjects(id);
 					}}>
 					<ReactSVG wrapper="svg" className="card__select-icon icon icon--8" src={checkIcon} />
-				</div>
-			</div>
-			<ProjectImage {...{ projectImages }} />
-			<div className="card-body">
-				<div className="d-flex flex-column">
-					<p className="mb-2">{title ? title : 'Add a nice title'}</p>
-					<div className="d-flex align-items-center">
-						<Users {...{ users, project: { author }, layout: 'minimal' }} />
-					</div>
 				</div>
 			</div>
 		</a>
