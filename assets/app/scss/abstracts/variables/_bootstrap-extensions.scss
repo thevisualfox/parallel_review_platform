@@ -32,3 +32,14 @@ $grid-gutter-widths: (
     23: ($grid-gutter-width * 2.3),
     24: ($grid-gutter-width * 2.4),
 );
+
+$alert-themes: (
+    'default': $secondary,
+    'warning': $warning,
+    'danger': $danger,
+    'success': $success,
+);
+
+$opacity-level: 0.2;
+$opacity-level-active-background: 0.25;
+$opacity-level-active-border: 0.4;

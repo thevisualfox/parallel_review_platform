@@ -28,6 +28,10 @@
 .form-control--search {
     $size: 16px;
 
-    background: $input-bg url('../img/icons/search.svg') $input-padding-x 50% / #{$size} no-repeat;
+    background: $quaternary url('../img/icons/search.svg') $input-padding-x 50% / #{$size} no-repeat;
     padding-left: calc(#{$input-padding-x} + #{spacer(3)} + #{$size});
+
+    &:focus {
+        background-color: $quaternary;
+    }
 }

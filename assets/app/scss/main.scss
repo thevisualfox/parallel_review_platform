@@ -69,9 +69,12 @@
 // Elements
 
 @import "elements/lists/list";
+@import "elements/loaders/linear-progress";
+@import "elements/loaders/circular-progress";
 @import "elements/logos/logo";
 @import "elements/background/background";
 @import "elements/user/user";
+@import "elements/user/user-interactive";
 @import "elements/user/user-add";
 @import "elements/user/user-select";
 @import "elements/icons/icon";
@@ -81,6 +84,7 @@
 // Components
 
 @import "components/cards/card";
+@import "components/cards/card-product";
 @import "components/grids/grid";
 @import "components/navs/nav-primary";
 @import "components/panes/pane";
@@ -90,6 +94,7 @@
 @import "components/menus/menu";
 @import "components/boxes/box";
 @import "components/dropzones/dropzone";
+@import "components/bars/bar";
 
 // Compositions
 

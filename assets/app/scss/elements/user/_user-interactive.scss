@@ -1,0 +1,49 @@
+.user--interactive:not(.user--author) {
+    --transition: opacity 200ms ease, visibility 200ms ease, transform 200ms ease;
+
+    @extend .overflow-hidden;
+
+    .user__initials {
+        @extend %transform-center;
+
+        position: absolute;
+        transition: opacity 200ms ease, visibility 200ms ease, transform 200ms ease;
+    }
+
+    .user__action {
+        @extend %absolute-fill, %center-flex;
+        @extend .btn, .btn-link, .p-0;
+
+        width: 100%;
+        opacity: 0;
+        visibility: hidden;
+        transform: translateY(100%);
+        transition: opacity 200ms ease, visibility 200ms ease, transform 200ms ease;
+
+        .user__action-icon {
+            width: calc(var(--avatar-dimensions) * 0.4);
+            height: calc(var(--avatar-dimensions) * 0.4);
+            color: var(--theme);
+        }
+    }
+
+    /* Hover states */
+    &:hover,
+    &:focus {
+        .user__initials {
+            opacity: 0;
+            visibility: hidden;
+            transform: translate(-50%, -100%);
+        }
+
+        .user__avatar:after {
+            border-color: var(--theme);
+        }
+
+        .user__action {
+            opacity: 1;
+            visibility: visible;
+            transform: unset;
+        }
+    }
+}

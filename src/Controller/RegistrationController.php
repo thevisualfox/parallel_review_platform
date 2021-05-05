@@ -46,7 +46,7 @@ class RegistrationController extends AbstractController
             );
 
             // Set random color per user
-            $user->setColor(RandomColor::one(array('luminosity' => 'dark')));
+            $user->setColor(RandomColor::one());
 
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->persist($user);

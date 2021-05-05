@@ -8,3 +8,34 @@
 .icon {
     flex-shrink: 0;
 }
+
+.icon-wrapper {
+    @extend .rounded-circle;
+    @extend %center-flex;
+
+    width: var(--size, 22px);
+    height: var(--size, 22px);
+    background-color: var(--theme);
+
+    @each $color, $theme in $alert-themes {
+        &--#{$color} {
+            --theme: #{rgba($theme, $opacity-level)};
+            --theme-active-border: #{rgba($theme, $opacity-level-active-border)};
+            --theme-active-background: #{rgba($theme, $opacity-level-active-background)};
+        }
+    }
+}
+
+.icon-wrapper--interactive {
+    border: $border-width solid transparent;
+    transition: border-color 200ms ease, background-color 200ms ease;
+
+    &:hover,
+    &:focus {
+        border-color: var(--theme-active-border);
+    }
+
+    &:active {
+        background-color: var(--theme-active-background);
+    }
+}

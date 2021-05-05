@@ -1,71 +1,82 @@
 /* Packages */
-import React, { useState } from "react";
-import { ReactSVG } from "react-svg";
-import { AnimatePresence } from "framer-motion";
-import { useMutation, useQuery, useQueryClient } from "react-query";
+import React, { useEffect, useState } from 'react';
+import { ReactSVG } from 'react-svg';
+import { AnimatePresence, motion } from 'framer-motion';
+import { useMutation, useQuery, useQueryClient } from 'react-query';
 
 /* Components */
-import { ProjectModal } from "../modals";
+import { ProjectModal } from '../modals';
 
 /* Assets */
-import addProjectIcon from "icons/add_project.svg";
+import addProjectIcon from 'icons/add_project.svg';
 
 /* Api calls */
-import { addProject, fetchProjectById, QUERY_KEYS, editProject } from "../../api";
+import { addProject, QUERY_KEYS, editProject, fetchProjectById } from '../../api';
 
-export default function ProjectAdd() {
-    /* State */
-    const [projectId, setProjectId] = useState(null);
-    const [modalOpen, setModalOpen] = useState(false);
+/* Animations */
+import { SCALE_FADE } from '../../../common/animations';
 
-    /* Hooks */
-    const queryClient = useQueryClient();
+export default function ProjectAdd({ setNewProjectId }) {
+	/* State */
+	const [projectId, setProjectId] = useState(null);
+	const [modalOpen, setModalOpen] = useState(false);
 
-    /* Queries */
-    const { data: project } = useQuery([QUERY_KEYS.PROJECT_BY_ID, projectId], () => fetchProjectById({ projectId }), {
-        enabled: !!projectId,
-    });
+	/* Hooks */
+	const queryClient = useQueryClient();
 
-    /* Mutations */
-    const addMutation = useMutation(addProject, {
-        onSuccess: ({ id }) => setProjectId(id),
-    });
+	/* Queries */
+	const { data: project } = useQuery([QUERY_KEYS.PROJECT_BY_ID, projectId], () => fetchProjectById({ projectId }), {
+		enabled: !!projectId,
+	});
 
-    const editMutation = useMutation(editProject, {
-        onSuccess: () => toggleModal(),
-    });
+	useEffect(() => {
+		setNewProjectId(projectId);
+	}, [projectId]);
 
-    /* Callbacks */
-    const toggleModal = () => {
-        setModalOpen(!modalOpen);
+	/* Mutations */
+	const addMutation = useMutation(addProject, {
+		onSuccess: ({ id }) => setProjectId(id),
+	});
 
-        /* Mutate on modal open */
-        if (!modalOpen) addMutation.mutate();
+	const editMutation = useMutation(editProject, {
+		onSuccess: () => invalidateProject(),
+	});
 
-        /* Invalidate project_by_user on close modal */
-        if (modalOpen) {
-            queryClient.invalidateQueries(QUERY_KEYS.PROJECT_BY_USER);
-            setProjectId(null);
-        }
-    };
+	/* Callbacks */
+	const toggleModal = () => {
+		setModalOpen(!modalOpen);
 
-    const onSubmit = (formRef) => editMutation.mutate({ formRef, projectId });
+		/* Mutate on modal open */
+		if (!modalOpen) addMutation.mutate();
 
-    /* Render */
-    return (
-        <article className="card card--link card--transparent h-100 mb-0" style={{ minHeight: 385 }}>
-            <div className="card-body d-flex align-items-center justify-content-center p-10">
-                <button
-                    className="btn btn-link text-decoration-none stretched-link"
-                    onClick={toggleModal}
-                    type="button">
-                    <span className="btn-text d-flex flex-column align-items-center text-white text-muted--40">
-                        <ReactSVG wrapper="svg" className="icon icon--48" src={addProjectIcon} />
-                        <span className="text--sm mt-1">Add more projects</span>
-                    </span>
-                </button>
-            </div>
-            <AnimatePresence>{modalOpen && <ProjectModal {...{ project, onSubmit, toggleModal }} />}</AnimatePresence>
-        </article>
-    );
+		/* Reset id on close modal */
+		if (modalOpen) {
+			setTimeout(() => {
+				setProjectId(null);
+			}, 250);
+
+			invalidateProject();
+		}
+	};
+
+	const updateProject = (formRef) => editMutation.mutate({ formRef, projectId });
+	const invalidateProject = () => queryClient.invalidateQueries(QUERY_KEYS.PROJECT_BY_USER);
+
+	/* Render */
+	return (
+		<>
+			<motion.button
+				{...SCALE_FADE}
+				key="add-project"
+				type="button"
+				className="icon-wrapper icon-wrapper--interactive icon-wrapper--default btn btn-link btn--project-add"
+				style={{ '--size': '75px' }}
+				onClick={toggleModal}>
+				<ReactSVG wrapper="svg" className="icon icon--30 text-secondary" src={addProjectIcon} />
+			</motion.button>
+			<AnimatePresence>
+				{modalOpen && <ProjectModal {...{ project, updateProject, toggleModal }} />}
+			</AnimatePresence>
+		</>
+	);
 }

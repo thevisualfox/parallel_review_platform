@@ -1,0 +1,29 @@
+.bar {
+    @extend .border, .py-5;
+
+    position: fixed;
+    bottom: 0;
+    right: 0;
+    left: 0;
+    background-color: $primary;
+    z-index: $zindex-fixed;
+}
+
+.bar__list {
+    .list__item:not(:first-child) {
+        @extend .ml-3, .pl-3;
+
+        border-left: $border-width solid $border-color;
+    }
+
+    .bar__btn:hover,
+    .bar__btn:focus {
+        .icon-wrapper--interactive {
+            border-color: var(--theme-active-border);
+        }
+    }
+
+    .bar__btn:active .icon-wrapper--interactive {
+        background-color: var(--theme-active-background);
+    }
+}

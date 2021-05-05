@@ -31,6 +31,6 @@ final class ProjectEditAction
         $entityManager->persist($project);
         $entityManager->flush();
 
-        return new JsonResponse(['success' => true]);
+        return new JsonResponse(['id' => $project->getId()]);
     }
 }

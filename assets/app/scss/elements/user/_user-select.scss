@@ -24,7 +24,7 @@
         height: 25px;
         background-color: transparent;
         border: $border-width solid $border-color;
-        transition: background-color 200ms ease, background-color 200ms ease;
+        transition: background-color 200ms ease, border-color 200ms ease;
     }
 
     .user__add-icon {
@@ -32,7 +32,6 @@
         transition: opacity 200ms ease;
     }
 
-    &:hover,
     &:focus,
     &.is-focused {
         &:before {
@@ -40,8 +39,8 @@
         }
 
         .user__add {
-            background-color: $secondary;
-            border-color: $secondary;
+            background-color: rgba($secondary, $opacity-level);
+            border-color: rgba($secondary, $opacity-level);
         }
 
         .user__add-icon {

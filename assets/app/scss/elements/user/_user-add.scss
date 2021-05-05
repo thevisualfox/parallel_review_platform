@@ -1,6 +1,8 @@
 .user--add {
     .user__avatar {
-        border-color: rgba($white, 0.5);
+        @extend .rounded-circle;
+
+        border: $border-width solid rgba($white, 0.5);
         color: rgba($white, 0.5);
         transition: border-color 200ms ease, color 200ms ease;
     }

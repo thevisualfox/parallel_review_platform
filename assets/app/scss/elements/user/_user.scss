@@ -1,5 +1,5 @@
 :root {
-    --avatar-dimensions: 26px;
+    --avatar-dimensions: 28px;
     --status-dimensions: 12px;
 }
 
@@ -9,11 +9,31 @@
 
 .user__avatar {
     @extend %center-flex;
-    @extend .position-relative, .rounded-circle;
+    @extend .position-relative;
 
     width: var(--avatar-dimensions);
     height: var(--avatar-dimensions);
-    border: $border-width solid $border-color;
+    color: var(--theme);
+
+    &:before,
+    &:after {
+        @extend %absolute-fill;
+
+        content: "";
+        border-radius: 50%;
+        transition: border-color 150ms ease;
+        pointer-events: none;
+    }
+
+    &:before {
+        background-color: var(--theme);
+        opacity: $opacity-level;
+    }
+
+    &:after {
+        border: $border-width solid transparent;
+        opacity: $opacity-level-active-border;
+    }
 }
 
 .user__image {
@@ -25,22 +45,7 @@
 
     font-family: $font-family-base;
     font-size: calc(var(--avatar-dimensions) * 0.4);
-}
-
-.user__action {
-    @extend %absolute-fill, %center-flex;
-    @extend .btn, .btn-link, .p-0;
-
-    background-color: $secondary;
-    width: 100%;
-    opacity: 0;
-    visibility: hidden;
-    transition: opacity 150ms ease, visibility 150ms ease;
-
-    .user__action-icon {
-        width: calc(var(--avatar-dimensions) * 0.4);
-        height: calc(var(--avatar-dimensions) * 0.4);
-    }
+    color: var(--theme);
 }
 
 .user__status {
@@ -71,12 +76,4 @@
 .user--xl {
     --avatar-dimensions: 40px;
     --status-dimensions: 20px;
-}
-
-/* Hover states */
-.user:hover {
-    .user__action {
-        opacity: 1;
-        visibility: visible;
-    }
 }

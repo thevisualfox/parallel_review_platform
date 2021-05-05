@@ -1,0 +1,12 @@
+.MuiLinearProgress-root {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 3px !important;
+    background-color: $border-color !important;
+}
+
+.MuiLinearProgress-barColorSecondary {
+    background-color: rgba($secondary, 0.5) !important;
+}

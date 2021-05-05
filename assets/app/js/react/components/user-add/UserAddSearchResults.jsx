@@ -1,86 +1,59 @@
 /* Packages */
-import React from "react";
-import { AnimatePresence, motion } from "framer-motion";
-import { useQuery } from "react-query";
+import React from 'react';
+import { AnimatePresence, motion } from 'framer-motion';
 
 /* Animations */
-import { FADE_IN } from "../../common/animations";
+import { FADE_IN } from '../../common/animations';
 
 /* Components */
-import { UserSelect } from "../users";
-
-/* Api calls */
-import { fetchGobalUsers, QUERY_KEYS } from "../../project-overview/api";
+import { UserSelect } from '../users';
 
 export default function UserAddSearchResults({
-    users,
-    query,
-    handleClick,
-    focusedUser,
-    setFocusedUser,
-    userMutationLoading,
+	filteredUsers,
+	query,
+	handleClick,
+	focusedUser,
+	setFocusedUser,
+	userMutationLoading,
+	globalUsersLoading,
 }) {
-    /* Queries */
-    const { data: globalUsers = [], isLoading: globalUsersLoading } = useQuery(
-        QUERY_KEYS.GLOBAL_USERS,
-        fetchGobalUsers
-    );
+	/* Render filtered results */
+	const results = () => {
+		const newUser = { email: query, username: 'New user', userColor: '#CC25E8' };
 
-    /* Constants */
-    const lowerQuery = query.toLowerCase();
-    const existingUsersByEmail = users.map(({ email }) => email);
+		if (filteredUsers.length > 0) {
+			return filteredUsers.map((user, userIndex) => (
+				<motion.li {...FADE_IN} key={user.id} className="list__item vr-3">
+					<UserSelect
+						{...{ user, userIndex, handleClick, setFocusedUser }}
+						isFocused={userIndex === focusedUser && query}
+						isLoading={userMutationLoading}
+					/>
+				</motion.li>
+			));
+		}
 
-    const filterUsers = (users) => {
-        let filteredUsers = users
-            .filter(({ email }) => {
-                /* Only return users that are not part of the project */
-                return !existingUsersByEmail.includes(email);
-            })
-            .filter(({ email, username }) => {
-                /* Only return users that match the query on email || username */
-                return email.toLowerCase().includes(lowerQuery) || username.toLowerCase().includes(lowerQuery);
-            });
+		if (!globalUsersLoading) {
+			return (
+				<motion.li {...FADE_IN} key="New user" className="list__item is-focused vr-3">
+					<UserSelect
+						{...{ user: newUser, userIndex: newUser, handleClick, setFocusedUser }}
+						isFocused={query.length}
+						isLoading={userMutationLoading}
+					/>
+				</motion.li>
+			);
+		}
+	};
 
-        if (filteredUsers.length > 0 && !userMutationLoading) {
-            setFocusedUser(filteredUsers[0]);
-        }
-
-        return filteredUsers;
-    };
-
-    /* Render filtered results */
-    const filteredResults = () => {
-        const filteredUsers = filterUsers(globalUsers);
-        const newUser = { email: query, username: "New user", userColor: "#6A3F5B" };
-
-        if (filteredUsers.length > 0) {
-            return filteredUsers.map((user) => (
-                <motion.li {...FADE_IN} key={user.id} className="list__item vr-3">
-                    <UserSelect
-                        {...{ user, handleClick, setFocusedUser }}
-                        isFocused={user.email === focusedUser?.email && query}
-                    />
-                </motion.li>
-            ));
-        }
-
-        if (!globalUsersLoading) {
-            return (
-                <motion.li {...FADE_IN} key="New user" className="list__item is-focused vr-3">
-                    <UserSelect {...{ user: newUser, handleClick, setFocusedUser }} isFocused={query.length} />
-                </motion.li>
-            );
-        }
-    };
-
-    /* Render */
-    return (
-        <AnimatePresence>
-            {query && (
-                <motion.ul {...FADE_IN} className="box__list list">
-                    {filteredResults()}
-                </motion.ul>
-            )}
-        </AnimatePresence>
-    );
+	/* Render */
+	return (
+		<AnimatePresence>
+			{query !== '' && (
+				<motion.ul {...FADE_IN} className="box__list list">
+					{results()}
+				</motion.ul>
+			)}
+		</AnimatePresence>
+	);
 }

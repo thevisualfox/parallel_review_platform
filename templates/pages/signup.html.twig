@@ -9,7 +9,7 @@
             <div class="pane__panel panel panel--login">
                 <div class="panel__body">
                     <h1 class="text-uppercase text-white mb-0">Sign up</h1>
-                    <p class="text-muted--70 text-white">Sign up with your e-mail and password</p>
+                    <p class="text-muted--70 text-white mb-6">Sign up with your e-mail and password</p>
                     {% for type, message in app.flashes() %}
                         {% include "elements/alert.html.twig" with {
                             message: flashError
