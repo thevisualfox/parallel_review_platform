@@ -19,5 +19,6 @@
   "build/app/img/search.svg": "/build/app/img/search.svg",
   "build/app/img/star.svg": "/build/app/img/star.svg",
   "build/app/img/success.svg": "/build/app/img/success.svg",
-  "build/app/img/warning.svg": "/build/app/img/warning.svg"
+  "build/app/img/warning.svg": "/build/app/img/warning.svg",
+  "build/app/img/check.svg": "/build/app/img/check.svg"
 }

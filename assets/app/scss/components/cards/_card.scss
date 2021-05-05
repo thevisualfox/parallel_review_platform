@@ -1,45 +1,29 @@
 // Card
 
 .card {
-
-}
-
-.card--link {
-    @extend .text-reset, .text-decoration-none;
-
-    transition: transform 350ms ease;
-    transform-origin: bottom;
+    transition: transform 200ms ease;
+    transform-origin: center;
 
     &:before {
-        @extend %absolute-fill;
-
+        position: absolute;
+        top: -1px;
+        right: -1px;
+        bottom: -1px;
+        left: -1px;
         content: '';
         border: $border-width solid $secondary;
         border-radius: $border-radius;
         opacity: 0;
+        transition: transform 200ms ease, opacity 200ms ease;
     }
 
-    &:hover:before,
-    &.is-pulsing:before {
-        animation: border-puls 1.5s infinite ease;
+    &:hover:before {
+        opacity: $opacity-level;
     }
 }
 
-@keyframes border-puls {
-    0% {
-        opacity: 0;
-        transform: scale(1);
-    }
-
-    10% {
-        opacity: 0.5;
-        transform: scale(1.01);
-    }
-
-    100% {
-        opacity: 0;
-        transform: scale(1.075);
-    }
+.card--link {
+    @extend .text-reset, .text-decoration-none;
 }
 
 .card-body {
@@ -68,6 +52,7 @@
         }
     }
 }
+
 // Horizontal card
 
 .card-horizontal-img {

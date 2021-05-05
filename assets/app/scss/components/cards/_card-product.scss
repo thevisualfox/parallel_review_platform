@@ -1,0 +1,108 @@
+.card--product {
+    --scale: 0.9;
+
+    .card__select {
+        @extend %absolute-fill;
+
+        opacity: 0;
+        visibility: hidden;
+        transition: opacity 200ms ease, visibility 200ms ease;
+
+        .card__select-icon {
+            opacity: 0;
+            color: $quaternary;
+            transition: opacity 200ms ease, color 200ms ease;
+        }
+    }
+
+    .card__select-toggle {
+        @extend %center-flex;
+        @extend .rounded-circle, .mt-4, .ml-4;
+
+        width: spacer(4);
+        height: spacer(4);
+        background-color: rgba($quaternary, $opacity-level);
+        transition: background-color 200ms ease;
+
+        &:hover {
+            background-color: rgba($quaternary, $opacity-level);
+
+            .card__select-icon {
+                opacity: 1;
+            }
+        }
+
+        &:before {
+            @extend %absolute-fill;
+
+            content: "";
+            pointer-events: none;
+        }
+    }
+
+    /* Card is being hovered | focused | selected */
+    &:hover,
+    &:focus,
+    &.is-selected {
+        .card__select {
+            opacity: 1;
+            visibility: visible;
+        }
+    }
+
+    &.is-pulsing:before {
+        animation: border-puls 1.5s infinite ease;
+    }
+
+    /* Card is selected */
+    &.is-selected {
+        transform: scale(var(--scale));
+
+        &:before {
+            opacity: $opacity-level-active;
+            transform: scale(calc(1 / var(--scale)));
+        }
+
+        .card__select-toggle {
+            background-color: rgba($secondary, $opacity-level);
+
+            &:before {
+                pointer-events: auto;
+            }
+
+            .card__select-icon {
+                opacity: 1;
+                color: $secondary;
+            }
+        }
+    }
+
+    /* Atleast one card has been selected  */
+    .has-selections & {
+        .card__select {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .card__select-toggle:before {
+            pointer-events: auto;
+        }
+    }
+}
+
+@keyframes border-puls {
+    0% {
+        opacity: 0;
+        transform: scale(1);
+    }
+
+    10% {
+        opacity: 0.5;
+        transform: scale(1.01);
+    }
+
+    100% {
+        opacity: 0;
+        transform: scale(1.075);
+    }
+}
