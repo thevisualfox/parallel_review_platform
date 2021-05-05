@@ -8,7 +8,7 @@ import starIcon from 'icons/star.svg';
 import deleteIcon from 'icons/delete.svg';
 
 /* Api calls */
-import { deleteUser, QUERY_KEYS } from '../../project-overview/api';
+import { deleteUser, QUERY_KEYS } from '../../api';
 
 /* Components */
 import { LoadingWrapper } from '../../common';

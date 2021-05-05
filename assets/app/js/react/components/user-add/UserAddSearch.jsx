@@ -10,7 +10,7 @@ import { Users } from '../users';
 import { isEmail, filterUsers } from '../../helpers';
 
 /* Api calls */
-import { addUser, fetchGobalUsers, QUERY_KEYS } from '../../project-overview/api';
+import { addUser, fetchGobalUsers, QUERY_KEYS } from '../../api';
 
 export default function UserAddSearch({ users, project, toggleBox }) {
 	/* State */

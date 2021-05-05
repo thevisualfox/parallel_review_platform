@@ -12,4 +12,4 @@ import './alert';
 import './objectfit';
 
 // React
-import './react/project-overview'
+import './react/app';

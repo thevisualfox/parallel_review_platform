@@ -16,7 +16,7 @@ import { LoadingWrapper } from './';
 import { STAGGER_UP } from './animations';
 
 /* Api calls */
-import { addProjectImages, deleteProjectImages, QUERY_KEYS } from '../project-overview/api';
+import { addProjectImages, deleteProjectImages, QUERY_KEYS } from '../api';
 
 export default function Dropzone({ projectId, projectImages }) {
 	/* Contants */
