@@ -4,6 +4,7 @@ import { AnimatePresence, motion } from 'framer-motion';
 
 /* Components */
 import Project from './Project';
+import ProjectActionMenu from './ProjectActionMenu';
 
 /* Animations */
 import { STAGGER_UP } from '../../../common/animations';
@@ -41,6 +42,9 @@ export default function ProjectResults({ projects, newProjectId, children }) {
 					{children}
 				</AnimatePresence>
 			</div>
+			<AnimatePresence>
+				{selectedProjects.length > 0 && <ProjectActionMenu {...{ selectedProjects, setSelectedProjects }} />}
+			</AnimatePresence>
 		</>
 	);
 }

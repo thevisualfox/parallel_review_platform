@@ -34,10 +34,11 @@ $grid-gutter-widths: (
 );
 
 $alert-themes: (
+    'default': $secondary,
     'warning': $warning,
     'danger': $danger,
     'success': $success,
 );
 
-$opacity-level: 0.15;
+$opacity-level: 0.2;
 $opacity-level-active: 0.4;

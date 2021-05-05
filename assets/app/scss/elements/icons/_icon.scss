@@ -8,3 +8,20 @@
 .icon {
     flex-shrink: 0;
 }
+
+.icon-wrapper {
+    @extend .rounded-circle;
+    @extend %center-flex;
+
+    --theme: #{$secondary};
+
+    width: var(--size, 22px);
+    height: var(--size, 22px);
+    background-color: var(--theme);
+
+    @each $color, $theme in $alert-themes {
+        &--#{$color} {
+            --theme: #{rgba($theme, 0.2)};
+        }
+    }
+}
