@@ -63,16 +63,20 @@ export default function Dropzone({ projectId, projectImages }) {
 										event.stopPropagation();
 										updateProjectImages('delete', { id });
 									}}>
-									<LoadingWrapper
-										loading={deleteProjectImagesMutation.isLoading}
-										loaderSize={20}
-										classes={{ loaderClasses: 'position-absolute d-flex text-danger' }}>
-										<ReactSVG
-											wrapper="svg"
-											className="icon icon--14 text-danger mt-0"
-											src={closeIcon}
-										/>
-									</LoadingWrapper>
+									<div
+										className="dropzone__image-delete-icon icon-wrapper icon-wrapper--danger mx-auto"
+										style={{ '--size': '50px' }}>
+										<LoadingWrapper
+											loading={deleteProjectImagesMutation.isLoading}
+											loaderSize={20}
+											classes={{ loaderClasses: 'position-absolute d-flex text-danger' }}>
+											<ReactSVG
+												wrapper="svg"
+												className="icon icon--14 text-danger mt-0"
+												src={closeIcon}
+											/>
+										</LoadingWrapper>
+									</div>
 								</button>
 							</div>
 						</motion.div>

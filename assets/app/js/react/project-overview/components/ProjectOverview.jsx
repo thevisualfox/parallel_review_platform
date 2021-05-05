@@ -11,21 +11,30 @@ import { ProjectAdd } from './project-add';
 /* Animations */
 import { FADE_IN, STAGGER_UP } from '../../common/animations';
 
+/* Context */
+import StaticContext from '../context';
+
 /* Api calls */
 import { fetchProjectsByUser, QUERY_KEYS } from '../api';
 
+/* Global constants */
+import { USER_ROLES } from '../constants';
+
 export default function ProjectOverview() {
 	/* State */
-	const [isAdmin, setIsAdmin] = useState(false);
+	const [currentUserRoles, setCurrentUserRoles] = useState([]);
 	const [newProjectId, setNewProjectId] = useState();
+
+	/* Constants */
 	const userId = atob(location.search.replace('?', ''));
+	const isAdmin = currentUserRoles.includes(USER_ROLES.ROLE_ADMIN);
 
 	/* Hooks */
 	const { isLoading: projectsLoading, data = {} } = useQuery(
 		QUERY_KEYS.PROJECT_BY_USER,
 		() => fetchProjectsByUser({ userId }),
 		{
-			onSuccess: ({ user }) => setIsAdmin(user.roles.includes('ROLE_ADMIN')),
+			onSuccess: ({ user }) => setCurrentUserRoles(user.roles),
 		}
 	);
 
@@ -34,7 +43,7 @@ export default function ProjectOverview() {
 
 	/* Render */
 	return (
-		<>
+		<StaticContext.Provider value={{ currentUserRoles }}>
 			<AnimatePresence>
 				{projectsLoading && (
 					<motion.div {...FADE_IN}>
@@ -62,6 +71,6 @@ export default function ProjectOverview() {
 					</AnimatePresence>
 				</div>
 			</ProjectResults>
-		</>
+		</StaticContext.Provider>
 	);
 }

@@ -10,8 +10,10 @@ import ProjectActionMenu from './ProjectActionMenu';
 import { STAGGER_UP } from '../../../common/animations';
 
 export default function ProjectResults({ projects, newProjectId, children }) {
+	/* State */
 	const [selectedProjects, setSelectedProjects] = useState([]);
 
+	/* Callbacks */
 	const updateSelectedProjects = (id) => {
 		setSelectedProjects((projects) => {
 			if (projects.includes(id)) {
@@ -21,6 +23,8 @@ export default function ProjectResults({ projects, newProjectId, children }) {
 			return [...projects, id];
 		});
 	};
+
+	const resetSelectedProjects = () => setSelectedProjects([]);
 
 	/* Render */
 	return (
@@ -43,7 +47,7 @@ export default function ProjectResults({ projects, newProjectId, children }) {
 				</AnimatePresence>
 			</div>
 			<AnimatePresence>
-				{selectedProjects.length > 0 && <ProjectActionMenu {...{ selectedProjects, setSelectedProjects }} />}
+				{selectedProjects.length > 0 && <ProjectActionMenu {...{ selectedProjects, resetSelectedProjects }} />}
 			</AnimatePresence>
 		</>
 	);

@@ -3,22 +3,40 @@
 namespace App\Controller\Action\Project;
 
 use App\Entity\Project;
+use App\Repository\ProjectRepository;
 use App\Service\ImageHelper;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
 
 /**
- * @Route("/api/projects/delete/{id}", name="app_delete_project", methods="POST")
+ * @Route("/api/projects/delete", name="app_delete_projects", methods="POST")
  * @param EntityManagerInterface $entityManager
- * @param Project|null $project
+ * @param ProjectRepository $repository
  * @param ImageHelper $imageHelper
+ * @param Request $request
  * @return Response
  */
 final class ProjectDeleteAction
 {
-    public function __invoke(EntityManagerInterface $entityManager, Project $project, ImageHelper $imageHelper): Response
+    public function __invoke(ProjectRepository $repository, EntityManagerInterface $entityManager, ImageHelper $imageHelper, Request $request): Response
+    {
+        $projects = $request->request->get('projects');
+
+        if (!empty($projects)) {
+            foreach ($projects as $projectId) {
+                $project = $repository->findOneBy(['id' => $projectId]);
+
+                $this->deleteProject($project, $entityManager, $imageHelper);
+            }
+        }
+
+        return new JsonResponse($projects);
+    }
+
+    public function deleteProject(Project $project, EntityManagerInterface $entityManager, ImageHelper $imageHelper)
     {
         $projectImages = $project->getProjectImages();
 
@@ -28,7 +46,5 @@ final class ProjectDeleteAction
 
         $entityManager->remove($project);
         $entityManager->flush();
-
-        return new JsonResponse(['success' => true]);
     }
 }
