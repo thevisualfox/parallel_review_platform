@@ -1,5 +1,6 @@
 /* Packages */
 import React from 'react';
+import { Link } from 'react-router-dom';
 
 /* Components */
 import { ProjectImage } from './';
@@ -11,12 +12,12 @@ import checkIcon from 'icons/check.svg';
 
 export default function Project({ project, selectedProjects, updateSelectedProjects }) {
 	/* Constants */
-	const { slug, title, projectImages, users, author, id } = project;
+	const { title, projectImages, users, author, id } = project;
 
 	/* Render */
 	return (
-		<a
-			href={`projects/${slug}`}
+		<Link
+			to={`projects/${id}`}
 			title={title}
 			className={`card card--link card--product ${selectedProjects.includes(id) && 'is-selected'}`}>
 			<ProjectImage {...{ projectImages }} />
@@ -38,6 +39,6 @@ export default function Project({ project, selectedProjects, updateSelectedProje
 					<ReactSVG wrapper="svg" className="card__select-icon icon icon--8" src={checkIcon} />
 				</div>
 			</div>
-		</a>
+		</Link>
 	);
 }

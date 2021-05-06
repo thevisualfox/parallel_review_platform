@@ -1,6 +1,7 @@
 import axios from 'axios';
 
 export const QUERY_KEYS = {
+	CURRENT_USER: 'current_user',
 	PROJECT_BY_USER: 'project_by_user',
 	PROJECT_BY_ID: 'project_by_id',
 	GLOBAL_USERS: 'global_users',
@@ -8,12 +9,7 @@ export const QUERY_KEYS = {
 
 /* Project related calls */
 export const fetchProjectsByUser = async ({ userId }) => {
-	let url = '/api/projects/get';
-	if (userId) {
-		url = `${url}/${userId}`;
-	}
-
-	const result = await axios.get(url);
+	const result = await axios.get(`/api/projects/get/${userId}`);
 	return result?.data;
 };
 
@@ -67,8 +63,16 @@ export const deleteProjectImages = async ({ projectId, id }) => {
 };
 
 /* User related calls */
+export const fetchCurrentUser = async ({ userId }) => {
+	let url = '/api/users/get';
+	if (userId) url = `${url}/${userId}`;
+
+	const result = await axios.get(url);
+	return result?.data;
+};
+
 export const fetchGobalUsers = async () => {
-	const result = await axios.get('/api/users/get');
+	const result = await axios.get('/api/users/get/all');
 	return result?.data;
 };
 

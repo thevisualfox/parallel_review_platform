@@ -8,7 +8,7 @@ import { Project, ProjectActionMenu } from './';
 /* Animations */
 import { FADE_IN, STAGGER_UP } from '../../common/animations';
 
-export default function ProjectResults({ projects, newProjectId, projectsLoading }) {
+export default function ProjectResults({ projects, newProjectId, isLoading }) {
 	/* State */
 	const [selectedProjects, setSelectedProjects] = useState([]);
 
@@ -30,7 +30,7 @@ export default function ProjectResults({ projects, newProjectId, projectsLoading
 		<>
 			<h1 className="h5 text-white mb-6">Your projects</h1>
 			<AnimatePresence>
-				{!projectsLoading && projects.length === 0 && (
+				{!isLoading && projects.length === 0 && (
 					<motion.p {...FADE_IN} className="text-white mb-0 position-absolute">
 						{`You don't have any projects yet`}
 					</motion.p>

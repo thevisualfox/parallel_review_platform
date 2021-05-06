@@ -21,13 +21,10 @@ import { deleteProjects, leaveProjects, QUERY_KEYS } from '../../api';
 /* Context */
 import StaticContext from '../../context';
 
-/* Global constants */
-import { USER_ROLES } from '../../constants';
-
 export default function ProjectActionMenu({ selectedProjects, resetSelectedProjects }) {
 	/* Hooks */
 	const queryClient = useQueryClient();
-	const { currentUser } = useContext(StaticContext);
+	const { currentUser, userRole } = useContext(StaticContext);
 
 	/* Mutations */
 	const leaveProjectsMutation = useMutation(leaveProjects, {
@@ -60,7 +57,7 @@ export default function ProjectActionMenu({ selectedProjects, resetSelectedProje
 					</div>
 					<div className="col-auto ml-auto">
 						<ul className="bar__list list d-flex align-items-center">
-							{!currentUser.roles.includes(USER_ROLES.ROLE_ADMIN) && (
+							{(userRole === 'user' || userRole == 'basic') && (
 								<li className="list__item">
 									<button
 										className="bar__btn btn btn-link d-flex align-items-center text-decoration-none"
@@ -86,7 +83,7 @@ export default function ProjectActionMenu({ selectedProjects, resetSelectedProje
 									</button>
 								</li>
 							)}
-							{currentUser.roles.includes(USER_ROLES.ROLE_ADMIN) && (
+							{userRole === 'admin' && (
 								<li className="list__item">
 									<button className="bar__btn btn btn-link d-flex align-items-center text-decoration-none">
 										<div className="icon-wrapper icon-wrapper--default icon-wrapper--interactive">
@@ -105,7 +102,7 @@ export default function ProjectActionMenu({ selectedProjects, resetSelectedProje
 									</button>
 								</li>
 							)}
-							{currentUser.roles.includes(USER_ROLES.ROLE_ADMIN) && (
+							{userRole === 'admin' && (
 								<li className="list__item">
 									<button
 										className="bar__btn btn btn-link d-flex align-items-center text-decoration-none"
