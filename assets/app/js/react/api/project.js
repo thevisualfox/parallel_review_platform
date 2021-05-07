@@ -1,4 +1,4 @@
-import axios from "axios";
+import axios from 'axios';
 
 /* Fetch projects by user | expects user id */
 export const fetchProjectsByUser = async ({ userId }) => {
@@ -39,9 +39,9 @@ export const leaveProjects = async ({ projectIds, userId }) => {
 };
 
 /* Edit project | expects formData object and project id  */
-export const editProject = async ({ formRef, projectId }) => {
+export const editProject = async ({ formRef, id }) => {
 	const params = new FormData(formRef.current);
 
-	const result = await axios.post(`/api/projects/edit/${projectId}`, params);
+	const result = await axios.post(`/api/projects/edit/${id}`, params);
 	return result?.data;
 };

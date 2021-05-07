@@ -1,13 +1,26 @@
 .card--product {
     --scale: 0.9;
 
-    .card__select {
+    &:after {
         @extend %absolute-fill;
 
+        content: "";
+        background: radial-gradient(circle at 0% 0%, #{rgba($color-base, 0.3)} 0%, transparent 30%);
         opacity: 0;
         visibility: hidden;
         transition: opacity 200ms ease, visibility 200ms ease;
-        background: radial-gradient(circle at 0% 0%, #{rgba($color-base, 0.4)} 0%, transparent 30%);
+        pointer-events: none;
+    }
+
+    .card__select {
+        position: absolute;
+        top: 0;
+        left: 0;
+        opacity: 0;
+        visibility: hidden;
+        transition: opacity 200ms ease, visibility 200ms ease;
+        z-index: $zindex-dropdown;
+        cursor: pointer;
 
         .card__select-icon {
             opacity: 0;
@@ -45,6 +58,11 @@
     &:hover,
     &:focus,
     &.is-selected {
+        &:after {
+            opacity: 1;
+            visibility: visible;
+        }
+
         .card__select {
             opacity: 1;
             visibility: visible;
@@ -54,6 +72,8 @@
     /* Card is selected */
     &.is-selected {
         transform: scale(var(--scale));
+        bottom: 0;
+        right: 0;
 
         &:before {
             opacity: $opacity-level-active-border;
@@ -76,7 +96,14 @@
 
     /* Atleast one card has been selected  */
     .has-selections & {
+        &:after {
+            opacity: 1;
+            visibility: visible;
+        }
+
         .card__select {
+            bottom: 0;
+            right: 0;
             opacity: 1;
             visibility: visible;
         }

@@ -12,7 +12,7 @@ export default function LoadingWrapper({ loading, children, loaderSize = 40, cla
 
 	/* Render */
 	return (
-		<AnimatePresence>
+		<AnimatePresence initial={false}>
 			{loading ? (
 				<motion.div key="loader" className={loaderClasses} {...SCALE_FADE}>
 					<CircularProgress color="inherit" size={loaderSize} />

@@ -59,7 +59,7 @@ export default function ProjectAdd({ setNewProjectId }) {
 		}
 	};
 
-	const updateProject = (formRef) => editMutation.mutate({ formRef, projectId });
+	const updateProject = (formRef) => editMutation.mutate({ formRef, id: projectId });
 	const invalidateProject = () => queryClient.invalidateQueries(QUERY_KEYS.PROJECT_BY_USER);
 
 	/* Render */

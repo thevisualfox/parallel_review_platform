@@ -47,7 +47,7 @@ export default function ProjectDetailImages({ projectImages, projectId }) {
 
 	return (
 		<>
-			<div className={`row row--equalized gutters-5 mt-6 ${selected.length > 0 && 'has-selections'}`}>
+			<div className={`row row--equalized gutters-5 ${selected.length > 0 && 'has-selections'}`}>
 				<AnimatePresence>
 					{projectImages.map((projectImage, projectImageIndex) => (
 						<motion.div
@@ -55,7 +55,7 @@ export default function ProjectDetailImages({ projectImages, projectId }) {
 							key={projectImage.id}
 							className="col-12 col-md-6 col-lg-4 col-xl-3 col-xxl-2"
 							layout>
-							<ProjectDetailImage {...{ projectImage, selected, updateSelected }} />
+							<ProjectDetailImage {...{ projectImage, projectId, selected, updateSelected }} />
 						</motion.div>
 					))}
 				</AnimatePresence>

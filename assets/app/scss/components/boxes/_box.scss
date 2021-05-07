@@ -2,6 +2,10 @@
     @extend %center-flex, %absolute-fill;
 
     z-index: $zindex-fixed;
+
+    .form-control {
+        background-color: $quaternary;
+    }
 }
 
 .box__content {
