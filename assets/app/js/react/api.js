@@ -57,8 +57,11 @@ export const addProjectImages = async ({ projectId, images }) => {
 	return result?.data;
 };
 
-export const deleteProjectImages = async ({ projectId, id }) => {
-	const result = await axios.post(`/api/images/delete/${projectId}`, { id });
+export const deleteProjectImages = async ({ projectId, projectImageIds }) => {
+	const params = new FormData();
+	projectImageIds.forEach((id) => params.append('projectImages[]', id));
+
+	const result = await axios.post(`/api/images/delete/${projectId}`, params);
 	return result?.data;
 };
 

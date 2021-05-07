@@ -54,7 +54,7 @@ class ProjectImage
 
     public function getImage(): ?string
     {
-        return 'uploads'.ImageHelper::PROJECT_IMAGE_PATH.'/'.$this->image;
+        return '/uploads'.ImageHelper::PROJECT_IMAGE_PATH.'/'.$this->image;
     }
 
     public function setImage(string $image): self

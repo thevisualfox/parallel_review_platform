@@ -15,7 +15,7 @@ import { fetchProjectById, QUERY_KEYS } from '../api';
 import { updatePageTitle } from '../helpers';
 
 /* Components */
-import { ProjectDetailHeader } from '../components/project-detail';
+import { ProjectDetailHeader, ProjectDetailImages } from '../components/project-detail';
 
 export default function ProjectDetail({ currentUserLoading }) {
 	/* Hooks */
@@ -23,7 +23,7 @@ export default function ProjectDetail({ currentUserLoading }) {
 
 	/* Queries */
 	const { isLoading: projectLoading, data = {} } = useQuery(
-		[QUERY_KEYS.PROJECT_BY_ID, projectId],
+		[QUERY_KEYS.PROJECT_BY_ID, parseInt(projectId)],
 		() => fetchProjectById({ projectId }),
 		{
 			onSuccess: ({ title }) => updatePageTitle(title),
@@ -31,7 +31,7 @@ export default function ProjectDetail({ currentUserLoading }) {
 	);
 
 	/* Constants  */
-	const { title, description, users, id, author, email } = data;
+	const { title, description, users, id, author, email, projectImages } = data;
 	const isLoading = currentUserLoading || projectLoading;
 
 	return (
@@ -42,7 +42,10 @@ export default function ProjectDetail({ currentUserLoading }) {
 						<LinearProgress color="secondary" />
 					</motion.div>
 				) : (
-					<ProjectDetailHeader {...{ title, description, users, id, author, email }} />
+					<>
+						<ProjectDetailHeader {...{ title, description, users, id, author, email }} />
+						<ProjectDetailImages {...{ projectImages, projectId: id }} />
+					</>
 				)}
 			</AnimatePresence>
 		</>

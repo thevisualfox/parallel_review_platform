@@ -69,7 +69,7 @@ export default function ProjectAdd({ setNewProjectId }) {
 				{...SCALE_FADE}
 				key="add-project"
 				type="button"
-				className="icon-wrapper icon-wrapper--interactive icon-wrapper--default btn btn-link btn--project-add"
+				className="icon-wrapper icon-wrapper--interactive icon-wrapper--secondary btn btn-link btn--project-add"
 				style={{ '--size': '75px' }}
 				onClick={toggleModal}>
 				<ReactSVG wrapper="svg" className="icon icon--30 text-secondary" src={addProjectIcon} />

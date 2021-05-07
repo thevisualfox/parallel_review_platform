@@ -10,7 +10,7 @@ import { ReactSVG } from 'react-svg';
 /* Assets */
 import checkIcon from 'icons/check.svg';
 
-export default function Project({ project, selectedProjects, updateSelectedProjects }) {
+export default function Project({ project, selected, updateSelected }) {
 	/* Constants */
 	const { title, projectImages, users, author, id } = project;
 
@@ -19,7 +19,7 @@ export default function Project({ project, selectedProjects, updateSelectedProje
 		<Link
 			to={`projects/${id}`}
 			title={title}
-			className={`card card--link card--product ${selectedProjects.includes(id) && 'is-selected'}`}>
+			className={`card card--link card--product ${selected.includes(id) && 'is-selected'}`}>
 			<ProjectImage {...{ projectImages }} />
 			<div className="card-body">
 				<div className="d-flex flex-column">
@@ -34,7 +34,7 @@ export default function Project({ project, selectedProjects, updateSelectedProje
 					className="card__select-toggle"
 					onClick={(event) => {
 						event.preventDefault();
-						updateSelectedProjects(id);
+						updateSelected(id);
 					}}>
 					<ReactSVG wrapper="svg" className="card__select-icon icon icon--8" src={checkIcon} />
 				</div>

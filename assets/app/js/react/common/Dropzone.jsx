@@ -61,7 +61,7 @@ export default function Dropzone({ projectId, projectImages }) {
 									className="btn btn-link dropzone__image-delete p-0"
 									onClick={(event) => {
 										event.stopPropagation();
-										updateProjectImages('delete', { id });
+										updateProjectImages('delete', { projectImageIds: [id] });
 									}}>
 									<div
 										className="dropzone__image-delete-icon icon-wrapper icon-wrapper--danger mx-auto"

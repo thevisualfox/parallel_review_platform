@@ -16,7 +16,7 @@ export default function ProjectDetailHeader({ title, description, users, id, aut
 	/* Render */
 	return (
 		<div className="row">
-			<div className="col">
+			<div className="col-12 col-lg-6">
 				<h1 className="h5 text-white mb-2">{title}</h1>
 				<p className="text-muted--70">{description}</p>
 			</div>

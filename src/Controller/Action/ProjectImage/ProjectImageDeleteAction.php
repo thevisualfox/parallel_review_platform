@@ -25,17 +25,28 @@ final class ProjectImageDeleteAction
 {
     public function __invoke(EntityManagerInterface $entityManager, ProjectImageRepository $projectImageRepository, Project $project, Request $request, ImageHelper $imageHelper, ArrayHelper $arrayHelper): Response
     {
-        $requestBody = json_decode($request->getContent(), true);
+        $projectImages = $request->request->get('projectImages');
 
-        $projectImage = $projectImageRepository->findOneBy(array('id' => $requestBody['id']));
+        if (!empty($projectImages)) {
+            foreach ($projectImages as $projectImageId) {
+                $projectImage = $projectImageRepository->findOneBy(['id' => $projectImageId]);
+
+                $this->deleteProjectImage($projectImage, $project, $entityManager, $imageHelper);
+            }
+        }
+
+
+        $images = $arrayHelper->mapToArray($project->getProjectImages());
+
+        return new JsonResponse(['images' => $images]);
+    }
+
+    public function deleteProjectImage(ProjectImage $projectImage, Project $project, EntityManagerInterface $entityManager, ImageHelper $imageHelper)
+    {
         $imageHelper->removeImage($projectImage);
         $project->removeProjectImage($projectImage);
 
         $entityManager->persist($project);
         $entityManager->flush();
-
-        $images = $arrayHelper->mapToArray($project->getProjectImages());
-
-        return new JsonResponse(['images' => $images]);
     }
 }
