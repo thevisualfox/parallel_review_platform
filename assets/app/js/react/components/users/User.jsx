@@ -7,7 +7,7 @@ import { useMutation, useQueryClient } from 'react-query';
 import starIcon from 'icons/star.svg';
 import deleteIcon from 'icons/delete.svg';
 
-/* Api calls */
+/* Api */
 import { deleteUser, QUERY_KEYS } from '../../api';
 
 /* Components */

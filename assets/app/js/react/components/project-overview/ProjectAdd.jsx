@@ -10,7 +10,7 @@ import { ProjectModal } from './';
 /* Assets */
 import addProjectIcon from 'icons/add_project.svg';
 
-/* Api calls */
+/* Api */
 import { addProject, QUERY_KEYS, editProject, fetchProjectById } from '../../api';
 
 /* Animations */

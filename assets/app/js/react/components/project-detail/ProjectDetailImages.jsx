@@ -16,7 +16,7 @@ import { ActionMenu } from '../action-menu';
 /* Hooks */
 import { useSelection } from '../../hooks';
 
-/* Api calls */
+/* Api */
 import { deleteProjectImages, QUERY_KEYS } from '../../api';
 
 export default function ProjectDetailImages({ projectImages, projectId }) {

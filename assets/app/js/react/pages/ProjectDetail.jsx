@@ -8,7 +8,7 @@ import LinearProgress from '@material-ui/core/LinearProgress';
 /* Animations */
 import { FADE_IN } from '../common/animations';
 
-/* Api calls */
+/* Api */
 import { fetchProjectById, QUERY_KEYS } from '../api';
 
 /* Helpers */

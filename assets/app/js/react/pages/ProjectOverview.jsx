@@ -13,7 +13,7 @@ import { FADE_IN } from '../common/animations';
 /* Context */
 import StaticContext from '../context';
 
-/* Api calls */
+/* Api */
 import { fetchProjectsByUser, QUERY_KEYS } from '../api';
 
 export default function ProjectOverview({ currentUserLoading }) {

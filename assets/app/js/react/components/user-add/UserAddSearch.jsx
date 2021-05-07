@@ -9,7 +9,7 @@ import { Users } from '../users';
 /* Helpers */
 import { isEmail, filterUsers } from '../../helpers';
 
-/* Api calls */
+/* Api */
 import { addUser, fetchGobalUsers, QUERY_KEYS } from '../../api';
 
 export default function UserAddSearch({ users, project, toggleBox }) {

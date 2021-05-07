@@ -9,7 +9,7 @@ import routes from './routes';
 /* Context */
 import StaticContext from './context';
 
-/* Api calls */
+/* Api */
 import { fetchCurrentUser, QUERY_KEYS } from './api';
 
 /* Helpers */
