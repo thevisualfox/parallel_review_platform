@@ -1,5 +1,6 @@
 .dropzone {
     flex-grow: 1;
+    min-height: 65vh;
 
     &:focus {
         outline: none;

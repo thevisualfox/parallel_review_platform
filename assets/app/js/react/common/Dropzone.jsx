@@ -7,6 +7,7 @@ import { useMutation, useQueryClient } from 'react-query';
 
 /* Assets */
 import addImageIcon from 'icons/add_image.svg';
+import uploadImageIcon from 'icons/upload.svg';
 
 /* Components */
 import { LoadingWrapper } from './';
@@ -74,8 +75,7 @@ const DropzoneInner = ({ addImageLoading, updateProjectImages, isParentDragActiv
 				{(isDragActive || isParentDragActive) && (
 					<motion.div {...FADE_IN} className="dropzone__overlay">
 						<div className="icon-wrapper icon-wrapper--secondary" style={{ '--size': '75px' }}>
-							{/* TODO: add another icon (upload) */}
-							<ReactSVG wrapper="svg" className="icon icon--30 text-secondary" src={addImageIcon} />
+							<ReactSVG wrapper="svg" className="icon icon--30 text-secondary" src={uploadImageIcon} />
 						</div>
 					</motion.div>
 				)}
@@ -90,7 +90,6 @@ const DropzoneInner = ({ addImageLoading, updateProjectImages, isParentDragActiv
 					loading={addImageLoading}
 					classes={{ loaderClasses: 'position-absolute d-flex text-secondary' }}
 					loaderSize={30}>
-					{/* TODO: add another icon (upload) */}
 					<ReactSVG wrapper="svg" className="icon icon--30 text-secondary" src={addImageIcon} />
 				</LoadingWrapper>
 			</motion.button>
