@@ -2,11 +2,9 @@
 import React from 'react';
 import { useQuery } from 'react-query';
 import { useParams } from 'react-router';
-import { AnimatePresence, motion } from 'framer-motion';
-import LinearProgress from '@material-ui/core/LinearProgress';
 
-/* Animations */
-import { FADE_IN } from '../common/animations';
+/* Components */
+import { PageLoader } from '../common';
 
 /* Api */
 import { fetchProjectById, QUERY_KEYS } from '../api';
@@ -34,20 +32,11 @@ export default function ProjectDetail({ currentUserLoading }) {
 	const { title, description, users, id, author, email, projectImages } = data;
 	const isLoading = currentUserLoading || projectLoading;
 
+	/* Render */
 	return (
-		<>
-			<AnimatePresence>
-				{isLoading ? (
-					<motion.div {...FADE_IN}>
-						<LinearProgress color="secondary" />
-					</motion.div>
-				) : (
-					<>
-						<ProjectDetailHeader {...{ title, description, users, id, author, email }} />
-						<ProjectDetailImages {...{ projectImages, projectId: id }} />
-					</>
-				)}
-			</AnimatePresence>
-		</>
+		<PageLoader {...{ isLoading }}>
+			<ProjectDetailHeader {...{ title, description, users, id, author, email }} />
+			<ProjectDetailImages {...{ projectImages, projectId: id }} />
+		</PageLoader>
 	);
 }

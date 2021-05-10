@@ -24,7 +24,7 @@ import { deleteProjects, leaveProjects, QUERY_KEYS } from '../../api';
 /* Context */
 import StaticContext from '../../context';
 
-export default function ProjectResults({ projects, newProjectId, isLoading }) {
+export default function ProjectResults({ projects, newProjectId }) {
 	/* Hooks */
 	const { selected, updateSelected, resetSelected } = useSelection();
 	const { currentUser } = useContext(StaticContext);
@@ -76,7 +76,7 @@ export default function ProjectResults({ projects, newProjectId, isLoading }) {
 		<>
 			<h1 className="h5 text-white mb-6">Your projects</h1>
 			<AnimatePresence>
-				{!isLoading && projects.length === 0 && (
+				{projects.length === 0 && (
 					<motion.p {...FADE_IN} className="text-white mb-0 position-absolute">
 						{`You don't have any projects yet`}
 					</motion.p>

@@ -18,13 +18,13 @@ export default function ProjectReviewHeader({ id, title, description }) {
 
 	/* Callbacks */
 	const mutationOnSuccess = () => {
-		queryClient.invalidateQueries([QUERY_KEYS.PROJECT_BY_ID, id]);
+		queryClient.invalidateQueries([QUERY_KEYS.PROJECT_IMAGE_BY_ID, id]);
 	};
 
 	/* Render */
 	return (
 		<div className="row mb-6">
-			<div className="col-12 col-lg-6">
+			<div className="col-12 col-xl-6">
 				<div className={`${userRole === 'admin' && 'editable'} d-flex align-items-center mb-2`}>
 					<Editable
 						inputType="title"

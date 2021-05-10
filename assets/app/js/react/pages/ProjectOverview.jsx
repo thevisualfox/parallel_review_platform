@@ -1,14 +1,10 @@
 /* Packages */
 import React, { useContext, useState } from 'react';
-import LinearProgress from '@material-ui/core/LinearProgress';
-import { AnimatePresence, motion } from 'framer-motion';
 import { useQuery } from 'react-query';
 
 /* Components */
 import { ProjectResults, ProjectAdd } from '../components/project-overview';
-
-/* Animations */
-import { FADE_IN } from '../common/animations';
+import { PageLoader } from '../common';
 
 /* Context */
 import StaticContext from '../context';
@@ -41,16 +37,9 @@ export default function ProjectOverview({ currentUserLoading }) {
 
 	/* Render */
 	return (
-		<>
-			<AnimatePresence>
-				{isLoading && (
-					<motion.div {...FADE_IN}>
-						<LinearProgress color="secondary" />
-					</motion.div>
-				)}
-			</AnimatePresence>
+		<PageLoader {...{ isLoading }}>
 			{userRole === 'admin' && <ProjectAdd {...{ setNewProjectId }} />}
-			<ProjectResults {...{ projects, newProjectId, isLoading }} />
-		</>
+			<ProjectResults {...{ projects, newProjectId }} />
+		</PageLoader>
 	);
 }
