@@ -8,9 +8,12 @@ import { motion } from 'framer-motion';
 import closeIcon from 'icons/close.svg';
 
 /* Components */
-import { Modal, Dropzone } from '../../common';
+import { Modal, Dropzone, LoadingWrapper } from '../../common';
 import { Users } from '../users';
 import { UserAdd } from '../user-add';
+
+/* Animations */
+import { STAGGER_UP } from '../../common/animations';
 
 export default function ProjectModal({ project = {}, updateProject, toggleModal }) {
 	/* Constants  */
@@ -72,7 +75,43 @@ export default function ProjectModal({ project = {}, updateProject, toggleModal 
 							<UserAdd {...{ users, project }} />
 						</div>
 					</div>
-					<Dropzone {...{ projectId, projectImages }} />
+					<Dropzone {...{ projectId, projectImages }}>
+						{({ updateProjectImages, isLoading }) =>
+							projectImages.map(({ image, title, id }, imageIndex) => (
+								<motion.div
+									layout
+									{...STAGGER_UP(imageIndex)}
+									className="col-12 col-md-6 col-lg-4 col-xl-3 col-xxl-2"
+									key={id}>
+									<div className="dropzone__container">
+										<img className="dropzone__image img-fluid" src={image} alt={title} />
+										<button
+											type="button"
+											className="btn btn-link dropzone__image-delete p-0"
+											onClick={(event) => {
+												event.stopPropagation();
+												updateProjectImages('delete', { projectImageIds: [id] });
+											}}>
+											<div
+												className="dropzone__image-delete-icon icon-wrapper icon-wrapper--danger mx-auto"
+												style={{ '--size': '50px' }}>
+												<LoadingWrapper
+													loading={isLoading}
+													loaderSize={20}
+													classes={{ loaderClasses: 'position-absolute d-flex text-danger' }}>
+													<ReactSVG
+														wrapper="svg"
+														className="icon icon--14 text-danger mt-0"
+														src={closeIcon}
+													/>
+												</LoadingWrapper>
+											</div>
+										</button>
+									</div>
+								</motion.div>
+							))
+						}
+					</Dropzone>
 				</div>
 				<div className="custom-modal__footer pb-6 pb-md-12">
 					<div className="row gutters-0 w-100">

@@ -12,6 +12,7 @@ import { STAGGER_UP } from '../../common/animations';
 /* Components */
 import ProjectDetailImage from './ProjectDetailImage';
 import { ActionMenu } from '../action-menu';
+import { Dropzone } from '../../common';
 
 /* Hooks */
 import { useSelection } from '../../hooks';
@@ -47,18 +48,20 @@ export default function ProjectDetailImages({ projectImages, projectId }) {
 
 	return (
 		<>
-			<div className={`row row--equalized gutters-5 ${selected.length > 0 && 'has-selections'}`}>
-				<AnimatePresence>
-					{projectImages.map((projectImage, projectImageIndex) => (
-						<motion.div
-							{...STAGGER_UP(projectImageIndex)}
-							key={projectImage.id}
-							className="col-12 col-md-6 col-lg-4 col-xl-3 col-xxl-2"
-							layout>
-							<ProjectDetailImage {...{ projectImage, projectId, selected, updateSelected }} />
-						</motion.div>
-					))}
-				</AnimatePresence>
+			<div className={`${selected.length > 0 && 'has-selections'}`}>
+				<Dropzone {...{ projectId, projectImages }}>
+					{() =>
+						projectImages.map((projectImage, projectImageIndex) => (
+							<motion.div
+								{...STAGGER_UP(projectImageIndex)}
+								key={projectImage.id}
+								className="col-12 col-md-6 col-lg-4 col-xl-3 col-xxl-2"
+								layout>
+								<ProjectDetailImage {...{ projectImage, projectId, selected, updateSelected }} />
+							</motion.div>
+						))
+					}
+				</Dropzone>
 			</div>
 			<AnimatePresence>
 				{selected.length > 0 && <ActionMenu {...{ selected, resetSelected, actions }} />}

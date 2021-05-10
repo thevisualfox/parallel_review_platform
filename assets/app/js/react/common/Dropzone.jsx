@@ -6,7 +6,6 @@ import { AnimatePresence, motion } from 'framer-motion';
 import { useMutation, useQueryClient } from 'react-query';
 
 /* Assets */
-import closeIcon from 'icons/close.svg';
 import addImageIcon from 'icons/add_image.svg';
 
 /* Components */
@@ -18,7 +17,7 @@ import { STAGGER_UP } from './animations';
 /* Api */
 import { addProjectImages, deleteProjectImages, QUERY_KEYS } from '../api';
 
-export default function Dropzone({ projectId, projectImages }) {
+export default function Dropzone({ projectId, projectImages, children }) {
 	/* Contants */
 	const COLUMN_LAYOUT = 'col-12 col-md-6 col-lg-4 col-xl-3';
 
@@ -51,36 +50,8 @@ export default function Dropzone({ projectId, projectImages }) {
 		<div className="dropzone" {...getRootProps()}>
 			<input {...getInputProps()} />
 			<div className="row row--equalized gutters-5">
-				<AnimatePresence initial={false}>
-					{projectImages.map(({ image, title, id }, imageIndex) => (
-						<motion.div layout {...STAGGER_UP(imageIndex)} className={COLUMN_LAYOUT} key={id}>
-							<div className="dropzone__container">
-								<img className="dropzone__image img-fluid" src={image} alt={title} />
-								<button
-									type="button"
-									className="btn btn-link dropzone__image-delete p-0"
-									onClick={(event) => {
-										event.stopPropagation();
-										updateProjectImages('delete', { projectImageIds: [id] });
-									}}>
-									<div
-										className="dropzone__image-delete-icon icon-wrapper icon-wrapper--danger mx-auto"
-										style={{ '--size': '50px' }}>
-										<LoadingWrapper
-											loading={deleteProjectImagesMutation.isLoading}
-											loaderSize={20}
-											classes={{ loaderClasses: 'position-absolute d-flex text-danger' }}>
-											<ReactSVG
-												wrapper="svg"
-												className="icon icon--14 text-danger mt-0"
-												src={closeIcon}
-											/>
-										</LoadingWrapper>
-									</div>
-								</button>
-							</div>
-						</motion.div>
-					))}
+				<AnimatePresence>
+					{children({ updateProjectImages, isLoading: deleteProjectImagesMutation.isLoading })}
 					<motion.div key="add-image" {...STAGGER_UP(projectImages.length)} className={COLUMN_LAYOUT} layout>
 						<DropzoneInner
 							addImageLoading={addProjectImagesMutation.isLoading}

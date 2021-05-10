@@ -20,11 +20,8 @@ export default function ProjectDetailImage({ projectImage, projectId, selected, 
 
 	/* Render */
 	return (
-		<article
-			to={`${id}`}
-			title={title}
-			className={`card card--link card--product ${selected.includes(id) && 'is-selected'}`}>
-			<Link to={`${title}`} title={title}>
+		<article className={`card card--link card--product ${selected.includes(id) && 'is-selected'}`}>
+			<Link to={`${id}`} title={title}>
 				<div className="card__image border m-2">
 					<img className="card-img-top" src={image} srcSet={`${image} 2x`} alt={title} />
 				</div>
