@@ -78,7 +78,7 @@ const DropzoneInner = ({ addImageLoading, updateProjectImages, isParentDragActiv
 		<div className="dropzone" {...getRootProps()}>
 			<input {...getInputProps()} />
 			<article
-				className={`dropzone__container card card--link card--transparent card--pulse ${
+				className={`dropzone__container card card--link card--pulse ${
 					(isDragActive || isParentDragActive) && 'is-pulsing'
 				} h-100 mb-0`}>
 				<div className="card-body d-flex align-items-center justify-content-center p-10">

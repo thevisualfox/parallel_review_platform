@@ -1,5 +1,5 @@
 /* Packages */
-import React from 'react';
+import React, { useContext } from 'react';
 import { AnimatePresence, motion } from 'framer-motion';
 import { useMutation, useQueryClient } from 'react-query';
 
@@ -20,10 +20,14 @@ import { useSelection } from '../../hooks';
 /* Api */
 import { deleteProjectImages, QUERY_KEYS } from '../../api';
 
+/* Context */
+import StaticContext from '../../context';
+
 export default function ProjectDetailImages({ projectImages, projectId }) {
 	/* Hooks */
 	const { selected, updateSelected, resetSelected } = useSelection();
 	const queryClient = useQueryClient();
+	const { userRole } = useContext(StaticContext);
 
 	/* Mutations */
 	const deleteProjectImagesMutation = useMutation(deleteProjectImages, {
@@ -49,19 +53,13 @@ export default function ProjectDetailImages({ projectImages, projectId }) {
 	return (
 		<>
 			<div className={`${selected.length > 0 && 'has-selections'}`}>
-				<Dropzone {...{ projectId, projectImages }}>
-					{() =>
-						projectImages.map((projectImage, projectImageIndex) => (
-							<motion.div
-								{...STAGGER_UP(projectImageIndex)}
-								key={projectImage.id}
-								className="col-12 col-md-6 col-lg-4 col-xl-3 col-xxl-2"
-								layout>
-								<ProjectDetailImage {...{ projectImage, projectId, selected, updateSelected }} />
-							</motion.div>
-						))
-					}
-				</Dropzone>
+				{userRole === 'admin' ? (
+					<Dropzone {...{ projectId, projectImages }}>
+						{() => <Images {...{ projectImages, projectId, selected, updateSelected }} />}
+					</Dropzone>
+				) : (
+					<Images {...{ projectImages, projectId, selected, updateSelected }} />
+				)}
 			</div>
 			<AnimatePresence>
 				{selected.length > 0 && <ActionMenu {...{ selected, resetSelected, actions }} />}
@@ -69,3 +67,15 @@ export default function ProjectDetailImages({ projectImages, projectId }) {
 		</>
 	);
 }
+
+const Images = ({ projectImages, projectId, selected, updateSelected }) => {
+	return projectImages.map((projectImage, projectImageIndex) => (
+		<motion.div
+			{...STAGGER_UP(projectImageIndex)}
+			key={projectImage.id}
+			className="col-12 col-md-6 col-lg-4 col-xl-3 col-xxl-2"
+			layout>
+			<ProjectDetailImage {...{ projectImage, projectId, selected, updateSelected }} />
+		</motion.div>
+	));
+};
