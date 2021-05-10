@@ -1,16 +1,21 @@
 /* Pages */
-import { ProjectOverview, ProjectDetail } from './pages';
+import { ProjectOverview, ProjectDetail, ProjectReview } from './pages';
 
 const routes = [
 	{
 		name: 'project-overview',
 		path: '/projects',
-		page: ProjectOverview,
+		component: ProjectOverview,
 	},
 	{
 		name: 'project-detail',
 		path: '/projects/:id',
-		page: ProjectDetail,
+		component: ProjectDetail,
+	},
+	{
+		name: 'project-review',
+		path: '/projects/:id/review/:id',
+		component: ProjectReview,
 	},
 ];
 

@@ -26,6 +26,10 @@ final class ProjectImageEditAction
             $projectImage->setTitle($requestBody['title']);
         }
 
+        if (isset($requestBody['description'])) {
+            $projectImage->setDescription($requestBody['description']);
+        }
+
         $entityManager->persist($projectImage);
         $entityManager->flush();
 

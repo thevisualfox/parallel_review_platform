@@ -16,12 +16,12 @@ import { editProjectImage } from '../../api';
 
 export default function ProjectDetailImage({ projectImage, projectId, selected, updateSelected }) {
 	/* Constants */
-	const { id, title, image } = projectImage;
+	const { id: projectImageId, title, image } = projectImage;
 
 	/* Render */
 	return (
-		<article className={`card card--link card--product ${selected.includes(id) && 'is-selected'}`}>
-			<Link to={`${id}`} title={title}>
+		<article className={`card card--link card--product ${selected.includes(projectImageId) && 'is-selected'}`}>
+			<Link to={`/projects/${projectId}/review/${projectImageId}`} title={title}>
 				<div className="card__image border m-2">
 					<img className="card-img-top" src={image} srcSet={`${image} 2x`} alt={title} />
 				</div>
@@ -32,8 +32,8 @@ export default function ProjectDetailImage({ projectImage, projectId, selected, 
 					projectId={projectId}
 					content={title}
 					mutation={editProjectImage}
-					mutationId={id}>
-					<motion.p {...FADE_IN} class="mb-0">
+					mutationId={projectImageId}>
+					<motion.p {...FADE_IN} className="mb-0">
 						{title}
 					</motion.p>
 				</Editable>
@@ -43,7 +43,7 @@ export default function ProjectDetailImage({ projectImage, projectId, selected, 
 					className="card__select-toggle"
 					onClick={(event) => {
 						event.preventDefault();
-						updateSelected(id);
+						updateSelected(projectImageId);
 					}}>
 					<ReactSVG wrapper="svg" className="card__select-icon icon icon--8" src={checkIcon} />
 				</div>

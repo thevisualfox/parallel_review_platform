@@ -2,16 +2,20 @@
 import React, { useEffect, useRef, useState } from 'react';
 
 /* Assets */
-import { useMutation, useQueryClient } from 'react-query';
-import { QUERY_KEYS } from '../../api';
+import { useMutation } from 'react-query';
 
 /* Elements */
 import { Button } from '../../elements';
 
-export default function EditableBody({ header, inputType, toggleBox, content, projectId, mutation, mutationId }) {
-	/* Hooks */
-	const queryClient = useQueryClient();
-
+export default function EditableBody({
+	header,
+	inputType,
+	toggleBox,
+	content,
+	mutation,
+	mutationId,
+	mutationOnSuccess,
+}) {
 	/* State */
 	const [value, setValue] = useState(content);
 
@@ -27,7 +31,7 @@ export default function EditableBody({ header, inputType, toggleBox, content, pr
 	/* Mutations */
 	const editMutation = useMutation(mutation, {
 		onSuccess: () => {
-			queryClient.invalidateQueries([QUERY_KEYS.PROJECT_BY_ID, projectId]);
+			mutationOnSuccess();
 			toggleBox();
 		},
 	});

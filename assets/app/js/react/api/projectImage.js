@@ -1,5 +1,11 @@
 import axios from 'axios';
 
+/* Fetch projectImage by id | expects project image id */
+export const fetchProjectImageById = async ({ projectImageId }) => {
+	const result = await axios.get(`/api/images/get/${projectImageId}`);
+	return result?.data;
+};
+
 /* Add projectImage(s) | expects project id and array of images (blob) */
 export const addProjectImages = async ({ projectId, images }) => {
 	const params = new FormData();

@@ -36,9 +36,9 @@ export default function App() {
 		<Router>
 			<Switch>
 				<StaticContext.Provider value={{ currentUser, userRole }}>
-					{routes.map(({ path, page: Page, props }) => (
+					{routes.map(({ path, component: Component, props }) => (
 						<Route key={path} path={path} exact>
-							<Page {...{ ...props, currentUserLoading }} />
+							<Component {...{ ...props, currentUserLoading }} />
 						</Route>
 					))}
 				</StaticContext.Provider>
