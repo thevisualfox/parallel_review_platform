@@ -58,7 +58,9 @@ export default function ProjectDetailImages({ projectImages, projectId }) {
 						{() => <Images {...{ projectImages, projectId, selected, updateSelected }} />}
 					</Dropzone>
 				) : (
-					<Images {...{ projectImages, projectId, selected, updateSelected }} />
+					<div className="row gutters-5">
+						<Images {...{ projectImages, projectId, selected, updateSelected }} />
+					</div>
 				)}
 			</div>
 			<AnimatePresence>
