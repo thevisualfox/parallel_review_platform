@@ -54,7 +54,7 @@ export default function ProjectDetailImages({ projectImages, projectId }) {
 		<>
 			<div className={`${selected.length > 0 && 'has-selections'}`}>
 				{userRole === 'admin' ? (
-					<Dropzone {...{ projectId, projectImages }}>
+					<Dropzone {...{ projectId, projectImages, positition: 'right' }}>
 						{() => <Images {...{ projectImages, projectId, selected, updateSelected }} />}
 					</Dropzone>
 				) : (
@@ -71,13 +71,17 @@ export default function ProjectDetailImages({ projectImages, projectId }) {
 }
 
 const Images = ({ projectImages, projectId, selected, updateSelected }) => {
-	return projectImages.map((projectImage, projectImageIndex) => (
-		<motion.div
-			{...STAGGER_UP(projectImageIndex)}
-			key={projectImage.id}
-			className="col-12 col-md-6 col-lg-4 col-xl-3 col-xxl-2"
-			layout>
-			<ProjectDetailImage {...{ projectImage, projectId, selected, updateSelected }} />
-		</motion.div>
-	));
+	return (
+		<AnimatePresence>
+			{projectImages.map((projectImage, projectImageIndex) => (
+				<motion.div
+					{...STAGGER_UP(projectImageIndex)}
+					key={projectImage.id}
+					className="col-12 col-md-6 col-lg-4 col-xl-3 col-xxl-2"
+					layout>
+					<ProjectDetailImage {...{ projectImage, projectId, selected, updateSelected }} />
+				</motion.div>
+			))}
+		</AnimatePresence>
+	);
 };

@@ -48,3 +48,10 @@
         }
     }
 }
+
+.dropzone__overlay {
+    @extend %fixed-fill, %center-flex;
+
+    background-color: rgba($color-base, 0.8);
+    z-index: $zindex-fixed;
+}

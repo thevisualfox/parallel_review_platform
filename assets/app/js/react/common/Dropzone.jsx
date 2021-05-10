@@ -12,15 +12,12 @@ import addImageIcon from 'icons/add_image.svg';
 import { LoadingWrapper } from './';
 
 /* Animations */
-import { STAGGER_UP } from './animations';
+import { SCALE_FADE, FADE_IN } from './animations';
 
 /* Api */
 import { addProjectImages, deleteProjectImages, QUERY_KEYS } from '../api';
 
-export default function Dropzone({ projectId, projectImages, children }) {
-	/* Contants */
-	const COLUMN_LAYOUT = 'col-12 col-md-6 col-lg-4 col-xl-3';
-
+export default function Dropzone({ projectId, positition = 'left', children }) {
 	/* Hooks */
 	const queryClient = useQueryClient();
 
@@ -50,22 +47,18 @@ export default function Dropzone({ projectId, projectImages, children }) {
 		<div className="dropzone" {...getRootProps()}>
 			<input {...getInputProps()} />
 			<div className="row row--equalized gutters-5">
-				<AnimatePresence>
-					{children({ updateProjectImages, isLoading: deleteProjectImagesMutation.isLoading })}
-					<motion.div key="add-image" {...STAGGER_UP(projectImages.length)} className={COLUMN_LAYOUT} layout>
-						<DropzoneInner
-							addImageLoading={addProjectImagesMutation.isLoading}
-							{...{ updateProjectImages, isParentDragActive: isDragActive }}
-						/>
-					</motion.div>
-				</AnimatePresence>
+				{children({ updateProjectImages, isLoading: deleteProjectImagesMutation.isLoading })}
 			</div>
+			<DropzoneInner
+				addImageLoading={addProjectImagesMutation.isLoading}
+				{...{ updateProjectImages, isParentDragActive: isDragActive, positition }}
+			/>
 		</div>
 	);
 }
 
 /* Inner dropzone */
-const DropzoneInner = ({ addImageLoading, updateProjectImages, isParentDragActive }) => {
+const DropzoneInner = ({ addImageLoading, updateProjectImages, isParentDragActive, positition }) => {
 	/* Hooks */
 	const { getRootProps, getInputProps, isDragActive } = useDropzone({
 		accept: 'image/*',
@@ -77,23 +70,30 @@ const DropzoneInner = ({ addImageLoading, updateProjectImages, isParentDragActiv
 	return (
 		<div className="dropzone" {...getRootProps()}>
 			<input {...getInputProps()} />
-			<article
-				className={`dropzone__container card card--link card--pulse ${
-					(isDragActive || isParentDragActive) && 'is-pulsing'
-				} h-100 mb-0`}>
-				<div className="card-body d-flex align-items-center justify-content-center p-10">
-					<LoadingWrapper
-						loading={addImageLoading}
-						classes={{ loaderClasses: 'position-absolute d-flex text-secondary' }}>
-						<span className="btn-text d-flex flex-column align-items-center text-white text-muted--40">
-							<ReactSVG wrapper="svg" className="icon icon--48" src={addImageIcon} />
-							<span className="text--sm mt-1">
-								{isDragActive || isParentDragActive ? 'Drop the images' : 'Add some images'}
-							</span>
-						</span>
-					</LoadingWrapper>
-				</div>
-			</article>
+			<AnimatePresence>
+				{(isDragActive || isParentDragActive) && (
+					<motion.div {...FADE_IN} className="dropzone__overlay">
+						<div className="icon-wrapper icon-wrapper--secondary" style={{ '--size': '75px' }}>
+							{/* TODO: add another icon (upload) */}
+							<ReactSVG wrapper="svg" className="icon icon--30 text-secondary" src={addImageIcon} />
+						</div>
+					</motion.div>
+				)}
+			</AnimatePresence>
+			<motion.button
+				{...SCALE_FADE}
+				key="add-project"
+				type="button"
+				className={`icon-wrapper icon-wrapper--interactive icon-wrapper--secondary btn btn-link btn--add btn--add-${positition}`}
+				style={{ '--size': '75px' }}>
+				<LoadingWrapper
+					loading={addImageLoading}
+					classes={{ loaderClasses: 'position-absolute d-flex text-secondary' }}
+					loaderSize={30}>
+					{/* TODO: add another icon (upload) */}
+					<ReactSVG wrapper="svg" className="icon icon--30 text-secondary" src={addImageIcon} />
+				</LoadingWrapper>
+			</motion.button>
 		</div>
 	);
 };

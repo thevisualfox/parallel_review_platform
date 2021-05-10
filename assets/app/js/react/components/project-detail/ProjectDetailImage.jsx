@@ -3,6 +3,7 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import { ReactSVG } from 'react-svg';
 import { motion } from 'framer-motion';
+import { useQueryClient } from 'react-query';
 
 /* Components */
 import { Editable } from '../editable';
@@ -12,11 +13,19 @@ import checkIcon from 'icons/check.svg';
 
 /* Animations */
 import { FADE_IN } from '../../common/animations';
-import { editProjectImage } from '../../api';
+import { editProjectImage, QUERY_KEYS } from '../../api';
 
 export default function ProjectDetailImage({ projectImage, projectId, selected, updateSelected }) {
 	/* Constants */
 	const { id: projectImageId, title, image } = projectImage;
+
+	/* Hooks */
+	const queryClient = useQueryClient();
+
+	/* Callbacks */
+	const mutationOnSuccess = () => {
+		queryClient.invalidateQueries([QUERY_KEYS.PROJECT_BY_ID, projectId]);
+	};
 
 	/* Render */
 	return (
@@ -32,7 +41,8 @@ export default function ProjectDetailImage({ projectImage, projectId, selected, 
 					projectId={projectId}
 					content={title}
 					mutation={editProjectImage}
-					mutationId={projectImageId}>
+					mutationId={projectImageId}
+					{...{ mutationOnSuccess }}>
 					<motion.p {...FADE_IN} className="mb-0">
 						{title}
 					</motion.p>
