@@ -1,5 +1,6 @@
 /* Packages */
 import React, { useEffect, useRef, useState } from 'react';
+import { TextareaAutosize } from '@material-ui/core';
 
 /* Assets */
 import { useMutation } from 'react-query';
@@ -48,8 +49,8 @@ export default function EditableBody({
 			<label className="sr-only" htmlFor={inputType}>
 				{header}
 			</label>
-			<input
-				className="form-control form-control-sm"
+			<TextareaAutosize
+				className="form-control form-control-sm form-control--text"
 				id={inputType}
 				name={inputType}
 				type="text"

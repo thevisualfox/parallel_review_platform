@@ -30,12 +30,13 @@ export default function Editable({ inputType, children, ...rest }) {
 	/* Render */
 	return (
 		<div className="editable d-flex align-items-center position-relative">
-			{children}
+			<div className="editable__content">{children}</div>
 			{userRole === 'admin' && (
 				<>
 					<button
-						className="editable__toggle btn btn-link icon-wrapper icon-wrapper--secondary icon-wrapper--interactive stretched-link ml-2"
-						onClick={toggleBox}>
+						className="editable__toggle btn btn-link icon-wrapper icon-wrapper--secondary icon-wrapper--interactive stretched-link ml-3"
+						onClick={toggleBox}
+						style={{ '--size': '25px' }}>
 						<ReactSVG wrapper="svg" className="icon icon--10 text-secondary" src={editIcon} />
 					</button>
 					<Box {...{ header, boxOpen, toggleBox }}>

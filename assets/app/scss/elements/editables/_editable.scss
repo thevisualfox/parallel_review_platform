@@ -3,6 +3,7 @@
         opacity: 0;
         visibility: hidden;
         transition: all 200ms ease;
+        flex-shrink: 0;
 
         .is-selected & {
             opacity: 0;
