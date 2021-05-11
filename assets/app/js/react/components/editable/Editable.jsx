@@ -22,7 +22,8 @@ export default function Editable({ inputType, children, ...rest }) {
 	const { userRole } = useContext(StaticContext);
 
 	/* Constants */
-	const header = `Edit ${inputType}...`;
+	const title = `Editing ${inputType}`;
+	const subtitle = `Save when ready`;
 
 	/* Callbacks */
 	const toggleBox = () => setBoxOpen(!boxOpen);
@@ -36,11 +37,11 @@ export default function Editable({ inputType, children, ...rest }) {
 					<button
 						className="editable__toggle btn btn-link icon-wrapper icon-wrapper--secondary icon-wrapper--interactive stretched-link ml-3"
 						onClick={toggleBox}
-						style={{ '--size': '25px' }}>
+						style={{ '--size': 25 }}>
 						<ReactSVG wrapper="svg" className="icon icon--10 text-secondary" src={editIcon} />
 					</button>
-					<Box {...{ header, boxOpen, toggleBox }}>
-						<EditableBody {...{ header, inputType, toggleBox, ...rest }} />
+					<Box {...{ title, subtitle, boxOpen, toggleBox }}>
+						<EditableBody {...{ title, inputType, toggleBox, ...rest }} />
 					</Box>
 				</>
 			)}

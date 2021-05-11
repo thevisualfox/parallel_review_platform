@@ -1,10 +1,18 @@
 .box {
-    @extend %center-flex, %absolute-fill;
+    @extend %center-flex;
 
+    position: absolute;
+    top: calc(var(--y, 0) * 1px);
+    left: calc(var(--x, 0) * 1px);
     z-index: $zindex-fixed;
 
     .form-control {
         background-color: $quaternary;
+    }
+
+    &--center {
+        bottom: 0;
+        right: 0;
     }
 }
 

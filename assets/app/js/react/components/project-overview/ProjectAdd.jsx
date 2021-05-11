@@ -70,7 +70,7 @@ export default function ProjectAdd({ setNewProjectId }) {
 				key="add-project"
 				type="button"
 				className="icon-wrapper icon-wrapper--interactive icon-wrapper--secondary btn btn-link btn--add btn--add-right"
-				style={{ '--size': '75px' }}
+				style={{ '--size': 75 }}
 				onClick={toggleModal}>
 				<ReactSVG wrapper="svg" className="icon icon--30 text-secondary" src={addProjectIcon} />
 			</motion.button>

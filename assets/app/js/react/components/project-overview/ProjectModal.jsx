@@ -127,7 +127,7 @@ const DropzoneImage = ({ projectImage, projectImageIndex, updateProjectImages, i
 					}}>
 					<div
 						className="dropzone__image-delete-icon icon-wrapper icon-wrapper--danger mx-auto"
-						style={{ '--size': '50px' }}>
+						style={{ '--size': 50 }}>
 						<LoadingWrapper
 							loading={isLoading}
 							loaderSize={20}

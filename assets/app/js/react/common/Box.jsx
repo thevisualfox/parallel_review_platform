@@ -10,18 +10,45 @@ import { FADE_IN, FADE_IN_UP } from './animations';
 /* Assets */
 import closeIcon from 'icons/close.svg';
 
-export default function Box({ header, content, boxOpen, toggleBox, children }) {
+/* Components */
+import { User } from '../components/users';
+
+export default function Box({
+	title,
+	subtitle,
+	SubtitleComponent,
+	boxOpen,
+	toggleBox,
+	children,
+	user,
+	position = {},
+	renderOnBody = true,
+}) {
+	/* Constants */
+	const { x = 0, y = 0 } = position;
+
 	/* TODO: escape event listener */
-	return createPortal(
+	const render = () => (
 		<AnimatePresence>
 			{boxOpen && (
-				<div className="box">
-					<motion.div className="box-overlay" {...FADE_IN} onClick={toggleBox} />
+				<motion.div
+					layout
+					transition={{ duration: 0.2 }}
+					className={`box ${renderOnBody && 'box--center'}`}
+					style={{ '--x': x, '--y': y }}>
+					{renderOnBody && <motion.div className="box-overlay" {...FADE_IN} onClick={toggleBox} />}
 					<motion.div key="box-content" className="box__content border p-5" {...FADE_IN_UP}>
-						<div className="box__header d-flex align-items-baseline">
-							<div className="d-flex flex-column">
-								<p className="text--lg mb-1">{header}</p>
-								{content && <p className="text-muted--60 mb-0">{content}</p>}
+						<div className="box__header d-flex align-items-start">
+							<div className="d-flex align-items-center">
+								{user && <User {...{ user }} size="xl" />}
+								<div className={`d-flex flex-column ${user && 'ml-3'}`}>
+									<p className="text--lg mb-0">{title}</p>
+									{(SubtitleComponent || subtitle) && (
+										<p className="text-muted--60 mb-0">
+											{SubtitleComponent ? <SubtitleComponent /> : subtitle}
+										</p>
+									)}
+								</div>
 							</div>
 							<button
 								type="button"
@@ -32,9 +59,15 @@ export default function Box({ header, content, boxOpen, toggleBox, children }) {
 						</div>
 						<div className="box__body d-flex mt-4">{children}</div>
 					</motion.div>
-				</div>
+				</motion.div>
 			)}
-		</AnimatePresence>,
-		document.body
+		</AnimatePresence>
 	);
+
+	/* Render */
+	if (renderOnBody) {
+		return createPortal(render(), document.body);
+	}
+
+	return render();
 }

@@ -13,8 +13,8 @@
     @extend .rounded-circle;
     @extend %center-flex;
 
-    width: var(--size, 22px);
-    height: var(--size, 22px);
+    width: calc(var(--size, 22px) * 1px);
+    height: calc(var(--size, 22px) * 1px);
     background-color: var(--theme);
 
     @each $color, $theme in $alert-themes {

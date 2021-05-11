@@ -74,7 +74,7 @@ const DropzoneInner = ({ addImageLoading, updateProjectImages, isParentDragActiv
 			<AnimatePresence>
 				{(isDragActive || isParentDragActive) && (
 					<motion.div {...FADE_IN} className="dropzone__overlay">
-						<div className="icon-wrapper icon-wrapper--secondary" style={{ '--size': '75px' }}>
+						<div className="icon-wrapper icon-wrapper--secondary" style={{ '--size': 75 }}>
 							<ReactSVG wrapper="svg" className="icon icon--30 text-secondary" src={uploadImageIcon} />
 						</div>
 					</motion.div>
@@ -85,7 +85,7 @@ const DropzoneInner = ({ addImageLoading, updateProjectImages, isParentDragActiv
 				key="add-project"
 				type="button"
 				className={`icon-wrapper icon-wrapper--interactive icon-wrapper--secondary btn btn-link btn--add btn--add-${positition}`}
-				style={{ '--size': '75px' }}>
+				style={{ '--size': 75 }}>
 				<LoadingWrapper
 					loading={addImageLoading}
 					classes={{ loaderClasses: 'position-absolute d-flex text-secondary' }}

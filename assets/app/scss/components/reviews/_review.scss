@@ -1,0 +1,13 @@
+.review {}
+
+.review__image {
+    &:hover {
+        cursor: url('../img/icons/cursor_comment.svg'), pointer;
+    }
+}
+
+.review__marker {
+    position: absolute;
+    top: calc(var(--y, 0) * 1px);
+    left: calc(var(--x, 0) * 1px);
+}

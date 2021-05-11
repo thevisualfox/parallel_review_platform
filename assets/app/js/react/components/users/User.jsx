@@ -13,7 +13,7 @@ import { deleteUser, QUERY_KEYS } from '../../api';
 /* Components */
 import { LoadingWrapper } from '../../common';
 
-export default function User({ user, project, variant = 'default', size = 'md' }) {
+export default function User({ user, project = {}, variant = 'default', size = 'md' }) {
 	/* Hooks */
 	const queryClient = useQueryClient();
 

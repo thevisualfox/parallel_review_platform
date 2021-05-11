@@ -9,7 +9,7 @@ import { useMutation } from 'react-query';
 import { Button } from '../../elements';
 
 export default function EditableBody({
-	header,
+	title,
 	inputType,
 	toggleBox,
 	content,
@@ -47,7 +47,7 @@ export default function EditableBody({
 				editMutation.mutate({ formRef, id: mutationId });
 			}}>
 			<label className="sr-only" htmlFor={inputType}>
-				{header}
+				{title}
 			</label>
 			<TextareaAutosize
 				className="form-control form-control-sm form-control--text"
@@ -59,7 +59,7 @@ export default function EditableBody({
 				ref={inputRef}
 			/>
 			<Button
-				title="Done"
+				title="Save"
 				extensionClasses="mt-4 w-50 justify-content-center"
 				isLoading={editMutation.isLoading}
 				type="submit"
