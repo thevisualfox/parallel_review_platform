@@ -3,7 +3,9 @@
 namespace App\Entity;
 
 use App\Repository\ProjectImageRepository;
-use App\Service\ImageHelper;
+use App\Service\ArrayHelper;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Sluggable\Util\Urlizer;
 
@@ -25,11 +27,6 @@ class ProjectImage
     private $title;
 
     /**
-     * @ORM\Column(type="string", length=255)
-     */
-    private $image;
-
-    /**
      * @ORM\ManyToOne(targetEntity=Project::class, inversedBy="projectImages")
      * @ORM\JoinColumn(nullable=false)
      */
@@ -39,6 +36,16 @@ class ProjectImage
      * @ORM\Column(type="string", length=255, nullable=true)
      */
     private $description;
+
+    /**
+     * @ORM\OneToMany(targetEntity=Phase::class, mappedBy="projectImage", orphanRemoval=true)
+     */
+    private $phases;
+
+    public function __construct()
+    {
+        $this->phases = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -57,18 +64,6 @@ class ProjectImage
         return $this;
     }
 
-    public function getImage(): ?string
-    {
-        return '/uploads'.ImageHelper::PROJECT_IMAGE_PATH.'/'.$this->image;
-    }
-
-    public function setImage(string $image): self
-    {
-        $this->image = $image;
-
-        return $this;
-    }
-
     public function getProject(): ?Project
     {
         return $this->project;
@@ -81,13 +76,13 @@ class ProjectImage
         return $this;
     }
 
-    public function getJsonResponse(): array
+    public function getJsonResponse(ArrayHelper $arrayHelper): array
     {
         return [
             'id' => $this->getId(),
             'title' => $this->getTitle(),
             'description' => $this->getDescription(),
-            'image' => $this->getImage(),
+            'phases' => $arrayHelper->mapToArray($this->getPhases()),
         ];
     }
 
@@ -99,6 +94,36 @@ class ProjectImage
     public function setDescription(?string $description): self
     {
         $this->description = $description;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Phase[]
+     */
+    public function getPhases(): Collection
+    {
+        return $this->phases;
+    }
+
+    public function addPhase(Phase $phase): self
+    {
+        if (!$this->phases->contains($phase)) {
+            $this->phases[] = $phase;
+            $phase->setProjectImage($this);
+        }
+
+        return $this;
+    }
+
+    public function removePhase(Phase $phase): self
+    {
+        if ($this->phases->removeElement($phase)) {
+            // set the owning side to null (unless already changed)
+            if ($phase->getProjectImage() === $this) {
+                $phase->setProjectImage(null);
+            }
+        }
 
         return $this;
     }

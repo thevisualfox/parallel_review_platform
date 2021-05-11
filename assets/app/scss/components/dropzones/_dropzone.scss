@@ -1,12 +1,13 @@
 .dropzone {
     flex-grow: 1;
-    min-height: 65vh;
+    min-height: 50vh;
 
     &:focus {
         outline: none;
     }
 
     .dropzone {
+        min-height: unset;
         cursor: pointer;
     }
 }

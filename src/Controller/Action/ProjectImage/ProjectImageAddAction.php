@@ -4,6 +4,7 @@ namespace App\Controller\Action\ProjectImage;
 
 use App\Entity\Project;
 use App\Entity\ProjectImage;
+use App\Entity\Phase;
 use App\Service\ArrayHelper;
 use App\Service\ImageHelper;
 use Doctrine\ORM\EntityManagerInterface;
@@ -30,12 +31,8 @@ final class ProjectImageAddAction
         foreach ($requestImages as $image) {
             $newFileName = $imageHelper->uploadImage($image);
 
-            $projectImage = new ProjectImage();
-            $projectImage->setTitle($newFileName);
-            $projectImage->setImage($newFileName);
-            $projectImage->setProject($project);
-
-            $entityManager->persist($projectImage);
+            $projectImage = $this->createProjectImage($newFileName, $project, $entityManager);
+            $phase = $this->createPhase($newFileName, $projectImage, $entityManager);
         }
 
         $entityManager->persist($project);
@@ -44,5 +41,28 @@ final class ProjectImageAddAction
         $images = $arrayHelper->mapToArray($project->getProjectImages());
 
         return new JsonResponse(['images' => $images]);
+    }
+
+    public function createProjectImage(string $newFileName, Project $project, EntityManagerInterface $entityManager): ProjectImage
+    {
+        $projectImage = new ProjectImage();
+        $projectImage->setTitle($newFileName);
+        $projectImage->setProject($project);
+
+        $entityManager->persist($projectImage);
+
+        return $projectImage;
+    }
+
+    public function createPhase(string $newFileName, ProjectImage $projectImage, EntityManagerInterface $entityManager): Phase
+    {
+        $phase = new Phase();
+        $phase->setPhase(1);
+        $phase->setImage($newFileName);
+        $phase->setProjectImage($projectImage);
+
+        $entityManager->persist($phase);
+
+        return $phase;
     }
 }

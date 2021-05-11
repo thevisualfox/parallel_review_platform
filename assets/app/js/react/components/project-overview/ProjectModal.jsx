@@ -2,7 +2,7 @@
 import React, { useRef } from 'react';
 import TextareaAutosize from '@material-ui/core/TextareaAutosize';
 import { ReactSVG } from 'react-svg';
-import { motion } from 'framer-motion';
+import { AnimatePresence, motion } from 'framer-motion';
 
 /* Assets */
 import closeIcon from 'icons/close.svg';
@@ -76,41 +76,16 @@ export default function ProjectModal({ project = {}, updateProject, toggleModal 
 						</div>
 					</div>
 					<Dropzone {...{ projectId, projectImages }}>
-						{({ updateProjectImages, isLoading }) =>
-							projectImages.map(({ image, title, id }, imageIndex) => (
-								<motion.div
-									layout
-									{...STAGGER_UP(imageIndex)}
-									className="col-12 col-md-6 col-lg-4 col-xl-3 col-xxl-2"
-									key={id}>
-									<div className="dropzone__container">
-										<img className="dropzone__image img-fluid" src={image} alt={title} />
-										<button
-											type="button"
-											className="btn btn-link dropzone__image-delete p-0"
-											onClick={(event) => {
-												event.stopPropagation();
-												updateProjectImages('delete', { projectImageIds: [id] });
-											}}>
-											<div
-												className="dropzone__image-delete-icon icon-wrapper icon-wrapper--danger mx-auto"
-												style={{ '--size': '50px' }}>
-												<LoadingWrapper
-													loading={isLoading}
-													loaderSize={20}
-													classes={{ loaderClasses: 'position-absolute d-flex text-danger' }}>
-													<ReactSVG
-														wrapper="svg"
-														className="icon icon--14 text-danger mt-0"
-														src={closeIcon}
-													/>
-												</LoadingWrapper>
-											</div>
-										</button>
-									</div>
-								</motion.div>
-							))
-						}
+						{({ updateProjectImages, isLoading }) => (
+							<AnimatePresence>
+								{projectImages.map((projectImage, projectImageIndex) => (
+									<DropzoneImage
+										key={projectImage.id}
+										{...{ projectImage, projectImageIndex, updateProjectImages, isLoading }}
+									/>
+								))}
+							</AnimatePresence>
+						)}
 					</Dropzone>
 				</div>
 				<div className="custom-modal__footer pb-6 pb-md-12">
@@ -130,3 +105,40 @@ export default function ProjectModal({ project = {}, updateProject, toggleModal 
 		</Modal>
 	);
 }
+
+const DropzoneImage = ({ projectImage, projectImageIndex, updateProjectImages, isLoading }) => {
+	const { title, id, phases = [] } = projectImage;
+	const { image } = phases[phases.length - 1] || {};
+
+	return (
+		<motion.div
+			layout
+			{...STAGGER_UP(projectImageIndex)}
+			className="col-12 col-md-6 col-lg-4 col-xl-3 col-xxl-2"
+			key={id}>
+			<div className="dropzone__container">
+				<img className="dropzone__image img-fluid" src={image} alt={title} />
+				<button
+					type="button"
+					className="btn btn-link dropzone__image-delete p-0"
+					onClick={(event) => {
+						event.stopPropagation();
+						updateProjectImages('delete', { projectImageIds: [id] });
+					}}>
+					<div
+						className="dropzone__image-delete-icon icon-wrapper icon-wrapper--danger mx-auto"
+						style={{ '--size': '50px' }}>
+						<LoadingWrapper
+							loading={isLoading}
+							loaderSize={20}
+							classes={{
+								loaderClasses: 'position-absolute d-flex text-danger',
+							}}>
+							<ReactSVG wrapper="svg" className="icon icon--14 text-danger mt-0" src={closeIcon} />
+						</LoadingWrapper>
+					</div>
+				</button>
+			</div>
+		</motion.div>
+	);
+};

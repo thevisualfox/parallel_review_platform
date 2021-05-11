@@ -13,11 +13,14 @@ import checkIcon from 'icons/check.svg';
 
 /* Animations */
 import { FADE_IN } from '../../common/animations';
+
+/* Api */
 import { editProjectImage, QUERY_KEYS } from '../../api';
 
 export default function ProjectDetailImage({ projectImage, projectId, selected, updateSelected }) {
 	/* Constants */
-	const { id: projectImageId, title, image } = projectImage;
+	const { id: projectImageId, title, phases = [] } = projectImage;
+	const { image } = phases[phases.length - 1] || {};
 
 	/* Hooks */
 	const queryClient = useQueryClient();

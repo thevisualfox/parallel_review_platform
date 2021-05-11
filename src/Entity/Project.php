@@ -102,10 +102,8 @@ class Project
         return $this;
     }
 
-    public function getJsonResponse($arrayHelper): array
+    public function getJsonResponse(ArrayHelper $arrayHelper): array
     {
-        /** @var ArrayHelper $arrayHelper  */
-
         return [
             'id' => $this->getId(),
             'author' => $this->getAuthor(),

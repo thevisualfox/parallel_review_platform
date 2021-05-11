@@ -3,6 +3,7 @@
 namespace App\Controller\Action\ProjectImage;
 
 use App\Entity\ProjectImage;
+use App\Service\ArrayHelper;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -14,8 +15,8 @@ use Symfony\Component\Routing\Annotation\Route;
  */
 final class ProjectImageGetAction
 {
-    public function __invoke(ProjectImage $projectImage): Response
+    public function __invoke(ProjectImage $projectImage, ArrayHelper $arrayHelper): Response
     {
-        return new JsonResponse($projectImage->getJsonResponse());
+        return new JsonResponse($projectImage->getJsonResponse($arrayHelper));
     }
 }

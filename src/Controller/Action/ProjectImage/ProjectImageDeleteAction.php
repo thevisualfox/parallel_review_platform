@@ -43,10 +43,17 @@ final class ProjectImageDeleteAction
 
     public function deleteProjectImage(ProjectImage $projectImage, Project $project, EntityManagerInterface $entityManager, ImageHelper $imageHelper)
     {
-        $imageHelper->removeImage($projectImage);
+        $this->deleteImages($projectImage->getPhases(), $imageHelper);
         $project->removeProjectImage($projectImage);
 
         $entityManager->persist($project);
         $entityManager->flush();
+    }
+
+    public function deleteImages(object $phases, ImageHelper $imageHelper)
+    {
+        foreach ($phases as $phase) {
+            $imageHelper->removeImage($phase->getImage());
+        };
     }
 }

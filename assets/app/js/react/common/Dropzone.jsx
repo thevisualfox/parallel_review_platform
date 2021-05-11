@@ -47,13 +47,13 @@ export default function Dropzone({ projectId, positition = 'left', children }) {
 	return (
 		<div className="dropzone" {...getRootProps()}>
 			<input {...getInputProps()} />
-			<div className="row row--equalized gutters-5">
-				{children({ updateProjectImages, isLoading: deleteProjectImagesMutation.isLoading })}
-			</div>
 			<DropzoneInner
 				addImageLoading={addProjectImagesMutation.isLoading}
 				{...{ updateProjectImages, isParentDragActive: isDragActive, positition }}
 			/>
+			<div className="row row--equalized gutters-5">
+				{children({ updateProjectImages, isLoading: deleteProjectImagesMutation.isLoading })}
+			</div>
 		</div>
 	);
 }

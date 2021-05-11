@@ -7,7 +7,7 @@ class ArrayHelper
     public function mapToArray(object $object): array {
         $array = [];
         foreach ($object as $item) {
-            $array[] = $item->getJsonResponse();
+            $array[] = $item->getJsonResponse($this);
         }
 
         return $array;
