@@ -17,7 +17,7 @@ export default function Project({ project, selected, updateSelected }) {
 	/* Render */
 	return (
 		<Link
-			to={`projects/${id}`}
+			to={`projects/${id}${location.search}`}
 			title={title}
 			className={`card card--link card--product ${selected.includes(id) && 'is-selected'}`}>
 			<ProjectImage {...{ projectImages }} />
