@@ -32,7 +32,7 @@ private static $installed = array (
     'aliases' => 
     array (
     ),
-    'reference' => 'c2ee3d3616487de3dbafe993f2e804917d58745c',
+    'reference' => '1a8deef4e54c25cf9985e357aa9ecdc3f89b1ac8',
     'name' => '__root__',
   ),
   'versions' => 
@@ -44,7 +44,7 @@ private static $installed = array (
       'aliases' => 
       array (
       ),
-      'reference' => 'c2ee3d3616487de3dbafe993f2e804917d58745c',
+      'reference' => '1a8deef4e54c25cf9985e357aa9ecdc3f89b1ac8',
     ),
     'behat/transliterator' => 
     array (
@@ -217,14 +217,32 @@ private static $installed = array (
       ),
       'reference' => 'b4302ede2e247a6cc884b302a5f7146e08bd1b18',
     ),
-    'lorenzo/pinky' => 
+    'jms/metadata' => 
     array (
-      'pretty_version' => '1.0.5',
-      'version' => '1.0.5.0',
+      'pretty_version' => '2.5.0',
+      'version' => '2.5.0.0',
       'aliases' => 
       array (
       ),
-      'reference' => '2bc1a9d5696d6496df5d5682962929165a823e57',
+      'reference' => 'b5c52549807b2d855b3d7e36ec164c00eb547338',
+    ),
+    'jms/serializer' => 
+    array (
+      'pretty_version' => '3.12.3',
+      'version' => '3.12.3.0',
+      'aliases' => 
+      array (
+      ),
+      'reference' => 'f908d17afd08f0aab9c083322022682b41483c5b',
+    ),
+    'jms/serializer-bundle' => 
+    array (
+      'pretty_version' => '3.9.1',
+      'version' => '3.9.1.0',
+      'aliases' => 
+      array (
+      ),
+      'reference' => '2fbf2385668dd715d030567fd41e181bbf41fb42',
     ),
     'mistic100/randomcolor' => 
     array (
@@ -317,6 +335,15 @@ private static $installed = array (
       ),
       'reference' => '6a467b8989322d92aa1c8bf2bebcc6e5c2ba55c0',
     ),
+    'phpstan/phpdoc-parser' => 
+    array (
+      'pretty_version' => '0.5.4',
+      'version' => '0.5.4.0',
+      'aliases' => 
+      array (
+      ),
+      'reference' => 'e352d065af1ae9b41c12d1dfd309e90f7b1f55c9',
+    ),
     'psr/cache' => 
     array (
       'pretty_version' => '1.0.1',
@@ -401,8 +428,8 @@ private static $installed = array (
     array (
       'provided' => 
       array (
-        0 => '1.0',
-        1 => '1.0.0',
+        0 => '1.0.0',
+        1 => '1.0',
       ),
     ),
     'psr/simple-cache-implementation' => 
@@ -1155,24 +1182,6 @@ private static $installed = array (
       ),
       'reference' => 'f284e032c3cefefb9943792132251b79a6127ca6',
     ),
-    'tijsverkoyen/css-to-inline-styles' => 
-    array (
-      'pretty_version' => '2.2.3',
-      'version' => '2.2.3.0',
-      'aliases' => 
-      array (
-      ),
-      'reference' => 'b43b05cf43c1b6d849478965062b6ef73e223bb5',
-    ),
-    'twig/cssinliner-extra' => 
-    array (
-      'pretty_version' => 'v3.3.0',
-      'version' => '3.3.0.0',
-      'aliases' => 
-      array (
-      ),
-      'reference' => '89a7b0f64c1296068864d540567428210c9de340',
-    ),
     'twig/extra-bundle' => 
     array (
       'pretty_version' => 'v3.1.1',
@@ -1181,15 +1190,6 @@ private static $installed = array (
       array (
       ),
       'reference' => 'a7c5799cf742ab0827f5d32df37528ee8bf5a233',
-    ),
-    'twig/inky-extra' => 
-    array (
-      'pretty_version' => 'v3.3.0',
-      'version' => '3.3.0.0',
-      'aliases' => 
-      array (
-      ),
-      'reference' => '36c77999814ac64617e03ce7b8092c3c4dab5e4d',
     ),
     'twig/twig' => 
     array (

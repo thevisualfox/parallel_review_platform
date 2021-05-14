@@ -12,7 +12,7 @@ import StaticContext from '../context';
 /* Api */
 import { fetchProjectsByUser, QUERY_KEYS } from '../api';
 
-export default function ProjectOverview({ currentUserLoading }) {
+export default function ProjectOverview() {
 	/* State */
 	const [newProjectId, setNewProjectId] = useState();
 
@@ -23,17 +23,13 @@ export default function ProjectOverview({ currentUserLoading }) {
 	const userId = currentUser?.id ? currentUser.id : atob(location.search.replace('?', ''));
 
 	/* Queries */
-	const { isLoading: projectsLoading, data = {} } = useQuery(
+	const { isLoading, data: projects = [] } = useQuery(
 		QUERY_KEYS.PROJECT_BY_USER,
 		() => fetchProjectsByUser({ userId }),
 		{
 			enabled: !!userId,
 		}
 	);
-
-	/* Constants  */
-	const { projects = [] } = data;
-	const isLoading = currentUserLoading || projectsLoading;
 
 	/* Render */
 	return (

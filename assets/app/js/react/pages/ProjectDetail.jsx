@@ -15,12 +15,12 @@ import { updatePageTitle } from '../helpers';
 /* Components */
 import { ProjectDetailHeader, ProjectDetailImages } from '../components/project-detail';
 
-export default function ProjectDetail({ currentUserLoading }) {
+export default function ProjectDetail() {
 	/* Hooks */
 	const { id: projectId } = useParams();
 
 	/* Queries */
-	const { isLoading: projectLoading, data = {} } = useQuery(
+	const { isLoading, data = {} } = useQuery(
 		[QUERY_KEYS.PROJECT_BY_ID, parseInt(projectId)],
 		() => fetchProjectById({ projectId }),
 		{
@@ -30,7 +30,6 @@ export default function ProjectDetail({ currentUserLoading }) {
 
 	/* Constants  */
 	const { title, description, users, id, author, email, projectImages } = data;
-	const isLoading = currentUserLoading || projectLoading;
 
 	/* Render */
 	return (

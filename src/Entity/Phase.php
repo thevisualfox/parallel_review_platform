@@ -73,13 +73,4 @@ class Phase
 
         return $this;
     }
-
-    public function getJsonResponse(): array
-    {
-        return [
-            'id' => $this->getId(),
-            'phase' => $this->getPhase(),
-            'image' => '/'.$this->getImage(),
-        ];
-    }
 }

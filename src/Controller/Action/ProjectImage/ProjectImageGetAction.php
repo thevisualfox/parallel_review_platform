@@ -2,21 +2,25 @@
 
 namespace App\Controller\Action\ProjectImage;
 
+use App\Dto\Response\Transformer\ProjectImageResponseDtoTransformer;
 use App\Entity\ProjectImage;
-use App\Service\ArrayHelper;
 use Symfony\Component\HttpFoundation\JsonResponse;
-use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
-/**
- * @Route("/api/images/get/{id}", name="app_get_project_image", methods="GET")
- * @param ProjectImage $projectImage
- * @return Response
- */
 final class ProjectImageGetAction
 {
-    public function __invoke(ProjectImage $projectImage, ArrayHelper $arrayHelper): Response
+    private ProjectImageResponseDtoTransformer $projectImageResponseDtoTransformer;
+
+    public function __construct(ProjectImageResponseDtoTransformer $projectImageResponseDtoTransformer)
     {
-        return new JsonResponse($projectImage->getJsonResponse($arrayHelper));
+        $this->projectImageResponseDtoTransformer = $projectImageResponseDtoTransformer;
+    }
+
+    /**
+     * @Route("/api/images/get/{id}", name="app_get_project_image", methods="GET")
+     */
+    public function __invoke(ProjectImage $projectImage): JsonResponse
+    {
+        return new JsonResponse($this->projectImageResponseDtoTransformer->transformFromObject($projectImage));
     }
 }

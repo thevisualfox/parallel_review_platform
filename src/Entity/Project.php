@@ -3,7 +3,6 @@
 namespace App\Entity;
 
 use App\Repository\ProjectRepository;
-use App\Service\ArrayHelper;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Gedmo\Timestampable\Traits\TimestampableEntity;
@@ -100,19 +99,6 @@ class Project
         $this->description = $description;
 
         return $this;
-    }
-
-    public function getJsonResponse(ArrayHelper $arrayHelper): array
-    {
-        return [
-            'id' => $this->getId(),
-            'author' => $this->getAuthor(),
-            'slug' => $this->getSlug(),
-            'title' => $this->getTitle(),
-            'description' => $this->getDescription(),
-            'projectImages' => $arrayHelper->mapToArray($this->getProjectImages()),
-            'users' => $arrayHelper->mapToArray($this->getUsers())
-        ];
     }
 
     /**

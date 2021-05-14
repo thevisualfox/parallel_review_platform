@@ -5,6 +5,7 @@ import { useQuery } from 'react-query';
 
 /* Components */
 import routes from './routes';
+import { PageLoader } from './common';
 
 /* Context */
 import StaticContext from './context';
@@ -24,8 +25,8 @@ export default function App() {
 	const userId = atob(location.search.replace('?', ''));
 
 	/* Queries */
-	const { isLoading: currentUserLoading } = useQuery(QUERY_KEYS.CURRENT_USER, () => fetchCurrentUser({ userId }), {
-		onSuccess: ({ user }) => {
+	const { isLoading } = useQuery(QUERY_KEYS.CURRENT_USER, () => fetchCurrentUser({ userId }), {
+		onSuccess: (user) => {
 			setCurrentUser(user);
 			setUserRole(getRole(user));
 		},
@@ -36,11 +37,13 @@ export default function App() {
 		<Router>
 			<Switch>
 				<StaticContext.Provider value={{ currentUser, userRole }}>
-					{routes.map(({ path, component: Component, props }) => (
-						<Route key={path} path={path} exact>
-							<Component {...{ ...props, currentUserLoading }} />
-						</Route>
-					))}
+					<PageLoader {...{ isLoading }}>
+						{routes.map(({ path, component: Component, props }) => (
+							<Route key={path} path={path} exact>
+								<Component {...{ ...props }} />
+							</Route>
+						))}
+					</PageLoader>
 				</StaticContext.Provider>
 			</Switch>
 		</Router>

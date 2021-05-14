@@ -3,11 +3,9 @@
 namespace App\Entity;
 
 use App\Repository\ProjectImageRepository;
-use App\Service\ArrayHelper;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
-use Gedmo\Sluggable\Util\Urlizer;
 
 /**
  * @ORM\Entity(repositoryClass=ProjectImageRepository::class)
@@ -74,16 +72,6 @@ class ProjectImage
         $this->project = $project;
 
         return $this;
-    }
-
-    public function getJsonResponse(ArrayHelper $arrayHelper): array
-    {
-        return [
-            'id' => $this->getId(),
-            'title' => $this->getTitle(),
-            'description' => $this->getDescription(),
-            'phases' => $arrayHelper->mapToArray($this->getPhases()),
-        ];
     }
 
     public function getDescription(): ?string

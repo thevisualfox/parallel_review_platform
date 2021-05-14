@@ -150,17 +150,6 @@ class User implements UserInterface
         return $this;
     }
 
-    public function getJsonResponse(): array
-    {
-        return [
-            'id' => $this->getId(),
-            'username' => $this->getUsername(),
-            'email' => $this->getEmail(),
-            'roles' => $this->getRoles(),
-            'userColor' => $this->getColor(),
-        ];
-    }
-
     /**
      * @return Collection|Project[]
      */

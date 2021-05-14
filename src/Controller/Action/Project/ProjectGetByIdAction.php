@@ -2,21 +2,25 @@
 
 namespace App\Controller\Action\Project;
 
+use App\Dto\Response\Transformer\ProjectResponseDtoTransformer;
 use App\Entity\Project;
-use App\Service\ArrayHelper;
 use Symfony\Component\HttpFoundation\JsonResponse;
-use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
-/**
- * @Route("/api/project/get/{id}", name="app_get_project_by_id", methods="GET")
- * @param ArrayHelper $arrayHelper
- * @return Response
- */
 final class ProjectGetByIdAction
 {
-    public function __invoke(Project $project, ArrayHelper $arrayHelper): Response
+    private ProjectResponseDtoTransformer $projectResponseDtoTransformer;
+
+    public function __construct(ProjectResponseDtoTransformer $projectResponseDtoTransformer)
     {
-        return new JsonResponse($project->getJsonResponse($arrayHelper));
+        $this->projectResponseDtoTransformer = $projectResponseDtoTransformer;
+    }
+
+    /**
+     * @Route("/api/project/get/{id}", name="app_get_project_by_id", methods="GET")
+     */
+    public function __invoke(Project $project): JsonResponse
+    {
+        return new JsonResponse($this->projectResponseDtoTransformer->transformFromObject($project));
     }
 }
