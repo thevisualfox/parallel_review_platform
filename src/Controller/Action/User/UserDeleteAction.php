@@ -12,6 +12,7 @@ use Symfony\Component\Routing\Annotation\Route;
 
 final class UserDeleteAction
 {
+    /** @var UserResponseDtoTransformer  $userResponseDtoTransformer */
     private $userResponseDtoTransformer;
 
     public function __construct(UserResponseDtoTransformer $userResponseDtoTransformer)

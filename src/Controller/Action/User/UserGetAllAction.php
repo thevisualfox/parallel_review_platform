@@ -10,6 +10,7 @@ use Symfony\Component\Routing\Annotation\Route;
 
 final class UserGetAllAction
 {
+    /** @var UserResponseDtoTransformer  $userResponseDtoTransformer */
     private $userResponseDtoTransformer;
 
     public function __construct(UserResponseDtoTransformer $userResponseDtoTransformer)

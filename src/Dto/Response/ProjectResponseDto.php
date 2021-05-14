@@ -9,37 +9,44 @@ use JMS\Serializer\Annotation as Serialization;
 class ProjectResponseDto
 {
     /**
+     * @var int $id
      * @Serialization\Type("int")
      */
-    public int $id;
+    public $id;
 
     /**
+     * @var string|null $title
      * @Serialization\Type("string")
      */
-    public ?string $title;
+    public $title;
 
     /**
+     * @var string|null $slug
      * @Serialization\Type("string")
      */
-    public ?string $slug;
+    public $slug;
 
     /**
+     * @var string|null $description
      * @Serialization\Type("string")
      */
-    public ?string $description;
+    public $description;
 
     /**
+     * @var array $projectImages
      * @Serialization\Type("array<App\Dto\Response\ProjectImageResponseDto>")
      */
-    public array $projectImages;
+    public $projectImages;
 
     /**
+     * @var array $users
      * @Serialization\Type("array<App\Dto\Response\UserResponseDto>")
      */
-    public array $users;
+    public $users;
 
     /**
+     * @var string|null $author
      * @Serialization\Type("string")
      */
-    public string $author;
+    public $author;
 }

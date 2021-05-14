@@ -16,6 +16,7 @@ use Colors\RandomColor;
 
 final class UserAddAction
 {
+    /** @var UserResponseDtoTransformer  $userResponseDtoTransformer */
     private $userResponseDtoTransformer;
 
     public function __construct(UserResponseDtoTransformer $userResponseDtoTransformer)

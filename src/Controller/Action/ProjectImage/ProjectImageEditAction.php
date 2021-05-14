@@ -10,7 +10,8 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
 final class ProjectImageEditAction
 {
-    private ProjectImageResponseDtoTransformer $projectImageResponseDtoTransformer;
+    /** @var ProjectImageResponseDtoTransformer  $projectImageResponseDtoTransformer */
+    private $projectImageResponseDtoTransformer;
 
     public function __construct(ProjectImageResponseDtoTransformer $projectImageResponseDtoTransformer)
     {

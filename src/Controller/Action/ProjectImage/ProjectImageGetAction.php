@@ -9,7 +9,8 @@ use Symfony\Component\Routing\Annotation\Route;
 
 final class ProjectImageGetAction
 {
-    private ProjectImageResponseDtoTransformer $projectImageResponseDtoTransformer;
+    /** @var ProjectImageResponseDtoTransformer  $projectImageResponseDtoTransformer */
+    private $projectImageResponseDtoTransformer;
 
     public function __construct(ProjectImageResponseDtoTransformer $projectImageResponseDtoTransformer)
     {

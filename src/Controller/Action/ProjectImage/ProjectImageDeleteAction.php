@@ -13,7 +13,8 @@ use Symfony\Component\Routing\Annotation\Route;
 
 final class ProjectImageDeleteAction
 {
-    private ProjectResponseDtoTransformer $projectResponseDtoTransformer;
+    /** @var ProjectResponseDtoTransformer  $projectResponseDtoTransformer */
+    private $projectResponseDtoTransformer;
 
     public function __construct(ProjectResponseDtoTransformer $projectResponseDtoTransformer)
     {

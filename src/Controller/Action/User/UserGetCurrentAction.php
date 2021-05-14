@@ -10,9 +10,14 @@ use Symfony\Component\Security\Core\Security;
 
 final class UserGetCurrentAction
 {
-    private Security $security;
-    private ?User $user;
-    private UserResponseDtoTransformer $userResponseDtoTransformer;
+    /** @var Security $security */
+    private $security;
+
+    /** @var User|null $User */
+    private $user;
+
+    /** @var UserResponseDtoTransformer  $userResponseDtoTransformer */
+    private $userResponseDtoTransformer;
 
     public function __construct(Security $security, UserResponseDtoTransformer $userResponseDtoTransformer)
     {

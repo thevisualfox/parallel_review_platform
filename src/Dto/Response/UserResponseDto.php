@@ -9,27 +9,32 @@ use JMS\Serializer\Annotation as Serialization;
 class UserResponseDto
 {
     /**
+     * @var int $id
      * @Serialization\Type("int")
      */
-    public int $id;
+    public $id;
 
     /**
+     * @var string $email
      * @Serialization\Type("string")
      */
-    public string $email;
+    public $email;
 
     /**
+     * @var array $roles
      * @Serialization\Type("array<string>")
      */
-    public array $roles;
+    public $roles;
 
     /**
+     * @var string $username
      * @Serialization\Type("string")
      */
-    public string $username;
+    public $username;
 
     /**
+     * @var string $userColor
      * @Serialization\Type("string")
      */
-    public string $userColor;
+    public $userColor;
 }

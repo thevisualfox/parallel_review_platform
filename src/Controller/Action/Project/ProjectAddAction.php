@@ -12,9 +12,14 @@ use Symfony\Component\Routing\Annotation\Route;
 
 final class ProjectAddAction
 {
-    private Security $security;
-    private User $user;
-    private ProjectResponseDtoTransformer $projectResponseDtoTransformer;
+    /** @var Security $security */
+    private $security;
+
+    /** @var User $user */
+    private $user;
+
+    /** @var ProjectResponseDtoTransformer $projectResponseDtoTransformer */
+    private $projectResponseDtoTransformer;
 
     public function __construct(Security $security, ProjectResponseDtoTransformer $projectResponseDtoTransformer)
     {

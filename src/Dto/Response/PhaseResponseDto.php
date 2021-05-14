@@ -9,17 +9,20 @@ use JMS\Serializer\Annotation as Serialization;
 class PhaseResponseDto
 {
     /**
+     * @var int $id
      * @Serialization\Type("int")
      */
-    public int $id;
+    public $id;
 
     /**
+     * @var int $phase
      * @Serialization\Type("int")
      */
-    public int $phase;
+    public $phase;
 
     /**
+     * @var string $image
      * @Serialization\Type("string")
      */
-    public string $image;
+    public $image;
 }

@@ -14,12 +14,13 @@ use Symfony\Component\Routing\Annotation\Route;
 
 final class ProjectImageAddAction
 {
-     private ProjectResponseDtoTransformer $projectResponseDtoTransformer;
+    /** @var ProjectResponseDtoTransformer  $projectResponseDtoTransformer */
+    private $projectResponseDtoTransformer;
 
-     public function __construct(ProjectResponseDtoTransformer $projectResponseDtoTransformer)
-     {
-         $this->projectResponseDtoTransformer = $projectResponseDtoTransformer;
-     }
+    public function __construct(ProjectResponseDtoTransformer $projectResponseDtoTransformer)
+    {
+        $this->projectResponseDtoTransformer = $projectResponseDtoTransformer;
+    }
 
     /**
      * @Route("/api/images/add/{id}", name="app_project_image_add", methods="POST")

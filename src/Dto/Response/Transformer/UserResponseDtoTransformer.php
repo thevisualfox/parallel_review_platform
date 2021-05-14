@@ -11,7 +11,6 @@ class UserResponseDtoTransformer extends AbstractResponseDtoTransformer
 {
     /**
      * @param User $user
-     *
      * @return UserResponseDto
      */
     public function transformFromObject($user): UserResponseDto

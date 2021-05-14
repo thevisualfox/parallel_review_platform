@@ -10,7 +10,6 @@ class ProjectController extends AbstractController
 {
     /**
      * @Route("/projects/{reactRouting}", name="index", requirements={"reactRouting"="^(?!api).+"}, defaults={"reactRouting": null})
-     * @return Response
      */
     public function projects(): Response
     {
