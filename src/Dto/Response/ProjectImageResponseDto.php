@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Dto\Response;
 
+use App\Entity\Phase;
 use JMS\Serializer\Annotation as Serialization;
 
 class ProjectImageResponseDto
@@ -27,7 +28,7 @@ class ProjectImageResponseDto
     public $description;
 
     /**
-     * @var array $phases
+     * @var Phase[] $phases
      * @Serialization\Type("array<App\Dto\Response\PhaseResponseDto>")
      */
     public $phases;

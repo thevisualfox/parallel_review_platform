@@ -4,6 +4,8 @@ namespace App\Entity;
 
 use App\Repository\PhaseRepository;
 use App\Service\ImageHelper;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -32,6 +34,16 @@ class Phase
      * @ORM\ManyToOne(targetEntity=ProjectImage::class, inversedBy="phases")
      */
     private $projectImage;
+
+    /**
+     * @ORM\OneToMany(targetEntity=Comment::class, mappedBy="phase")
+     */
+    private $comments;
+
+    public function __construct()
+    {
+        $this->comments = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -70,6 +82,36 @@ class Phase
     public function setProjectImage(?ProjectImage $projectImage): self
     {
         $this->projectImage = $projectImage;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Comment[]
+     */
+    public function getComments(): Collection
+    {
+        return $this->comments;
+    }
+
+    public function addComment(Comment $comment): self
+    {
+        if (!$this->comments->contains($comment)) {
+            $this->comments[] = $comment;
+            $comment->setPhase($this);
+        }
+
+        return $this;
+    }
+
+    public function removeComment(Comment $comment): self
+    {
+        if ($this->comments->removeElement($comment)) {
+            // set the owning side to null (unless already changed)
+            if ($comment->getPhase() === $this) {
+                $comment->setPhase(null);
+            }
+        }
 
         return $this;
     }

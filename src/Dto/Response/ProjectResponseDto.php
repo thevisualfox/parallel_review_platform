@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace App\Dto\Response;
 
+use App\Entity\ProjectImage;
+use App\Entity\User;
 use JMS\Serializer\Annotation as Serialization;
 
 class ProjectResponseDto
@@ -33,13 +35,13 @@ class ProjectResponseDto
     public $description;
 
     /**
-     * @var array $projectImages
+     * @var ProjectImage[] $projectImages
      * @Serialization\Type("array<App\Dto\Response\ProjectImageResponseDto>")
      */
     public $projectImages;
 
     /**
-     * @var array $users
+     * @var User[] $users
      * @Serialization\Type("array<App\Dto\Response\UserResponseDto>")
      */
     public $users;

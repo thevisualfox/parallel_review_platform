@@ -9,12 +9,12 @@ use App\Entity\ProjectImage;
 
 class ProjectImageResponseDtoTransformer extends AbstractResponseDtoTransformer
 {
-     /** @var PhaseResponseDtoTransformer $phaseResponseDtoTransformer */
-     private $phaseResponseDtoTransformer;
+    /** @var PhaseResponseDtoTransformer $phaseResponseDtoTransformer */
+    private $phaseResponseDtoTransformer;
 
-     public function __construct(PhaseResponseDtoTransformer $phaseResponseDtoTransformer) {
-         $this->phaseResponseDtoTransformer = $phaseResponseDtoTransformer;
-     }
+    public function __construct(PhaseResponseDtoTransformer $phaseResponseDtoTransformer) {
+        $this->phaseResponseDtoTransformer = $phaseResponseDtoTransformer;
+    }
 
     /**
      * @param ProjectImage $projectImage
