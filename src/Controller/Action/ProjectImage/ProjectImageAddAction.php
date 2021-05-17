@@ -2,17 +2,18 @@
 
 namespace App\Controller\Action\ProjectImage;
 
+use App\Controller\AbstractApiController;
 use App\Dto\Response\Transformer\ProjectResponseDtoTransformer;
 use App\Entity\Project;
 use App\Entity\ProjectImage;
 use App\Entity\Phase;
 use App\Service\ImageHelper;
 use Doctrine\ORM\EntityManagerInterface;
-use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
-final class ProjectImageAddAction
+final class ProjectImageAddAction extends AbstractApiController
 {
     /** @var ProjectResponseDtoTransformer  $projectResponseDtoTransformer */
     private $projectResponseDtoTransformer;
@@ -25,7 +26,7 @@ final class ProjectImageAddAction
     /**
      * @Route("/api/images/add/{id}", name="app_project_image_add", methods="POST")
      */
-    public function __invoke(EntityManagerInterface $entityManager, Project $project, Request $request, ImageHelper $imageHelper): JsonResponse
+    public function __invoke(EntityManagerInterface $entityManager, Project $project, Request $request, ImageHelper $imageHelper): Response
     {
         $requestImages = $request->files->get('images');
 
@@ -39,7 +40,7 @@ final class ProjectImageAddAction
         $entityManager->persist($project);
         $entityManager->flush();
 
-        return new JsonResponse($this->projectResponseDtoTransformer->transformFromObject($project));
+        return $this->respond($this->projectResponseDtoTransformer->transformFromObject($project));
     }
 
     public function createProjectImage(string $newFileName, Project $project, EntityManagerInterface $entityManager): ProjectImage

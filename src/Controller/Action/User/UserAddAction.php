@@ -2,19 +2,20 @@
 
 namespace App\Controller\Action\User;
 
+use App\Controller\AbstractApiController;
 use App\Dto\Response\Transformer\UserResponseDtoTransformer;
 use App\Entity\Project;
 use App\Entity\User;
 use App\Repository\UserRepository;
 use App\Message\ProjectUserAddEmail;
 use Doctrine\ORM\EntityManagerInterface;
-use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Messenger\MessageBusInterface;
 use Colors\RandomColor;
+use Symfony\Component\HttpFoundation\Response;
 
-final class UserAddAction
+final class UserAddAction extends AbstractApiController
 {
     /** @var UserResponseDtoTransformer  $userResponseDtoTransformer */
     private $userResponseDtoTransformer;
@@ -27,7 +28,7 @@ final class UserAddAction
     /**
      * @Route("/api/users/add/{id}", name="app_project_user_add", methods="POST")
      */
-    public function __invoke(EntityManagerInterface $entityManager, UserRepository $userRepository, Project $project, Request $request, MessageBusInterface $messageBus): JsonResponse
+    public function __invoke(EntityManagerInterface $entityManager, UserRepository $userRepository, Project $project, Request $request, MessageBusInterface $messageBus): Response
     {
         $requestBody = json_decode($request->getContent(), true);
         $email = $requestBody['email'];
@@ -46,7 +47,7 @@ final class UserAddAction
             new ProjectUserAddEmail($user->getId(), $project->getId())
         );
 
-        return new JsonResponse($this->userResponseDtoTransformer->transformFromObject($user));
+        return $this->respond($this->userResponseDtoTransformer->transformFromObject($user));
     }
 
     private function createNewUser(string $email): User

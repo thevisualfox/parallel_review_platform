@@ -29,7 +29,7 @@ class PhaseResponseDto
 
     /**
      * @var Comment[] $comments
-     * @Serialization\Type(array<App\Dto\Response\CommentResponseDto>)
+     * @Serialization\Type("array<App\Dto\Response\CommentResponseDto>")
      */
     public $comments;
 }

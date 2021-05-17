@@ -2,18 +2,19 @@
 
 namespace App\Controller\Action\Project;
 
+use App\Controller\AbstractApiController;
 use App\Repository\ProjectRepository;
 use Doctrine\ORM\EntityManagerInterface;
-use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
-final class ProjectDeleteAction
+final class ProjectDeleteAction extends AbstractApiController
 {
     /**
      * @Route("/api/projects/delete", name="app_delete_projects", methods="POST")
      */
-    public function __invoke(ProjectRepository $repository, EntityManagerInterface $entityManager, Request $request): JsonResponse
+    public function __invoke(ProjectRepository $repository, EntityManagerInterface $entityManager, Request $request): Response
     {
         $projectIds = $request->request->get('projects');
 
@@ -26,6 +27,6 @@ final class ProjectDeleteAction
             }
         }
 
-        return new JsonResponse($projectIds);
+        return $this->respond($projectIds);
     }
 }

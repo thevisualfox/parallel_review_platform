@@ -2,6 +2,7 @@
 
 namespace App\Controller\Action\ProjectImage;
 
+use App\Controller\AbstractApiController;
 use App\Dto\Response\Transformer\ProjectResponseDtoTransformer;
 use App\Entity\Project;
 use App\Entity\ProjectImage;
@@ -9,9 +10,10 @@ use App\Repository\ProjectImageRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
-final class ProjectImageDeleteAction
+final class ProjectImageDeleteAction extends AbstractApiController
 {
     /** @var ProjectResponseDtoTransformer  $projectResponseDtoTransformer */
     private $projectResponseDtoTransformer;
@@ -24,7 +26,7 @@ final class ProjectImageDeleteAction
     /**
      * @Route("/api/images/delete/{id}", name="app_project_image_delete", methods="POST")
      */
-    public function __invoke(EntityManagerInterface $entityManager, ProjectImageRepository $projectImageRepository, Project $project, Request $request): JsonResponse
+    public function __invoke(EntityManagerInterface $entityManager, ProjectImageRepository $projectImageRepository, Project $project, Request $request): Response
     {
         $projectImageIds = $request->request->get('projectImages');
 
@@ -36,7 +38,7 @@ final class ProjectImageDeleteAction
             }
         }
 
-        return new JsonResponse($this->projectResponseDtoTransformer->transformFromObject($project));
+        return $this->respond($this->projectResponseDtoTransformer->transformFromObject($project));
     }
 
     public function deleteProjectImage(ProjectImage $projectImage, Project $project, EntityManagerInterface $entityManager)

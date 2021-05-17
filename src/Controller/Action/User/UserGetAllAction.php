@@ -2,13 +2,13 @@
 
 namespace App\Controller\Action\User;
 
+use App\Controller\AbstractApiController;
 use App\Dto\Response\Transformer\UserResponseDtoTransformer;
 use App\Repository\UserRepository;
-use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
-final class UserGetAllAction
+final class UserGetAllAction extends AbstractApiController
 {
     /** @var UserResponseDtoTransformer  $userResponseDtoTransformer */
     private $userResponseDtoTransformer;
@@ -25,6 +25,6 @@ final class UserGetAllAction
     {
         $users = $userRepository->findAll();
 
-        return new JsonResponse($this->userResponseDtoTransformer->transformFromObjects($users));
+        return $this->respond($this->userResponseDtoTransformer->transformFromObjects($users));
     }
 }

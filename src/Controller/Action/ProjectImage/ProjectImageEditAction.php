@@ -2,13 +2,15 @@
 
 namespace App\Controller\Action\ProjectImage;
 
+use App\Controller\AbstractApiController;
 use App\Dto\Response\Transformer\ProjectImageResponseDtoTransformer;
 use App\Entity\ProjectImage;
 use Doctrine\ORM\EntityManagerInterface;
-use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
-final class ProjectImageEditAction
+
+final class ProjectImageEditAction extends AbstractApiController
 {
     /** @var ProjectImageResponseDtoTransformer  $projectImageResponseDtoTransformer */
     private $projectImageResponseDtoTransformer;
@@ -21,7 +23,7 @@ final class ProjectImageEditAction
     /**
      * @Route("/api/images/edit/{id}", name="app_edit_project_image", methods="POST")
      */
-    public function __invoke(EntityManagerInterface $entityManager, ProjectImage $projectImage, Request $request): JsonResponse
+    public function __invoke(EntityManagerInterface $entityManager, ProjectImage $projectImage, Request $request): Response
     {
         $requestBody = $request->request->all();
 
@@ -36,6 +38,6 @@ final class ProjectImageEditAction
         $entityManager->persist($projectImage);
         $entityManager->flush();
 
-        return new JsonResponse($this->projectImageResponseDtoTransformer->transformFromObject($projectImage));
+        return $this->respond($this->projectImageResponseDtoTransformer->transformFromObject($projectImage));
     }
 }

@@ -32,7 +32,7 @@ private static $installed = array (
     'aliases' => 
     array (
     ),
-    'reference' => '1a8deef4e54c25cf9985e357aa9ecdc3f89b1ac8',
+    'reference' => '09996ad0c40efc0db39f9c11a5936fa70e42b757',
     'name' => '__root__',
   ),
   'versions' => 
@@ -44,7 +44,7 @@ private static $installed = array (
       'aliases' => 
       array (
       ),
-      'reference' => '1a8deef4e54c25cf9985e357aa9ecdc3f89b1ac8',
+      'reference' => '09996ad0c40efc0db39f9c11a5936fa70e42b757',
     ),
     'behat/transliterator' => 
     array (
@@ -207,6 +207,15 @@ private static $installed = array (
       array (
       ),
       'reference' => 'ca90a3291eee1538cd48ff25163240695bd95448',
+    ),
+    'friendsofsymfony/rest-bundle' => 
+    array (
+      'pretty_version' => '3.0.5',
+      'version' => '3.0.5.0',
+      'aliases' => 
+      array (
+      ),
+      'reference' => '8779ceebf715d1c60bd10286fce9d32ed03c484a',
     ),
     'gedmo/doctrine-extensions' => 
     array (
@@ -1208,6 +1217,24 @@ private static $installed = array (
       array (
       ),
       'reference' => 'bafc69caeb4d49c39fd0779086c03a3738cbb389',
+    ),
+    'willdurand/jsonp-callback-validator' => 
+    array (
+      'pretty_version' => 'v1.1.0',
+      'version' => '1.1.0.0',
+      'aliases' => 
+      array (
+      ),
+      'reference' => '1a7d388bb521959e612ef50c5c7b1691b097e909',
+    ),
+    'willdurand/negotiation' => 
+    array (
+      'pretty_version' => '3.0.0',
+      'version' => '3.0.0.0',
+      'aliases' => 
+      array (
+      ),
+      'reference' => '04e14f38d4edfcc974114a07d2777d90c98f3d9c',
     ),
     'zendframework/zend-code' => 
     array (
