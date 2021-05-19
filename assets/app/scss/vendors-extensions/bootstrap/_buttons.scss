@@ -72,8 +72,13 @@
     }
 }
 
-.btn--project-add {
+.btn--add {
     position: fixed;
-    right: spacer(12);
+    left: spacer(12);
     bottom: spacer(12);
+
+    &-right {
+        left: auto;
+        right: spacer(12);
+    }
 }

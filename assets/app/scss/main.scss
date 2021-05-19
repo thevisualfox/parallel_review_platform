@@ -80,11 +80,13 @@
 @import "elements/icons/icon";
 @import "elements/alerts/alert";
 @import "elements/alerts/alert-notification";
+@import "elements/editables/editable";
 
 // Components
 
 @import "components/cards/card";
 @import "components/cards/card-product";
+@import "components/cards/card-pulse";
 @import "components/grids/grid";
 @import "components/navs/nav-primary";
 @import "components/panes/pane";
@@ -95,6 +97,7 @@
 @import "components/boxes/box";
 @import "components/dropzones/dropzone";
 @import "components/bars/bar";
+@import "components/reviews/review";
 
 // Compositions
 

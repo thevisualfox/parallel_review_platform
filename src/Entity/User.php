@@ -56,9 +56,15 @@ class User implements UserInterface
      */
     private $color;
 
+    /**
+     * @ORM\OneToMany(targetEntity=Comment::class, mappedBy="author")
+     */
+    private $comments;
+
     public function __construct()
     {
         $this->project = new ArrayCollection();
+        $this->comments = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -150,17 +156,6 @@ class User implements UserInterface
         return $this;
     }
 
-    public function getJsonResponse(): array
-    {
-        return [
-            'id' => $this->getId(),
-            'username' => $this->getUsername(),
-            'email' => $this->getEmail(),
-            'roles' => $this->getRoles(),
-            'userColor' => $this->getColor(),
-        ];
-    }
-
     /**
      * @return Collection|Project[]
      */
@@ -193,6 +188,36 @@ class User implements UserInterface
     public function setColor(string $color): self
     {
         $this->color = $color;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Comment[]
+     */
+    public function getComments(): Collection
+    {
+        return $this->comments;
+    }
+
+    public function addComment(Comment $comment): self
+    {
+        if (!$this->comments->contains($comment)) {
+            $this->comments[] = $comment;
+            $comment->setAuthor($this);
+        }
+
+        return $this;
+    }
+
+    public function removeComment(Comment $comment): self
+    {
+        if ($this->comments->removeElement($comment)) {
+            // set the owning side to null (unless already changed)
+            if ($comment->getAuthor() === $this) {
+                $comment->setAuthor(null);
+            }
+        }
 
         return $this;
     }

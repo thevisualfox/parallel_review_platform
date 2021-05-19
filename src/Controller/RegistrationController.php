@@ -8,12 +8,9 @@ use App\Security\AppAuthenticator;
 use App\Message\RegisterEmail;
 use Colors\RandomColor;
 use Symfony\Component\Messenger\MessageBusInterface;
-use Symfony\Bridge\Twig\Mime\TemplatedEmail;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\Mailer\MailerInterface;
-use Symfony\Component\Mime\Address;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 use Symfony\Component\Security\Guard\GuardAuthenticatorHandler;
@@ -22,12 +19,6 @@ class RegistrationController extends AbstractController
 {
     /**
      * @Route("/signup", name="app_signup")
-     * @param MessageBusInterface $messageBus
-     * @param Request $request
-     * @param UserPasswordEncoderInterface $passwordEncoder
-     * @param GuardAuthenticatorHandler $guardHandler
-     * @param AppAuthenticator $authenticator
-     * @return Response
      * @throws \Symfony\Component\Mailer\Exception\TransportExceptionInterface
      */
     public function register(MessageBusInterface $messageBus, Request $request, UserPasswordEncoderInterface $passwordEncoder, GuardAuthenticatorHandler $guardHandler, AppAuthenticator $authenticator): Response

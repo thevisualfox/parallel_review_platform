@@ -2,40 +2,49 @@
 
 namespace App\Controller\Action\ProjectImage;
 
+use App\Controller\AbstractApiController;
+use App\Dto\Response\Transformer\ProjectResponseDtoTransformer;
 use App\Entity\Project;
 use App\Entity\ProjectImage;
 use App\Repository\ProjectImageRepository;
-use App\Service\ArrayHelper;
-use App\Service\ImageHelper;
 use Doctrine\ORM\EntityManagerInterface;
-use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
-/**
- * @Route("/api/images/delete/{id}", name="app_project_image_delete", methods="POST")
- * @param EntityManagerInterface $entityManager
- * @param Project|null $project
- * @param Request $request
- * @param ImageHelper $imageHelper
- * @return Response
- */
-final class ProjectImageDeleteAction
+final class ProjectImageDeleteAction extends AbstractApiController
 {
-    public function __invoke(EntityManagerInterface $entityManager, ProjectImageRepository $projectImageRepository, Project $project, Request $request, ImageHelper $imageHelper, ArrayHelper $arrayHelper): Response
-    {
-        $requestBody = json_decode($request->getContent(), true);
+    /** @var ProjectResponseDtoTransformer  $projectResponseDtoTransformer */
+    private $projectResponseDtoTransformer;
 
-        $projectImage = $projectImageRepository->findOneBy(array('id' => $requestBody['id']));
-        $imageHelper->removeImage($projectImage);
+    public function __construct(ProjectResponseDtoTransformer $projectResponseDtoTransformer)
+    {
+        $this->projectResponseDtoTransformer = $projectResponseDtoTransformer;
+    }
+
+    /**
+     * @Route("/api/images/delete/{id}", name="app_project_image_delete", methods="POST")
+     */
+    public function __invoke(EntityManagerInterface $entityManager, ProjectImageRepository $projectImageRepository, Project $project, Request $request): Response
+    {
+        $projectImageIds = $request->request->get('projectImages');
+
+        if (!empty($projectImageIds)) {
+            foreach ($projectImageIds as $projectImageId) {
+                $projectImage = $projectImageRepository->find($projectImageId);
+
+                $this->deleteProjectImage($projectImage, $project, $entityManager);
+            }
+        }
+
+        return $this->respond($this->projectResponseDtoTransformer->transformFromObject($project));
+    }
+
+    public function deleteProjectImage(ProjectImage $projectImage, Project $project, EntityManagerInterface $entityManager)
+    {
         $project->removeProjectImage($projectImage);
 
         $entityManager->persist($project);
         $entityManager->flush();
-
-        $images = $arrayHelper->mapToArray($project->getProjectImages());
-
-        return new JsonResponse(['images' => $images]);
     }
 }

@@ -6,11 +6,14 @@ import { useMutation, useQuery, useQueryClient } from 'react-query';
 import UserAddSearchResults from './UserAddSearchResults';
 import { Users } from '../users';
 
+/* Elements */
+import { Button } from '../../elements';
+
 /* Helpers */
 import { isEmail, filterUsers } from '../../helpers';
 
-/* Api calls */
-import { addUser, fetchGobalUsers, QUERY_KEYS } from '../../project-overview/api';
+/* Api */
+import { addUser, fetchGobalUsers, QUERY_KEYS } from '../../api';
 
 export default function UserAddSearch({ users, project, toggleBox }) {
 	/* State */
@@ -99,16 +102,8 @@ export default function UserAddSearch({ users, project, toggleBox }) {
 					}}
 				/>
 			</div>
-			<div className="d-flex align-items-center mt-4">
-				<a
-					href="#"
-					className="btn btn-link text--sm text-white text-decoration-underline text-muted--60"
-					title="Remove all users">
-					<span className="btn__text">Remove all users</span>
-				</a>
-				<button type="button" className="btn btn-sm btn-secondary ml-auto px-8" onClick={toggleBox}>
-					<span className="btn__text">Done</span>
-				</button>
+			<div className="d-flex align-items-center justify-content-center mt-4">
+				<Button title="Done" onClick={toggleBox} extensionClasses="w-50 justify-content-center" />
 			</div>
 		</div>
 	);

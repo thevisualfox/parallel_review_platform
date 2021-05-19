@@ -11,6 +11,7 @@ module.exports = {
         "scss/at-rule-no-unknown": true,
     },
     "ignoreFiles": [
-        "**/variables/_bootstrap.scss"
+        "**/variables/_bootstrap.scss",
+        "**/*.jsx"
     ]
 };

@@ -1,11 +1,13 @@
 .dropzone {
     flex-grow: 1;
+    min-height: 50vh;
 
     &:focus {
         outline: none;
     }
 
     .dropzone {
+        min-height: unset;
         cursor: pointer;
     }
 }
@@ -47,4 +49,11 @@
             border-color: rgba($danger, $opacity-level-active-border);
         }
     }
+}
+
+.dropzone__overlay {
+    @extend %fixed-fill, %center-flex;
+
+    background-color: rgba($color-base, 0.8);
+    z-index: $zindex-fixed;
 }

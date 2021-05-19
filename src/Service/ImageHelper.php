@@ -40,13 +40,11 @@ class ImageHelper
     }
 
     /**
-     * @param object $image
+     * @param string $imagePath
      */
-    public function removeImage(object $image): void
+    public function removeImage(string $imagePath): void
     {
-        $imagePath = $this->uploadsPath.'/'.self::PROJECT_IMAGE_PATH;
-
         $filesystem = new Filesystem();
-        $filesystem->remove($imagePath.'/'.$image->getTitle());
+        $filesystem->remove($imagePath);
     }
 }

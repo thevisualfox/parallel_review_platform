@@ -2,37 +2,37 @@
 
 namespace App\Controller\Action\Project;
 
+use App\Controller\AbstractApiController;
+use App\Dto\Response\Transformer\ProjectResponseDtoTransformer;
 use App\Entity\User;
 use App\Entity\Project;
-use App\Repository\UserRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\Security\Core\Security;
-use Symfony\Component\HttpFoundation\JsonResponse;
-use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
-/**
- * @Route("/api/projects/add", name="app_add_project", methods="POST")
- * @param EntityManagerInterface $entityManager
- * @param UserRepository $userRepository
- * @return Response
- */
-final class ProjectAddAction
+final class ProjectAddAction extends AbstractApiController
 {
-    /* @var Security $security */
+    /** @var Security $security */
     private $security;
 
-    /* @var User $user */
+    /** @var User $user */
     private $user;
 
-    public function __construct(Security $security)
+    /** @var ProjectResponseDtoTransformer $projectResponseDtoTransformer */
+    private $projectResponseDtoTransformer;
+
+    public function __construct(Security $security, ProjectResponseDtoTransformer $projectResponseDtoTransformer)
     {
         $this->security = $security;
         $this->user = $this->security->getUser();
+        $this->projectResponseDtoTransformer = $projectResponseDtoTransformer;
     }
 
-    public function __invoke(EntityManagerInterface $entityManager, UserRepository $userRepository): Response
+    /**
+     * @Route("/api/projects/add", name="app_add_project", methods="POST")
+     */
+    public function __invoke(EntityManagerInterface $entityManager): Response
     {
         $project = new Project();
         $project->addUser($this->user);
@@ -41,6 +41,6 @@ final class ProjectAddAction
         $entityManager->persist($project);
         $entityManager->flush();
 
-        return new JsonResponse(['id' => $project->getId()]);
+        return $this->respond($this->projectResponseDtoTransformer->transformFromObject($project));
     }
 }

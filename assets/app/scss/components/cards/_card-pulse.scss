@@ -1,0 +1,22 @@
+.card--pulse {
+    &.is-pulsing:before {
+        animation: border-puls 1.5s infinite ease;
+    }
+}
+
+@keyframes border-puls {
+    0% {
+        opacity: 0;
+        transform: scale(1);
+    }
+
+    10% {
+        opacity: 0.5;
+        transform: scale(1.01);
+    }
+
+    100% {
+        opacity: 0;
+        transform: scale(1.075);
+    }
+}

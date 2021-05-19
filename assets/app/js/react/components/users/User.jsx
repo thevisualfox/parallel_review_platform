@@ -7,13 +7,13 @@ import { useMutation, useQueryClient } from 'react-query';
 import starIcon from 'icons/star.svg';
 import deleteIcon from 'icons/delete.svg';
 
-/* Api calls */
-import { deleteUser, QUERY_KEYS } from '../../project-overview/api';
+/* Api */
+import { deleteUser, QUERY_KEYS } from '../../api';
 
 /* Components */
 import { LoadingWrapper } from '../../common';
 
-export default function User({ user, project, variant = 'default', size = 'md' }) {
+export default function User({ user, project = {}, variant = 'default', size = 'md' }) {
 	/* Hooks */
 	const queryClient = useQueryClient();
 
