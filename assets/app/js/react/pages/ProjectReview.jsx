@@ -32,7 +32,7 @@ export default function ProjectReview() {
 	return (
 		<PageLoader {...{ isLoading }}>
 			<ProjectReviewHeader {...data} />
-			<ProjectReviewCanvas {...data} />
+			<ProjectReviewCanvas {...{ ...data, projectImageId }} />
 		</PageLoader>
 	);
 }

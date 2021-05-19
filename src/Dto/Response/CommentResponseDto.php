@@ -26,4 +26,10 @@ class CommentResponseDto
      * @Serialization\Type("App\Dto\Response\UserResponseDto")
      */
     public $author;
+
+    /**
+     * @var array $position
+     * @Serialization\Type("array")
+     */
+    public $position;
 }

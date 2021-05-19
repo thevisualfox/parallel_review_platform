@@ -23,6 +23,7 @@ export default function Box({
 	user,
 	position = {},
 	renderOnBody = true,
+	boxRef,
 }) {
 	/* Constants */
 	const { x = 0, y = 0 } = position;
@@ -32,6 +33,7 @@ export default function Box({
 		<AnimatePresence>
 			{boxOpen && (
 				<motion.div
+					ref={boxRef}
 					layout
 					transition={{ duration: 0.2 }}
 					className={`box ${renderOnBody && 'box--center'}`}

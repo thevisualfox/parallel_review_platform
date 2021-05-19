@@ -57,7 +57,7 @@ class User implements UserInterface
     private $color;
 
     /**
-     * @ORM\ManyToMany(targetEntity=Comment::class, mappedBy="author")
+     * @ORM\OneToMany(targetEntity=Comment::class, mappedBy="author")
      */
     private $comments;
 
@@ -204,7 +204,7 @@ class User implements UserInterface
     {
         if (!$this->comments->contains($comment)) {
             $this->comments[] = $comment;
-            $comment->addAuthor($this);
+            $comment->setAuthor($this);
         }
 
         return $this;
@@ -213,7 +213,10 @@ class User implements UserInterface
     public function removeComment(Comment $comment): self
     {
         if ($this->comments->removeElement($comment)) {
-            $comment->removeAuthor($this);
+            // set the owning side to null (unless already changed)
+            if ($comment->getAuthor() === $this) {
+                $comment->setAuthor(null);
+            }
         }
 
         return $this;

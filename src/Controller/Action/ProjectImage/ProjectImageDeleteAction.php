@@ -8,7 +8,6 @@ use App\Entity\Project;
 use App\Entity\ProjectImage;
 use App\Repository\ProjectImageRepository;
 use Doctrine\ORM\EntityManagerInterface;
-use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;

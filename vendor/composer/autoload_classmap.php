@@ -6,6 +6,8 @@ $vendorDir = dirname(dirname(__FILE__));
 $baseDir = dirname($vendorDir);
 
 return array(
+    'App\\Controller\\AbstractApiController' => $baseDir . '/src/Controller/AbstractApiController.php',
+    'App\\Controller\\Action\\Comment\\CommentAddAction' => $baseDir . '/src/Controller/Action/Comment/CommentAddAction.php',
     'App\\Controller\\Action\\ProjectImage\\ProjectImageAddAction' => $baseDir . '/src/Controller/Action/ProjectImage/ProjectImageAddAction.php',
     'App\\Controller\\Action\\ProjectImage\\ProjectImageDeleteAction' => $baseDir . '/src/Controller/Action/ProjectImage/ProjectImageDeleteAction.php',
     'App\\Controller\\Action\\ProjectImage\\ProjectImageEditAction' => $baseDir . '/src/Controller/Action/ProjectImage/ProjectImageEditAction.php',
@@ -23,7 +25,6 @@ return array(
     'App\\Controller\\ProjectController' => $baseDir . '/src/Controller/ProjectController.php',
     'App\\Controller\\RegistrationController' => $baseDir . '/src/Controller/RegistrationController.php',
     'App\\Controller\\SecurityController' => $baseDir . '/src/Controller/SecurityController.php',
-    'App\\Controller\\UserController' => $baseDir . '/src/Controller/UserController.php',
     'App\\Dto\\Response\\CommentResponseDto' => $baseDir . '/src/Dto/Response/CommentResponseDto.php',
     'App\\Dto\\Response\\PhaseResponseDto' => $baseDir . '/src/Dto/Response/PhaseResponseDto.php',
     'App\\Dto\\Response\\ProjectImageResponseDto' => $baseDir . '/src/Dto/Response/ProjectImageResponseDto.php',
@@ -36,7 +37,6 @@ return array(
     'App\\Dto\\Response\\Transformer\\ResponseDtoTransformerInterface' => $baseDir . '/src/Dto/Response/Transformer/ResponseDtoTransformerInterface.php',
     'App\\Dto\\Response\\Transformer\\UserResponseDtoTransformer' => $baseDir . '/src/Dto/Response/Transformer/UserResponseDtoTransformer.php',
     'App\\Dto\\Response\\UserResponseDto' => $baseDir . '/src/Dto/Response/UserResponseDto.php',
-    'App\\Entity\\Comment' => $baseDir . '/src/Entity/Comment.php',
     'App\\Entity\\Phase' => $baseDir . '/src/Entity/Phase.php',
     'App\\Entity\\Project' => $baseDir . '/src/Entity/Project.php',
     'App\\Entity\\ProjectImage' => $baseDir . '/src/Entity/ProjectImage.php',

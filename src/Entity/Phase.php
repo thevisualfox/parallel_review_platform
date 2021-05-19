@@ -36,7 +36,7 @@ class Phase
     private $projectImage;
 
     /**
-     * @ORM\OneToMany(targetEntity=Comment::class, mappedBy="phase")
+     * @ORM\OneToMany(targetEntity=Comment::class, mappedBy="phase", orphanRemoval=true)
      */
     private $comments;
 
