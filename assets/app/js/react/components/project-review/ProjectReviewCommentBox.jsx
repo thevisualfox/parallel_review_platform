@@ -47,13 +47,22 @@ export default function ProjectReviewCommentBox({ markerPos, boxOpen, toggleBox,
 
 	/* Render */
 	return (
-		<Box renderOnBody={false} {...{ title, SubtitleComponent, boxOpen, toggleBox, position, user, boxRef }}>
+		<Box
+			renderOnBody={false}
+			extensionClasses="review__box"
+			animate={false}
+			{...{ title, SubtitleComponent, boxOpen, toggleBox, position, user, boxRef }}>
 			<form
 				ref={formRef}
 				className="d-flex flex-column align-items-center flex-grow-1"
 				onSubmit={(event) => {
 					event.preventDefault();
-					addCommentMutation.mutate({ formRef, userId: user.id, phaseId, position });
+					addCommentMutation.mutate({
+						formRef: formRef,
+						userId: user.id,
+						phaseId: phaseId,
+						position: markerPos,
+					});
 				}}>
 				<label className="sr-only" htmlFor="comment">
 					{title}
@@ -66,7 +75,12 @@ export default function ProjectReviewCommentBox({ markerPos, boxOpen, toggleBox,
 					placeholder="Say something nice..."
 					autoFocus
 				/>
-				<Button title="Submit" extensionClasses="mt-4 w-50 justify-content-center" type="submit" />
+				<Button
+					title="Submit"
+					extensionClasses="mt-4 w-50 justify-content-center"
+					type="submit"
+					{...{ isLoading: addCommentMutation.isLoading }}
+				/>
 			</form>
 		</Box>
 	);

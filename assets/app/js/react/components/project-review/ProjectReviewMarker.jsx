@@ -8,7 +8,7 @@ import StaticContext from '../../context';
 /* Animations */
 import { SCALE_FADE } from '../../common/animations';
 
-export default function ProjectReviewMarker({ xPercent, yPercent, author }) {
+export default function ProjectReviewMarker({ xPercent, yPercent, author, commentIndex, children }) {
 	/* Hooks */
 	const { currentUser } = useContext(StaticContext);
 	const user = author ? author : currentUser;
@@ -16,15 +16,20 @@ export default function ProjectReviewMarker({ xPercent, yPercent, author }) {
 	/* Render */
 	return (
 		<motion.div
-			key={[xPercent, yPercent]}
-			{...SCALE_FADE}
-			className="review__marker icon-wrapper icon-wrapper--secondary"
+			layout
+			transition={{ duration: 0.2 }}
+			className="review__interaction"
 			style={{
 				'--x': xPercent,
 				'--y': yPercent,
-				'--theme': `${user.userColor}`,
-				'--size': 13,
-			}}
-		/>
+			}}>
+			<motion.div
+				{...SCALE_FADE}
+				className="review__marker icon-wrapper icon-wrapper--secondary"
+				style={{ '--theme': `${user.userColor}` }}>
+				{commentIndex && <span>{commentIndex + 1}</span>}
+				{children}
+			</motion.div>
+		</motion.div>
 	);
 }

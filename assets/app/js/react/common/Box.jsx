@@ -24,9 +24,12 @@ export default function Box({
 	position = {},
 	renderOnBody = true,
 	boxRef,
+	extensionClasses,
+	animate = true,
 }) {
 	/* Constants */
 	const { x = 0, y = 0 } = position;
+	const animation = animate ? { ...FADE_IN_UP } : {};
 
 	/* TODO: escape event listener */
 	const render = () => (
@@ -36,10 +39,10 @@ export default function Box({
 					ref={boxRef}
 					layout
 					transition={{ duration: 0.2 }}
-					className={`box ${renderOnBody && 'box--center'}`}
+					className={`box ${renderOnBody && 'box--center'} ${extensionClasses}`}
 					style={{ '--x': x, '--y': y }}>
 					{renderOnBody && <motion.div className="box-overlay" {...FADE_IN} onClick={toggleBox} />}
-					<motion.div key="box-content" className="box__content border p-5" {...FADE_IN_UP}>
+					<motion.div key="box-content" className="box__content border p-5" {...animation}>
 						<div className="box__header d-flex align-items-start">
 							<div className="d-flex align-items-center">
 								{user && <User {...{ user }} size="xl" />}

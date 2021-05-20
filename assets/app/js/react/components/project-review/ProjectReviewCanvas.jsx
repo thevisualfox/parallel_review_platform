@@ -10,7 +10,7 @@ import ProjectReviewComment from './ProjectReviewComment';
 import ProjectReviewCommentBox from './ProjectReviewCommentBox';
 
 /* Global */
-const cursorOffset = 6;
+const cursorOffset = 10;
 
 export default function ProjectReviewCanvas({ title, phases = [], projectImageId }) {
 	/* Constants */
@@ -26,7 +26,7 @@ export default function ProjectReviewCanvas({ title, phases = [], projectImageId
 	/* Callbacks */
 	const toggleBox = () => {
 		setBoxOpen(!boxOpen);
-		setTimeout(() => setMarkerPos(null), 250);
+		setMarkerPos(null);
 	};
 
 	const posMarker = ({ clientX, clientY }) => {
@@ -54,10 +54,17 @@ export default function ProjectReviewCanvas({ title, phases = [], projectImageId
 				alt={title}
 				onClick={posMarker}
 			/>
-			<AnimatePresence>{markerPos && <ProjectReviewMarker {...{ ...markerPos }} />}</AnimatePresence>
-			{markerPos && <ProjectReviewCommentBox {...{ markerPos, boxOpen, toggleBox, phaseId, projectImageId }} />}
 			{comments.length > 0 &&
-				comments.map((comment, commentIndex) => <ProjectReviewComment key={commentIndex} {...comment} />)}
+				comments.map((comment, commentIndex) => (
+					<ProjectReviewComment key={commentIndex} {...{ ...comment, commentIndex }} />
+				))}
+			<AnimatePresence>
+				{markerPos && (
+					<ProjectReviewMarker {...{ ...markerPos }}>
+						<ProjectReviewCommentBox {...{ markerPos, boxOpen, toggleBox, phaseId, projectImageId }} />
+					</ProjectReviewMarker>
+				)}
+			</AnimatePresence>
 		</div>
 	);
 }

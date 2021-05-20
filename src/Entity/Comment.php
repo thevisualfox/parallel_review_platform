@@ -36,12 +36,12 @@ class Comment
     private $author;
 
     /**
-     * @ORM\Column(type="integer")
+     * @ORM\Column(type="string", length=255)
      */
     private $positionX;
 
     /**
-     * @ORM\Column(type="integer")
+     * @ORM\Column(type="string", length=255)
      */
     private $positionY;
 
@@ -86,24 +86,24 @@ class Comment
         return $this;
     }
 
-    public function getPositionX(): ?int
+    public function getPositionX(): ?string
     {
         return $this->positionX;
     }
 
-    public function setPositionX(int $positionX): self
+    public function setPositionX(string $positionX): self
     {
         $this->positionX = $positionX;
 
         return $this;
     }
 
-    public function getPositionY(): ?int
+    public function getPositionY(): ?string
     {
         return $this->positionY;
     }
 
-    public function setPositionY(int $positionY): self
+    public function setPositionY(string $positionY): self
     {
         $this->positionY = $positionY;
 

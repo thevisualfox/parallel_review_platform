@@ -5,19 +5,18 @@ import React, { useState } from 'react';
 import { Box } from '../../common';
 import ProjectReviewMarker from './ProjectReviewMarker';
 
-export default function ProjectReviewComment({ author, comment, position }) {
+export default function ProjectReviewComment({ author, comment, position, commentIndex }) {
 	/* State */
-	const [boxOpen, setBoxOpen] = useState(false);
+	const [boxOpen, setBoxOpen] = useState(true);
 
 	/* Callbacks */
 	const toggleBox = () => setBoxOpen(!boxOpen);
 
 	/* Render */
 	return (
-		<div onMouseEnter={toggleBox} onMouseLeave={toggleBox}>
-			<ProjectReviewMarker {...{ xPercent: position.x, yPercent: position.y, author }} />
+		<ProjectReviewMarker {...{ xPercent: position.x, yPercent: position.y, author, commentIndex }}>
 			<Comment {...{ comment, author, boxOpen, toggleBox, position }} />
-		</div>
+		</ProjectReviewMarker>
 	);
 }
 

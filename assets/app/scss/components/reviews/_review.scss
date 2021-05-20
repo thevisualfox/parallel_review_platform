@@ -1,13 +1,28 @@
-.review {}
+.review {
+    --marker-size: 20;
 
-.review__image {
-    &:hover {
-        cursor: url('../img/icons/cursor_comment.svg'), pointer;
+    .review__image {
+        &:hover {
+            cursor: url('../img/icons/cursor_comment.svg'), pointer;
+        }
     }
-}
 
-.review__marker {
-    position: absolute;
-    top: calc(var(--y, 0) * 1%);
-    left: calc(var(--x, 0) * 1%);
+    .review__interaction {
+        position: absolute;
+        top: calc(var(--y) * 1%);
+        left: calc(var(--x) * 1%);
+    }
+
+    .review__marker {
+        --size: var(--marker-size);
+
+        @extend %center-flex;
+
+        border: 3px solid rgba($white, $opacity-level);
+    }
+
+    .review__box {
+        top: var(--y);
+        left: var(--x);
+    }
 }
