@@ -50,7 +50,6 @@ export default function ProjectReviewCommentBox({ markerPos, boxOpen, toggleBox,
 		<Box
 			renderOnBody={false}
 			extensionClasses="review__box"
-			animate={false}
 			{...{ title, SubtitleComponent, boxOpen, toggleBox, position, user, boxRef }}>
 			<form
 				ref={formRef}

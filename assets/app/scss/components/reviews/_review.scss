@@ -18,11 +18,11 @@
 
         @extend %center-flex;
 
-        border: 3px solid rgba($white, $opacity-level);
+        border: 3px solid $white;
     }
 
     .review__box {
-        top: var(--y);
-        left: var(--x);
+        top: var(--top);
+        left: var(--left);
     }
 }

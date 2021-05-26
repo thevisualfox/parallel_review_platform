@@ -1,33 +1,58 @@
 /* Packages */
-import React, { useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 
 /* Components */
 import { Box } from '../../common';
 import ProjectReviewMarker from './ProjectReviewMarker';
 
-export default function ProjectReviewComment({ author, comment, position, commentIndex }) {
+/* Helpers */
+import { calcBoxPos } from '../../helpers';
+
+export default function ProjectReviewComment({ author, comment, position, commentIndex, reviewRef }) {
+	/* Constants */
+	const { xPercent, yPercent } = position;
 	/* State */
-	const [boxOpen, setBoxOpen] = useState(true);
+	const [boxOpen, setBoxOpen] = useState(false);
 
 	/* Callbacks */
 	const toggleBox = () => setBoxOpen(!boxOpen);
 
 	/* Render */
 	return (
-		<ProjectReviewMarker {...{ xPercent: position.x, yPercent: position.y, author, commentIndex }}>
-			<Comment {...{ comment, author, boxOpen, toggleBox, position }} />
+		<ProjectReviewMarker {...{ xPercent, yPercent, author, commentIndex, toggleComment: toggleBox }}>
+			<Comment {...{ comment, author, boxOpen, toggleBox, position, reviewRef }} />
 		</ProjectReviewMarker>
 	);
 }
 
-const Comment = ({ comment, author, boxOpen, toggleBox, position }) => {
+const Comment = ({ comment, author, boxOpen, toggleBox, position, reviewRef }) => {
 	/* Constants */
 	const title = author.username;
 	const subtitle = author.email;
 
+	/* State */
+	const [transformedPos, setTransformedPos] = useState(position);
+
+	/* Refs */
+	const boxRef = useRef();
+
+	/* Effects */
+	useEffect(() => {
+		if (position) {
+			setTransformedPos(() => {
+				position.reviewPos = reviewRef.current.getBoundingClientRect();
+				return calcBoxPos(boxRef, position);
+			});
+		}
+	}, [position]);
+
 	/* Render */
 	return (
-		<Box renderOnBody={false} {...{ title, subtitle, boxOpen, toggleBox, user: author, position }}>
+		<Box
+			renderOnBody={false}
+			animate={false}
+			extensionClasses="review__box"
+			{...{ title, subtitle, boxOpen, toggleBox, user: author, position: transformedPos, boxRef }}>
 			{comment}
 		</Box>
 	);

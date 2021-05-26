@@ -4,28 +4,33 @@ export default function calcBoxPos(boxRef, markerPos) {
 	const offset = markerSize + markerSpacer;
 
 	/* Get position of marker */
-	const { x, y, reviewPos } = markerPos;
+	const reviewPos = markerPos.reviewPos;
+	const xPercent = Number(markerPos.xPercent);
+	const yPercent = Number(markerPos.yPercent);
 
 	/* Get dimensions of current box */
 	const { width: boxWidth = 400, height: boxHeight = 228 } = boxRef?.current?.getBoundingClientRect() || {};
 
 	/* Get dimensions of current screen */
 	const screenWidth = window.innerWidth;
+	const boxPercentWidth = (boxWidth / screenWidth) * 100;
+
 	const screenHeight = window.innerHeight - reviewPos.top;
+	const boxPercentHeight = (boxHeight / screenHeight) * 100;
 
 	/* Set x and y values to percentage equivelent to make the box responsive */
-	let xPercent = offset;
-	let yPercent = offset;
+	let left = offset;
+	let top = offset;
 
 	/* Compensate for the boxWidth if marker is at end of horizontal screen */
-	if (screenWidth - x < boxWidth) {
-		xPercent = -boxWidth - markerSize;
+	if (xPercent + boxPercentWidth > 100) {
+		left = -boxWidth - markerSpacer;
 	}
 
 	/* Compensate for the boxHeight if marker is at end of vertical screen */
-	if (screenHeight - y < boxHeight) {
-		yPercent = -boxHeight - markerSpacer;
+	if (yPercent + boxPercentHeight > 100) {
+		top = -boxHeight - markerSpacer;
 	}
 
-	return { x: `${xPercent}px`, y: `${yPercent}px` };
+	return { left: `${left}px`, top: `${top}px` };
 }

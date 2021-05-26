@@ -6,9 +6,9 @@ import { motion } from 'framer-motion';
 import StaticContext from '../../context';
 
 /* Animations */
-import { SCALE_FADE } from '../../common/animations';
+import { FADE_IN, SCALE_FADE } from '../../common/animations';
 
-export default function ProjectReviewMarker({ xPercent, yPercent, author, commentIndex, children }) {
+export default function ProjectReviewMarker({ xPercent, yPercent, author, commentIndex, toggleComment, children }) {
 	/* Hooks */
 	const { currentUser } = useContext(StaticContext);
 	const user = author ? author : currentUser;
@@ -22,14 +22,16 @@ export default function ProjectReviewMarker({ xPercent, yPercent, author, commen
 			style={{
 				'--x': xPercent,
 				'--y': yPercent,
-			}}>
-			<motion.div
+			}}
+			{...FADE_IN}>
+			<motion.button
 				{...SCALE_FADE}
-				className="review__marker icon-wrapper icon-wrapper--secondary"
-				style={{ '--theme': `${user.userColor}` }}>
-				{commentIndex && <span>{commentIndex + 1}</span>}
-				{children}
-			</motion.div>
+				className="review__marker icon-wrapper icon-wrapper--secondary btn btn-link text-reset"
+				style={{ '--theme': `${user.userColor}` }}
+				onClick={toggleComment}>
+				{commentIndex && <span className="text--xs">{commentIndex + 1}</span>}
+			</motion.button>
+			{children}
 		</motion.div>
 	);
 }

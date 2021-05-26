@@ -33,12 +33,10 @@ export default function ProjectReviewCanvas({ title, phases = [], projectImageId
 		const reviewPos = reviewRef?.current.getBoundingClientRect();
 
 		setMarkerPos(() => {
-			const x = clientX - cursorOffset;
-			const y = clientY - reviewPos.top - cursorOffset;
 			const xPercent = ((clientX - cursorOffset) / reviewPos.width) * 100;
 			const yPercent = ((clientY - reviewPos.top - cursorOffset) / reviewPos.height) * 100;
 
-			return { x, y, xPercent, yPercent, reviewPos };
+			return { xPercent, yPercent, reviewPos };
 		});
 
 		setBoxOpen(true);
@@ -56,7 +54,7 @@ export default function ProjectReviewCanvas({ title, phases = [], projectImageId
 			/>
 			{comments.length > 0 &&
 				comments.map((comment, commentIndex) => (
-					<ProjectReviewComment key={commentIndex} {...{ ...comment, commentIndex }} />
+					<ProjectReviewComment key={commentIndex} {...{ ...comment, commentIndex, reviewRef }} />
 				))}
 			<AnimatePresence>
 				{markerPos && (
