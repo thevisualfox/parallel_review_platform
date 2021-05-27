@@ -2,6 +2,7 @@
 import React from 'react';
 import { useMutation } from 'react-query';
 import { useHistory } from 'react-router';
+import { toast } from 'react-toastify';
 import { Link } from 'react-router-dom';
 
 /* Api */
@@ -10,14 +11,20 @@ import { logout } from '../../api/security';
 /* Routes */
 import { ROUTES } from '../../routes';
 
+/* Components */
+import { Alert } from '../';
+
 export default function HeaderNavigation() {
 	/* Hooks */
 	const history = useHistory();
 
 	/* Mutations */
 	const logoutMutation = useMutation(logout, {
-		onSuccess: () => history.push(ROUTES.login),
-		onError: (error) => console.log(error.response.data.error) /* TODO: add error logout */,
+		onSuccess: () => {
+			history.push(ROUTES.login);
+			toast(<Alert message={'Successfully logged out!'} appearance="success" />);
+		},
+		onError: () => toast(<Alert message={'Something went wrong!'} appearance="error" />),
 	});
 
 	/* Render */

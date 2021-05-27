@@ -2,14 +2,11 @@
 
 namespace App\Controller;
 
-use App\Dto\Response\Transformer\UserResponseDtoTransformer;
 use App\Entity\User;
-use App\Form\RegistrationFormType;
 use App\Security\AppAuthenticator;
 use App\Message\RegisterEmail;
 use Colors\RandomColor;
 use Symfony\Component\Messenger\MessageBusInterface;
-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -24,8 +21,7 @@ class RegistrationController extends AbstractApiController
      */
     public function register(MessageBusInterface $messageBus, Request $request, UserPasswordEncoderInterface $passwordEncoder, GuardAuthenticatorHandler $guardHandler, AppAuthenticator $authenticator): Response
     {
-        $requestBody = $request->request->all();
-        $form = $requestBody['registration_form'];
+        $form = $request->request->all();
         $user = new User();
 
         if (isset($form['username']) && isset($form['email']) && isset($form['plainPassword'])) {

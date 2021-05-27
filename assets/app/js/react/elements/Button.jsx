@@ -1,6 +1,7 @@
 /* Components */
-import { motion } from 'framer-motion';
-import React from 'react';
+import React, { useRef } from 'react';
+
+/* Components */
 import { LoadingWrapper } from '../common';
 
 export default function Button({
@@ -12,19 +13,25 @@ export default function Button({
 	onClick = () => {},
 	isLoading = false,
 }) {
+	/* Refs */
+	const buttonRef = useRef();
+
+	/* Constants */
+	const buttonHeight = buttonRef.current?.getBoundingClientRect().height;
+
 	/* Render */
 	return (
-		<motion.button
-			layout
+		<button
+			ref={buttonRef}
 			className={`btn btn-${size} btn-${theme} ${extensionClasses} d-flex align-items-center`}
-			{...{ type, onClick }}
-			style={{ height: 35 }}>
+			style={{ height: buttonHeight }}
+			{...{ type, onClick }}>
 			<LoadingWrapper
 				loading={isLoading}
 				loaderSize={16}
 				classes={{ loaderClasses: 'position-absolute d-flex text-secondary' }}>
 				<span className="btn__text">{title}</span>
 			</LoadingWrapper>
-		</motion.button>
+		</button>
 	);
 }

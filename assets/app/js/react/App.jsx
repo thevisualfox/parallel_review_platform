@@ -1,6 +1,6 @@
 /* Packages */
 import React, { useState } from 'react';
-import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
+import { BrowserRouter as Router, Switch, Route, Redirect } from 'react-router-dom';
 import { useQuery } from 'react-query';
 import { ToastContainer } from 'react-toastify';
 
@@ -8,7 +8,7 @@ import { ToastContainer } from 'react-toastify';
 import { PageLoader } from './common';
 
 /* Routes */
-import routes from './routes';
+import routes, { ROUTES } from './routes';
 
 /* Context */
 import StaticContext from './context';
@@ -29,7 +29,7 @@ export default function App() {
 
 	/* Queries */
 	const { isLoading } = useQuery(QUERY_KEYS.CURRENT_USER, () => fetchCurrentUser({ userId }), {
-		enabled: !['/', '/signup'].includes(location.pathname),
+		retry: false,
 		onSuccess: (user) => {
 			setCurrentUser(user);
 			setUserRole(getRole(user));
@@ -42,6 +42,7 @@ export default function App() {
 			<Switch>
 				<StaticContext.Provider value={{ currentUser, userRole }}>
 					<PageLoader {...{ isLoading }}>
+						{currentUser && <Redirect to={ROUTES.projects} />}
 						{routes.map(({ path, component: Component, props }) => (
 							<Route key={path} path={path} exact>
 								<Component {...{ ...props, currentUser, setCurrentUser }} />

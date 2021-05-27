@@ -4,7 +4,11 @@
     @extend .bg-primary, .text-white, .border, .rounded;
     @extend .flex-column, .align-items-baseline;
 
-    min-width: 240px;
+    width: 100%;
+
+    @include media-breakpoint-up(lg) {
+        width: 375px;
+    }
 
     .alert__icon-wrapper {
         @extend %center-flex;
