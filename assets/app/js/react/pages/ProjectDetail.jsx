@@ -9,24 +9,19 @@ import { PageLoader } from '../common';
 /* Api */
 import { fetchProjectById, QUERY_KEYS } from '../api';
 
-/* Helpers */
-import { updatePageTitle } from '../helpers';
-
 /* Components */
 import { ProjectDetailHeader, ProjectDetailImages } from '../components/project-detail';
+import { usePageTitle } from '../hooks';
 
 export default function ProjectDetail() {
-	/* Hooks */
-	const { id: projectId } = useParams();
-
 	/* Queries */
-	const { isLoading, data = {} } = useQuery(
-		[QUERY_KEYS.PROJECT_BY_ID, parseInt(projectId)],
-		() => fetchProjectById({ projectId }),
-		{
-			onSuccess: ({ title }) => updatePageTitle(title),
-		}
+	const { isLoading, data = {} } = useQuery([QUERY_KEYS.PROJECT_BY_ID, parseInt(projectId)], () =>
+		fetchProjectById({ projectId })
 	);
+
+	/* Hooks */
+	usePageTitle(data?.title, [data]);
+	const { id: projectId } = useParams();
 
 	/* Constants  */
 	const { title, description, users, id, author, email, projectImages } = data;

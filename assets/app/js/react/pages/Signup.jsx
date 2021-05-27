@@ -16,11 +16,15 @@ import { Header, Background, Alert } from '../components';
 /* Routes */
 import { ROUTES } from '../routes';
 
+/* Hooks */
+import { usePageTitle } from '../hooks';
+
 export default function Signup({ setCurrentUser }) {
 	/* Refs */
 	const formRef = useRef();
 
 	/* Hooks */
+	usePageTitle('Signup');
 	const history = useHistory();
 
 	const {

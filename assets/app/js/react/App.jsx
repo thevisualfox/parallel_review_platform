@@ -42,7 +42,8 @@ export default function App() {
 			<Switch>
 				<StaticContext.Provider value={{ currentUser, userRole }}>
 					<PageLoader {...{ isLoading }}>
-						{currentUser && <Redirect to={ROUTES.projects} />}
+						{currentUser && location.pathname === '/' && <Redirect to={ROUTES.projects} />}
+						{!currentUser && <Redirect to={ROUTES.login} />}
 						{routes.map(({ path, component: Component, props }) => (
 							<Route key={path} path={path} exact>
 								<Component {...{ ...props, currentUser, setCurrentUser }} />

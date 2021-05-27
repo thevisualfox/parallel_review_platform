@@ -16,11 +16,15 @@ import { Button } from '../elements';
 /* Routes */
 import { ROUTES } from '../routes';
 
+/* Hooks */
+import { usePageTitle } from '../hooks';
+
 export default function Login({ setCurrentUser }) {
 	/* Refs */
 	const formRef = useRef();
 
 	/* Hooks */
+	usePageTitle('Login');
 	const history = useHistory();
 	const {
 		register,
@@ -47,8 +51,6 @@ export default function Login({ setCurrentUser }) {
 
 			errors.email = { message: 'Email/password combination not found' };
 			errors.password = { message: 'Email/password combination not found' };
-
-			formRef.current.reset();
 		},
 	});
 

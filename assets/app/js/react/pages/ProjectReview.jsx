@@ -9,24 +9,21 @@ import { PageLoader } from '../common';
 /* Api */
 import { fetchProjectImageById, QUERY_KEYS } from '../api';
 
-/* Helpers */
-import { updatePageTitle } from '../helpers';
-
 /* Components */
 import { ProjectReviewCanvas, ProjectReviewHeader } from '../components/project-review';
 
-export default function ProjectReview() {
-	/* Hooks */
-	const { id: projectImageId } = useParams();
+/* Hooks */
+import { usePageTitle } from '../hooks';
 
+export default function ProjectReview() {
 	/* Queries */
-	const { isLoading, data = {} } = useQuery(
-		[QUERY_KEYS.PROJECT_IMAGE_BY_ID, parseInt(projectImageId)],
-		() => fetchProjectImageById({ projectImageId }),
-		{
-			onSuccess: ({ title }) => updatePageTitle(title),
-		}
+	const { isLoading, data = {} } = useQuery([QUERY_KEYS.PROJECT_IMAGE_BY_ID, parseInt(projectImageId)], () =>
+		fetchProjectImageById({ projectImageId })
 	);
+
+	/* Hooks */
+	usePageTitle(data?.title, [data]);
+	const { id: projectImageId } = useParams();
 
 	/* Render */
 	return (
