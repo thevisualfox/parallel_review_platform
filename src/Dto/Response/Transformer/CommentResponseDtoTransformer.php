@@ -27,8 +27,8 @@ class CommentResponseDtoTransformer extends AbstractResponseDtoTransformer
         $dto->comment = $comment->getComment();
         $dto->author = $this->userResponseDtoTransformer->transformFromObject($comment->getAuthor());
         $dto->position = [
-            'x' => $comment->getPositionX(),
-            'y' => $comment->getPositionY(),
+            'xPercent' => $comment->getPositionX(),
+            'yPercent' => $comment->getPositionY(),
         ];
         return $dto;
     }

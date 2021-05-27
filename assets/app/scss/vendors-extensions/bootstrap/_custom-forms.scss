@@ -8,6 +8,13 @@
     min-height: $custom-control-indicator-size;
 }
 
+.form-control {
+    &.is-valid,
+    &.is-invalid {
+        background-position: right #{$input-padding-x} center;
+    }
+}
+
 .form-control--text {
     resize: none;
 }

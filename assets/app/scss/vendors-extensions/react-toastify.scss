@@ -1,0 +1,33 @@
+.Toastify {
+    &__toast {
+        min-height: unset;
+        padding: 0;
+        box-sizing: none;
+    }
+
+    &__toast-body {
+        padding: 0;
+    }
+
+    &__toast-container {
+        padding: 0;
+        width: auto;
+    }
+
+    &__toast-container--bottom-left {
+        bottom: 0;
+        right: 0;
+        left: 0;
+
+        @include media-breakpoint-up(lg) {
+            bottom: spacer(6);
+            left: spacer(6);
+            right: auto;
+        }
+
+        @include media-breakpoint-up(xl) {
+            bottom: spacer(12);
+            left: spacer(12);
+        }
+    }
+}
