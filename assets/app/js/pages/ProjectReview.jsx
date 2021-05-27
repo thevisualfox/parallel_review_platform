@@ -20,13 +20,13 @@ import PageWrapper from '../hocs/PageWrapper';
 
 export default function ProjectReview() {
 	/* Queries */
+	const { id: projectImageId } = useParams();
 	const { isLoading, data = {} } = useQuery([QUERY_KEYS.PROJECT_IMAGE_BY_ID, parseInt(projectImageId)], () =>
 		fetchProjectImageById({ projectImageId })
 	);
 
 	/* Hooks */
 	usePageTitle(data?.title, [data]);
-	const { id: projectImageId } = useParams();
 
 	/* Render */
 	return (

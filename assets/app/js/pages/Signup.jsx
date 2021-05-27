@@ -49,7 +49,7 @@ export default function Signup({ setCurrentUser }) {
 		},
 		onError: (error) => {
 			if (error.response.status === 500) {
-				toast(<Alert message="This email is already in use!" appearance="error" />);
+				toast(<Alert message="This email is already in use!" appearance="danger" />);
 
 				formRef.current.reset();
 			}

@@ -19,7 +19,10 @@ import { ROUTES } from '../routes';
 /* Hooks */
 import { usePageTitle } from '../hooks';
 
-export default function Login({ setCurrentUser }) {
+/* Helpers */
+import { getRole } from '../helpers';
+
+export default function Login({ setCurrentUser, setUserRole }) {
 	/* Refs */
 	const formRef = useRef();
 
@@ -36,6 +39,8 @@ export default function Login({ setCurrentUser }) {
 	const loginMutation = useMutation(login, {
 		onSuccess: (user) => {
 			setCurrentUser(user);
+			setUserRole(getRole(user));
+
 			toast(<Alert message="Successfully logged in!" appearance="success" />);
 			history.push(ROUTES.projects);
 		},
@@ -45,7 +50,7 @@ export default function Login({ setCurrentUser }) {
 					message={
 						error?.response?.data?.error ? 'Email/password combination not found!' : 'Something went wrong!'
 					}
-					appearance="error"
+					appearance="danger"
 				/>
 			);
 

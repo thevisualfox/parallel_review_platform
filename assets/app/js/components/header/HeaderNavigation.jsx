@@ -33,7 +33,7 @@ export default function HeaderNavigation() {
 			setCurrentUser(null);
 			toast(<Alert message={'Successfully logged out!'} appearance="success" />);
 		},
-		onError: () => toast(<Alert message={'Something went wrong!'} appearance="error" />),
+		onError: () => toast(<Alert message={'Something went wrong!'} appearance="danger" />),
 	});
 
 	/* Render */

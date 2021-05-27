@@ -73,23 +73,23 @@ const RouterBody = () => {
 						{routes.map(({ path, component: Component, props }) => (
 							<Route key={path} path={path} exact>
 								<motion.div key={path} {...FADE_IN}>
-									<Component {...{ ...props, currentUser, setCurrentUser }} />
+									<Component {...{ ...props, currentUser, setCurrentUser, userRole, setUserRole }} />
 								</motion.div>
 							</Route>
 						))}
-
-						{/* Toast */}
-						<ToastContainer
-							{...{
-								hideProgressBar: true,
-								newestOnTop: true,
-								position: 'bottom-left',
-								closeButton: false,
-							}}
-						/>
 					</Switch>
 				</AnimatePresence>
 			</PageLoader>
+
+			{/* Toast */}
+			<ToastContainer
+				{...{
+					hideProgressBar: true,
+					newestOnTop: true,
+					position: 'bottom-left',
+					closeButton: false,
+				}}
+			/>
 		</StaticContext.Provider>
 	);
 };

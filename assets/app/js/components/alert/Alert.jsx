@@ -15,7 +15,7 @@ export default function Alert({ message, appearance, closeToast }) {
 			title: 'Warning',
 			icon: warningIcon,
 		},
-		error: {
+		danger: {
 			title: 'Error',
 			icon: errorIcon,
 		},

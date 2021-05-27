@@ -20,13 +20,13 @@ import PageWrapper from '../hocs/PageWrapper';
 
 export default function ProjectDetail() {
 	/* Queries */
+	const { id: projectId } = useParams();
 	const { isLoading, data = {} } = useQuery([QUERY_KEYS.PROJECT_BY_ID, parseInt(projectId)], () =>
 		fetchProjectById({ projectId })
 	);
 
 	/* Hooks */
 	usePageTitle(data?.title, [data]);
-	const { id: projectId } = useParams();
 
 	/* Constants  */
 	const { title, description, users, id, author, email, projectImages } = data;
