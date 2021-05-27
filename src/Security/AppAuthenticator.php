@@ -2,8 +2,10 @@
 
 namespace App\Security;
 
+use App\Dto\Response\Transformer\UserResponseDtoTransformer;
 use App\Entity\User;
 use Doctrine\ORM\EntityManagerInterface;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
@@ -31,12 +33,21 @@ class AppAuthenticator extends AbstractFormLoginAuthenticator implements Passwor
     private $csrfTokenManager;
     private $passwordEncoder;
 
-    public function __construct(EntityManagerInterface $entityManager, UrlGeneratorInterface $urlGenerator, CsrfTokenManagerInterface $csrfTokenManager, UserPasswordEncoderInterface $passwordEncoder)
+    /** @var Security $security */
+    private $security;
+
+
+    /** @var UserResponseDtoTransformer  $userResponseDtoTransformer */
+    private $userResponseDtoTransformer;
+
+    public function __construct(EntityManagerInterface $entityManager, UrlGeneratorInterface $urlGenerator, CsrfTokenManagerInterface $csrfTokenManager, UserPasswordEncoderInterface $passwordEncoder, Security $security, UserResponseDtoTransformer $userResponseDtoTransformer)
     {
         $this->entityManager = $entityManager;
         $this->urlGenerator = $urlGenerator;
         $this->csrfTokenManager = $csrfTokenManager;
         $this->passwordEncoder = $passwordEncoder;
+        $this->security = $security;
+        $this->userResponseDtoTransformer = $userResponseDtoTransformer;
     }
 
     public function supports(Request $request)
@@ -96,7 +107,7 @@ class AppAuthenticator extends AbstractFormLoginAuthenticator implements Passwor
             return new RedirectResponse($targetPath);
         }
 
-        return new RedirectResponse($this->urlGenerator->generate('index'));
+        return new JsonResponse($this->userResponseDtoTransformer->transformFromObject($this->security->getUser()));
     }
 
     protected function getLoginUrl()
