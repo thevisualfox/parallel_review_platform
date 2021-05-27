@@ -15,6 +15,9 @@ import { ProjectReviewCanvas, ProjectReviewHeader } from '../components/project-
 /* Hooks */
 import { usePageTitle } from '../hooks';
 
+/* Hocs */
+import PageWrapper from '../hocs/PageWrapper';
+
 export default function ProjectReview() {
 	/* Queries */
 	const { isLoading, data = {} } = useQuery([QUERY_KEYS.PROJECT_IMAGE_BY_ID, parseInt(projectImageId)], () =>
@@ -27,9 +30,11 @@ export default function ProjectReview() {
 
 	/* Render */
 	return (
-		<PageLoader {...{ isLoading }}>
-			<ProjectReviewHeader {...data} />
-			<ProjectReviewCanvas {...{ ...data, projectImageId }} />
-		</PageLoader>
+		<PageWrapper>
+			<PageLoader {...{ isLoading }}>
+				<ProjectReviewHeader {...data} />
+				<ProjectReviewCanvas {...{ ...data, projectImageId }} />
+			</PageLoader>
+		</PageWrapper>
 	);
 }

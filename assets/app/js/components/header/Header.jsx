@@ -1,6 +1,10 @@
 /* Packages */
 import React from 'react';
+import { motion } from 'framer-motion';
 import { Link } from 'react-router-dom';
+
+/* Animations */
+import { FADE_IN } from '../../common/animations';
 
 /* Routes */
 import { ROUTES } from '../../routes';
@@ -8,7 +12,7 @@ import { ROUTES } from '../../routes';
 export default function Header() {
 	/* Render */
 	return (
-		<header className="main-header">
+		<motion.header className="main-header" {...FADE_IN}>
 			<div className="container-fluid px-5 pt-5 px-lg-6 pt-lg-6 px-xl-12 pt-xl-12">
 				<div className="main-header__logo logo">
 					<Link className="logo__link text-reset" to={ROUTES.login} title="Parallel Dashboard">
@@ -17,6 +21,6 @@ export default function Header() {
 					</Link>
 				</div>
 			</div>
-		</header>
+		</motion.header>
 	);
 }

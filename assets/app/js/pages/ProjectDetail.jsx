@@ -11,7 +11,12 @@ import { fetchProjectById, QUERY_KEYS } from '../api';
 
 /* Components */
 import { ProjectDetailHeader, ProjectDetailImages } from '../components/project-detail';
+
+/* Hooks */
 import { usePageTitle } from '../hooks';
+
+/* Hocs */
+import PageWrapper from '../hocs/PageWrapper';
 
 export default function ProjectDetail() {
 	/* Queries */
@@ -28,9 +33,11 @@ export default function ProjectDetail() {
 
 	/* Render */
 	return (
-		<PageLoader {...{ isLoading }}>
-			<ProjectDetailHeader {...{ title, description, users, id, author, email }} />
-			<ProjectDetailImages {...{ projectImages, projectId: id }} />
-		</PageLoader>
+		<PageWrapper>
+			<PageLoader {...{ isLoading }}>
+				<ProjectDetailHeader {...{ title, description, users, id, author, email }} />
+				<ProjectDetailImages {...{ projectImages, projectId: id }} />
+			</PageLoader>
+		</PageWrapper>
 	);
 }

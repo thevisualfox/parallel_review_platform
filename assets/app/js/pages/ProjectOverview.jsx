@@ -5,7 +5,6 @@ import { useQuery } from 'react-query';
 /* Components */
 import { ProjectResults, ProjectAdd } from '../components/project-overview';
 import { PageLoader } from '../common';
-import { HeaderNavigation } from '../components';
 
 /* Context */
 import StaticContext from '../context';
@@ -15,6 +14,9 @@ import { fetchProjectsByUser, QUERY_KEYS } from '../api';
 
 /* Hooks */
 import { usePageTitle } from '../hooks';
+
+/* Hocs */
+import PageWrapper from '../hocs/PageWrapper';
 
 export default function ProjectOverview() {
 	/* State */
@@ -35,18 +37,11 @@ export default function ProjectOverview() {
 
 	/* Render */
 	return (
-		<>
-			<HeaderNavigation />
-			<main className="main-content">
-				<section className="pane py-5 py-lg-10">
-					<div className="container-fluid">
-						<PageLoader {...{ isLoading }}>
-							{userRole === 'admin' && <ProjectAdd {...{ setNewProjectId }} />}
-							<ProjectResults {...{ projects, newProjectId }} />
-						</PageLoader>
-					</div>
-				</section>
-			</main>
-		</>
+		<PageWrapper>
+			<PageLoader {...{ isLoading }}>
+				{userRole === 'admin' && <ProjectAdd {...{ setNewProjectId }} />}
+				<ProjectResults {...{ projects, newProjectId }} />
+			</PageLoader>
+		</PageWrapper>
 	);
 }

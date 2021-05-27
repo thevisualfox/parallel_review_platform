@@ -1,9 +1,10 @@
 /* Packages */
-import React from 'react';
+import React, { useContext } from 'react';
 import { useMutation } from 'react-query';
 import { useHistory } from 'react-router';
 import { toast } from 'react-toastify';
 import { Link } from 'react-router-dom';
+import { motion } from 'framer-motion';
 
 /* Api */
 import { logout } from '../../api/security';
@@ -14,14 +15,22 @@ import { ROUTES } from '../../routes';
 /* Components */
 import { Alert } from '../';
 
+/* Context */
+import StaticContext from '../../context';
+
+/* Animations */
+import { FADE_IN } from '../../common/animations';
+
 export default function HeaderNavigation() {
 	/* Hooks */
 	const history = useHistory();
+	const { setCurrentUser } = useContext(StaticContext);
 
 	/* Mutations */
 	const logoutMutation = useMutation(logout, {
 		onSuccess: () => {
 			history.push(ROUTES.login);
+			setCurrentUser(null);
 			toast(<Alert message={'Successfully logged out!'} appearance="success" />);
 		},
 		onError: () => toast(<Alert message={'Something went wrong!'} appearance="error" />),
@@ -29,7 +38,7 @@ export default function HeaderNavigation() {
 
 	/* Render */
 	return (
-		<header className="main-header main-header--projects">
+		<motion.header className="main-header main-header--projects" {...FADE_IN}>
 			<div className="container-fluid">
 				<div className="main-header__wrapper d-flex align-items-end">
 					<div className="main-header__logo logo">
@@ -55,6 +64,6 @@ export default function HeaderNavigation() {
 					</div>
 				</div>
 			</div>
-		</header>
+		</motion.header>
 	);
 }
