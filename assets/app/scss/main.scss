@@ -41,6 +41,7 @@
 @import "node_modules/bootstrap/scss/spinners";
 @import "node_modules/bootstrap/scss/utilities";
 @import "node_modules/bootstrap/scss/print";
+@import "~react-toastify/dist/ReactToastify.css";
 @import "node_modules/object-fit-images/preprocessors/mixin.scss";
 
 // Vendors extensions
@@ -54,6 +55,7 @@
 @import "vendors-extensions/bootstrap/modal";
 @import "vendors-extensions/bootstrap/type";
 @import "vendors-extensions/progress";
+@import "vendors-extensions/react-toastify";
 
 // Base
 

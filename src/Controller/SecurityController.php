@@ -2,47 +2,35 @@
 
 namespace App\Controller;
 
-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use App\Dto\Response\Transformer\UserResponseDtoTransformer;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
-use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
 
-class SecurityController extends AbstractController
+class SecurityController extends AbstractApiController
 {
-    /**
-     * @Route("/", name="app_login")
-     */
-    public function login(AuthenticationUtils $authenticationUtils): Response
+    /** @var UserResponseDtoTransformer  $userResponseDtoTransformer */
+    private $userResponseDtoTransformer;
+
+    public function __construct(UserResponseDtoTransformer $userResponseDtoTransformer)
     {
-         if ($this->getUser()) {
-             return $this->redirectToRoute('index');
-         }
-
-        // get the login error if there is one
-        $error = $authenticationUtils->getLastAuthenticationError();
-        // last username entered by the user
-        $lastUsername = $authenticationUtils->getLastUsername();
-
-        return $this->render('pages/login.html.twig', [
-            'last_username' => $lastUsername,
-            'error' => $error
-        ]);
+        $this->userResponseDtoTransformer = $userResponseDtoTransformer;
     }
 
     /**
-     * @Route("/logout", name="app_logout")
+     * @Route("/api/login", name="login", methods="POST")
+     */
+    public function login(): Response
+    {
+        $user = $this->getUser();
+
+        return $this->respond($this->userResponseDtoTransformer->transformFromObject($user));
+    }
+
+    /**
+     * @Route("/api/logout", name="logout", methods="GET")
      */
     public function logout()
     {
         throw new \LogicException('This method can be blank - it will be intercepted by the logout key on your firewall.');
-    }
-
-    /**
-     * @Route("/logout_message", name="app_logout_message")
-     */
-    public function logoutMessage()
-    {
-        $this->addFlash('success', "You've been logged out successfully");
-        return $this->redirectToRoute('app_login');
     }
 }

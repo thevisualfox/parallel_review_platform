@@ -5,6 +5,7 @@ import { useQuery } from 'react-query';
 /* Components */
 import { ProjectResults, ProjectAdd } from '../components/project-overview';
 import { PageLoader } from '../common';
+import { HeaderNavigation } from '../components';
 
 /* Context */
 import StaticContext from '../context';
@@ -19,23 +20,29 @@ export default function ProjectOverview() {
 	/* Hooks */
 	const { currentUser, userRole } = useContext(StaticContext);
 
-	/* Constants */
-	const userId = currentUser?.id ? currentUser.id : atob(location.search.replace('?', ''));
-
 	/* Queries */
 	const { isLoading, data: projects = [] } = useQuery(
 		QUERY_KEYS.PROJECT_BY_USER,
-		() => fetchProjectsByUser({ userId }),
+		() => fetchProjectsByUser({ userId: currentUser.id }),
 		{
-			enabled: !!userId,
+			enabled: !!currentUser.id,
 		}
 	);
 
 	/* Render */
 	return (
-		<PageLoader {...{ isLoading }}>
-			{userRole === 'admin' && <ProjectAdd {...{ setNewProjectId }} />}
-			<ProjectResults {...{ projects, newProjectId }} />
-		</PageLoader>
+		<>
+			<HeaderNavigation />
+			<main className="main-content">
+				<section className="pane py-5 py-lg-10">
+					<div className="container-fluid">
+						<PageLoader {...{ isLoading }}>
+							{userRole === 'admin' && <ProjectAdd {...{ setNewProjectId }} />}
+							<ProjectResults {...{ projects, newProjectId }} />
+						</PageLoader>
+					</div>
+				</section>
+			</main>
+		</>
 	);
 }

@@ -11,11 +11,7 @@
         {% endblock %}
     </head>
     <body>
-        {% block header %}
-            {% include "compositions/main-header.html.twig" %}
-        {% endblock %}
         {% block content %}{% endblock %}
-        {% block modals %}{% endblock %}
         {% block javascripts %}
            {{ encore_entry_script_tags('main') }}
         {% endblock %}

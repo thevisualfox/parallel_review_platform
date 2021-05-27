@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\Dto\Response\Transformer\UserResponseDtoTransformer;
 use App\Entity\User;
 use App\Form\RegistrationFormType;
 use App\Security\AppAuthenticator;
@@ -15,24 +16,30 @@ use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 use Symfony\Component\Security\Guard\GuardAuthenticatorHandler;
 
-class RegistrationController extends AbstractController
+class RegistrationController extends AbstractApiController
 {
     /**
-     * @Route("/signup", name="app_signup")
+     * @Route("/api/signup", name="app_signup")
      * @throws \Symfony\Component\Mailer\Exception\TransportExceptionInterface
      */
     public function register(MessageBusInterface $messageBus, Request $request, UserPasswordEncoderInterface $passwordEncoder, GuardAuthenticatorHandler $guardHandler, AppAuthenticator $authenticator): Response
     {
+        $requestBody = $request->request->all();
+        $form = $requestBody['registration_form'];
         $user = new User();
-        $form = $this->createForm(RegistrationFormType::class, $user);
-        $form->handleRequest($request);
 
-        if ($form->isSubmitted() && $form->isValid()) {
+        if (isset($form['username']) && isset($form['email']) && isset($form['plainPassword'])) {
+            // Set username
+            $user->setUsername($form['username']);
+
+            // Set email
+            $user->setEmail($form['email']);
+
             // encode the plain password
             $user->setPassword(
                 $passwordEncoder->encodePassword(
                     $user,
-                    $form->get('plainPassword')->getData()
+                    $form['plainPassword']
                 )
             );
 
@@ -53,9 +60,5 @@ class RegistrationController extends AbstractController
                 'main' // firewall name in security.yaml
             );
         }
-
-        return $this->render('pages/signup.html.twig', [
-            'form' => $form->createView(),
-        ]);
     }
 }

@@ -1,3 +1,4 @@
+export * from './security';
 export * from './project';
 export * from './projectImage';
 export * from './user';
