@@ -4,19 +4,16 @@ import { useQuery } from 'react-query';
 import { useParams } from 'react-router';
 
 /* Components */
-import { PageLoader } from '../common';
+import { PageLoader, PageWrapper } from '../components';
+
+/* Domain */
+import { ProjectDetailHeader, ProjectDetailImages } from '../domain/project-detail';
 
 /* Api */
 import { fetchProjectById, QUERY_KEYS } from '../api';
 
-/* Components */
-import { ProjectDetailHeader, ProjectDetailImages } from '../components/project-detail';
-
 /* Hooks */
 import { usePageTitle } from '../hooks';
-
-/* Hocs */
-import PageWrapper from '../hocs/PageWrapper';
 
 export default function ProjectDetail() {
 	/* Queries */

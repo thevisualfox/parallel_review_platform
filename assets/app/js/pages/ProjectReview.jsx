@@ -4,19 +4,16 @@ import { useQuery } from 'react-query';
 import { useParams } from 'react-router';
 
 /* Components */
-import { PageLoader } from '../common';
+import { PageLoader, PageWrapper } from '../components';
+
+/* Domain */
+import { ProjectReviewCanvas, ProjectReviewHeader } from '../domain/project-review';
 
 /* Api */
 import { fetchProjectImageById, QUERY_KEYS } from '../api';
 
-/* Components */
-import { ProjectReviewCanvas, ProjectReviewHeader } from '../components/project-review';
-
 /* Hooks */
 import { usePageTitle } from '../hooks';
-
-/* Hocs */
-import PageWrapper from '../hocs/PageWrapper';
 
 export default function ProjectReview() {
 	/* Queries */

@@ -3,20 +3,19 @@ import React, { useContext, useState } from 'react';
 import { useQuery } from 'react-query';
 
 /* Components */
-import { ProjectResults, ProjectAdd } from '../components/project-overview';
-import { PageLoader } from '../common';
+import { PageLoader, PageWrapper } from '../components';
+
+/* Domain */
+import { ProjectResults, ProjectAdd } from '../domain/project-overview';
 
 /* Context */
-import StaticContext from '../context';
+import StaticContext from '../context/mainContext';
 
 /* Api */
 import { fetchProjectsByUser, QUERY_KEYS } from '../api';
 
 /* Hooks */
 import { usePageTitle } from '../hooks';
-
-/* Hocs */
-import PageWrapper from '../hocs/PageWrapper';
 
 export default function ProjectOverview() {
 	/* State */

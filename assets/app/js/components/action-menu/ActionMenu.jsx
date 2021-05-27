@@ -3,17 +3,17 @@ import React, { useContext } from 'react';
 import { ReactSVG } from 'react-svg';
 import { motion } from 'framer-motion';
 
+/* Components */
+import { LoadingWrapper } from '../../components';
+
+/* Animations */
+import { TRANSFORM_UP } from '../../animations';
+
 /* Assets */
 import closeIcon from 'icons/close.svg';
 
-/* Animations */
-import { TRANSFORM_UP } from '../../common/animations';
-
-/* Components */
-import { LoadingWrapper } from '../../common';
-
 /* Context */
-import StaticContext from '../../context';
+import StaticContext from '../../context/mainContext';
 
 export default function ActionMenu({ selected, resetSelected, actions }) {
 	/* Hooks */

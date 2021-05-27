@@ -6,7 +6,7 @@ import { TextareaAutosize } from '@material-ui/core';
 import { useMutation } from 'react-query';
 
 /* Elements */
-import { Button } from '../../elements';
+import { Button } from '../../components';
 
 export default function EditableBody({
 	title,

@@ -6,21 +6,20 @@ import { Link } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import { useForm } from 'react-hook-form';
 
+/* Components */
+import { Alert, Header, Background, Button } from '../components';
+
+/* Services */
+import { getRole } from '../services';
+
 /* Api */
 import { login } from '../api';
-
-/* Components */
-import { Alert, Header, Background } from '../components';
-import { Button } from '../elements';
-
-/* Routes */
-import { ROUTES } from '../routes';
 
 /* Hooks */
 import { usePageTitle } from '../hooks';
 
-/* Helpers */
-import { getRole } from '../helpers';
+/* Routes */
+import { ROUTES } from '../routes';
 
 export default function Login({ setCurrentUser, setUserRole }) {
 	/* Refs */

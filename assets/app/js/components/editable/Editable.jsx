@@ -3,16 +3,16 @@ import React, { useContext, useState } from 'react';
 import { ReactSVG } from 'react-svg';
 
 /* Components */
-import { Box } from '../../common';
+import { Box } from '../../components';
+
+/* Domain */
+import EditableBody from './EditableBody';
 
 /* Assets */
 import editIcon from 'icons/edit.svg';
 
 /* Context */
-import StaticContext from '../../context';
-
-/* Components */
-import EditableBody from './EditableBody';
+import StaticContext from '../../context/mainContext';
 
 export default function Editable({ inputType, children, ...rest }) {
 	/* State */

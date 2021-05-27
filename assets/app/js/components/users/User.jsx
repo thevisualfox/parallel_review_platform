@@ -3,15 +3,15 @@ import React from 'react';
 import { ReactSVG } from 'react-svg';
 import { useMutation, useQueryClient } from 'react-query';
 
+/* Components */
+import { LoadingWrapper } from '../../components';
+
 /* Assets */
 import starIcon from 'icons/star.svg';
 import deleteIcon from 'icons/delete.svg';
 
 /* Api */
 import { deleteUser, QUERY_KEYS } from '../../api';
-
-/* Components */
-import { LoadingWrapper } from '../../common';
 
 export default function User({ user, project = {}, variant = 'default', size = 'md' }) {
 	/* Hooks */

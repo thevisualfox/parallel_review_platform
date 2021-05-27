@@ -2,12 +2,11 @@
 import React, { useState } from 'react';
 import { ReactSVG } from 'react-svg';
 
+/* Components */
+import { Box, UserAddSearch } from '../../components';
+
 /* Assets */
 import addUserIcon from 'icons/add_user.svg';
-
-/* Components */
-import { Box } from '../../common';
-import UserAddSearch from './UserAddSearch';
 
 export default function UserAdd({ users, project }) {
 	/* State */

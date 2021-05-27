@@ -6,20 +6,20 @@ import { toast } from 'react-toastify';
 import { Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
 
+/* Components */
+import { Alert } from '../../components';
+
+/* Animations */
+import { FADE_IN } from '../../animations';
+
+/* Context */
+import StaticContext from '../../context/mainContext';
+
 /* Api */
 import { logout } from '../../api/security';
 
 /* Routes */
 import { ROUTES } from '../../routes';
-
-/* Components */
-import { Alert } from '../';
-
-/* Context */
-import StaticContext from '../../context';
-
-/* Animations */
-import { FADE_IN } from '../../common/animations';
 
 export default function HeaderNavigation() {
 	/* Hooks */

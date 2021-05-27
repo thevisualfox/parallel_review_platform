@@ -6,23 +6,22 @@ import { ToastContainer } from 'react-toastify';
 import { AnimatePresence, motion } from 'framer-motion';
 
 /* Components */
-import { PageLoader } from './common';
-import { HeaderNavigation } from './components';
+import { HeaderNavigation, PageLoader } from './components';
 
-/* Routes */
-import routes, { ROUTES } from './routes';
+/* Services */
+import { getRole } from './services';
+
+/* Animations */
+import { FADE_IN } from './animations';
 
 /* Context */
-import StaticContext from './context';
+import StaticContext from './context/mainContext';
 
 /* Api */
 import { fetchCurrentUser, QUERY_KEYS } from './api';
 
-/* Helpers */
-import { getRole } from './helpers';
-
-/* Animations */
-import { FADE_IN } from './common/animations';
+/* Routes */
+import routes, { ROUTES } from './routes';
 
 export default function App() {
 	/* Render */

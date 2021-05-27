@@ -2,11 +2,11 @@
 import React from 'react';
 import { AnimatePresence, motion } from 'framer-motion';
 
-/* Animations */
-import { FADE_IN } from '../../common/animations';
-
 /* Components */
-import { UserSelect } from '../users';
+import { UserSelect } from '../../components';
+
+/* Animations */
+import { FADE_IN } from '../../animations';
 
 export default function UserAddSearchResults({
 	filteredUsers,

@@ -4,7 +4,7 @@ import { motion } from 'framer-motion';
 import { Link } from 'react-router-dom';
 
 /* Animations */
-import { FADE_IN } from '../../common/animations';
+import { FADE_IN } from '../../animations';
 
 /* Routes */
 import { ROUTES } from '../../routes';

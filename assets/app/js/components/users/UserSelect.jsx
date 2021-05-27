@@ -2,11 +2,11 @@
 import React, { useEffect } from 'react';
 import { ReactSVG } from 'react-svg';
 
+/* Domain */
+import { UserAvatar, UserInfo } from './User';
+
 /* Assets */
 import addUserIcon from 'icons/add_user.svg';
-
-/* Components */
-import { UserAvatar, UserInfo } from './User';
 
 export default function UserSelect({ user, userIndex, handleClick, isFocused, setFocusedUser, isLoading }) {
 	/* Effects */

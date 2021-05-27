@@ -2,6 +2,7 @@ export * from './security';
 export * from './project';
 export * from './projectImage';
 export * from './user';
+export * from './comment';
 
 export const QUERY_KEYS = {
 	CURRENT_USER: 'current_user',

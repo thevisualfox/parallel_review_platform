@@ -3,14 +3,11 @@ import React, { useRef, useState } from 'react';
 import { useMutation, useQuery, useQueryClient } from 'react-query';
 
 /* Components */
-import UserAddSearchResults from './UserAddSearchResults';
-import { Users } from '../users';
+import { UserAddSearchResults, Users, Button } from '../../components';
 
-/* Elements */
-import { Button } from '../../elements';
-
-/* Helpers */
-import { isEmail, filterUsers } from '../../helpers';
+/* Services */
+import { isEmail } from '../../services';
+import filterUsers from './services/filterUsers';
 
 /* Api */
 import { addUser, fetchGobalUsers, QUERY_KEYS } from '../../api';

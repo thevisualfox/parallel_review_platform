@@ -2,29 +2,29 @@
 import React from 'react';
 import { ReactSVG } from 'react-svg';
 
-/* Assts */
+/* Assets */
 import closeIcon from 'icons/close-white.svg';
 import warningIcon from 'icons/warning.svg';
 import errorIcon from 'icons/danger.svg';
 import successIcon from 'icons/success.svg';
 
-export default function Alert({ message, appearance, closeToast }) {
-	/* Constants */
-	const appearanceTypes = {
-		warning: {
-			title: 'Warning',
-			icon: warningIcon,
-		},
-		danger: {
-			title: 'Error',
-			icon: errorIcon,
-		},
-		success: {
-			title: 'Success',
-			icon: successIcon,
-		},
-	};
+/* Global */
+const appearanceTypes = {
+	warning: {
+		title: 'Warning',
+		icon: warningIcon,
+	},
+	danger: {
+		title: 'Error',
+		icon: errorIcon,
+	},
+	success: {
+		title: 'Success',
+		icon: successIcon,
+	},
+};
 
+export default function Alert({ message, appearance, closeToast }) {
 	/* Render */
 	return (
 		<div className="alert alert--notification" role="alert" data-alert>

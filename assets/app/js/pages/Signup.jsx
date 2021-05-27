@@ -6,12 +6,11 @@ import { Link } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import { useForm, useWatch } from 'react-hook-form';
 
+/* Components */
+import { Header, Background, Alert, Button } from '../components';
+
 /* Api */
 import { signup } from '../api';
-
-/* Components */
-import { Button } from '../elements';
-import { Header, Background, Alert } from '../components';
 
 /* Routes */
 import { ROUTES } from '../routes';
