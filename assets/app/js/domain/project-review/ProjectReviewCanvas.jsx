@@ -45,8 +45,8 @@ export default function ProjectReviewCanvas({ title, phases = [], projectImageId
 		<div ref={reviewRef} className="review position-relative mx-n12 mb-n12 mt-12">
 			<img
 				className="review__image img-fluid w-100"
-				src={image}
-				srcSet={`${image} 2x`}
+				src={image.original}
+				srcSet={`${image.original} 2x`}
 				alt={title}
 				onClick={posMarker}
 			/>

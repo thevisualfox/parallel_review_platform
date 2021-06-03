@@ -22,8 +22,8 @@ class PhaseResponseDto
     public $phase;
 
     /**
-     * @var string $image
-     * @Serialization\Type("string")
+     * @var array $image
+     * @Serialization\Type("array")
      */
     public $image;
 

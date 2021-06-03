@@ -6,13 +6,15 @@ namespace App\Dto\Response\Transformer;
 
 use App\Dto\Response\PhaseResponseDto;
 use App\Entity\Phase;
+use App\Service\ImageHelper;
 
 class PhaseResponseDtoTransformer extends AbstractResponseDtoTransformer
 {
     /** @var CommentResponseDtoTransformer $commentResponseDtoTransformer */
     private $commentResponseDtoTransformer;
 
-    public function __construct(CommentResponseDtoTransformer $commentResponseDtoTransformer) {
+    public function __construct(CommentResponseDtoTransformer $commentResponseDtoTransformer)
+    {
         $this->commentResponseDtoTransformer = $commentResponseDtoTransformer;
     }
 
@@ -26,9 +28,21 @@ class PhaseResponseDtoTransformer extends AbstractResponseDtoTransformer
         $dto = new PhaseResponseDto();
         $dto->id = $phase->getId();
         $dto->phase = $phase->getPhase();
-        $dto->image = '/'.$phase->getImage();
+        $dto->image = $this->transformImages($phase->getImage());
         $dto->comments = $this->commentResponseDtoTransformer->transformFromObjects($phase->getComments());
 
         return $dto;
+    }
+
+    private function transformImages(string $image): array
+    {
+        $types = ['original', 'thumbnail', 'thumbnailRetina'];
+        $images = [];
+
+        foreach ($types as $type) {
+            $images[$type] = '/uploads' . ImageHelper::PROJECT_IMAGE_PATH . '/' . $type . '/' . $image;
+        }
+
+        return $images;
     }
 }

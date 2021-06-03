@@ -22,19 +22,22 @@ class ImageHelper
     }
 
     /**
-     * @param UploadedFile $uploadedFile
+     * @param UploadedFile[] $uploadedFiles
      * @return string
      */
-    public function uploadImage(UploadedFile $uploadedFile): string
+    public function uploadImage(array $uploadedFiles): string
     {
-        $uploadDestination = $this->uploadsPath.'/'.self::PROJECT_IMAGE_PATH;
+        $id = uniqid();
+        foreach ($uploadedFiles as $key => $uploadedFile) {
+            $uploadDestination = $this->uploadsPath . '/' . self::PROJECT_IMAGE_PATH . '/' . $key;
 
-        $newFileName =
-            Urlizer::urlize(pathinfo($uploadedFile->getClientOriginalName(), PATHINFO_FILENAME))
-            .'-'.uniqid()
-            .'.'.$uploadedFile->guessExtension();
+            $newFileName =
+                Urlizer::urlize(pathinfo($uploadedFile->getClientOriginalName(), PATHINFO_FILENAME))
+                . '-' . $id
+                . '.' . $uploadedFile->guessExtension();
 
-        $uploadedFile->move($uploadDestination, $newFileName);
+            $uploadedFile->move($uploadDestination, $newFileName);
+        };
 
         return $newFileName;
     }
@@ -44,7 +47,13 @@ class ImageHelper
      */
     public function removeImage(string $imagePath): void
     {
-        $filesystem = new Filesystem();
-        $filesystem->remove($imagePath);
+        $keys = ['original', 'thumbnail', 'thumbnailRetina'];
+
+        foreach ($keys as $key) {
+            $uploadPath = $this->uploadsPath . self::PROJECT_IMAGE_PATH . '/' . $key . '/' . $imagePath;
+
+            $filesystem = new Filesystem();
+            $filesystem->remove($uploadPath);
+        }
     }
 }

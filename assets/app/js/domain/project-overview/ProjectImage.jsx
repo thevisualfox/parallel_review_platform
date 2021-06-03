@@ -13,7 +13,14 @@ export default function ProjectImage({ projectImages }) {
 	/* Render */
 	return (
 		<div className="card__image border m-2">
-			{image && <img className="card-img-top" src={image} srcSet={`${image} 2x`} alt={title} />}
+			{image && (
+				<img
+					className="card-img-top"
+					src={image.thumbnail}
+					srcSet={`${image.thumbnailRetina} 2x`}
+					alt={title}
+				/>
+			)}
 			{!image && <ReactSVG wrapper="svg" className="icon icon--48 text-muted--40" src={addImageIcon} />}
 		</div>
 	);

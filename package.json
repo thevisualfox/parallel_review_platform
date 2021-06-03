@@ -23,6 +23,7 @@
         "react-dom": "^17.0.1",
         "react-dropzone": "^11.3.1",
         "react-hook-form": "^7.6.7",
+        "react-image-file-resizer": "^0.4.4",
         "react-query": "^3.12.1",
         "react-router-dom": "^5.2.0",
         "react-svg": "^12.1.0",
