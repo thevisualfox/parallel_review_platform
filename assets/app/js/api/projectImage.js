@@ -9,7 +9,11 @@ export const fetchProjectImageById = async ({ projectImageId }) => {
 /* Add projectImage(s) | expects project id and array of images (blob) */
 export const addProjectImages = async ({ projectId, images }) => {
 	const params = new FormData();
-	images.forEach((image) => params.append('images[]', image));
+	images.forEach((image, imageIndex) => {
+		params.append(`images[${imageIndex}][original]`, image.original);
+		params.append(`images[${imageIndex}][thumbnail]`, image.thumbnail);
+		params.append(`images[${imageIndex}][thumbnailRetina]`, image.thumbnailRetina);
+	});
 
 	const result = await axios.post(`/api/images/add/${projectId}`, params);
 	return result?.data;

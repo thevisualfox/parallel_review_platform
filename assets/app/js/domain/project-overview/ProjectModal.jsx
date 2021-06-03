@@ -115,7 +115,12 @@ const DropzoneImage = ({ projectImage, projectImageIndex, updateProjectImages, i
 			className="col-12 col-md-6 col-lg-4 col-xl-3 col-xxl-2"
 			key={id}>
 			<div className="dropzone__container">
-				<img className="dropzone__image img-fluid" src={image} alt={title} />
+				<img
+					className="dropzone__image img-fluid"
+					src={image.thumbnail}
+					srcSet={`${image.thumbnailRetina} 2x`}
+					alt={title}
+				/>
 				<button
 					type="button"
 					className="btn btn-link dropzone__image-delete p-0"

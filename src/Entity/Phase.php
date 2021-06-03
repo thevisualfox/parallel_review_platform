@@ -64,7 +64,7 @@ class Phase
 
     public function getImage(): ?string
     {
-        return 'uploads'.ImageHelper::PROJECT_IMAGE_PATH.'/'.$this->image;
+        return $this->image;
     }
 
     public function setImage(?string $image): self

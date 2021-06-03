@@ -8,6 +8,9 @@ import { useMutation, useQueryClient } from 'react-query';
 /* Components */
 import { LoadingWrapper } from '../../components';
 
+/* Services */
+import { resizeImages } from '../../services';
+
 /* Animations */
 import { SCALE_FADE, FADE_IN } from '../../animations';
 
@@ -38,8 +41,13 @@ export default function Dropzone({ projectId, positition = 'left', children }) {
 	});
 
 	/* Callbacks */
-	const updateProjectImages = (action, props) => {
-		if (action === 'add') addProjectImagesMutation.mutate({ projectId, ...props });
+	const updateProjectImages = async (action, props) => {
+		if (action === 'add' && props.images) {
+			const resizedImages = await resizeImages(props.images);
+
+			addProjectImagesMutation.mutate({ projectId, images: resizedImages });
+		}
+
 		if (action === 'delete') deleteProjectImagesMutation.mutate({ projectId, ...props });
 	};
 
