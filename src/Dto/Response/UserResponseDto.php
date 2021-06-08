@@ -27,10 +27,16 @@ class UserResponseDto
     public $roles;
 
     /**
-     * @var string $username
+     * @var string $display
      * @Serialization\Type("string")
      */
-    public $username;
+    public $display;
+
+    /**
+     * @var string $organisation
+     * @Serialization\Type("string")
+     */
+    public $organisation;
 
     /**
      * @var string $userColor

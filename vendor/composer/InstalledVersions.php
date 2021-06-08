@@ -32,7 +32,7 @@ private static $installed = array (
     'aliases' => 
     array (
     ),
-    'reference' => '71c2a31973ba4bcadf60e0995b690ee440f132b7',
+    'reference' => '9246cb104e824e21c8188255104a37761f69fca8',
     'name' => '__root__',
   ),
   'versions' => 
@@ -44,7 +44,7 @@ private static $installed = array (
       'aliases' => 
       array (
       ),
-      'reference' => '71c2a31973ba4bcadf60e0995b690ee440f132b7',
+      'reference' => '9246cb104e824e21c8188255104a37761f69fca8',
     ),
     'behat/transliterator' => 
     array (
@@ -437,8 +437,8 @@ private static $installed = array (
     array (
       'provided' => 
       array (
-        0 => '1.0',
-        1 => '1.0.0',
+        0 => '1.0.0',
+        1 => '1.0',
       ),
     ),
     'psr/simple-cache-implementation' => 

@@ -37,30 +37,31 @@ export default function Box({
 			{boxOpen && (
 				<motion.div
 					ref={boxRef}
-					layout
 					transition={{ duration: 0.2 }}
 					className={`box ${renderOnBody && 'box--center'} ${extensionClasses}`}
 					style={{ '--left': left, '--top': top }}>
 					{renderOnBody && <motion.div className="box-overlay" {...FADE_IN} onClick={toggleBox} />}
 					<motion.div key="box-content" className="box__content border p-5" {...animation}>
 						<div className="box__header d-flex align-items-start">
-							<div className="d-flex align-items-center">
+							<div className="d-flex align-items-center w-100">
 								{user && <User {...{ user }} size="xl" />}
-								<div className={`d-flex flex-column ${user && 'ml-3'}`}>
-									<p className="text--lg mb-0">{title}</p>
+								<div className={`d-flex flex-column w-100 ${user && 'ml-2'}`}>
+									<div className="d-flex align-items-center">
+										<p className="text--lg mb-0">{title}</p>
+										<button
+											type="button"
+											className="custom-modal__close btn btn-link ml-auto"
+											onClick={toggleBox}>
+											<ReactSVG wrapper="svg" className="icon icon--12" src={closeIcon} />
+										</button>
+									</div>
 									{(SubtitleComponent || subtitle) && (
-										<p className="text-muted--60 mb-0">
+										<p className="text-muted--60 mb-0 text--sm">
 											{SubtitleComponent ? <SubtitleComponent /> : subtitle}
 										</p>
 									)}
 								</div>
 							</div>
-							<button
-								type="button"
-								className="custom-modal__close btn btn-link ml-auto"
-								onClick={toggleBox}>
-								<ReactSVG wrapper="svg" className="icon icon--12" src={closeIcon} />
-							</button>
 						</div>
 						<div className="box__body d-flex mt-4">{children}</div>
 					</motion.div>

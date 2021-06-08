@@ -74,7 +74,7 @@ export default function Signup({ setCurrentUser }) {
 								onSubmit={handleSubmit(onSubmit)}
 								noValidate>
 								<div className="row gutters-2">
-									<div className="col-12">
+									<div className="col-md-6">
 										<label className="sr-only" htmlFor="registration_form_username">
 											Your name
 										</label>
@@ -93,6 +93,27 @@ export default function Signup({ setCurrentUser }) {
 										/>
 										{errors.username && (
 											<div className="invalid-feedback">{errors.username.message}</div>
+										)}
+									</div>
+									<div className="col-md-6">
+										<label className="sr-only" htmlFor="registration_form_organisation">
+											Organisation
+										</label>
+										<input
+											type="text"
+											id="registration_form_organisation"
+											name="organisation"
+											className={`form-control ${errors.organisation && 'is-invalid'}`}
+											placeholder="Organisation"
+											{...register('organisation', {
+												required: {
+													value: true,
+													message: 'Please enter an organisation',
+												},
+											})}
+										/>
+										{errors.organisation && (
+											<div className="invalid-feedback">{errors.organisation.message}</div>
 										)}
 									</div>
 									<div className="col-12">

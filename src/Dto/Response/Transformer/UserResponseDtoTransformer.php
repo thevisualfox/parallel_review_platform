@@ -19,7 +19,8 @@ class UserResponseDtoTransformer extends AbstractResponseDtoTransformer
         $dto->id = $user->getId();
         $dto->email = $user->getEmail();
         $dto->roles = $user->getRoles();
-        $dto->username = $user->getUsername();
+        $dto->display = $user->getUsername();
+        $dto->organisation = $user->getOrganisation();
         $dto->userColor = $user->getColor();
 
         return $dto;

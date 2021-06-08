@@ -8,7 +8,7 @@ import { FADE_IN, SCALE_FADE } from '../../animations';
 /* Context */
 import StaticContext from '../../context/mainContext';
 
-export default function ProjectReviewMarker({ xPercent, yPercent, author, commentIndex, toggleComment, children }) {
+export default function ProjectReviewMarker({ xPercent, yPercent, author, commentIndex = 1, toggleComment, children }) {
 	/* Hooks */
 	const { currentUser } = useContext(StaticContext);
 	const user = author ? author : currentUser;

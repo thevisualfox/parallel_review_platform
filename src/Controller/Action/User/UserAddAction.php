@@ -8,21 +8,25 @@ use App\Entity\Project;
 use App\Entity\User;
 use App\Repository\UserRepository;
 use App\Message\ProjectUserAddEmail;
+use App\Service\ColorHelper;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Messenger\MessageBusInterface;
-use Colors\RandomColor;
 use Symfony\Component\HttpFoundation\Response;
 
 final class UserAddAction extends AbstractApiController
 {
-    /** @var UserResponseDtoTransformer  $userResponseDtoTransformer */
+    /** @var UserResponseDtoTransformer $userResponseDtoTransformer */
     private $userResponseDtoTransformer;
 
-    public function __construct(UserResponseDtoTransformer $userResponseDtoTransformer)
+    /** @var ColorHelper $colorHelper */
+    private $colorHelper;
+
+    public function __construct(UserResponseDtoTransformer $userResponseDtoTransformer, ColorHelper $colorHelper)
     {
         $this->userResponseDtoTransformer = $userResponseDtoTransformer;
+        $this->colorHelper = $colorHelper;
     }
 
     /**
@@ -32,6 +36,7 @@ final class UserAddAction extends AbstractApiController
     {
         $requestBody = json_decode($request->getContent(), true);
         $email = $requestBody['email'];
+        $referer = $requestBody['referer'];
 
         $user = $userRepository->findOneBy(['email' => $email]);
 
@@ -44,7 +49,7 @@ final class UserAddAction extends AbstractApiController
         $entityManager->flush();
 
         $messageBus->dispatch(
-            new ProjectUserAddEmail($user->getId(), $project->getId())
+            new ProjectUserAddEmail($user->getId(), $project->getId(), $referer)
         );
 
         return $this->respond($this->userResponseDtoTransformer->transformFromObject($user));
@@ -55,7 +60,7 @@ final class UserAddAction extends AbstractApiController
         $user = new User();
 
         $user->setEmail($email);
-        $user->setcolor(RandomColor::one(array('luminosity' => 'dark')));
+        $user->setcolor($this->colorHelper->generateRandomColor());
         $user->setRoles(['ROLE_USER_BASIC']);
 
         return $user;

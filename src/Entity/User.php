@@ -61,6 +61,11 @@ class User implements UserInterface
      */
     private $comments;
 
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $organisation;
+
     public function __construct()
     {
         $this->project = new ArrayCollection();
@@ -218,6 +223,18 @@ class User implements UserInterface
                 $comment->setAuthor(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getOrganisation(): ?string
+    {
+        return $this->organisation;
+    }
+
+    public function setOrganisation(?string $organisation): self
+    {
+        $this->organisation = $organisation;
 
         return $this;
     }

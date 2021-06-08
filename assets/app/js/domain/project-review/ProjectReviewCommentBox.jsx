@@ -1,13 +1,15 @@
 /* Packages */
-import React, { useContext, useRef } from 'react';
-import TextareaAutosize from '@material-ui/core/TextareaAutosize';
+import React, { useContext, useRef, useState } from 'react';
 import { useMutation, useQueryClient } from 'react-query';
 
 /* Components */
 import { Box, Button } from '../../components';
 
+/* Domain */
+import ProjectReviewCommentMentions from './ProjectReviewCommentMentions';
+
 /* Services */
-import calcCommentPos from './services/calcCommentPos';
+import { calcCommentPos } from './services';
 
 /* Context */
 import StaticContext from '../../context/mainContext';
@@ -19,6 +21,10 @@ export default function ProjectReviewCommentBox({ markerPos, boxOpen, toggleBox,
 	/* Refs */
 	const formRef = useRef();
 	const boxRef = useRef();
+
+	/* State */
+	const [comment, setComment] = useState('');
+	const [mentions, setMentions] = useState([]);
 
 	/* Constants */
 	const title = 'Add a comment';
@@ -38,7 +44,7 @@ export default function ProjectReviewCommentBox({ markerPos, boxOpen, toggleBox,
 
 	/* Components */
 	const SubtitleComponent = () => (
-		<span>
+		<span className="mt-1 text--md">
 			Comment or <span className="text-secondary"> @mention </span> someone
 		</span>
 	);
@@ -55,23 +61,19 @@ export default function ProjectReviewCommentBox({ markerPos, boxOpen, toggleBox,
 				onSubmit={(event) => {
 					event.preventDefault();
 					addCommentMutation.mutate({
-						formRef: formRef,
 						userId: user.id,
 						phaseId: phaseId,
+						comment: comment.trim(),
+						mentioned: mentions,
 						position: markerPos,
 					});
 				}}>
 				<label className="sr-only" htmlFor="comment">
 					{title}
 				</label>
-				<TextareaAutosize
-					className="form-control form-control-sm form-control--text"
-					id="comment"
-					name="comment"
-					type="text"
-					placeholder="Say something nice..."
-					autoFocus
-				/>
+				<div className="position-relative w-100">
+					<ProjectReviewCommentMentions {...{ comment, setComment, mentions, setMentions }} />
+				</div>
 				<Button
 					title="Submit"
 					extensionClasses="mt-4 w-50 justify-content-center"

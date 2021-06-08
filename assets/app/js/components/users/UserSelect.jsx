@@ -27,9 +27,10 @@ export default function UserSelect({ user, userIndex, handleClick, isFocused, se
 	return (
 		<button
 			className={`user user--select ${isFocused && 'is-focused'} user--xl`}
-			onClick={() => handleClick(user.email)}
+			onClick={() => handleClick(user)}
 			onMouseEnter={() => handleStatus('enter')}
-			onMouseLeave={() => handleStatus('leave')}>
+			onMouseLeave={() => handleStatus('leave')}
+			type="button">
 			<div className="d-flex align-items-center">
 				<UserAvatar isLoading={isLoading && isFocused} {...user} />
 				<UserInfo {...user} />

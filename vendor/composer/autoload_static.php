@@ -4,17 +4,17 @@
 
 namespace Composer\Autoload;
 
-class ComposerStaticInit9ecf568ede262cf76db4e2b0bc157ec2
+class ComposerStaticInitd13e4fea25fb81c85dbefd724ab087b6
 {
     public static $files = array (
         'a4a119a56e50fbb293281d9a48007e0e' => __DIR__ . '/..' . '/symfony/polyfill-php80/bootstrap.php',
         '6e3fae29631ef280660b3cdad06f25a8' => __DIR__ . '/..' . '/symfony/deprecation-contracts/function.php',
         '0e6d7bf4a5811bfa5cf40c5ccd6fae6a' => __DIR__ . '/..' . '/symfony/polyfill-mbstring/bootstrap.php',
+        'e69f7f6ee287b969198c3c9d6777bd38' => __DIR__ . '/..' . '/symfony/polyfill-intl-normalizer/bootstrap.php',
+        'f598d06aa772fa33d905e87be6398fb1' => __DIR__ . '/..' . '/symfony/polyfill-intl-idn/bootstrap.php',
         '0d59ee240a4cd96ddbb4ff164fccea4d' => __DIR__ . '/..' . '/symfony/polyfill-php73/bootstrap.php',
         '92c8763cd6170fce6fcfe7e26b4e8c10' => __DIR__ . '/..' . '/symfony/phpunit-bridge/bootstrap.php',
         '667aeda72477189d0494fecd327c3641' => __DIR__ . '/..' . '/symfony/var-dumper/Resources/functions/dump.php',
-        'e69f7f6ee287b969198c3c9d6777bd38' => __DIR__ . '/..' . '/symfony/polyfill-intl-normalizer/bootstrap.php',
-        'f598d06aa772fa33d905e87be6398fb1' => __DIR__ . '/..' . '/symfony/polyfill-intl-idn/bootstrap.php',
         '8825ede83f2f289127722d4e842cf7e8' => __DIR__ . '/..' . '/symfony/polyfill-intl-grapheme/bootstrap.php',
         'b6b991a57620e2fb6b2f66f03fe9ddc2' => __DIR__ . '/..' . '/symfony/string/Resources/functions.php',
         '6a47392539ca2329373e0d33e1dba053' => __DIR__ . '/..' . '/symfony/polyfill-intl-icu/bootstrap.php',
@@ -187,8 +187,8 @@ class ComposerStaticInit9ecf568ede262cf76db4e2b0bc157ec2
         'phpDocumentor\\Reflection\\' => 
         array (
             0 => __DIR__ . '/..' . '/phpdocumentor/reflection-common/src',
-            1 => __DIR__ . '/..' . '/phpdocumentor/type-resolver/src',
-            2 => __DIR__ . '/..' . '/phpdocumentor/reflection-docblock/src',
+            1 => __DIR__ . '/..' . '/phpdocumentor/reflection-docblock/src',
+            2 => __DIR__ . '/..' . '/phpdocumentor/type-resolver/src',
         ),
         'Zend\\EventManager\\' => 
         array (
@@ -608,9 +608,9 @@ class ComposerStaticInit9ecf568ede262cf76db4e2b0bc157ec2
         ),
         'Doctrine\\Common\\' => 
         array (
-            0 => __DIR__ . '/..' . '/doctrine/event-manager/lib/Doctrine/Common',
-            1 => __DIR__ . '/..' . '/doctrine/persistence/lib/Doctrine/Common',
-            2 => __DIR__ . '/..' . '/doctrine/common/lib/Doctrine/Common',
+            0 => __DIR__ . '/..' . '/doctrine/common/lib/Doctrine/Common',
+            1 => __DIR__ . '/..' . '/doctrine/event-manager/lib/Doctrine/Common',
+            2 => __DIR__ . '/..' . '/doctrine/persistence/lib/Doctrine/Common',
         ),
         'Doctrine\\Bundle\\MigrationsBundle\\' => 
         array (
@@ -672,7 +672,7 @@ class ComposerStaticInit9ecf568ede262cf76db4e2b0bc157ec2
         'App\\Controller\\Action\\User\\UserDeleteAction' => __DIR__ . '/../..' . '/src/Controller/Action/User/UserDeleteAction.php',
         'App\\Controller\\Action\\User\\UserGetAllAction' => __DIR__ . '/../..' . '/src/Controller/Action/User/UserGetAllAction.php',
         'App\\Controller\\Action\\User\\UserGetCurrentAction' => __DIR__ . '/../..' . '/src/Controller/Action/User/UserGetCurrentAction.php',
-        'App\\Controller\\ProjectController' => __DIR__ . '/../..' . '/src/Controller/ProjectController.php',
+        'App\\Controller\\DefaultController' => __DIR__ . '/../..' . '/src/Controller/DefaultController.php',
         'App\\Controller\\RegistrationController' => __DIR__ . '/../..' . '/src/Controller/RegistrationController.php',
         'App\\Controller\\SecurityController' => __DIR__ . '/../..' . '/src/Controller/SecurityController.php',
         'App\\Dto\\Response\\CommentResponseDto' => __DIR__ . '/../..' . '/src/Dto/Response/CommentResponseDto.php',
@@ -687,12 +687,12 @@ class ComposerStaticInit9ecf568ede262cf76db4e2b0bc157ec2
         'App\\Dto\\Response\\Transformer\\ResponseDtoTransformerInterface' => __DIR__ . '/../..' . '/src/Dto/Response/Transformer/ResponseDtoTransformerInterface.php',
         'App\\Dto\\Response\\Transformer\\UserResponseDtoTransformer' => __DIR__ . '/../..' . '/src/Dto/Response/Transformer/UserResponseDtoTransformer.php',
         'App\\Dto\\Response\\UserResponseDto' => __DIR__ . '/../..' . '/src/Dto/Response/UserResponseDto.php',
+        'App\\Entity\\Comment' => __DIR__ . '/../..' . '/src/Entity/Comment.php',
         'App\\Entity\\Phase' => __DIR__ . '/../..' . '/src/Entity/Phase.php',
         'App\\Entity\\Project' => __DIR__ . '/../..' . '/src/Entity/Project.php',
         'App\\Entity\\ProjectImage' => __DIR__ . '/../..' . '/src/Entity/ProjectImage.php',
         'App\\Entity\\User' => __DIR__ . '/../..' . '/src/Entity/User.php',
         'App\\EventListener\\PreRemoveListener' => __DIR__ . '/../..' . '/src/EventListener/PreRemoveListener.php',
-        'App\\Form\\RegistrationFormType' => __DIR__ . '/../..' . '/src/Form/RegistrationFormType.php',
         'App\\Kernel' => __DIR__ . '/../..' . '/src/Kernel.php',
         'App\\MessageHandler\\ProjectUserAddEmailHandler' => __DIR__ . '/../..' . '/src/MessageHandler/ProjectUserAddEmailHandler.php',
         'App\\MessageHandler\\RegisterEmailHandler' => __DIR__ . '/../..' . '/src/MessageHandler/RegisterEmailHandler.php',
@@ -704,6 +704,7 @@ class ComposerStaticInit9ecf568ede262cf76db4e2b0bc157ec2
         'App\\Repository\\ProjectRepository' => __DIR__ . '/../..' . '/src/Repository/ProjectRepository.php',
         'App\\Repository\\UserRepository' => __DIR__ . '/../..' . '/src/Repository/UserRepository.php',
         'App\\Security\\AppAuthenticator' => __DIR__ . '/../..' . '/src/Security/AppAuthenticator.php',
+        'App\\Service\\ColorHelper' => __DIR__ . '/../..' . '/src/Service/ColorHelper.php',
         'App\\Service\\ImageHelper' => __DIR__ . '/../..' . '/src/Service/ImageHelper.php',
         'App\\Service\\Mailer' => __DIR__ . '/../..' . '/src/Service/Mailer.php',
         'Attribute' => __DIR__ . '/..' . '/symfony/polyfill-php80/Resources/stubs/Attribute.php',
@@ -6101,10 +6102,10 @@ class ComposerStaticInit9ecf568ede262cf76db4e2b0bc157ec2
     public static function getInitializer(ClassLoader $loader)
     {
         return \Closure::bind(function () use ($loader) {
-            $loader->prefixLengthsPsr4 = ComposerStaticInit9ecf568ede262cf76db4e2b0bc157ec2::$prefixLengthsPsr4;
-            $loader->prefixDirsPsr4 = ComposerStaticInit9ecf568ede262cf76db4e2b0bc157ec2::$prefixDirsPsr4;
-            $loader->prefixesPsr0 = ComposerStaticInit9ecf568ede262cf76db4e2b0bc157ec2::$prefixesPsr0;
-            $loader->classMap = ComposerStaticInit9ecf568ede262cf76db4e2b0bc157ec2::$classMap;
+            $loader->prefixLengthsPsr4 = ComposerStaticInitd13e4fea25fb81c85dbefd724ab087b6::$prefixLengthsPsr4;
+            $loader->prefixDirsPsr4 = ComposerStaticInitd13e4fea25fb81c85dbefd724ab087b6::$prefixDirsPsr4;
+            $loader->prefixesPsr0 = ComposerStaticInitd13e4fea25fb81c85dbefd724ab087b6::$prefixesPsr0;
+            $loader->classMap = ComposerStaticInitd13e4fea25fb81c85dbefd724ab087b6::$classMap;
 
         }, null, ClassLoader::class);
     }

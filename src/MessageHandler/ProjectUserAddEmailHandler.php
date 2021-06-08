@@ -31,7 +31,8 @@ class ProjectUserAddEmailHandler implements MessageHandlerInterface
     {
         $user = $this->userRepository->find($projectUserAddEmail->getUserId());
         $project = $this->projectRepository->find($projectUserAddEmail->getProjectId());
+        $referer = $projectUserAddEmail->getReferer();
 
-        $this->mailer->sendUserAddMail($user, $project);
+        $this->mailer->sendUserAddMail($user, $project, $referer);
     }
 }

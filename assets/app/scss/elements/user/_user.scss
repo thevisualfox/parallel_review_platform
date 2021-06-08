@@ -7,13 +7,21 @@
     position: relative;
 }
 
+@function hsl($color) {
+    @return $color;
+}
+
 .user__avatar {
     @extend %center-flex;
     @extend .position-relative;
 
     width: var(--avatar-dimensions);
     height: var(--avatar-dimensions);
-    color: var(--theme);
+    color: Hsl(var(--theme)); /* stylelint-disable-line function-name-case */
+    background-color: Hsl(var(--theme), $opacity-level); /* stylelint-disable-line function-name-case */
+    border: $border-width solid Hsl(var(--theme), 0); /* stylelint-disable-line function-name-case */
+    border-radius: 50%;
+    transition: border-color 150ms ease;
 
     &:before,
     &:after {
@@ -23,16 +31,6 @@
         border-radius: 50%;
         transition: border-color 150ms ease;
         pointer-events: none;
-    }
-
-    &:before {
-        background-color: var(--theme);
-        opacity: $opacity-level;
-    }
-
-    &:after {
-        border: $border-width solid transparent;
-        opacity: $opacity-level-active-border;
     }
 }
 
@@ -45,7 +43,7 @@
 
     font-family: $font-family-base;
     font-size: calc(var(--avatar-dimensions) * 0.4);
-    color: var(--theme);
+    color: Hsl(var(--theme)); /* stylelint-disable-line function-name-case */
 }
 
 .user__status {

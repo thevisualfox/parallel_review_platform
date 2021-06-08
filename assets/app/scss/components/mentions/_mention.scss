@@ -1,0 +1,39 @@
+.mentions {
+    min-height: 50px;
+
+    &__input {
+        @extend .form-control, .bg-quaternary;
+    }
+
+    &__highlighter {
+        min-height: 50px;
+        padding: $input-padding-y $input-padding-x;
+        z-index: 1;
+        pointer-events: none;
+    }
+
+    &__suggestions {
+        @extend %scroll-auto, .m-0;
+
+        top: calc(100% - #{spacer(1)}) !important;
+        left: - spacer(3) !important;
+        right: - spacer(3) !important;
+        background-color: $primary !important;
+        border: $border-width solid $border-color !important;
+        border-radius: $border-radius;
+        padding: spacer(3) !important;
+        max-height: 200px;
+        overflow-x: hidden;
+    }
+
+    &__suggestions__item {
+        @extend .vr-3;
+    }
+
+    &__mention {
+        position: relative;
+        background-color: Hsl(var(--theme, #{$secondary}), $opacity-level); /* stylelint-disable-line function-name-case */
+        color: Hsl(var(--theme, #{$secondary})); /* stylelint-disable-line function-name-case */
+        border-radius: 12px;
+    }
+}

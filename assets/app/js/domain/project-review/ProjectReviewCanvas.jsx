@@ -1,16 +1,23 @@
 /* Packages */
 import React, { useRef, useState } from 'react';
 import { AnimatePresence } from 'framer-motion';
+import { useQuery } from 'react-query';
 
 /* Domain */
 import ProjectReviewMarker from './ProjectReviewMarker';
 import ProjectReviewComment from './ProjectReviewComment';
 import ProjectReviewCommentBox from './ProjectReviewCommentBox';
 
+/* Api */
+import { fetchGobalUsers, QUERY_KEYS } from '../../api';
+
 /* Global */
 const cursorOffset = 10;
 
 export default function ProjectReviewCanvas({ title, phases = [], projectImageId }) {
+	/* Queries */
+	const { data: globalUsers = [] } = useQuery(QUERY_KEYS.GLOBAL_USERS, fetchGobalUsers);
+
 	/* Constants */
 	const { image, id: phaseId, comments } = phases[phases.length - 1] || {};
 
@@ -52,7 +59,7 @@ export default function ProjectReviewCanvas({ title, phases = [], projectImageId
 			/>
 			{comments.length > 0 &&
 				comments.map((comment, commentIndex) => (
-					<ProjectReviewComment key={commentIndex} {...{ ...comment, commentIndex, reviewRef }} />
+					<ProjectReviewComment key={commentIndex} {...{ ...comment, commentIndex, reviewRef, globalUsers }} />
 				))}
 			<AnimatePresence>
 				{markerPos && (

@@ -5,7 +5,7 @@ namespace App\Controller;
 use App\Entity\User;
 use App\Security\AppAuthenticator;
 use App\Message\RegisterEmail;
-use Colors\RandomColor;
+use App\Service\ColorHelper;
 use Symfony\Component\Messenger\MessageBusInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -19,7 +19,7 @@ class RegistrationController extends AbstractApiController
      * @Route("/api/signup", name="app_signup")
      * @throws \Symfony\Component\Mailer\Exception\TransportExceptionInterface
      */
-    public function register(MessageBusInterface $messageBus, Request $request, UserPasswordEncoderInterface $passwordEncoder, GuardAuthenticatorHandler $guardHandler, AppAuthenticator $authenticator): Response
+    public function register(MessageBusInterface $messageBus, Request $request, UserPasswordEncoderInterface $passwordEncoder, GuardAuthenticatorHandler $guardHandler, AppAuthenticator $authenticator, ColorHelper $colorHelper): Response
     {
         $form = $request->request->all();
         $user = new User();
@@ -39,8 +39,11 @@ class RegistrationController extends AbstractApiController
                 )
             );
 
+            // Set organisation
+            $user->setOrganisation($form['organisation']);
+
             // Set random color per user
-            $user->setColor(RandomColor::one());
+            $user->setcolor($colorHelper->generateRandomColor());
 
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->persist($user);

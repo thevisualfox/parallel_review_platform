@@ -60,7 +60,7 @@ export default function UserAddSearch({ users, project, toggleBox }) {
 		}
 	};
 
-	const handleClick = (email) => {
+	const handleClick = ({ email }) => {
 		if (isEmail(email)) {
 			addUserMutation.mutate({ projectId: project.id, email: email });
 		}

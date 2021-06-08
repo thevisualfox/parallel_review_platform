@@ -33,7 +33,7 @@ export default function ProjectDetailImage({ projectImage, projectId, selected, 
 	/* Render */
 	return (
 		<article className={`card card--link card--product ${selected.includes(projectImageId) && 'is-selected'}`}>
-			<Link to={`/projects/${projectId}/review/${projectImageId}${location.search}`} title={title}>
+			<Link to={`/projects/${projectId}/review/${projectImageId}`} title={title}>
 				<div className="card__image border m-2">
 					<img
 						className="card-img-top"

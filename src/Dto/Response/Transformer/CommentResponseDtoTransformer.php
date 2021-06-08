@@ -12,7 +12,8 @@ class CommentResponseDtoTransformer extends AbstractResponseDtoTransformer
     /** @var UserResponseDtoTransformer $userResponseDtoTransformer */
     private $userResponseDtoTransformer;
 
-    public function __construct(UserResponseDtoTransformer $userResponseDtoTransformer) {
+    public function __construct(UserResponseDtoTransformer $userResponseDtoTransformer)
+    {
         $this->userResponseDtoTransformer = $userResponseDtoTransformer;
     }
 
@@ -30,6 +31,7 @@ class CommentResponseDtoTransformer extends AbstractResponseDtoTransformer
             'xPercent' => $comment->getPositionX(),
             'yPercent' => $comment->getPositionY(),
         ];
+
         return $dto;
     }
 }

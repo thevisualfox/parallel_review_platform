@@ -51,9 +51,9 @@ export default function User({ user, project = {}, variant = 'default', size = '
 	);
 }
 
-export const UserAvatar = ({ username, userColor, isLoading, children }) => {
+export const UserAvatar = ({ display, userColor, isLoading, children }) => {
 	/* Constants */
-	const userInitials = username.split(' ').map((word) => word[0].toUpperCase());
+	const userInitials = display.split(' ').map((word) => word[0].toUpperCase());
 
 	/* Render */
 	return (
@@ -66,9 +66,9 @@ export const UserAvatar = ({ username, userColor, isLoading, children }) => {
 	);
 };
 
-export const UserInfo = ({ username, email }) => (
+export const UserInfo = ({ display, email }) => (
 	<div className="d-flex flex-column ml-3">
-		<p className="mb-0">{username}</p>
+		<p className="mb-0">{display}</p>
 		<p className="text-muted--60 text--xs">{email}</p>
 	</div>
 );

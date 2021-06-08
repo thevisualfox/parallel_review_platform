@@ -23,6 +23,9 @@ import { fetchCurrentUser, QUERY_KEYS } from './api';
 /* Routes */
 import routes, { ROUTES } from './routes';
 
+/* Hooks */
+import { useStorage } from './hooks';
+
 export default function App() {
 	/* Render */
 	return (
@@ -37,10 +40,8 @@ const RouterBody = () => {
 	const [currentUser, setCurrentUser] = useState();
 	const [userRole, setUserRole] = useState([]);
 
-	/* Constants */
-	const userId = atob(window.location.search.replace('?', ''));
-
 	/* Hooks */
+	const [userId] = useStorage('userId', atob(window.location.search.replace('?', '')));
 	const location = useLocation();
 
 	/* Queries */
@@ -66,7 +67,7 @@ const RouterBody = () => {
 						{currentUser && location.pathname === ROUTES.login && <Redirect to={ROUTES.projects} />}
 
 						{/* Redirect to /login if a user is not logged in on the /projects route */}
-						{!currentUser && location.pathname === ROUTES.projects && <Redirect to={ROUTES.login} />}
+						{!currentUser && location.pathname.includes(ROUTES.projects) && <Redirect to={ROUTES.login} />}
 
 						{/* Render routes */}
 						{routes.map(({ path, component: Component, props }) => (
