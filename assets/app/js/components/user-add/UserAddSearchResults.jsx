@@ -50,7 +50,7 @@ export default function UserAddSearchResults({
 	return (
 		<AnimatePresence>
 			{query !== '' && (
-				<motion.ul {...FADE_IN} className="box__list list">
+				<motion.ul {...FADE_IN} className="custom-modal__list list">
 					{results()}
 				</motion.ul>
 			)}

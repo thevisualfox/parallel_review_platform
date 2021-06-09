@@ -4,7 +4,7 @@ import ClickAwayListener from '@material-ui/core/ClickAwayListener';
 import { motion } from 'framer-motion';
 
 /* Animations */
-import { FADE_IN, SCALE_FADE } from '../../animations';
+import { SCALE_FADE } from '../../animations';
 
 /* Context */
 import StaticContext from '../../context/mainContext';
@@ -13,7 +13,7 @@ export default function ProjectReviewMarker({
 	xPercent,
 	yPercent,
 	author,
-	commentIndex = 1,
+	commentIndex,
 	commentOpen,
 	toggleComment,
 	children,
@@ -30,13 +30,12 @@ export default function ProjectReviewMarker({
 			}}>
 			<motion.div
 				layout
-				transition={{ duration: 0.2 }}
+				transition={{ duration: 0.1 }}
 				className="review__interaction"
 				style={{
 					'--x': xPercent,
 					'--y': yPercent,
-				}}
-				{...FADE_IN}>
+				}}>
 				<motion.button
 					{...SCALE_FADE}
 					className="review__marker icon-wrapper icon-wrapper--secondary btn btn-link text-reset"
@@ -44,7 +43,7 @@ export default function ProjectReviewMarker({
 					onClick={toggleComment}>
 					{commentIndex && <span className="text--xs">{commentIndex}</span>}
 				</motion.button>
-				{children}
+				<div>{children}</div>
 			</motion.div>
 		</ClickAwayListener>
 	);

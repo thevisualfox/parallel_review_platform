@@ -3,7 +3,7 @@ import React, { useContext, useState } from 'react';
 import { ReactSVG } from 'react-svg';
 
 /* Components */
-import { Box } from '../../components';
+import { Modal } from '../../components';
 
 /* Domain */
 import EditableBody from './EditableBody';
@@ -16,7 +16,7 @@ import StaticContext from '../../context/mainContext';
 
 export default function Editable({ inputType, children, ...rest }) {
 	/* State */
-	const [boxOpen, setBoxOpen] = useState(false);
+	const [modalOpen, setModalOpen] = useState(false);
 
 	/* Hooks */
 	const { userRole } = useContext(StaticContext);
@@ -26,7 +26,7 @@ export default function Editable({ inputType, children, ...rest }) {
 	const subtitle = `Save when ready`;
 
 	/* Callbacks */
-	const toggleBox = () => setBoxOpen(!boxOpen);
+	const toggleModal = () => setModalOpen(!modalOpen);
 
 	/* Render */
 	return (
@@ -36,13 +36,13 @@ export default function Editable({ inputType, children, ...rest }) {
 				<>
 					<button
 						className="editable__toggle btn btn-link icon-wrapper icon-wrapper--secondary icon-wrapper--interactive stretched-link ml-3"
-						onClick={toggleBox}
+						onClick={toggleModal}
 						style={{ '--size': 25 }}>
 						<ReactSVG wrapper="svg" className="icon icon--10 text-secondary" src={editIcon} />
 					</button>
-					<Box {...{ title, subtitle, boxOpen, toggleBox }}>
-						<EditableBody {...{ title, inputType, toggleBox, ...rest }} />
-					</Box>
+					<Modal {...{ title, subtitle, modalOpen, toggleModal }}>
+						<EditableBody {...{ title, inputType, toggleModal, ...rest }} />
+					</Modal>
 				</>
 			)}
 		</div>

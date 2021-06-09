@@ -1,15 +1,15 @@
-export default function calcCommentPos(boxRef, markerPos) {
+export default function calcCommentPos(ref, pos) {
 	const markerSpacer = 10;
 	const markerSize = 20;
 	const offset = markerSize + markerSpacer;
 
 	/* Get position of marker */
-	const reviewPos = markerPos.reviewPos;
-	const xPercent = Number(markerPos.xPercent);
-	const yPercent = Number(markerPos.yPercent);
+	const reviewPos = pos.reviewPos;
+	const xPercent = Number(pos.xPercent);
+	const yPercent = Number(pos.yPercent);
 
 	/* Get dimensions of current box */
-	const { width: boxWidth = 400, height: boxHeight = 228 } = boxRef?.current?.getBoundingClientRect() || {};
+	const { width: boxWidth = 400, height: boxHeight = 228 } = ref?.current?.getBoundingClientRect() || {};
 
 	/* Get dimensions of current screen */
 	const screenWidth = window.innerWidth;

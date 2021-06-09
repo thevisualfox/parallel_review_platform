@@ -16,9 +16,9 @@ const FADE_IN = {
 	},
 };
 
-const FADE_IN_UP = {
+const FADE_IN_UP = (y = 100) => ({
 	initial: {
-		y: 200,
+		y: y,
 		opacity: 0,
 	},
 	animate: {
@@ -31,7 +31,7 @@ const FADE_IN_UP = {
 		},
 	},
 	exit: {
-		y: 200,
+		y: y,
 		opacity: 0,
 		transition: {
 			type: 'spring',
@@ -39,7 +39,7 @@ const FADE_IN_UP = {
 			stiffness: 1200,
 		},
 	},
-};
+});
 
 const TRANSFORM_UP = {
 	initial: {

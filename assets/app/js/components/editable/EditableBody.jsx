@@ -11,7 +11,7 @@ import { Button } from '../../components';
 export default function EditableBody({
 	title,
 	inputType,
-	toggleBox,
+	toggleModal,
 	content,
 	mutation,
 	mutationId,
@@ -33,7 +33,7 @@ export default function EditableBody({
 	const editMutation = useMutation(mutation, {
 		onSuccess: () => {
 			mutationOnSuccess();
-			toggleBox();
+			toggleModal();
 		},
 	});
 

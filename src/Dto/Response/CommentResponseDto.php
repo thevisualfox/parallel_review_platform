@@ -32,4 +32,10 @@ class CommentResponseDto
      * @Serialization\Type("array")
      */
     public $position;
+
+    /**
+     * @var array $created
+     * @Serialization\Type("string")
+     */
+    public $created;
 }

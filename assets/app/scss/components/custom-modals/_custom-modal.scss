@@ -1,55 +1,65 @@
 .custom-modal {
-    @extend %center-flex, %fixed-fill;
+    @extend %center-flex;
 
+    position: absolute;
+    top: 0;
+    left: 0;
     z-index: $zindex-fixed;
-}
 
-.custom-modal__overlay {
-    @extend %absolute-fill;
+    .form-control {
+        background-color: $quaternary;
+    }
 
-    background-color: rgba($color-base, 0.9);
+    &--center {
+        bottom: 0;
+        right: 0;
+    }
 }
 
 .custom-modal__content {
     @extend .d-flex, .flex-column;
+
+    background-color: $primary;
+    border-radius: $border-radius;
+    z-index: $zindex-fixed;
+    width: 400px;
+}
+
+.custom-modal__body {
+    @extend .flex-grow-1;
+}
+
+.custom-modal__list {
     @extend %scroll-auto;
+    @extend .bg-primary, .border, .rounded, .p-3;
 
     position: absolute;
-    bottom: 0;
-    left: 0;
-    right: 0;
-    background-color: $primary;
-    border-top: $border-width solid $border-color;
-    max-height: 95vh;
-    height: 100%;
-
-    @include media-breakpoint-up(lg) {
-        max-height: 90vh;
-        min-height: 80vh;
-        height: auto;
-    }
+    top: calc(100% - #{spacer(1)});
+    left: - spacer(3);
+    right: - spacer(3);
+    overflow-x: hidden;
+    z-index: $zindex-dropdown;
+    max-height: 200px;
 }
 
-.custom-modal__form,
-.custom-modal__body {
-    @extend .d-flex, .flex-column, .flex-grow-1;
-}
+.custom-modal-overlay {
+    @extend %absolute-fill;
 
-.custom-modal__header {
-    position: sticky;
-    top: 0;
-    z-index: $zindex-sticky;
-    background-color: $primary;
+    background-color: rgba($color-base, 0.75);
 }
 
 .custom-modal__close {
-    .icon {
-        color: rgba($white, 0.7);
-        transition: color 200ms ease;
-    }
+    @extend .slide-in__close;
+}
 
-    &:hover .icon,
-    &:focus .icon {
-        color: $white;
-    }
+.custom-modal__title {
+    @extend .text--lg;
+
+    margin-bottom: 0;
+}
+
+.custom-modal__subtitle {
+    @extend .text-muted--60;
+
+    margin-bottom: 0;
 }

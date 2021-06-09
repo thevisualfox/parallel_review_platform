@@ -6,7 +6,7 @@ import { useQuery } from 'react-query';
 /* Domain */
 import ProjectReviewMarker from './ProjectReviewMarker';
 import ProjectReviewComment from './ProjectReviewComment';
-import ProjectReviewCommentBox from './ProjectReviewCommentBox';
+import ProjectReviewCommentAdd from './ProjectReviewCommentAdd';
 
 /* Api */
 import { fetchGobalUsers, QUERY_KEYS } from '../../api';
@@ -26,13 +26,9 @@ export default function ProjectReviewCanvas({ title, phases = [], projectImageId
 
 	/* State */
 	const [markerPos, setMarkerPos] = useState();
-	const [boxOpen, setBoxOpen] = useState(false);
 
 	/* Callbacks */
-	const toggleBox = () => {
-		setBoxOpen(!boxOpen);
-		setMarkerPos(null);
-	};
+	const toggleCommentAddOpen = () => setMarkerPos(null);
 
 	const posMarker = ({ clientX, clientY }) => {
 		const reviewPos = reviewRef?.current.getBoundingClientRect();
@@ -43,8 +39,6 @@ export default function ProjectReviewCanvas({ title, phases = [], projectImageId
 
 			return { xPercent, yPercent, reviewPos };
 		});
-
-		setBoxOpen(true);
 	};
 
 	/* render */
@@ -57,17 +51,13 @@ export default function ProjectReviewCanvas({ title, phases = [], projectImageId
 				alt={title}
 				onClick={posMarker}
 			/>
-			{comments.length > 0 &&
-				comments.map((comment, commentIndex) => (
-					<ProjectReviewComment
-						key={commentIndex}
-						{...{ ...comment, commentIndex, reviewRef, globalUsers }}
-					/>
-				))}
+			{comments?.map((comment, commentIndex) => (
+				<ProjectReviewComment key={comment.id} {...{ ...comment, commentIndex, reviewRef, globalUsers, toggleCommentAddOpen }} />
+			))}
 			<AnimatePresence>
 				{markerPos && (
-					<ProjectReviewMarker {...{ ...markerPos, commentIndex: null }}>
-						<ProjectReviewCommentBox {...{ markerPos, boxOpen, toggleBox, phaseId, projectImageId }} />
+					<ProjectReviewMarker {...{ ...markerPos }}>
+						<ProjectReviewCommentAdd {...{ markerPos, phaseId, projectImageId, toggleCommentAddOpen }} />
 					</ProjectReviewMarker>
 				)}
 			</AnimatePresence>

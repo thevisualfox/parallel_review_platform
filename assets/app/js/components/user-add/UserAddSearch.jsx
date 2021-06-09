@@ -12,7 +12,7 @@ import filterUsers from './services/filterUsers';
 /* Api */
 import { addUser, fetchGobalUsers, QUERY_KEYS } from '../../api';
 
-export default function UserAddSearch({ users, project, toggleBox }) {
+export default function UserAddSearch({ users, project, toggleModal }) {
 	/* State */
 	const [query, setQuery] = useState('');
 	const [focusedUser, setFocusedUser] = useState(0);
@@ -100,7 +100,7 @@ export default function UserAddSearch({ users, project, toggleBox }) {
 				/>
 			</div>
 			<div className="d-flex align-items-center justify-content-center mt-4">
-				<Button title="Done" onClick={toggleBox} extensionClasses="w-50 justify-content-center" />
+				<Button title="Done" onClick={toggleModal} extensionClasses="w-50 justify-content-center" />
 			</div>
 		</div>
 	);
