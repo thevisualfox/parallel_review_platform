@@ -59,11 +59,14 @@ export default function ProjectReviewCanvas({ title, phases = [], projectImageId
 			/>
 			{comments.length > 0 &&
 				comments.map((comment, commentIndex) => (
-					<ProjectReviewComment key={commentIndex} {...{ ...comment, commentIndex, reviewRef, globalUsers }} />
+					<ProjectReviewComment
+						key={commentIndex}
+						{...{ ...comment, commentIndex, reviewRef, globalUsers }}
+					/>
 				))}
 			<AnimatePresence>
 				{markerPos && (
-					<ProjectReviewMarker {...{ ...markerPos }}>
+					<ProjectReviewMarker {...{ ...markerPos, commentIndex: null }}>
 						<ProjectReviewCommentBox {...{ markerPos, boxOpen, toggleBox, phaseId, projectImageId }} />
 					</ProjectReviewMarker>
 				)}

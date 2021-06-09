@@ -36,6 +36,7 @@ export default function Box({
 		<AnimatePresence>
 			{boxOpen && (
 				<motion.div
+					layout
 					ref={boxRef}
 					transition={{ duration: 0.2 }}
 					className={`box ${renderOnBody && 'box--center'} ${extensionClasses}`}

@@ -21,7 +21,15 @@ export default function ProjectReviewComment({ author, comment, position, commen
 
 	/* Render */
 	return (
-		<ProjectReviewMarker {...{ xPercent, yPercent, author, commentIndex, toggleComment: toggleBox }}>
+		<ProjectReviewMarker
+			{...{
+				xPercent,
+				yPercent,
+				author,
+				commentIndex: commentIndex + 1,
+				commentOpen: boxOpen,
+				toggleComment: toggleBox,
+			}}>
 			{boxOpen && <Comment {...{ comment, author, boxOpen, toggleBox, position, reviewRef, globalUsers }} />}
 		</ProjectReviewMarker>
 	);
