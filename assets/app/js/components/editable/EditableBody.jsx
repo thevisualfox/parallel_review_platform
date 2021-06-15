@@ -50,7 +50,7 @@ export default function EditableBody({
 				{title}
 			</label>
 			<TextareaAutosize
-				className="form-control form-control-sm form-control--text"
+				className="form-control form-control--text"
 				id={inputType}
 				name={inputType}
 				type="text"
@@ -60,7 +60,7 @@ export default function EditableBody({
 			/>
 			<Button
 				title="Save"
-				extensionClasses="mt-4 w-50 justify-content-center"
+				extensionClasses="mt-3 w-50 justify-content-center"
 				isLoading={editMutation.isLoading}
 				type="submit"
 			/>

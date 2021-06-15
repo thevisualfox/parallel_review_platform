@@ -14,7 +14,7 @@ import { fetchGobalUsers, QUERY_KEYS } from '../../api';
 /* Global */
 const cursorOffset = 10;
 
-export default function ProjectReviewCanvas({ title, phases = [], projectImageId }) {
+export default function ProjectReviewCanvas({ title, phases = [] }) {
 	/* Queries */
 	const { data: globalUsers = [] } = useQuery(QUERY_KEYS.GLOBAL_USERS, fetchGobalUsers);
 
@@ -52,12 +52,15 @@ export default function ProjectReviewCanvas({ title, phases = [], projectImageId
 				onClick={posMarker}
 			/>
 			{comments?.map((comment, commentIndex) => (
-				<ProjectReviewComment key={comment.id} {...{ ...comment, commentIndex, reviewRef, globalUsers, toggleCommentAddOpen }} />
+				<ProjectReviewComment
+					key={comment.id}
+					{...{ ...comment, commentIndex, reviewRef, globalUsers, toggleCommentAddOpen }}
+				/>
 			))}
 			<AnimatePresence>
 				{markerPos && (
 					<ProjectReviewMarker {...{ ...markerPos }}>
-						<ProjectReviewCommentAdd {...{ markerPos, phaseId, projectImageId, toggleCommentAddOpen }} />
+						<ProjectReviewCommentAdd {...{ markerPos, phaseId, toggleCommentAddOpen }} />
 					</ProjectReviewMarker>
 				)}
 			</AnimatePresence>

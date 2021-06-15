@@ -75,7 +75,7 @@ export default function UserAddSearch({ users, project, toggleModal }) {
 					Search name or email
 				</label>
 				<input
-					className="form-control form-control-sm form-control--search"
+					className="form-control form-control--search"
 					id="userQuery"
 					name="userQuery"
 					placeholder="Search name or email"
@@ -99,7 +99,7 @@ export default function UserAddSearch({ users, project, toggleModal }) {
 					}}
 				/>
 			</div>
-			<div className="d-flex align-items-center justify-content-center mt-4">
+			<div className="d-flex align-items-center justify-content-center mt-3">
 				<Button title="Done" onClick={toggleModal} extensionClasses="w-50 justify-content-center" />
 			</div>
 		</div>

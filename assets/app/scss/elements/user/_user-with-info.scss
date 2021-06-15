@@ -1,0 +1,22 @@
+.user--with-info {
+    .user__info {
+        display: flex;
+        align-items: baseline;
+    }
+
+    .user__info-display {
+        @extend .text--sm;
+    }
+
+    &-vertical .user__info {
+        flex-direction: column;
+    }
+
+    &-horizontal .user__info {
+        flex-direction: row;
+
+        .user__info-organisation {
+            @extend .ml-1;
+        }
+    }
+}

@@ -7,32 +7,34 @@ use App\Dto\Response\Transformer\CommentResponseDtoTransformer;
 use App\Entity\Comment;
 use App\Entity\Phase;
 use App\Message\MentionedByEmail;
-use App\Repository\UserRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Messenger\MessageBusInterface;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Security\Core\Security;
 
 final class CommentAddAction extends AbstractApiController
 {
+    /** @var Security $security */
+    private $security;
+
     /** @var CommentResponseDtoTransformer  $commentResponseDtoTransformer */
     private $commentResponseDtoTransformer;
 
     /** @var MessageBusInterface  $messageBus */
     private $messageBus;
 
-    /** @var UserRepository  $userRepository */
-    private $userRepository;
-
     public function __construct(
         CommentResponseDtoTransformer $commentResponseDtoTransformer,
         MessageBusInterface $messageBus,
-        UserRepository $userRepository
+        Security $security
     ) {
         $this->commentResponseDtoTransformer = $commentResponseDtoTransformer;
         $this->messageBus = $messageBus;
-        $this->userRepository = $userRepository;
+
+        $this->security = $security;
+        $this->user = $this->security->getUser();
     }
 
     /**
@@ -42,19 +44,19 @@ final class CommentAddAction extends AbstractApiController
     {
         $requestBody = $request->request->all();
 
-        $author = $this->userRepository->find($requestBody['userId']);
-
         $comment = new Comment();
         $comment->setComment($requestBody['comment']);
         $comment->setPhase($phase);
-        $comment->setAuthor($author);
+        $comment->setAuthor($this->user);
         $comment->setPositionX($requestBody['positionX']);
         $comment->setPositionY($requestBody['positionY']);
 
         $entityManager->persist($comment);
         $entityManager->flush();
 
-        $this->sendMentionedByMails($requestBody['mentioned'], $author->getId(), $requestBody['referer']);
+        if (!empty($requestBody['mentioned'])) {
+            $this->sendMentionedByMails($requestBody['mentioned'], $this->user->getId(), $requestBody['referer']);
+        }
 
         return $this->respond($this->commentResponseDtoTransformer->transformFromObject($comment));
     }

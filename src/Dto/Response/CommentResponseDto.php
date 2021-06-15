@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Dto\Response;
 
+use App\Entity\Comment;
 use App\Entity\User;
 use JMS\Serializer\Annotation as Serialization;
 
@@ -38,4 +39,10 @@ class CommentResponseDto
      * @Serialization\Type("string")
      */
     public $created;
+
+    /**
+     * @var Comment[] $comments
+     * @Serialization\Type("array<App\Dto\Response\CommentResponseDto>")
+     */
+    public $comments;
 }

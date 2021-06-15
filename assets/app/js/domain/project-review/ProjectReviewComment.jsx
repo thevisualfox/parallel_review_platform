@@ -9,6 +9,7 @@ import { User } from '../../components';
 
 /* Domain */
 import ProjectReviewMarker from './ProjectReviewMarker';
+import ProjectReviewCommentReply from './ProjectReviewCommentReply';
 
 /* Assets */
 import closeIcon from 'icons/close.svg';
@@ -40,13 +41,13 @@ export default function ProjectReviewComment({ id, author, commentIndex, positio
 		<ProjectReviewMarker
 			{...{ xPercent, yPercent, author, commentIndex: commentIndex + 1, commentOpen, toggleComment }}>
 			<AnimatePresence>
-				{commentOpen && <Comment key={id} {...{ author, commentOpen, toggleComment, position, ...rest }} />}
+				{commentOpen && <Comment key={id} {...{ id, author, commentOpen, toggleComment, position, ...rest }} />}
 			</AnimatePresence>
 		</ProjectReviewMarker>
 	);
 }
 
-const Comment = ({ comment, author, created, toggleComment, position, reviewRef, globalUsers }) => {
+const Comment = ({ comment, id, author, created, toggleComment, position, reviewRef, globalUsers }) => {
 	/* State */
 	const [transformedPos, setTransformedPos] = useState(position);
 
@@ -78,24 +79,23 @@ const Comment = ({ comment, author, created, toggleComment, position, reviewRef,
 					}
 
 					return (
-						<>
-							<span key={comment}>{`${comment} `}</span>{' '}
+						<React.Fragment key={commentIndex}>
+							<span>{`${comment} `}</span>{' '}
 							{user && (
 								<>
-									<span
-										key={user.id}
-										className="mentions__mention px-1"
-										style={{ '--theme': user.userColor }}>
+									<span className="mentions__mention px-1" style={{ '--theme': user.userColor }}>
 										<span>@{user.display}</span>
 									</span>{' '}
 								</>
 							)}
-						</>
+						</React.Fragment>
 					);
 				})}
 			</p>
 		);
 	};
+
+	const [replyActive, setReplyActive] = useState(false);
 
 	/* Render */
 	return (
@@ -106,7 +106,7 @@ const Comment = ({ comment, author, created, toggleComment, position, reviewRef,
 				<div className="custom-modal__header d-flex align-items-start">
 					<div className="d-flex align-items-center w-100">
 						<User {...{ user: author }} size="xl" />
-						<div className="d-flex flex-column w-100 ml-2">
+						<div className="d-flex flex-column w-100 ml-3">
 							<div className="d-flex align-items-center">
 								<p className="text--lg mb-0">{author.display}</p>
 								<button
@@ -121,15 +121,18 @@ const Comment = ({ comment, author, created, toggleComment, position, reviewRef,
 					</div>
 				</div>
 				<div className="custom-modal__body d-flex mt-4">
-					<div className="d-flex flex-column">
+					<div className="d-flex flex-column w-100">
 						{renderComment()}
-						<div className="d-flex align-items-center mt-2">
+						<div className="d-flex align-items-center mt-1">
 							<p className="text-muted--60 mb-0 hr-2 text--sm">{created}</p>
 							<p className="text-muted--60 mb-0 hr-2 text--sm font-weight-normal">7 agree</p>
-							<button className="btn btn-link text-muted--60 mb-0 hr-2 text--sm font-weight-normal">
+							<button
+								className="btn btn-link text-muted--60 mb-0 hr-2 text--sm font-weight-normal"
+								onClick={() => setReplyActive(true)}>
 								<span className="btn-text text-white">Reply</span>
 							</button>
 						</div>
+						{replyActive && <ProjectReviewCommentReply {...{ replyTo: author, commentId: id }} />}
 					</div>
 				</div>
 			</motion.div>

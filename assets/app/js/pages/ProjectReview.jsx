@@ -15,6 +15,9 @@ import { fetchProjectImageById, QUERY_KEYS } from '../api';
 /* Hooks */
 import { usePageTitle } from '../hooks';
 
+/* Context */
+import { ReviewContext } from '../context';
+
 export default function ProjectReview() {
 	/* Queries */
 	const { id: projectImageId } = useParams();
@@ -27,11 +30,13 @@ export default function ProjectReview() {
 
 	/* Render */
 	return (
-		<PageWrapper>
-			<PageLoader {...{ isLoading }}>
-				<ProjectReviewHeader {...data} />
-				<ProjectReviewCanvas {...{ ...data, projectImageId }} />
-			</PageLoader>
-		</PageWrapper>
+		<ReviewContext.Provider value={{ projectImageId }}>
+			<PageWrapper>
+				<PageLoader {...{ isLoading }}>
+					<ProjectReviewHeader {...data} />
+					<ProjectReviewCanvas {...data} />
+				</PageLoader>
+			</PageWrapper>
+		</ReviewContext.Provider>
 	);
 }

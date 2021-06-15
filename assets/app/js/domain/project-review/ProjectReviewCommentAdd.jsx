@@ -28,7 +28,10 @@ import { FADE_IN_UP } from '../../animations';
 /* Hooks */
 import { useCloseOnEsc } from '../../hooks';
 
-export default function ProjectReviewCommentAdd({ markerPos, phaseId, projectImageId, toggleCommentAddOpen }) {
+/* Context */
+import { ReviewContext } from '../../context';
+
+export default function ProjectReviewCommentAdd({ markerPos, phaseId, toggleCommentAddOpen }) {
 	/* Refs */
 	const formRef = useRef();
 	const modalRef = useRef();
@@ -44,6 +47,7 @@ export default function ProjectReviewCommentAdd({ markerPos, phaseId, projectIma
 	useCloseOnEsc(markerPos, toggleCommentAddOpen);
 	const { currentUser: user } = useContext(StaticContext);
 	const queryClient = useQueryClient();
+	const { projectImageId } = useContext(ReviewContext);
 
 	/* Mutations */
 	const addCommentMutation = useMutation(addComment, {
@@ -65,7 +69,7 @@ export default function ProjectReviewCommentAdd({ markerPos, phaseId, projectIma
 				<div className="custom-modal__header d-flex align-items-start">
 					<div className="d-flex align-items-center w-100">
 						<User {...{ user }} size="xl" />
-						<div className="d-flex flex-column w-100 ml-2">
+						<div className="d-flex flex-column w-100 ml-3">
 							<div className="d-flex align-items-center">
 								<p className="text--lg mb-0">Add a comment</p>
 								<button
@@ -99,11 +103,13 @@ export default function ProjectReviewCommentAdd({ markerPos, phaseId, projectIma
 							Add a comment
 						</label>
 						<div className="position-relative w-100">
-							<ProjectReviewCommentMentions {...{ comment, setComment, mentions, setMentions }} />
+							<ProjectReviewCommentMentions
+								{...{ comment, setComment, mentions, setMentions, autoFocus: true }}
+							/>
 						</div>
 						<Button
 							title="Submit"
-							extensionClasses="mt-4 w-50 justify-content-center"
+							extensionClasses="mt-3 w-50 justify-content-center"
 							type="submit"
 							{...{ isLoading: addCommentMutation.isLoading }}
 						/>

@@ -41,7 +41,7 @@ export default function Alert({ message, appearance, closeToast }) {
 					<ReactSVG wrapper="svg" className="icon icon--10" src={closeIcon} />
 				</button>
 			</div>
-			<span className="alert__message text--xs text-muted--70 mr-lg-8">{message}</span>
+			<span className="alert__message text--sm text-muted--70 mr-lg-8">{message}</span>
 		</div>
 	);
 }

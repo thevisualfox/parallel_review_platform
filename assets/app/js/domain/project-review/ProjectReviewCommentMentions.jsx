@@ -1,27 +1,38 @@
 /* Packages */
-import React, { useEffect } from 'react';
+import React, { useEffect, useRef } from 'react';
 import { useQuery } from 'react-query';
 import { MentionsInput, Mention } from 'react-mentions';
+import { ReactSVG } from 'react-svg';
 
 /* Assets */
 import addUserIcon from 'icons/add_user.svg';
+
+/* Components */
+import { UserAvatar, UserInfo } from '../../components/users/User';
 
 /* Services */
 import styleMentions from './services/styleMention';
 
 /* Api */
 import { QUERY_KEYS, fetchGobalUsers } from '../../api';
-import { UserAvatar, UserInfo } from '../../components/users/User';
-import { ReactSVG } from 'react-svg';
 
-export default function ProjectReviewCommentMentions({ comment, setComment, mentions, setMentions }) {
+export default function ProjectReviewCommentMentions({
+	comment,
+	setComment,
+	mentions,
+	setMentions,
+	autoFocus = false,
+}) {
 	/* Queries */
 	const { data: globalUsers = [] } = useQuery(QUERY_KEYS.GLOBAL_USERS, fetchGobalUsers);
 
+	/* Refs */
+	const mentionRef = useRef();
+
 	/* Effects */
 	useEffect(() => {
-		if (mentions.length > 0) styleMentions(globalUsers);
-	}, [mentions]);
+		if (mentions.length > 0 && mentionRef?.current) styleMentions(globalUsers, mentionRef.current);
+	}, [mentions, mentionRef?.current]);
 
 	/* Render */
 	return (
@@ -32,9 +43,10 @@ export default function ProjectReviewCommentMentions({ comment, setComment, ment
 				id="comment"
 				name="comment"
 				placeholder="Say something nice..."
-				autoFocus
 				onChange={(event) => setComment(event.target.value)}
-				onClick={() => styleMentions(globalUsers)}>
+				onClick={() => styleMentions(globalUsers)}
+				inputRef={mentionRef}
+				autoFocus={autoFocus}>
 				<Mention
 					trigger="@"
 					data={globalUsers}

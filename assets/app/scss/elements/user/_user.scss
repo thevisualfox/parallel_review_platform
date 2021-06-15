@@ -1,77 +1,71 @@
-:root {
+.user {
     --avatar-dimensions: 28px;
     --status-dimensions: 12px;
-}
 
-.user {
     position: relative;
-}
 
-@function hsl($color) {
-    @return $color;
-}
+    &__avatar {
+        @extend %center-flex;
+        @extend .position-relative;
 
-.user__avatar {
-    @extend %center-flex;
-    @extend .position-relative;
-
-    width: var(--avatar-dimensions);
-    height: var(--avatar-dimensions);
-    color: Hsl(var(--theme)); /* stylelint-disable-line function-name-case */
-    background-color: Hsl(var(--theme), $opacity-level); /* stylelint-disable-line function-name-case */
-    border: $border-width solid Hsl(var(--theme), 0); /* stylelint-disable-line function-name-case */
-    border-radius: 50%;
-    transition: border-color 150ms ease;
-
-    &:before,
-    &:after {
-        @extend %absolute-fill;
-
-        content: "";
+        width: var(--avatar-dimensions);
+        height: var(--avatar-dimensions);
+        color: Hsl(var(--theme)); /* stylelint-disable-line function-name-case */
+        background-color: Hsl(var(--theme), $opacity-level); /* stylelint-disable-line function-name-case */
+        border: $border-width solid Hsl(var(--theme), 0); /* stylelint-disable-line function-name-case */
         border-radius: 50%;
         transition: border-color 150ms ease;
-        pointer-events: none;
+
+        &:before,
+        &:after {
+            @extend %absolute-fill;
+
+            content: "";
+            border-radius: 50%;
+            transition: border-color 150ms ease;
+            pointer-events: none;
+        }
     }
-}
 
-.user__image {
-    @include object-fit(cover);
-}
+    &__image {
+        @include object-fit(cover);
+    }
 
-.user__initials {
-    @extend %center-flex;
+    &__initials {
+        @extend %center-flex;
 
-    font-family: $font-family-base;
-    font-size: calc(var(--avatar-dimensions) * 0.4);
-    color: Hsl(var(--theme)); /* stylelint-disable-line function-name-case */
-}
+        font-family: $font-family-base;
+        font-size: calc(var(--avatar-dimensions) * 0.4);
+        color: Hsl(var(--theme)); /* stylelint-disable-line function-name-case */
+    }
 
-.user__status {
-    @extend %center-flex;
+    &__status {
+        @extend %center-flex;
 
-    position: absolute;
-    top: calc(var(--status-dimensions) / 4 * -1);
-    left: calc(var(--status-dimensions) / 4 * -1);
-    height: var(--status-dimensions);
-    width: var(--status-dimensions);
-    border-radius: 50%;
-}
+        position: absolute;
+        top: calc(var(--status-dimensions) / 4 * -1);
+        left: calc(var(--status-dimensions) / 4 * -1);
+        height: var(--status-dimensions);
+        width: var(--status-dimensions);
+        border-radius: 50%;
 
-.user__status-icon {
-    width: calc(var(--status-dimensions) / 2);
-    height: calc(var(--status-dimensions) / 2);
-}
+        &--leader {
+            background-color: $black;
+        }
+    }
 
-.user__status--leader {
-    background-color: $black;
-}
+    &__status-icon {
+        width: calc(var(--status-dimensions) / 2);
+        height: calc(var(--status-dimensions) / 2);
+    }
 
-.user--lg {
-    --avatar-dimensions: 30px;
-    --status-dimensions: 16px;
-}
+    &--lg {
+        --avatar-dimensions: 30px;
+        --status-dimensions: 16px;
+    }
 
-.user--xl {
-    --avatar-dimensions: 42px;
-    --status-dimensions: 20px;
+    &--xl {
+        --avatar-dimensions: 42px;
+        --status-dimensions: 20px;
+    }
 }
