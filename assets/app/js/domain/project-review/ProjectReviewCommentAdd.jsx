@@ -61,7 +61,7 @@ export default function ProjectReviewCommentAdd({ markerPos, phaseId, toggleComm
 	return (
 		<motion.div
 			layout
-			transition={{ duration: 0.2 }}
+			transition={{ duration: 0.1 }}
 			ref={modalRef}
 			className="review__custom-modal custom-modal"
 			style={{ '--left': left, '--top': top }}>

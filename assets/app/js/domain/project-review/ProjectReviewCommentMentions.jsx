@@ -69,7 +69,12 @@ const Suggestion = (entry, query, highlighted, index, focused) => (
 		<button className={`user user--select user--xl ${focused && 'is-focused'}`} type="button">
 			<div className="d-flex align-items-center">
 				<UserAvatar {...entry} />
-				<UserInfo {...entry} />
+				<UserInfo
+					{...{
+						title: entry.display,
+						subtitle: entry.organisation ? entry.organisation : 'No organisation',
+					}}
+				/>
 				<div className="user__add text-secondary rounded-circle ml-auto">
 					<ReactSVG wrapper="svg" className="user__add-icon icon icon--12 text-secondary" src={addUserIcon} />
 				</div>

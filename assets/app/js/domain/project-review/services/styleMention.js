@@ -10,10 +10,12 @@ export default function styleMentions(users, input) {
 
 			mention.style.setProperty('--theme', userOfMention.userColor);
 
-			setTimeout(function () {
-				input.focus();
-				input.setSelectionRange(200, -1);
-			}, 1);
+			if (input) {
+				setTimeout(function () {
+					input.focus();
+					input.setSelectionRange(200, -1);
+				}, 1);
+			}
 		}
 	}
 }

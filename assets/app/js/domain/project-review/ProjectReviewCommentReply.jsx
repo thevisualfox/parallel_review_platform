@@ -4,6 +4,7 @@ import { useMutation, useQueryClient } from 'react-query';
 
 /* Components */
 import { User, Button } from '../../components';
+import { UserInfo } from '../../components/users/User';
 
 /* Context */
 import { StaticContext, ReviewContext } from '../../context';
@@ -44,7 +45,17 @@ export default function ProjectReviewCommentReply({ replyTo, commentId }) {
 				});
 			}}>
 			<hr className="my-3" />
-			<User {...{ user: currentUser, showInfo: 'horizontal' }} />
+			<div className="d-flex align-items-center">
+				<User {...{ user: currentUser }} />
+				<UserInfo
+					{...{
+						title: currentUser.display,
+						subtitle: `/ ${currentUser.organisation}`,
+						layout: 'horizontal',
+						size: 'sm',
+					}}
+				/>
+			</div>
 			<ProjectReviewCommentMentions {...{ comment: reply, setComment: setReply, mentions, setMentions }} />
 			<Button
 				title="Submit"

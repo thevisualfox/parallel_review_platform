@@ -33,7 +33,12 @@ export default function UserSelect({ user, userIndex, handleClick, isFocused, se
 			type="button">
 			<div className="d-flex align-items-center">
 				<UserAvatar isLoading={isLoading && isFocused} {...user} />
-				<UserInfo {...user} />
+				<UserInfo
+					{...{
+						title: user.display,
+						subtitle: user.organitation ? user.organitation : 'No organisation',
+					}}
+				/>
 				<div className="user__add text-secondary rounded-circle ml-auto">
 					<ReactSVG wrapper="svg" className="user__add-icon icon icon--12 text-secondary" src={addUserIcon} />
 				</div>

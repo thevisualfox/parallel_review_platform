@@ -13,7 +13,7 @@ import deleteIcon from 'icons/delete.svg';
 /* Api */
 import { deleteUser, QUERY_KEYS } from '../../api';
 
-export default function User({ user, project, showInfo = false, variant = 'default', size = 'md' }) {
+export default function User({ user, project, variant = 'default', size = 'md' }) {
 	/* Hooks */
 	const queryClient = useQueryClient();
 
@@ -29,9 +29,7 @@ export default function User({ user, project, showInfo = false, variant = 'defau
 
 	/* Render */
 	return (
-		<div
-			className={`user user--${size} user--${variant} ${isAuthor && 'user--author'}
-			${showInfo && `user--with-info user--with-info-${showInfo}`}`}>
+		<div className={`user user--${size} user--${variant} ${isAuthor && 'user--author'}`}>
 			<div className="d-flex align-items-center">
 				<UserAvatar isLoading={deleteUserMutation.isLoading} {...user}>
 					{variant === 'interactive' && !isAuthor && (
@@ -43,7 +41,6 @@ export default function User({ user, project, showInfo = false, variant = 'defau
 						</button>
 					)}
 				</UserAvatar>
-				{showInfo && <UserInfo {...user} />}
 			</div>
 			{isAuthor && (
 				<div className="user__status user__status--leader">
@@ -69,9 +66,9 @@ export const UserAvatar = ({ display, userColor, isLoading, children }) => {
 	);
 };
 
-export const UserInfo = ({ display, organisation }) => (
-	<div className={`user__info ml-2`}>
-		<p className="user__info-display mb-0">{display}</p>
-		{organisation && <p className="user__info-organisation text-muted--60 text--xs mb-0">{organisation}</p>}
+export const UserInfo = ({ title, subtitle, layout = 'vertical', size = 'lg' }) => (
+	<div className={`user__info user__info--${layout} user__info--${size} ml-2`}>
+		<p className="user__info-title mb-0">{title}</p>
+		{subtitle && <p className="user__info-subtitle mb-0">{subtitle}</p>}
 	</div>
 );

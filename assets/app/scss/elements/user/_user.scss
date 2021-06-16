@@ -59,6 +59,42 @@
         height: calc(var(--status-dimensions) / 2);
     }
 
+    &__info {
+        --font-size-title: #{$font-size-base};
+        --font-size-subtitle: #{$font-size-sm};
+        --subtitle-margin: 0;
+
+        @extend .d-flex;
+
+        &-title {
+            font-size: var(--font-size-title);
+            line-height: $line-height-xl;
+        }
+
+        &-subtitle {
+            @extend .text-muted--60;
+
+            font-size: var(--font-size-subtitle);
+            line-height: $line-height-sm;
+            margin-left: var(--subtitle-margin);
+        }
+
+        &--vertical {
+            @extend .flex-column;
+        }
+
+        &--horizontal {
+            @extend .flex-row, .align-items-baseline;
+
+            --subtitle-margin: #{spacer(1)};
+        }
+
+        &--sm {
+            --font-size-title: #{$font-size-sm};
+            --font-size-subtitle: #{$font-size-xs};
+        }
+    }
+
     &--lg {
         --avatar-dimensions: 30px;
         --status-dimensions: 16px;
