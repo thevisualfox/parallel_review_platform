@@ -1,0 +1,26 @@
+.comment {
+    @extend .vr-3;
+
+    &:not(:last-child) {
+        @extend .pb-3, .border-bottom;
+    }
+
+    &__created,
+    &__agree,
+    &__reply-toggle {
+        @extend .text--sm;
+    }
+
+    & ~ .comment {
+        .comment__mention,
+        .comment__content {
+            @extend .text--sm;
+        }
+
+        .comment__created,
+        .comment__agree,
+        .comment__reply-toggle {
+            @extend .text--xs;
+        }
+    }
+}

@@ -29,7 +29,7 @@ class PhaseResponseDtoTransformer extends AbstractResponseDtoTransformer
         $dto->id = $phase->getId();
         $dto->phase = $phase->getPhase();
         $dto->image = $this->transformImages($phase->getImage());
-        $dto->comments = $this->commentResponseDtoTransformer->transformFromObjects($phase->getComments());
+        $dto->comments = $this->commentResponseDtoTransformer->transformFromObjects($phase->getParentComments());
 
         return $dto;
     }

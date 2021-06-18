@@ -17,6 +17,7 @@ export { default as UserAddSearchResults } from './user-add/UserAddSearchResults
 export { default as Header } from './header/Header';
 export { default as HeaderNavigation } from './header/HeaderNavigation';
 
+export * from './users/User';
 export { default as User } from './users/User';
 export { default as Users } from './users/Users';
 export { default as UserSelect } from './users/UserSelect';

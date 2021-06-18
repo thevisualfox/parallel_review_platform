@@ -5,7 +5,7 @@ import { useQuery } from 'react-query';
 
 /* Domain */
 import ProjectReviewMarker from './ProjectReviewMarker';
-import ProjectReviewComment from './ProjectReviewComment';
+import ProjectReviewCommentModal from './ProjectReviewCommentModal';
 import ProjectReviewCommentAdd from './ProjectReviewCommentAdd';
 
 /* Api */
@@ -52,9 +52,9 @@ export default function ProjectReviewCanvas({ title, phases = [] }) {
 				onClick={posMarker}
 			/>
 			{comments?.map((comment, commentIndex) => (
-				<ProjectReviewComment
+				<ProjectReviewCommentModal
 					key={comment.id}
-					{...{ ...comment, commentIndex, reviewRef, globalUsers, toggleCommentAddOpen }}
+					{...{ comment, commentIndex, reviewRef, globalUsers, toggleCommentAddOpen }}
 				/>
 			))}
 			<AnimatePresence>

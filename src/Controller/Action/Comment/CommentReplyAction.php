@@ -46,7 +46,6 @@ final class CommentReplyAction extends AbstractApiController
         $reply = new Comment();
         $reply->setComment($requestBody['reply']);
         $reply->setAuthor($this->user);
-        $reply->setAuthor($this->user);
         $reply->setParent($comment);
 
         /* Copy from parent */

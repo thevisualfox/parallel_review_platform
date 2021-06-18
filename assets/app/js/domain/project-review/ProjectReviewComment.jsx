@@ -1,69 +1,20 @@
 /* Packages */
-import { AnimatePresence, motion } from 'framer-motion';
-import React, { useEffect, useRef, useState } from 'react';
-import { ReactSVG } from 'react-svg';
-import { FADE_IN_UP } from '../../animations';
-
-/* Components */
-import { User } from '../../components';
+import React, { useState } from 'react';
 
 /* Domain */
-import ProjectReviewMarker from './ProjectReviewMarker';
 import ProjectReviewCommentReply from './ProjectReviewCommentReply';
 
-/* Assets */
-import closeIcon from 'icons/close.svg';
+/* Components*/
+import { User, UserInfo } from '../../components';
 
-/* Services */
-import { calcCommentPos } from './services';
-
-/* Hooks */
-import { useCloseOnEsc } from '../../hooks';
-
-export default function ProjectReviewComment({ id, author, commentIndex, position, toggleCommentAddOpen, ...rest }) {
-	/* Constants */
-	const { xPercent, yPercent } = position;
+export default function ProjectReviewComment({ comment: content, commentParentId, globalUsers, renderAuthor = false }) {
+	/* Contants */
+	const { author, created, comment, comments } = content;
 
 	/* State */
-	const [commentOpen, setCommentOpen] = useState(false);
+	const [replyActive, setReplyActive] = useState(false);
 
-	/* Callbacks */
-	const toggleComment = () => {
-		if (!commentOpen) toggleCommentAddOpen();
-		setCommentOpen(!commentOpen);
-	};
-
-	/* Hooks */
-	useCloseOnEsc(commentOpen, setCommentOpen);
-
-	/* Render */
-	return (
-		<ProjectReviewMarker
-			{...{ xPercent, yPercent, author, commentIndex: commentIndex + 1, commentOpen, toggleComment }}>
-			<AnimatePresence>
-				{commentOpen && <Comment key={id} {...{ id, author, commentOpen, toggleComment, position, ...rest }} />}
-			</AnimatePresence>
-		</ProjectReviewMarker>
-	);
-}
-
-const Comment = ({ comment, id, author, created, toggleComment, position, reviewRef, globalUsers }) => {
-	/* State */
-	const [transformedPos, setTransformedPos] = useState(position);
-
-	/* Refs */
-	const boxRef = useRef();
-
-	/* Effects */
-	useEffect(() => {
-		if (position) {
-			setTransformedPos(() => {
-				position.reviewPos = reviewRef.current.getBoundingClientRect();
-				return calcCommentPos(boxRef, position);
-			});
-		}
-	}, [position]);
-
+	/* Render component */
 	const renderComment = () => {
 		const usersRegex = /@\[[^\]]*\]\{[0-9]+\}/gi;
 		const usersArray = [...comment.matchAll(usersRegex)];
@@ -80,10 +31,12 @@ const Comment = ({ comment, id, author, created, toggleComment, position, review
 
 					return (
 						<React.Fragment key={commentIndex}>
-							<span>{`${comment} `}</span>{' '}
+							<span className="comment__content">{`${comment} `}</span>{' '}
 							{user && (
 								<>
-									<span className="mentions__mention px-1" style={{ '--theme': user.userColor }}>
+									<span
+										className="comment__mention mentions__mention px-1"
+										style={{ '--theme': user.userColor }}>
 										<span>@{user.display}</span>
 									</span>{' '}
 								</>
@@ -95,47 +48,47 @@ const Comment = ({ comment, id, author, created, toggleComment, position, review
 		);
 	};
 
-	const [replyActive, setReplyActive] = useState(false);
-
 	/* Render */
 	return (
-		<motion.div
-			className="review__custom-modal custom-modal"
-			style={{ '--left': transformedPos.left, '--top': transformedPos.top }}>
-			<motion.div key="custom-modal-content" className="custom-modal__content border p-5" {...FADE_IN_UP(50)}>
-				<div className="custom-modal__header d-flex align-items-start">
-					<div className="d-flex align-items-center w-100">
-						<User {...{ user: author }} size="xl" />
-						<div className="d-flex flex-column w-100 ml-3">
-							<div className="d-flex align-items-center">
-								<p className="text--lg mb-0">{author.display}</p>
-								<button
-									type="button"
-									className="custom-modal__close btn btn-link ml-auto"
-									onClick={toggleComment}>
-									<ReactSVG wrapper="svg" className="icon icon--12" src={closeIcon} />
-								</button>
-							</div>
-							<p className="text-muted--60 mb-0 text--sm">{author.organisation}</p>
-						</div>
+		<>
+			<div className="comment">
+				{renderAuthor && (
+					<div className="d-flex align-items-center mb-2">
+						<User {...{ user: author }} />
+						<UserInfo
+							{...{
+								title: author.display,
+								subtitle: `/ ${author.organisation}`,
+								layout: 'horizontal',
+								size: 'sm',
+							}}
+						/>
 					</div>
+				)}
+				{renderComment()}
+				<div className="d-flex align-items-center mt-1">
+					<p className="comment__created text-muted--60 mb-0 hr-2">{created}</p>
+					<p className="comment__agree text-muted--60 mb-0 hr-2 font-weight-normal">7 agree</p>
+					<button
+						className="comment__reply-toggle btn btn-link text-muted--60 mb-0 hr-2 font-weight-normal"
+						onClick={() => setReplyActive(true)}>
+						<span className="btn-text text-white">Reply</span>
+					</button>
 				</div>
-				<div className="custom-modal__body d-flex mt-4">
-					<div className="d-flex flex-column w-100">
-						{renderComment()}
-						<div className="d-flex align-items-center mt-1">
-							<p className="text-muted--60 mb-0 hr-2 text--sm">{created}</p>
-							<p className="text-muted--60 mb-0 hr-2 text--sm font-weight-normal">7 agree</p>
-							<button
-								className="btn btn-link text-muted--60 mb-0 hr-2 text--sm font-weight-normal"
-								onClick={() => setReplyActive(true)}>
-								<span className="btn-text text-white">Reply</span>
-							</button>
-						</div>
-						{replyActive && <ProjectReviewCommentReply {...{ replyTo: author, commentId: id }} />}
-					</div>
-				</div>
-			</motion.div>
-		</motion.div>
+				{replyActive && (
+					<ProjectReviewCommentReply
+						{...{ replyTo: author, commentId: commentParentId, setReplyActive: setReplyActive }}
+					/>
+				)}
+			</div>
+			{comments?.map((comment) => {
+				return (
+					<ProjectReviewComment
+						key={comment.id}
+						{...{ comment, commentParentId: commentParentId, globalUsers, renderAuthor: true }}
+					/>
+				);
+			})}
+		</>
 	);
-};
+}

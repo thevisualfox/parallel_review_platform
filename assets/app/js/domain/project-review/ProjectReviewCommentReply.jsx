@@ -15,7 +15,7 @@ import ProjectReviewCommentMentions from './ProjectReviewCommentMentions';
 /* Api */
 import { addReply, QUERY_KEYS } from '../../api';
 
-export default function ProjectReviewCommentReply({ replyTo, commentId }) {
+export default function ProjectReviewCommentReply({ replyTo, commentId, setReplyActive }) {
 	/* State */
 	const [reply, setReply] = useState(`@[${replyTo.display}]{${replyTo.id}} `);
 	const [mentions, setMentions] = useState([replyTo.id]);
@@ -29,6 +29,7 @@ export default function ProjectReviewCommentReply({ replyTo, commentId }) {
 	const addReplyMutation = useMutation(addReply, {
 		onSuccess: () => {
 			queryClient.invalidateQueries([QUERY_KEYS.PROJECT_IMAGE_BY_ID, parseInt(projectImageId)]);
+			setReplyActive(false);
 		},
 	});
 
