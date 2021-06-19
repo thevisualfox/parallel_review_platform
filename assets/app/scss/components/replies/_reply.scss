@@ -1,5 +1,5 @@
 .reply {
-    @extend .d-flex, .flex-column;
+    @extend .d-flex, .flex-column, .ml-4;
 
     .mentions {
         @extend .mt-2;

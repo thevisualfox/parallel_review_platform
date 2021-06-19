@@ -25,5 +25,9 @@
     .review__custom-modal {
         top: var(--top);
         left: var(--left);
+
+        .custom-modal__content {
+            width: 420px;
+        }
     }
 }

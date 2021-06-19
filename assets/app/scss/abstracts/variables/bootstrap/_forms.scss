@@ -1,23 +1,23 @@
 // Forms
 
-$input-padding-y:                       px-to-rem(12);
-$input-padding-x:                       px-to-rem(15);
+$input-padding-y:                       px-to-rem(10);
+$input-padding-x:                       px-to-rem(0);
 $input-font-size:                       $font-size-base;
 $input-line-height:                     $line-height-base;
 
 $input-btn-padding-y-sm:                px-to-rem(10);
-$input-btn-padding-x-sm:                px-to-rem(15);
+$input-btn-padding-x-sm:                px-to-rem(0);
 $input-btn-font-size-sm:                $font-size-base;
 $input-btn-line-height-sm:              $line-height-base;
 
 $input-font-family:                     $font-family-sans-serif;
 $input-font-weight:                     $font-weight-light;
 
-$input-bg:                              $primary;
+$input-bg:                              transparent;
 $input-color:                           $border-color-inverted;
 $input-border-color:                    $border-color;
 $input-border-width:                    $input-btn-border-width;
-$input-border-radius:                   $border-radius;
+$input-border-radius:                   0;
 $input-box-shadow:                      none;
 
 $input-focus-border-color:              lighten($border-color, 7%);

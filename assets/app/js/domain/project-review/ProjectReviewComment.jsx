@@ -1,18 +1,12 @@
 /* Packages */
-import React, { useState } from 'react';
-
-/* Domain */
-import ProjectReviewCommentReply from './ProjectReviewCommentReply';
+import React from 'react';
 
 /* Components*/
 import { User, UserInfo } from '../../components';
 
-export default function ProjectReviewComment({ comment: content, commentParentId, globalUsers, renderAuthor = false }) {
+export default function ProjectReviewComment({ comment: content, globalUsers, setReplyToUser, renderAuthor = false }) {
 	/* Contants */
 	const { author, created, comment, comments } = content;
-
-	/* State */
-	const [replyActive, setReplyActive] = useState(false);
 
 	/* Render component */
 	const renderComment = () => {
@@ -21,7 +15,7 @@ export default function ProjectReviewComment({ comment: content, commentParentId
 		const comments = comment.split(/@\[[^\]]*\]\{[0-9]+\}/gi);
 
 		return (
-			<p>
+			<p className="lh--md">
 				{comments.map((comment, commentIndex) => {
 					let user;
 
@@ -71,21 +65,16 @@ export default function ProjectReviewComment({ comment: content, commentParentId
 					<p className="comment__agree text-muted--60 mb-0 hr-2 font-weight-normal">7 agree</p>
 					<button
 						className="comment__reply-toggle btn btn-link text-muted--60 mb-0 hr-2 font-weight-normal"
-						onClick={() => setReplyActive(true)}>
+						onClick={() => setReplyToUser(author)}>
 						<span className="btn-text text-white">Reply</span>
 					</button>
 				</div>
-				{replyActive && (
-					<ProjectReviewCommentReply
-						{...{ replyTo: author, commentId: commentParentId, setReplyActive: setReplyActive }}
-					/>
-				)}
 			</div>
 			{comments?.map((comment) => {
 				return (
 					<ProjectReviewComment
 						key={comment.id}
-						{...{ comment, commentParentId: commentParentId, globalUsers, renderAuthor: true }}
+						{...{ comment, globalUsers, setReplyToUser, renderAuthor: true }}
 					/>
 				);
 			})}

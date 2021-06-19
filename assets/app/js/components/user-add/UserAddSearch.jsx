@@ -69,7 +69,7 @@ export default function UserAddSearch({ users, project, toggleModal }) {
 	/* Render */
 	return (
 		<div className="d-flex flex-column flex-grow-1">
-			<Users {...{ users, project }} variant="interactive" size="xl" />
+			<Users {...{ users, project }} variant="interactive" size="lg" />
 			<div className="position-relative">
 				<label className="sr-only" htmlFor="userQuery">
 					Search name or email
@@ -87,6 +87,7 @@ export default function UserAddSearch({ users, project, toggleModal }) {
 					autoComplete="off"
 					ref={queryRef}
 				/>
+				<Button onClick={toggleModal} extensionClasses="form-control-btn" contentType="icon" theme="default" />
 				<UserAddSearchResults
 					{...{
 						filteredUsers,
@@ -98,9 +99,6 @@ export default function UserAddSearch({ users, project, toggleModal }) {
 						globalUsersLoading,
 					}}
 				/>
-			</div>
-			<div className="d-flex align-items-center justify-content-center mt-3">
-				<Button title="Done" onClick={toggleModal} extensionClasses="w-50 justify-content-center" />
 			</div>
 		</div>
 	);

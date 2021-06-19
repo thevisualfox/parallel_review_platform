@@ -36,7 +36,7 @@ export default function UserSelect({ user, userIndex, handleClick, isFocused, se
 				<UserInfo
 					{...{
 						title: user.display,
-						subtitle: user.organitation ? user.organitation : 'No organisation',
+						subtitle: user.organisation ? user.organisation : 'No organisation',
 					}}
 				/>
 				<div className="user__add text-secondary rounded-circle ml-auto">

@@ -71,7 +71,7 @@ export default function ProjectReviewCommentAdd({ markerPos, phaseId, toggleComm
 						<User {...{ user }} size="xl" />
 						<div className="d-flex flex-column w-100 ml-3">
 							<div className="d-flex align-items-center">
-								<p className="text--lg mb-0">Add a comment</p>
+								<p className="text--lg mb-0 lh--md">Add a comment</p>
 								<button
 									type="button"
 									className="custom-modal__close btn btn-link ml-auto"
@@ -79,7 +79,7 @@ export default function ProjectReviewCommentAdd({ markerPos, phaseId, toggleComm
 									<ReactSVG wrapper="svg" className="icon icon--12" src={closeIcon} />
 								</button>
 							</div>
-							<p className="text-muted--60 mb-0 text--md">
+							<p className="text-muted--60 mb-0 text--md lh--xs">
 								Comment or <span className="text-secondary"> @mention </span> someone
 							</p>
 						</div>
@@ -91,13 +91,15 @@ export default function ProjectReviewCommentAdd({ markerPos, phaseId, toggleComm
 						className="d-flex flex-column align-items-center flex-grow-1"
 						onSubmit={(event) => {
 							event.preventDefault();
-							addCommentMutation.mutate({
-								userId: user.id,
-								phaseId: phaseId,
-								comment: comment.trim(),
-								mentioned: mentions,
-								position: markerPos,
-							});
+							if (comment.length > 0) {
+								addCommentMutation.mutate({
+									userId: user.id,
+									phaseId: phaseId,
+									comment: comment.trim(),
+									mentioned: mentions,
+									position: markerPos,
+								});
+							}
 						}}>
 						<label className="sr-only" htmlFor="comment">
 							Add a comment
@@ -106,13 +108,14 @@ export default function ProjectReviewCommentAdd({ markerPos, phaseId, toggleComm
 							<ProjectReviewCommentMentions
 								{...{ comment, setComment, mentions, setMentions, autoFocus: true }}
 							/>
+							<Button
+								extensionClasses="form-control-btn"
+								type="submit"
+								contentType="icon"
+								theme="default"
+								{...{ isLoading: addCommentMutation.isLoading }}
+							/>
 						</div>
-						<Button
-							title="Submit"
-							extensionClasses="mt-3 w-50 justify-content-center"
-							type="submit"
-							{...{ isLoading: addCommentMutation.isLoading }}
-						/>
 					</form>
 				</div>
 			</motion.div>

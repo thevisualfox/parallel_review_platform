@@ -15,7 +15,7 @@ import ProjectReviewCommentMentions from './ProjectReviewCommentMentions';
 /* Api */
 import { addReply, QUERY_KEYS } from '../../api';
 
-export default function ProjectReviewCommentReply({ replyTo, commentId, setReplyActive }) {
+export default function ProjectReviewCommentReply({ replyTo, commentId, setReplyToUser }) {
 	/* State */
 	const [reply, setReply] = useState(`@[${replyTo.display}]{${replyTo.id}} `);
 	const [mentions, setMentions] = useState([replyTo.id]);
@@ -29,7 +29,7 @@ export default function ProjectReviewCommentReply({ replyTo, commentId, setReply
 	const addReplyMutation = useMutation(addReply, {
 		onSuccess: () => {
 			queryClient.invalidateQueries([QUERY_KEYS.PROJECT_IMAGE_BY_ID, parseInt(projectImageId)]);
-			setReplyActive(false);
+			setReplyToUser(null);
 		},
 	});
 
@@ -45,7 +45,6 @@ export default function ProjectReviewCommentReply({ replyTo, commentId, setReply
 					mentioned: mentions,
 				});
 			}}>
-			<hr className="my-3" />
 			<div className="d-flex align-items-center">
 				<User {...{ user: currentUser }} />
 				<UserInfo
@@ -57,13 +56,16 @@ export default function ProjectReviewCommentReply({ replyTo, commentId, setReply
 					}}
 				/>
 			</div>
-			<ProjectReviewCommentMentions {...{ comment: reply, setComment: setReply, mentions, setMentions }} />
-			<Button
-				title="Submit"
-				extensionClasses="mt-3 w-50 justify-content-center align-self-center"
-				type="submit"
-				{...{ isLoading: addReplyMutation.isLoading }}
-			/>
+			<div className="position-relative">
+				<ProjectReviewCommentMentions {...{ comment: reply, setComment: setReply, mentions, setMentions }} />
+				<Button
+					extensionClasses="form-control-btn"
+					type="submit"
+					contentType="icon"
+					theme="default"
+					{...{ isLoading: addReplyMutation.isLoading }}
+				/>
+			</div>
 		</form>
 	);
 }

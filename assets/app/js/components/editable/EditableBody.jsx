@@ -41,7 +41,7 @@ export default function EditableBody({
 	return (
 		<form
 			ref={formRef}
-			className="d-flex flex-column align-items-center flex-grow-1"
+			className="d-flex flex-column align-items-center flex-grow-1 position-relative"
 			onSubmit={(event) => {
 				event.preventDefault();
 				editMutation.mutate({ formRef, id: mutationId });
@@ -59,8 +59,9 @@ export default function EditableBody({
 				ref={inputRef}
 			/>
 			<Button
-				title="Save"
-				extensionClasses="mt-3 w-50 justify-content-center"
+				theme="default"
+				contentType="icon"
+				extensionClasses="form-control-btn"
 				isLoading={editMutation.isLoading}
 				type="submit"
 			/>

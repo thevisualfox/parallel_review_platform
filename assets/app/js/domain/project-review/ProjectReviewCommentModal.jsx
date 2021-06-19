@@ -10,6 +10,7 @@ import { User } from '../../components';
 /* Domain */
 import ProjectReviewMarker from './ProjectReviewMarker';
 import ProjectReviewComment from './ProjectReviewComment';
+import ProjectReviewCommentReply from './ProjectReviewCommentReply';
 
 /* Assets */
 import closeIcon from 'icons/close.svg';
@@ -54,6 +55,7 @@ const CommentBox = ({ comment, toggleComment, reviewRef, ...rest }) => {
 
 	/* State */
 	const [transformedPos, setTransformedPos] = useState(position);
+	const [replyToUser, setReplyToUser] = useState();
 
 	/* Refs */
 	const boxRef = useRef();
@@ -79,7 +81,7 @@ const CommentBox = ({ comment, toggleComment, reviewRef, ...rest }) => {
 						<User {...{ user: author }} size="xl" />
 						<div className="d-flex flex-column w-100 ml-3">
 							<div className="d-flex align-items-center">
-								<p className="text--lg mb-0">{author.display}</p>
+								<p className="text--lg mb-0 lh--md">{author.display}</p>
 								<button
 									type="button"
 									className="custom-modal__close btn btn-link ml-auto"
@@ -87,13 +89,22 @@ const CommentBox = ({ comment, toggleComment, reviewRef, ...rest }) => {
 									<ReactSVG wrapper="svg" className="icon icon--12" src={closeIcon} />
 								</button>
 							</div>
-							<p className="text-muted--60 mb-0 text--sm">{author.organisation}</p>
+							<p className="text-muted--60 mb-0 text--sm lh--xs">{author.organisation}</p>
 						</div>
 					</div>
 				</div>
 				<div className="custom-modal__body d-flex mt-4">
 					<div className="d-flex flex-column w-100">
-						<ProjectReviewComment {...{ comment, commentParentId: comment.id, ...rest }} />
+						<ProjectReviewComment {...{ comment, setReplyToUser, ...rest }} />
+						{replyToUser && (
+							<ProjectReviewCommentReply
+								{...{
+									replyTo: replyToUser,
+									commentId: comment.id,
+									setReplyToUser: setReplyToUser,
+								}}
+							/>
+						)}
 					</div>
 				</div>
 			</motion.div>

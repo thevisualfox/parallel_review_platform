@@ -1,15 +1,15 @@
 .mentions {
-    min-height: 50px;
-
     &__input {
-        @extend .form-control, .bg-quaternary;
+        @extend .form-control, .pr-9;
     }
 
     &__highlighter {
-        min-height: 50px;
+        @extend .pr-9;
+
         padding: $input-padding-y $input-padding-x;
         z-index: 1;
         pointer-events: none;
+        border: none !important;
     }
 
     &__suggestions {
