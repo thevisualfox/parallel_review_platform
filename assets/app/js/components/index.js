@@ -21,3 +21,7 @@ export * from './users/User';
 export { default as User } from './users/User';
 export { default as Users } from './users/Users';
 export { default as UserSelect } from './users/UserSelect';
+
+export { default as SecurityModal } from './security/SecurityModal';
+export { default as LoginForm } from './security/LoginForm';
+export { default as SignupForm } from './security/SignupForm';

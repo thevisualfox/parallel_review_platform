@@ -1,5 +1,5 @@
 /* Packages */
-import React, { useRef, useState } from 'react';
+import React, { useRef, useState, useContext } from 'react';
 import { AnimatePresence } from 'framer-motion';
 import { useQuery } from 'react-query';
 
@@ -8,8 +8,14 @@ import ProjectReviewMarker from './ProjectReviewMarker';
 import ProjectReviewCommentModal from './ProjectReviewCommentModal';
 import ProjectReviewCommentAdd from './ProjectReviewCommentAdd';
 
+/* Components */
+import { SecurityModal } from '../../components';
+
 /* Api */
 import { fetchGobalUsers, QUERY_KEYS } from '../../api';
+
+/* Context */
+import { StaticContext } from '../../context';
 
 /* Global */
 const cursorOffset = 10;
@@ -21,16 +27,25 @@ export default function ProjectReviewCanvas({ title, phases = [] }) {
 	/* Constants */
 	const { image, id: phaseId, comments } = phases[phases.length - 1] || {};
 
+	/* Hooks */
+	const { currentUser } = useContext(StaticContext);
+
 	/* Refs */
 	const reviewRef = useRef();
 
 	/* State */
 	const [markerPos, setMarkerPos] = useState();
+	const [securityModalOpen, setSecurityModalOpen] = useState(false);
 
 	/* Callbacks */
 	const toggleCommentAddOpen = () => setMarkerPos(null);
 
 	const posMarker = ({ clientX, clientY }) => {
+		if (!currentUser.authenticated) {
+			setSecurityModalOpen(true);
+			return;
+		}
+
 		const reviewPos = reviewRef?.current.getBoundingClientRect();
 
 		setMarkerPos(() => {
@@ -63,6 +78,7 @@ export default function ProjectReviewCanvas({ title, phases = [] }) {
 						<ProjectReviewCommentAdd {...{ markerPos, phaseId, toggleCommentAddOpen }} />
 					</ProjectReviewMarker>
 				)}
+				<SecurityModal {...{ securityModalOpen, setSecurityModalOpen }} />
 			</AnimatePresence>
 		</div>
 	);

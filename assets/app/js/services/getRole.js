@@ -6,6 +6,6 @@ const USER_ROLES = {
 
 export default function getRole({ roles }) {
 	if (roles.includes(USER_ROLES.ROLE_ADMIN)) return 'admin';
-	if (roles.includes(USER_ROLES.ROLE_USER)) return 'user';
 	if (roles.includes(USER_ROLES.ROLE_USER_BASIC)) return 'basic';
+	if (roles.includes(USER_ROLES.ROLE_USER)) return 'user';
 }

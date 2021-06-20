@@ -1,9 +1,12 @@
 import axios from 'axios';
 
-/* Signup to platform | expects formRef object */
-export const signup = async ({ formRef }) => {
+/* Signup to platform | expects formRef object and optional userId */
+export const signup = async ({ formRef, userId }) => {
+	let url = '/api/signup';
+	if (userId) url = `/api/signup/${userId}`;
+
 	const params = new FormData(formRef.current);
-	const result = await axios.post('/api/signup', params);
+	const result = await axios.post(url, params);
 
 	return result?.data;
 };

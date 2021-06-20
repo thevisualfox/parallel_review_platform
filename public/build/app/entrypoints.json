@@ -1,10 +1,6 @@
 {
   "entrypoints": {
     "main": {
-      "css": [
-        "/build/app/vendors~main.css",
-        "/build/app/main.css"
-      ],
       "js": [
         "/build/app/vendors~main.js",
         "/build/app/main.js"

@@ -43,4 +43,10 @@ class UserResponseDto
      * @Serialization\Type("string")
      */
     public $userColor;
+
+    /**
+     * @var boolean $authenticated
+     * @Serialization\Type("boolean")
+     */
+    public $authenticated;
 }

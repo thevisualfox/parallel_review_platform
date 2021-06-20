@@ -38,7 +38,7 @@ export default function Modal({
 						className="custom-modal__content border p-5"
 						{...FADE_IN_UP()}>
 						<HeaderComponent {...{ title, subtitle, toggleModal }} />
-						<div className="custom-modal__body d-flex mt-4">{children}</div>
+						<div className="custom-modal__body d-flex mt-2">{children}</div>
 					</motion.div>
 				</div>
 			)}

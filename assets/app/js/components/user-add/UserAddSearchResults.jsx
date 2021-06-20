@@ -19,7 +19,7 @@ export default function UserAddSearchResults({
 }) {
 	/* Render filtered results */
 	const results = () => {
-		const newUser = { email: query, display: 'New user', userColor: '291, 81%, 53%' };
+		const newUser = { email: query, organisation: query, display: 'New user', userColor: '291, 81%, 53%' };
 
 		if (filteredUsers.length > 0) {
 			return filteredUsers.map((user, userIndex) => (

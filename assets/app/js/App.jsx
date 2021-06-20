@@ -64,7 +64,9 @@ const RouterBody = () => {
 				<AnimatePresence exitBeforeEnter>
 					<Switch location={location} key={location.pathname}>
 						{/* Redirect to /projects if a user is logged in */}
-						{currentUser && location.pathname === ROUTES.login && <Redirect to={ROUTES.projects} />}
+						{currentUser && [ROUTES.login, ROUTES.signup].includes(location.pathname) && (
+							<Redirect to={ROUTES.projects} />
+						)}
 
 						{/* Redirect to /login if a user is not logged in on the /projects route */}
 						{!currentUser && location.pathname.includes(ROUTES.projects) && <Redirect to={ROUTES.login} />}
@@ -73,7 +75,7 @@ const RouterBody = () => {
 						{routes.map(({ path, component: Component, props }) => (
 							<Route key={path} path={path} exact>
 								<motion.div key={path} {...FADE_IN}>
-									<Component {...{ ...props, currentUser, setCurrentUser, userRole, setUserRole }} />
+									<Component {...{ ...props, currentUser, userRole }} />
 								</motion.div>
 							</Route>
 						))}

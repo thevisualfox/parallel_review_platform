@@ -31,6 +31,8 @@ export default function HeaderNavigation() {
 		onSuccess: () => {
 			history.push(ROUTES.login);
 			setCurrentUser(null);
+			sessionStorage.removeItem('userId');
+
 			toast(<Alert message={'Successfully logged out!'} appearance="success" />);
 		},
 		onError: () => toast(<Alert message={'Something went wrong!'} appearance="danger" />),

@@ -16,44 +16,46 @@ use Symfony\Component\Security\Guard\GuardAuthenticatorHandler;
 class RegistrationController extends AbstractApiController
 {
     /**
-     * @Route("/api/signup", name="app_signup")
+     * @Route("/api/signup/{id}", defaults={"id" = null}, requirements={"id" = "\d+"}, name="app_signup", methods="POST")
      * @throws \Symfony\Component\Mailer\Exception\TransportExceptionInterface
      */
-    public function register(MessageBusInterface $messageBus, Request $request, UserPasswordEncoderInterface $passwordEncoder, GuardAuthenticatorHandler $guardHandler, AppAuthenticator $authenticator, ColorHelper $colorHelper): Response
+    public function register(User $user = null, MessageBusInterface $messageBus, Request $request, UserPasswordEncoderInterface $passwordEncoder, GuardAuthenticatorHandler $guardHandler, AppAuthenticator $authenticator, ColorHelper $colorHelper): Response
     {
         $form = $request->request->all();
-        $user = new User();
+        $currentUser = isset($user) ? $user : new User();
 
         if (isset($form['username']) && isset($form['email']) && isset($form['plainPassword'])) {
             // Set username
-            $user->setUsername($form['username']);
-
-            // Set email
-            $user->setEmail($form['email']);
+            $currentUser->setUsername($form['username']);
 
             // encode the plain password
-            $user->setPassword(
+            $currentUser->setPassword(
                 $passwordEncoder->encodePassword(
-                    $user,
+                    $currentUser,
                     $form['plainPassword']
                 )
             );
 
             // Set organisation
-            $user->setOrganisation($form['organisation']);
+            $currentUser->setOrganisation($form['organisation']);
 
-            // Set random color per user
-            $user->setcolor($colorHelper->generateRandomColor());
+            // Set email if new user
+            if (!isset($user)) {
+                $currentUser->setEmail($form['email']);
+                $currentUser->setcolor($colorHelper->generateRandomColor());
+            }
 
             $entityManager = $this->getDoctrine()->getManager();
-            $entityManager->persist($user);
+            $entityManager->persist($currentUser);
             $entityManager->flush();
 
             // Send mail
-            $messageBus->dispatch(new RegisterEmail($user->getId()));
+            $messageBus->dispatch(
+                new RegisterEmail($currentUser->getId())
+            );
 
             return $guardHandler->authenticateUserAndHandleSuccess(
-                $user,
+                $currentUser,
                 $request,
                 $authenticator,
                 'main' // firewall name in security.yaml

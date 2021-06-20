@@ -10,6 +10,13 @@
         bottom: 0;
         right: 0;
     }
+
+    input:-webkit-autofill,
+    input:-webkit-autofill:hover,
+    input:-webkit-autofill:focus {
+        box-shadow: 0 0 0 30px $primary inset !important;
+        -webkit-text-fill-color: $input-color !important;
+        transition: border-color 100ms ease !important;
 }
 
 .custom-modal__content {
