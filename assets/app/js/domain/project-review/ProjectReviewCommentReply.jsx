@@ -1,5 +1,5 @@
 /* Packages */
-import React, { useContext, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { useMutation, useQueryClient } from 'react-query';
 
 /* Components */
@@ -17,8 +17,14 @@ import { addReply, QUERY_KEYS } from '../../api';
 
 export default function ProjectReviewCommentReply({ replyTo, commentId, setReplyToUser }) {
 	/* State */
-	const [reply, setReply] = useState(`@[${replyTo.display}]{${replyTo.id}} `);
-	const [mentions, setMentions] = useState([replyTo.id]);
+	const [reply, setReply] = useState();
+	const [mentions, setMentions] = useState([]);
+
+	/* Effects */
+	useEffect(() => {
+		setReply(`@[${replyTo.display}]{${replyTo.id}} `);
+		setMentions([replyTo.id]);
+	}, [replyTo]);
 
 	/* Hooks */
 	const { currentUser } = useContext(StaticContext);

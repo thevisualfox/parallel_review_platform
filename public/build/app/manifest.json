@@ -1,7 +1,5 @@
 {
-  "build/app/main.css": "/build/app/main.css",
   "build/app/main.js": "/build/app/main.js",
-  "build/app/vendors~main.css": "/build/app/vendors~main.css",
   "build/app/vendors~main.js": "/build/app/vendors~main.js",
   "build/app/img/add.svg": "/build/app/img/add.svg",
   "build/app/img/add_image.svg": "/build/app/img/add_image.svg",
@@ -23,5 +21,7 @@
   "build/app/img/star.svg": "/build/app/img/star.svg",
   "build/app/img/success.svg": "/build/app/img/success.svg",
   "build/app/img/upload.svg": "/build/app/img/upload.svg",
-  "build/app/img/warning.svg": "/build/app/img/warning.svg"
+  "build/app/img/warning.svg": "/build/app/img/warning.svg",
+  "build/app/main.css": "/build/app/main.css",
+  "build/app/vendors~main.css": "/build/app/vendors~main.css"
 }

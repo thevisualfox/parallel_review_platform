@@ -78,8 +78,8 @@ export default function ProjectReviewCanvas({ title, phases = [] }) {
 						<ProjectReviewCommentAdd {...{ markerPos, phaseId, toggleCommentAddOpen }} />
 					</ProjectReviewMarker>
 				)}
-				<SecurityModal {...{ securityModalOpen, setSecurityModalOpen }} />
 			</AnimatePresence>
+			<SecurityModal {...{ securityModalOpen, setSecurityModalOpen }} />
 		</div>
 	);
 }

@@ -29,6 +29,6 @@
     }
 
     .panel__body {
-        @extend %scroll-auto ;
+        @extend %scroll-auto, .w-100;
     }
 }

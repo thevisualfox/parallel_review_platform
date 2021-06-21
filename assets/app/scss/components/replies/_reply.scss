@@ -1,9 +1,5 @@
 .reply {
-    @extend .d-flex, .flex-column, .ml-4;
-
-    .mentions {
-        @extend .mt-2;
-    }
+    @extend .d-flex, .flex-column;
 
     .mentions,
     .mentions__highlighter {
