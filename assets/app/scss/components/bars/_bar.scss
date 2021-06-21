@@ -1,7 +1,7 @@
 .bar {
     @extend .border, .py-5;
 
-    position: fixed;
+    position: sticky;
     bottom: 0;
     right: 0;
     left: 0;

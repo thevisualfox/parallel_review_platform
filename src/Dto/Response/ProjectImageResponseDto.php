@@ -32,4 +32,16 @@ class ProjectImageResponseDto
      * @Serialization\Type("array<App\Dto\Response\PhaseResponseDto>")
      */
     public $phases;
+
+    /**
+     * @var int $prevImage
+     * @Serialization\Type("int|null")
+     */
+    public $prevImage;
+
+    /**
+     * @var int $nextImage
+     * @Serialization\Type("int|null")
+     */
+    public $nextImage;
 }

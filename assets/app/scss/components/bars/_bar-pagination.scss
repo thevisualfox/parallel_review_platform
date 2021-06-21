@@ -1,0 +1,24 @@
+.bar--pagination {
+    .btn-text {
+        transition: opacity 100ms ease;
+    }
+
+    .bar__btn {
+        text-decoration: none;
+
+        &:hover,
+        &:focus {
+            .btn-text {
+                opacity: 0.85;
+            }
+
+            .icon-wrapper {
+                border-color: var(--theme-active-border);
+            }
+        }
+
+        &:focus .icon-wrapper {
+            background-color: var(--theme-active-background);
+        }
+    }
+}

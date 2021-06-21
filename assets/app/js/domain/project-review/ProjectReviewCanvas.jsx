@@ -7,6 +7,7 @@ import { useQuery } from 'react-query';
 import ProjectReviewMarker from './ProjectReviewMarker';
 import ProjectReviewCommentModal from './ProjectReviewCommentModal';
 import ProjectReviewCommentAdd from './ProjectReviewCommentAdd';
+import ProjectReviewPagination from './ProjectReviewPagination';
 
 /* Components */
 import { SecurityModal } from '../../components';
@@ -20,12 +21,12 @@ import { StaticContext } from '../../context';
 /* Global */
 const cursorOffset = 10;
 
-export default function ProjectReviewCanvas({ title, phases = [] }) {
+export default function ProjectReviewCanvas({ title, phases = [], ...rest }) {
 	/* Queries */
 	const { data: globalUsers = [] } = useQuery(QUERY_KEYS.GLOBAL_USERS, fetchGobalUsers);
 
 	/* Constants */
-	const { image, id: phaseId, comments } = phases[phases.length - 1] || {};
+	const { image, id: phaseId, comments, phase } = phases[phases.length - 1] || {};
 
 	/* Hooks */
 	const { currentUser } = useContext(StaticContext);
@@ -80,6 +81,7 @@ export default function ProjectReviewCanvas({ title, phases = [] }) {
 				)}
 			</AnimatePresence>
 			<SecurityModal {...{ securityModalOpen, setSecurityModalOpen }} />
+			<ProjectReviewPagination {...{ ...rest, phase }} />
 		</div>
 	);
 }

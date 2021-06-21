@@ -23,6 +23,6 @@ final class ProjectImageGetAction extends AbstractApiController
      */
     public function __invoke(ProjectImage $projectImage): Response
     {
-        return $this->respond($this->projectImageResponseDtoTransformer->transformFromObject($projectImage));
+        return $this->respond($this->projectImageResponseDtoTransformer->transformFromObject($projectImage, true));
     }
 }
