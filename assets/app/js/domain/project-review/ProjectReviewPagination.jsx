@@ -23,7 +23,7 @@ export default function ProjectReviewPagination({ phase, prevImage, nextImage })
 	return (
 		<div className="bar bar--pagination">
 			<div className="container-fluid">
-				<div className="row">
+				<div className="row gutters-0">
 					<div className="col-4 d-flex justify-content-start">
 						{prevImage && (
 							<Link
