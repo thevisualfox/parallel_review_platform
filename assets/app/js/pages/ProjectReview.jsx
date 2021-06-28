@@ -7,7 +7,7 @@ import { useParams } from 'react-router';
 import { PageLoader, PageWrapper } from '../components';
 
 /* Domain */
-import { ProjectReviewCanvas, ProjectReviewHeader } from '../domain/project-review';
+import { ProjectReviewCanvas } from '../domain/project-review';
 
 /* Api */
 import { fetchProjectImageById, QUERY_KEYS } from '../api';
@@ -33,7 +33,6 @@ export default function ProjectReview() {
 		<ReviewContext.Provider value={{ projectImageId }}>
 			<PageWrapper>
 				<PageLoader {...{ isLoading }}>
-					<ProjectReviewHeader {...data} />
 					<ProjectReviewCanvas {...data} />
 				</PageLoader>
 			</PageWrapper>

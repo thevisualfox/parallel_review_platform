@@ -79,8 +79,10 @@ export default function ProjectReviewCommentAdd({ markerPos, phaseId, toggleComm
 									<ReactSVG wrapper="svg" className="icon icon--12" src={closeIcon} />
 								</button>
 							</div>
-							<p className="text-muted--60 mb-0 text--md lh--xs">
-								Comment or <span className="text-secondary"> @mention </span> someone
+							<p className="mb-0 text--md lh--md">
+								<span className="text-muted--60">Comment or</span>
+								<span className="text-secondary"> @mention </span>{' '}
+								<span className="text-muted--60">someone</span>
 							</p>
 						</div>
 					</div>

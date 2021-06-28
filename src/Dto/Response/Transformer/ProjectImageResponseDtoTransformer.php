@@ -27,7 +27,7 @@ class ProjectImageResponseDtoTransformer extends AbstractResponseDtoTransformer
      *
      * @return ProjectImageResponseDto
      */
-    public function transformFromObject($projectImage, $includePrevNext = false): ProjectImageResponseDto
+    public function transformFromObject($projectImage, $includeTotalImages = false): ProjectImageResponseDto
     {
         $id = $projectImage->getId();
 
@@ -37,12 +37,13 @@ class ProjectImageResponseDtoTransformer extends AbstractResponseDtoTransformer
         $dto->description = $projectImage->getDescription();
         $dto->phases = $this->phaseResponseDtoTransformer->transformFromObjects($projectImage->getPhases());
 
-        if ($includePrevNext) {
-            $prev = $this->projectImageRepository->prevRecord($id);
-            $next = $this->projectImageRepository->nextRecord($id);
+        if ($includeTotalImages) {
+            $imageIds = [];
+            foreach ($this->projectImageRepository->findAll() as &$image) {
+                $imageIds[] = $image->getId();
+            };
 
-            $dto->prevImage = null !== $prev ? $prev->getId() : null;
-            $dto->nextImage = null !== $next ? $next->getId() : null;
+            $dto->allImages = $imageIds;
         }
 
         return $dto;

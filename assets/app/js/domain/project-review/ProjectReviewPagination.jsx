@@ -1,60 +1,57 @@
 /* Packages */
-import React from 'react';
-import { Link, useHistory } from 'react-router-dom';
+import React, { useContext } from 'react';
+import { useHistory } from 'react-router-dom';
 import { ReactSVG } from 'react-svg';
+
+/* Context */
+import { ReviewContext } from '../../context';
 
 /* Assets */
 import chevronIcon from 'icons/chevron.svg';
 
 /* Hooks */
-import useEventListener from '../../hooks/useEventListener';
+import { useEventListener } from '../../hooks';
 
-export default function ProjectReviewPagination({ phase, prevImage, nextImage }) {
+export default function ProjectReviewPagination({ allImages }) {
 	/* Hooks */
-	const history = useHistory();
 	useEventListener('keyup', handleKeyUp);
+	const history = useHistory();
+
+	/* Context */
+	const { projectImageId } = useContext(ReviewContext);
+
+	/* Constants */
+	const currentImage = allImages.indexOf(Number(projectImageId));
+	const prevImage = allImages[currentImage === 0 ? allImages.length - 1 : currentImage - 1];
+	const nextImage = allImages[currentImage === allImages.length - 1 ? 0 : currentImage + 1];
 
 	function handleKeyUp(event) {
-		if (event.key === 'ArrowLeft' && prevImage) history.push(prevImage.toString());
-		if (event.key === 'ArrowRight' && nextImage) history.push(nextImage.toString());
+		if (event.key === 'ArrowLeft' && prevImage) navigate('prev');
+		if (event.key === 'ArrowRight' && nextImage) navigate('next');
 	}
 
-	/* Render */
+	const navigate = (direction) => {
+		if (direction === 'prev') history.push(prevImage.toString());
+		if (direction === 'next') history.push(nextImage.toString());
+	};
+
 	return (
-		<div className="bar bar--pagination">
-			<div className="container-fluid">
-				<div className="row gutters-0">
-					<div className="col-4 d-flex justify-content-start">
-						{prevImage && (
-							<Link
-								className="bar__btn btn btn-link text-reset d-flex align-items-center"
-								to={prevImage.toString()}>
-								<div className="icon-wrapper icon-wrapper--interactive icon-wrapper--secondary mr-2">
-									<ReactSVG
-										className="icon icon--10 icon--reversed text-secondary"
-										src={chevronIcon}
-									/>
-								</div>
-								<span className="btn-text text-white text-muted--70">Previous image</span>
-							</Link>
-						)}
-					</div>
-					<div className="col-4 d-flex justify-content-center">
-						<p className="text-muted--70">Phase {phase}</p>
-					</div>
-					<div className="col-4 d-flex justify-content-end">
-						{nextImage && (
-							<Link
-								className="bar__btn btn btn-link text-reset d-flex align-items-center"
-								to={nextImage.toString()}>
-								<span className="btn-text text-white text-muted--70">Next image</span>
-								<div className="icon-wrapper icon-wrapper--interactive icon-wrapper--secondary ml-2">
-									<ReactSVG className="icon icon--10 text-secondary" src={chevronIcon} />
-								</div>
-							</Link>
-						)}
-					</div>
-				</div>
+		<div className="pagination">
+			<div className="pagination__btn-wrapper pagination__btn-wrapper--prev">
+				<button
+					className="pagination__btn pagination__btn--prev btn btn-link text-reset"
+					type="button"
+					onClick={() => navigate('prev')}>
+					<ReactSVG wrapper="svg" className="pagination__icon icon icon--12" src={chevronIcon} />
+				</button>
+			</div>
+			<div className="pagination__btn-wrapper pagination__btn-wrapper--next">
+				<button
+					className="pagination__btn pagination__btn--next btn btn-link text-reset"
+					type="button"
+					onClick={() => navigate('next')}>
+					<ReactSVG wrapper="svg" className="pagination__icon icon icon--12" src={chevronIcon} />
+				</button>
 			</div>
 		</div>
 	);

@@ -8,26 +8,12 @@ import { useMutation } from 'react-query';
 /* Elements */
 import { Button } from '../../components';
 
-export default function EditableBody({
-	title,
-	inputType,
-	toggleModal,
-	content,
-	mutation,
-	mutationId,
-	mutationOnSuccess,
-}) {
-	/* State */
-	const [value, setValue] = useState(content);
+/* Services */
+import { capitalizeFirstLetter } from '../../services';
 
+export default function EditableBody({ fields, toggleModal, mutation, mutationId, mutationOnSuccess }) {
 	/* Refs */
 	const formRef = useRef();
-	const inputRef = useRef();
-
-	/* Effects */
-	useEffect(() => {
-		if (inputRef?.current) inputRef?.current?.select();
-	}, []);
 
 	/* Mutations */
 	const editMutation = useMutation(mutation, {
@@ -46,25 +32,52 @@ export default function EditableBody({
 				event.preventDefault();
 				editMutation.mutate({ formRef, id: mutationId });
 			}}>
-			<label className="sr-only" htmlFor={inputType}>
-				{title}
-			</label>
-			<TextareaAutosize
-				className="form-control form-control--text"
-				id={inputType}
-				name={inputType}
-				type="text"
-				value={value}
-				onChange={({ target: { value } }) => setValue(value)}
-				ref={inputRef}
-			/>
+			{fields.map((field, fieldIndex) => {
+				return <Field key={fieldIndex} {...{ ...field, shouldFocus: fieldIndex === 0 }} />;
+			})}
 			<Button
-				theme="default"
-				contentType="icon"
-				extensionClasses="form-control-btn"
-				isLoading={editMutation.isLoading}
-				type="submit"
+				{...{
+					title: 'Save',
+					contentType: fields.length === 1 ? 'icon' : 'text',
+					extensionClasses: fields.length === 1 ? 'form-control-btn' : 'px-8 mt-3',
+					theme: fields.length === 1 ? 'default' : 'secondary',
+					isLoading: editMutation.isLoading,
+					type: 'submit',
+				}}
 			/>
 		</form>
 	);
 }
+
+const Field = ({ name, defaultValue, shouldFocus = false }) => {
+	/* State */
+	const [value, setValue] = useState(defaultValue);
+
+	/* Refs */
+	const inputRef = useRef();
+
+	/* Effects */
+	useEffect(() => {
+		if (inputRef?.current && shouldFocus) inputRef?.current?.select();
+	}, []);
+
+	/* Render */
+	return (
+		<>
+			<label className="sr-only" htmlFor={name}>
+				{name}
+			</label>
+			<TextareaAutosize
+				className="form-control form-control--text"
+				id={name}
+				name={name}
+				type="text"
+				value={value}
+				onChange={({ target: { value } }) => setValue(value)}
+				ref={inputRef}
+				placeholder={capitalizeFirstLetter(name)}
+				onFocus={() => inputRef.current.select()}
+			/>
+		</>
+	);
+};

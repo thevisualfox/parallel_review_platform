@@ -6,7 +6,7 @@ import { ReactSVG } from 'react-svg';
 import { LoadingWrapper } from '../../components';
 
 /* Assets */
-import checkIcon from 'icons/check-circle.svg';
+import checkIcon from 'icons/check.svg';
 
 export default function Button({
 	title,
@@ -17,6 +17,7 @@ export default function Button({
 	onClick = () => {},
 	isLoading = false,
 	contentType = 'text',
+	children,
 }) {
 	/* Refs */
 	const buttonRef = useRef();
@@ -31,17 +32,21 @@ export default function Button({
 			className={`btn btn-${size} btn-${theme} ${extensionClasses} d-flex align-items-center`}
 			style={{ height: buttonHeight }}
 			{...{ type, onClick }}>
-			{contentType === 'text' ? <Text {...{ title, isLoading }} /> : <Icon {...{ isLoading }} />}
+			{contentType === 'text' ? <Text {...{ title, isLoading, children }} /> : <Icon {...{ isLoading }} />}
 		</button>
 	);
 }
 
-const Text = ({ title, isLoading }) => (
+const Text = ({ title, isLoading, children }) => (
 	<LoadingWrapper
 		loading={isLoading}
 		loaderSize={16}
-		classes={{ loaderClasses: 'position-absolute d-flex text-secondary' }}>
+		classes={{
+			loaderClasses: 'position-absolute d-flex text-secondary',
+			defaultClasses: 'd-flex align-items-center',
+		}}>
 		<span className="btn__text">{title}</span>
+		{children}
 	</LoadingWrapper>
 );
 
@@ -51,7 +56,7 @@ const Icon = ({ isLoading }) => (
 			loading={isLoading}
 			loaderSize={14}
 			classes={{ loaderClasses: 'position-absolute d-flex text-secondary', defaultClasses: 'd-flex' }}>
-			<ReactSVG wrapper="svg" className="alert__icon icon icon--14 text-secondary" src={checkIcon} />
+			<ReactSVG wrapper="svg" className="alert__icon icon icon--10 text-secondary" src={checkIcon} />
 		</LoadingWrapper>
 	</div>
 );

@@ -19,32 +19,6 @@ class ProjectImageRepository extends ServiceEntityRepository
         parent::__construct($registry, ProjectImage::class);
     }
 
-    public function prevRecord(int $id)
-    {
-        return $this->createQueryBuilder('p')
-            // Filter users.
-            ->andWhere('p.id < :id')
-            ->setParameter(':id', $id)
-            ->orderBy('p.id', 'DESC')
-            ->setFirstResult(0)
-            ->setMaxResults(1)
-            ->getQuery()
-            ->getOneOrNullResult();
-    }
-
-    public function nextRecord(int $id)
-    {
-        return $this->createQueryBuilder('p')
-            // Filter users.
-            ->andWhere('p.id > :id')
-            ->setParameter(':id', $id)
-            ->orderBy('p.id', 'ASC')
-            ->setFirstResult(0)
-            ->setMaxResults(1)
-            ->getQuery()
-            ->getOneOrNullResult();
-    }
-
     // /**
     //  * @return ProjectImage[] Returns an array of ProjectImage objects
     //  */

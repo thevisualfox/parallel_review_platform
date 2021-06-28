@@ -1,0 +1,36 @@
+.bar--review {
+    padding: spacer(2) 0;
+
+    .bar__edit-modal {
+        top: auto;
+        bottom: spacer(12);
+        left: 50%;
+        transform: translateX(-50%);
+    }
+
+    .bar__action-btn {
+        @extend .icon-wrapper, .icon-wrapper--interactive;
+
+        --size: 38;
+        --theme: transparent;
+        --theme-active-border: #{rgba($white, $opacity-level-active-border)};
+        --theme-active-background: #{rgba($white, $opacity-level-active-background)};
+
+        .icon {
+            color: $white;
+            opacity: 0.6;
+            transition: color 200ms ease opacity 200ms ease;
+        }
+
+        &.is-active {
+            --theme: #{rgba($secondary, $opacity-level)};
+            --theme-active-border: #{rgba($secondary, $opacity-level-active-border)};
+            --theme-active-background: #{rgba($secondary, $opacity-level-active-background)};
+
+            .icon {
+                color: $secondary;
+                opacity: 1;
+            }
+        }
+    }
+}

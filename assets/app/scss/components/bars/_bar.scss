@@ -1,12 +1,13 @@
 .bar {
-    @extend .border, .py-5;
+    @extend .border;
 
-    position: sticky;
+    position: fixed;
     bottom: 0;
     right: 0;
     left: 0;
     background-color: $primary;
     z-index: $zindex-fixed;
+    padding: spacer(5) 0;
 }
 
 .bar__list {

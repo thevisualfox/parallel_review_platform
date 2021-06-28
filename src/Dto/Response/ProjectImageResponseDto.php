@@ -35,13 +35,7 @@ class ProjectImageResponseDto
 
     /**
      * @var int $prevImage
-     * @Serialization\Type("int|null")
+     * @Serialization\Type("array<int>")
      */
-    public $prevImage;
-
-    /**
-     * @var int $nextImage
-     * @Serialization\Type("int|null")
-     */
-    public $nextImage;
+    public $allImages;
 }

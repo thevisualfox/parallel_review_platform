@@ -58,7 +58,7 @@ const RouterBody = () => {
 		<StaticContext.Provider value={{ currentUser, setCurrentUser, userRole }}>
 			<AnimatePresence>
 				{/* Show different headers based on route */}
-				{![ROUTES.login, ROUTES.signup].includes(location.pathname) && <HeaderNavigation />}
+				{![ROUTES.login, ROUTES.signup].includes(location.pathname) && !location.pathname.includes('review') && <HeaderNavigation />}
 			</AnimatePresence>
 			<PageLoader {...{ isLoading }}>
 				<AnimatePresence exitBeforeEnter>

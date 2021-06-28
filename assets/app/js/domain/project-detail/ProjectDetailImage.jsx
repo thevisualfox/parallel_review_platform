@@ -45,12 +45,13 @@ export default function ProjectDetailImage({ projectImage, projectId, selected, 
 			</Link>
 			<div className="card-body">
 				<Editable
-					inputType="title"
-					projectId={projectId}
-					content={title}
-					mutation={editProjectImage}
-					mutationId={projectImageId}
-					{...{ mutationOnSuccess }}>
+					{...{
+						title: 'Editing image title',
+						fields: [{ name: 'title', defaultValue: title }],
+						mutation: editProjectImage,
+						mutationId: projectImageId,
+						mutationOnSuccess: mutationOnSuccess,
+					}}>
 					<motion.p {...FADE_IN} className="mb-0">
 						{title}
 					</motion.p>

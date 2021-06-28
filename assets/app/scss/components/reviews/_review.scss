@@ -25,6 +25,7 @@
     .review__custom-modal {
         top: var(--top);
         left: var(--left);
+        z-index: $zindex-modal;
 
         .custom-modal__content {
             width: 420px;

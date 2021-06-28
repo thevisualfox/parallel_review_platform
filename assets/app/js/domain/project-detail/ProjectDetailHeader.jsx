@@ -30,21 +30,25 @@ export default function ProjectDetailHeader({ title, description, users, id, aut
 			<div className="col-12 col-lg-6">
 				<div className={`${userRole === 'admin' && 'editable'} d-flex align-items-center mb-2`}>
 					<Editable
-						inputType="title"
-						content={title}
-						mutation={editProject}
-						mutationId={id}
-						mutationOnSuccess={mutationOnSuccess}>
+						{...{
+							title: 'Editing title',
+							fields: [{ name: 'title', defaultValue: title }],
+							mutation: editProject,
+							mutationId: id,
+							mutationOnSuccess: mutationOnSuccess,
+						}}>
 						<h1 className="h5 mb-0 text-white">{title ? title : 'Add a nice title'}</h1>
 					</Editable>
 				</div>
 				<div className={`${userRole === 'admin' && 'editable'} d-flex align-items-center mb-2`}>
 					<Editable
-						inputType="description"
-						content={description}
-						mutation={editProject}
-						mutationId={id}
-						mutationOnSuccess={mutationOnSuccess}>
+						{...{
+							title: 'Editing description',
+							fields: [{ name: 'description', defaultValue: description }],
+							mutation: editProject,
+							mutationId: id,
+							mutationOnSuccess: mutationOnSuccess,
+						}}>
 						<p className="text-muted--70 mb-0">
 							{description ? (
 								<span>{description}</span>

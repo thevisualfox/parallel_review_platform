@@ -19,6 +19,7 @@ export default function Modal({
 	toggleModal,
 	children,
 	renderOnBody = true,
+	center = true,
 	extensionClasses,
 	components = {},
 }) {
@@ -31,7 +32,7 @@ export default function Modal({
 	const render = () => (
 		<AnimatePresence>
 			{modalOpen && (
-				<div className={`custom-modal custom-modal--center ${extensionClasses}`}>
+				<div className={`custom-modal ${center && 'custom-modal--center'} ${extensionClasses}`}>
 					<motion.div className="custom-modal-overlay" {...FADE_IN} onClick={toggleModal} />
 					<motion.div
 						key="custom-modal-content"

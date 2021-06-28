@@ -1,10 +1,16 @@
 export { default as ActionMenu } from './action-menu/ActionMenu';
 export { default as Alert } from './alert/Alert';
 export { default as Background } from './background/Background';
+
 export { default as Modal } from './modal/Modal';
+export { default as ModalHeader } from './modal/ModalHeader';
+
 export { default as Button } from './button/Button';
 export { default as Dropzone } from './dropzone/Dropzone';
+
 export { default as Editable } from './editable/Editable';
+export { default as EditableBody } from './editable/EditableBody';
+
 export { default as LoadingWrapper } from './loading-wrapper/LoadingWrapper';
 export { default as SlideIn } from './slide-in/SlideIn';
 export { default as PageLoader } from './page-loader/PageLoader';

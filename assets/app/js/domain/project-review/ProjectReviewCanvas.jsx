@@ -2,11 +2,13 @@
 import React, { useRef, useState, useContext } from 'react';
 import { AnimatePresence } from 'framer-motion';
 import { useQuery } from 'react-query';
+import { motion } from 'framer-motion';
 
 /* Domain */
 import ProjectReviewMarker from './ProjectReviewMarker';
 import ProjectReviewCommentModal from './ProjectReviewCommentModal';
 import ProjectReviewCommentAdd from './ProjectReviewCommentAdd';
+import ProjectReviewActionBar from './ProjectReviewActionBar';
 import ProjectReviewPagination from './ProjectReviewPagination';
 
 /* Components */
@@ -59,7 +61,7 @@ export default function ProjectReviewCanvas({ title, phases = [], ...rest }) {
 
 	/* render */
 	return (
-		<div ref={reviewRef} className="review position-relative mx-n12 mb-n12 mt-12">
+		<motion.div layout ref={reviewRef} className="review position-relative mx-n12 mb-3 mt-n10">
 			<img
 				className="review__image img-fluid w-100"
 				src={image.original}
@@ -81,7 +83,8 @@ export default function ProjectReviewCanvas({ title, phases = [], ...rest }) {
 				)}
 			</AnimatePresence>
 			<SecurityModal {...{ securityModalOpen, setSecurityModalOpen }} />
-			<ProjectReviewPagination {...{ ...rest, phase }} />
-		</div>
+			<ProjectReviewActionBar {...{ ...rest, title, phase }} />
+			<ProjectReviewPagination {...rest} />
+		</motion.div>
 	);
 }

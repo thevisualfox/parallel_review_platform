@@ -14,23 +14,19 @@ import editIcon from 'icons/edit.svg';
 /* Context */
 import StaticContext from '../../context/mainContext';
 
-export default function Editable({ inputType, children, ...rest }) {
+export default function Editable({ title, subtitle = 'Save when ready', children, ...rest }) {
 	/* State */
 	const [modalOpen, setModalOpen] = useState(false);
 
 	/* Hooks */
 	const { userRole } = useContext(StaticContext);
 
-	/* Constants */
-	const title = `Editing ${inputType}`;
-	const subtitle = `Save when ready`;
-
 	/* Callbacks */
 	const toggleModal = () => setModalOpen(!modalOpen);
 
 	/* Render */
 	return (
-		<div className="editable d-flex align-items-center position-relative">
+		<div className="editable d-flex align-items-baseline position-relative">
 			<div className="editable__content">{children}</div>
 			{userRole === 'admin' && (
 				<>
@@ -41,7 +37,7 @@ export default function Editable({ inputType, children, ...rest }) {
 						<ReactSVG wrapper="svg" className="icon icon--10 text-secondary" src={editIcon} />
 					</button>
 					<Modal {...{ title, subtitle, modalOpen, toggleModal }}>
-						<EditableBody {...{ title, inputType, toggleModal, ...rest }} />
+						<EditableBody {...{ toggleModal, ...rest }} />
 					</Modal>
 				</>
 			)}
