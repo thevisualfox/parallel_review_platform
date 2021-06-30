@@ -1,5 +1,6 @@
 .reply {
-    @extend .d-flex, .flex-column;
+    @extend .pl-3, .pt-3, .pb-1, .mt-n7;
+    @extend .d-flex, .flex-column, .border-left;
 
     .mentions,
     .mentions__highlighter {
@@ -14,5 +15,9 @@
 
     .mentions__input {
         @extend .text--sm, .form-control-sm;
+    }
+
+    &:not(:last-child) {
+        @extend .mb-5;
     }
 }

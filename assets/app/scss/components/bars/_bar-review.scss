@@ -1,6 +1,10 @@
 .bar--review {
     padding: spacer(2) 0;
 
+    .container-fluid {
+        @extend .px-6;
+    }
+
     .bar__edit-modal {
         top: auto;
         bottom: spacer(12);

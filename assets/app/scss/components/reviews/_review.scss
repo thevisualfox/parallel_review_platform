@@ -1,6 +1,9 @@
 .review {
     --marker-size: 20;
 
+    display: flex;
+    justify-content: flex-end;
+
     .review__image {
         &:hover {
             cursor: url('../img/icons/cursor_comment.svg'), pointer;

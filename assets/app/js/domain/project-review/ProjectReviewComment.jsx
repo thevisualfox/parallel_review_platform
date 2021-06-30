@@ -1,12 +1,21 @@
 /* Packages */
-import React from 'react';
+import React, { useState } from 'react';
 
 /* Components*/
 import { User, UserInfo } from '../../components';
 
-export default function ProjectReviewComment({ comment: content, globalUsers, setReplyToUser, renderAuthor = false }) {
+export default function ProjectReviewComment({
+	comment: content,
+	commentIndex,
+	globalUsers,
+	setReplyToUser,
+	renderAuthor = false,
+}) {
 	/* Contants */
 	const { author, created, comment, comments } = content;
+
+	/* State */
+	const [showReplies, setShowReplies] = useState(false);
 
 	/* Render component */
 	const renderComment = () => {
@@ -57,6 +66,12 @@ export default function ProjectReviewComment({ comment: content, globalUsers, se
 								size: 'sm',
 							}}
 						/>
+						{typeof commentIndex !== 'undefined' && (
+							<div
+								className="ml-auto icon-wrapper icon-wrapper--secondary">
+								<span className="text--sm text-secondary">{commentIndex + 1}</span>
+							</div>
+						)}
 					</div>
 				)}
 				{renderComment()}
@@ -68,16 +83,27 @@ export default function ProjectReviewComment({ comment: content, globalUsers, se
 						onClick={() => setReplyToUser(author)}>
 						<span className="btn-text text-white">Reply</span>
 					</button>
+					{comments.length > 0 && (
+						<button
+							className="comment__replies-toggle btn btn-link text-muted--60 mb-0 hr-2 font-weight-normal ml-auto text-white"
+							onClick={() => setShowReplies(!showReplies)}>
+							{showReplies ? 'Hide' : 'Show'} {comments.length} replies
+						</button>
+					)}
 				</div>
+				{comments.length > 0 && showReplies && (
+					<div className="comment__replies">
+						{comments.map((comment) => {
+							return (
+								<ProjectReviewComment
+									key={comment.id}
+									{...{ comment, globalUsers, setReplyToUser, renderAuthor: true }}
+								/>
+							);
+						})}
+					</div>
+				)}
 			</div>
-			{comments?.map((comment) => {
-				return (
-					<ProjectReviewComment
-						key={comment.id}
-						{...{ comment, globalUsers, setReplyToUser, renderAuthor: true }}
-					/>
-				);
-			})}
 		</>
 	);
 }

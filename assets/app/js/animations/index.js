@@ -94,4 +94,24 @@ const STAGGER_LEFT = (index = 0) => ({
 	exit: { opacity: 0, x: 10, transition: { type: 'spring', damping: 30, stiffness: 600 } },
 });
 
-export { FADE_IN, FADE_IN_UP, TRANSFORM_UP, SCALE_FADE, STAGGER_UP, STAGGER_LEFT };
+const SLIDE_IN = {
+	initial: {
+		x: '-100%',
+	},
+	animate: {
+		x: '0%',
+		transition: {
+			duration: 0.2,
+			ease: [0.65, 0, 0.35, 1],
+		},
+	},
+	exit: {
+		x: '-100%',
+		transition: {
+			duration: 0.1,
+			ease: [0.65, 0, 0.35, 1],
+		},
+	},
+};
+
+export { FADE_IN, FADE_IN_UP, TRANSFORM_UP, SCALE_FADE, STAGGER_UP, STAGGER_LEFT, SLIDE_IN };
