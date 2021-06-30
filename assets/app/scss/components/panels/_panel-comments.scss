@@ -3,6 +3,6 @@
     height: calc(100% - 65px);
 
     .panel__body {
-        @extend %scroll-auto, .w-100;
+        @extend %scroll-auto, .w-100, .h-100;
     }
 }

@@ -6,3 +6,4 @@ framework:
         routing:
             'App\Message\RegisterEmail': async
             'App\Message\ProjectUserAddEmail': async
+            'App\Message\MentionedByEmail': async

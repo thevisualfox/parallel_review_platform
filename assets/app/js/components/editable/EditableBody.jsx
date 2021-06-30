@@ -39,7 +39,7 @@ export default function EditableBody({ fields, toggleModal, mutation, mutationId
 				{...{
 					title: 'Save',
 					contentType: fields.length === 1 ? 'icon' : 'text',
-					extensionClasses: fields.length === 1 ? 'form-control-btn' : 'px-8 mt-3',
+					extensionClasses: fields.length === 1 ? 'form-control-btn' : 'w-50 justify-content-center mt-3',
 					theme: fields.length === 1 ? 'default' : 'secondary',
 					isLoading: editMutation.isLoading,
 					type: 'submit',
