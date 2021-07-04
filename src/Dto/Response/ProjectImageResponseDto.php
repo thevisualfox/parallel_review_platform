@@ -16,6 +16,12 @@ class ProjectImageResponseDto
     public $id;
 
     /**
+     * @var int $parentId
+     * @Serialization\Type("int")
+     */
+    public $parentId;
+
+    /**
      * @var string $title
      * @Serialization\Type("string")
      */

@@ -4,11 +4,12 @@ import { ReactSVG } from 'react-svg';
 import { useQueryClient } from 'react-query';
 
 /* Components */
-import { Button, User, Modal, EditableBody } from '../../components';
+import { User, Modal, EditableBody } from '../../components';
 
 /* Assets */
 import chevronIcon from 'icons/chevron.svg';
 import editIcon from 'icons/edit.svg';
+import nextIcon from 'icons/next.svg';
 import commentIcon from 'icons/comment.svg';
 
 /* Context */
@@ -20,6 +21,7 @@ import { editProjectImage, QUERY_KEYS } from '../../api';
 export default function ProjectReviewActionBar({ title, description, phase, commentsPanelOpen, toggleCommentsPanel }) {
 	/* State */
 	const [editModalOpen, setEditModalOpen] = useState(false);
+	const [phaseModalOpen, setPhaseModalOpen] = useState(false);
 
 	/* Hooks */
 	const queryClient = useQueryClient();
@@ -30,6 +32,7 @@ export default function ProjectReviewActionBar({ title, description, phase, comm
 
 	/* Callbacks */
 	const toggleEditModal = () => setEditModalOpen(!editModalOpen);
+	const togglePhaseModal = () => setPhaseModalOpen(!phaseModalOpen);
 
 	const mutationOnSuccess = () => {
 		queryClient.invalidateQueries([QUERY_KEYS.PROJECT_IMAGE_BY_ID, Number(projectImageId)]);
@@ -61,34 +64,40 @@ export default function ProjectReviewActionBar({ title, description, phase, comm
 						</div>
 						<div className="col-auto d-flex align-items-center">
 							<div className="position-relative hr-2">
-								<button
-									className={`bar__action-btn ${editModalOpen && 'is-active'} btn btn-link text-rest`}
-									onClick={toggleEditModal}>
-									<ReactSVG wrapper="svg" className="icon icon--16" src={editIcon} />
-								</button>
-								<Modal
-									{...{
-										title: 'Editing image',
-										subtitle: 'Save when ready',
-										modalOpen: editModalOpen,
-										toggleModal: toggleEditModal,
-										renderOnBody: false,
-										center: false,
-										extensionClasses: 'bar__edit-modal',
-									}}>
-									<EditableBody
-										{...{
-											toggleModal: toggleEditModal,
-											fields: [
-												{ name: 'title', defaultValue: title },
-												{ name: 'description', defaultValue: description },
-											],
-											mutation: editProjectImage,
-											mutationId: projectImageId,
-											mutationOnSuccess: mutationOnSuccess,
-										}}
-									/>
-								</Modal>
+								{userRole === 'admin' && (
+									<>
+										<button
+											className={`bar__action-btn ${
+												editModalOpen && 'is-active'
+											} btn btn-link text-rest`}
+											onClick={toggleEditModal}>
+											<ReactSVG wrapper="svg" className="icon icon--16" src={editIcon} />
+										</button>
+										<Modal
+											{...{
+												title: 'Editing image',
+												subtitle: 'Save when ready',
+												modalOpen: editModalOpen,
+												toggleModal: toggleEditModal,
+												renderOnBody: false,
+												center: false,
+												extensionClasses: 'bar__edit-modal',
+											}}>
+											<EditableBody
+												{...{
+													toggleModal: toggleEditModal,
+													fields: [
+														{ name: 'title', defaultValue: title },
+														{ name: 'description', defaultValue: description },
+													],
+													mutation: editProjectImage,
+													mutationId: projectImageId,
+													mutationOnSuccess: mutationOnSuccess,
+												}}
+											/>
+										</Modal>
+									</>
+								)}
 							</div>
 							<button
 								className={`bar__action-btn ${
@@ -97,12 +106,34 @@ export default function ProjectReviewActionBar({ title, description, phase, comm
 								onClick={toggleCommentsPanel}>
 								<ReactSVG wrapper="svg" className="icon icon--16" src={commentIcon} />
 							</button>
+							<div className="position-relative hr-2">
+								{userRole === 'admin' && (
+									<>
+										<button
+											className={`bar__action-btn ${
+												phaseModalOpen && 'is-active'
+											} btn btn-link text-rest`}
+											onClick={togglePhaseModal}>
+											<ReactSVG wrapper="svg" className="icon icon--16" src={nextIcon} />
+										</button>
+										<Modal
+											{...{
+												title: 'Next phase',
+												subtitle: 'Add a new image for the next phase',
+												modalOpen: phaseModalOpen,
+												toggleModal: togglePhaseModal,
+												renderOnBody: false,
+												center: false,
+												extensionClasses: 'bar__edit-modal',
+											}}>
+											Dropzone
+										</Modal>
+									</>
+								)}
+							</div>
 						</div>
 						<div className="col-4 d-flex justify-content-end">
 							<User {...{ user: currentUser, size: 'lg' }} />
-							{userRole === 'admin' && (
-								<Button title="Next phase" type="button" extensionClasses="ml-2 px-4" />
-							)}
 						</div>
 					</div>
 				</div>

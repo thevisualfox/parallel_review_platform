@@ -32,6 +32,7 @@ class ProjectImageResponseDtoTransformer extends AbstractResponseDtoTransformer
         $id = $projectImage->getId();
 
         $dto = new ProjectImageResponseDto();
+        $dto->parentId = $projectImage->getProject()->getId();
         $dto->id = $id;
         $dto->title = $projectImage->getTitle();
         $dto->description = $projectImage->getDescription();

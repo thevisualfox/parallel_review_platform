@@ -7,15 +7,16 @@ import { User, UserInfo } from '../../components';
 export default function ProjectReviewComment({
 	comment: content,
 	commentIndex,
-	globalUsers,
+	projectUsers,
 	setReplyToUser,
 	renderAuthor = false,
+	showInitialReplies = false,
 }) {
 	/* Contants */
 	const { author, created, comment, comments } = content;
 
 	/* State */
-	const [showReplies, setShowReplies] = useState(false);
+	const [showReplies, setShowReplies] = useState(showInitialReplies);
 
 	/* Render component */
 	const renderComment = () => {
@@ -29,7 +30,7 @@ export default function ProjectReviewComment({
 					let user;
 
 					if (commentIndex in usersArray) {
-						user = globalUsers.find((user) => usersArray[commentIndex][0].includes(user.display));
+						user = projectUsers.find((user) => usersArray[commentIndex][0].includes(user.display));
 					}
 
 					return (
@@ -68,8 +69,9 @@ export default function ProjectReviewComment({
 						/>
 						{typeof commentIndex !== 'undefined' && (
 							<div
-								className="ml-auto icon-wrapper icon-wrapper--secondary">
-								<span className="text--sm text-secondary">{commentIndex + 1}</span>
+								className="ml-auto icon-wrapper icon-wrapper--hsl icon-wrapper--interactive"
+								style={{ '--theme': author.userColor }}>
+								<span className="text--xs">{commentIndex + 1}</span>
 							</div>
 						)}
 					</div>
@@ -97,7 +99,7 @@ export default function ProjectReviewComment({
 							return (
 								<ProjectReviewComment
 									key={comment.id}
-									{...{ comment, globalUsers, setReplyToUser, renderAuthor: true }}
+									{...{ comment, projectUsers, setReplyToUser, renderAuthor: true }}
 								/>
 							);
 						})}

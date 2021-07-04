@@ -65,7 +65,9 @@ export default function ProjectDetailImages({ projectImages, projectId }) {
 				)}
 			</div>
 			<AnimatePresence>
-				{selected.length > 0 && <ActionMenu {...{ selected, resetSelected, actions }} />}
+				{selected.length > 0 && userRole === 'admin' && (
+					<ActionMenu {...{ selected, resetSelected, actions }} />
+				)}
 			</AnimatePresence>
 		</>
 	);

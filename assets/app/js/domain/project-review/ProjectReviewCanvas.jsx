@@ -16,7 +16,7 @@ import ProjectReviewCommentPanel from './ProjectReviewCommentPanel';
 import { SecurityModal } from '../../components';
 
 /* Api */
-import { fetchGobalUsers, QUERY_KEYS } from '../../api';
+import { fetchProjectUsers, QUERY_KEYS } from '../../api';
 
 /* Context */
 import { StaticContext } from '../../context';
@@ -27,9 +27,15 @@ import { SLIDE_IN } from '../../animations';
 /* Global */
 const cursorOffset = 10;
 
-export default function ProjectReviewCanvas({ title, phases = [], ...rest }) {
+export default function ProjectReviewCanvas({ parentId, title, phases = [], ...rest }) {
 	/* Queries */
-	const { data: globalUsers = [] } = useQuery(QUERY_KEYS.GLOBAL_USERS, fetchGobalUsers);
+	const { data: projectUsers = [] } = useQuery(
+		QUERY_KEYS.PROJECT_USERS,
+		() => fetchProjectUsers({ projectId: parentId }),
+		{
+			enabled: !!parentId,
+		}
+	);
 
 	/* Constants */
 	const { image, id: phaseId, comments, phase } = phases[phases.length - 1] || {};
@@ -86,7 +92,7 @@ export default function ProjectReviewCanvas({ title, phases = [], ...rest }) {
 				{comments?.map((comment, commentIndex) => (
 					<ProjectReviewCommentModal
 						key={comment.id}
-						{...{ comment, commentIndex, reviewRef, globalUsers, toggleCommentAddOpen }}
+						{...{ comment, commentIndex, reviewRef, projectUsers, toggleCommentAddOpen }}
 					/>
 				))}
 				<AnimatePresence>
@@ -102,7 +108,9 @@ export default function ProjectReviewCanvas({ title, phases = [], ...rest }) {
 			<ProjectReviewActionBar {...{ ...rest, title, phase, commentsPanelOpen, toggleCommentsPanel }} />
 			<AnimatePresence>
 				{commentsPanelOpen && (
-					<ProjectReviewCommentPanel {...{ comments, commentsPanelOpen, toggleCommentsPanel, globalUsers }} />
+					<ProjectReviewCommentPanel
+						{...{ comments, commentsPanelOpen, toggleCommentsPanel, projectUsers }}
+					/>
 				)}
 			</AnimatePresence>
 		</motion.div>

@@ -30,7 +30,7 @@ export default function ProjectReview() {
 
 	/* Render */
 	return (
-		<ReviewContext.Provider value={{ projectImageId }}>
+		<ReviewContext.Provider value={{ projectId: data?.parentId, projectImageId }}>
 			<PageWrapper>
 				<PageLoader {...{ isLoading }}>
 					<ProjectReviewCanvas {...data} />

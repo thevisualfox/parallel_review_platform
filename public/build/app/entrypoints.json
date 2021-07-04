@@ -2,12 +2,12 @@
   "entrypoints": {
     "main": {
       "css": [
-        "/build/app/0.4997f84f.css",
-        "/build/app/main.449de5b0.css"
+        "/build/app/vendors~main.css",
+        "/build/app/main.css"
       ],
       "js": [
-        "/build/app/0.8aa18dea.js",
-        "/build/app/main.15fc79e7.js"
+        "/build/app/vendors~main.js",
+        "/build/app/main.js"
       ]
     }
   }

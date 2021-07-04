@@ -95,7 +95,7 @@ const CommentBox = ({ comment, toggleComment, reviewRef, ...rest }) => {
 				</div>
 				<div className="custom-modal__body d-flex mt-4">
 					<div className="d-flex flex-column w-100">
-						<ProjectReviewComment {...{ comment, setReplyToUser, ...rest }} />
+						<ProjectReviewComment {...{ comment, setReplyToUser, showInitialReplies: true, ...rest }} />
 						{replyToUser && (
 							<ProjectReviewCommentReply
 								{...{
