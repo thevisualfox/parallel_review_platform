@@ -1,0 +1,54 @@
+.pagination {}
+
+.pagination__btn-wrapper {
+    position: fixed;
+    top: 50%;
+    left: 0;
+    transform: translateY(calc(-50% - 65px));
+
+    &--next {
+        left: auto;
+        right: 0;
+    }
+}
+
+.pagination__btn {
+    @extend %center-flex;
+
+    --size: 70px;
+
+    border-radius: 50%;
+    background-color: rgba($color-base, $opacity-level);
+    width: var(--size);
+    height: var(--size);
+    transition: transform 150ms ease, background-color 150ms ease;
+
+    .pagination__icon {
+        transform: translateX(-10px);
+    }
+
+    &--prev {
+        transform: translateX(calc((var(--size) / 1.35) * -1)) scale(-1);
+    }
+
+    &--next {
+        transform: translateX(calc(var(--size) / 1.35));
+    }
+
+    &:hover,
+    &:focus {
+        background-color: rgba($color-base, $opacity-level-active-background);
+
+        &.pagination__btn--prev {
+            transform: translateX(calc((var(--size) / 2) * -1)) scale(-1);
+        }
+
+        &.pagination__btn--next {
+            transform: translateX(calc(var(--size) / 2));
+        }
+    }
+
+    &:active {
+        background-color: rgba($color-base, $opacity-level-active-border);
+    }
+}

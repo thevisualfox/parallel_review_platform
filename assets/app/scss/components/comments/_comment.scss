@@ -1,0 +1,48 @@
+.comment {
+    @extend .vr-3;
+
+    &:not(:last-child) {
+        @extend .pb-3;
+    }
+
+    &__created,
+    &__agree,
+    &__reply-toggle,
+    &__replies-toggle {
+        @extend .text--sm;
+    }
+
+    &__replies-toggle {
+        position: relative;
+
+        &:before {
+            content: "";
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            left: - spacer(5);
+            width: spacer(3);
+            height: 1px;
+            background-color: currentColor;
+        }
+    }
+
+    &__replies {
+        @extend .border-left, .pl-3, .py-1, .mt-3;
+    }
+
+    .comment {
+        @extend .vr-0;
+
+        .comment__mention,
+        .comment__content {
+            @extend .text--sm;
+        }
+
+        .comment__created,
+        .comment__agree,
+        .comment__reply-toggle {
+            @extend .text--xs;
+        }
+    }
+}

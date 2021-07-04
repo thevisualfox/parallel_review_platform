@@ -1,34 +1,20 @@
 .panel--login {
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    right: 0;
-    height: 100%;
+    @extend .justify-content-center;
+
     background-color: rgba($color-base, 0.9);
 
     @include media-breakpoint-up(md) {
-        top: 50%;
-        left: 50%;
-        right: auto;
-        bottom: auto;
-        height: auto;
-        transform: translate(-50%, -50%);
         background-color: $color-base;
-        border-radius: $border-radius;
     }
 
     @include media-breakpoint-up(lg) {
-        top: 0;
         right: 0;
-        bottom: auto;
         left: auto;
-        height: 100%;
         width: 560px;
-        transform: unset;
-        border-radius: 0;
     }
 
     .panel__body {
-        @extend %scroll-auto ;
+        @extend .p-5, .p-md-8, .px-lg-16;
+        @extend %scroll-auto, .w-100;
     }
 }

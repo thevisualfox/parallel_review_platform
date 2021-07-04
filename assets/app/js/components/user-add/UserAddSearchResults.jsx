@@ -19,7 +19,7 @@ export default function UserAddSearchResults({
 }) {
 	/* Render filtered results */
 	const results = () => {
-		const newUser = { email: query, username: 'New user', userColor: '#CC25E8' };
+		const newUser = { email: query, organisation: query, display: 'New user', userColor: '291, 81%, 53%' };
 
 		if (filteredUsers.length > 0) {
 			return filteredUsers.map((user, userIndex) => (
@@ -50,7 +50,7 @@ export default function UserAddSearchResults({
 	return (
 		<AnimatePresence>
 			{query !== '' && (
-				<motion.ul {...FADE_IN} className="box__list list">
+				<motion.ul {...FADE_IN} className="custom-modal__list list">
 					{results()}
 				</motion.ul>
 			)}

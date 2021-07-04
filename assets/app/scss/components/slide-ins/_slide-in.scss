@@ -1,0 +1,55 @@
+.slide-in {
+    @extend %center-flex, %fixed-fill;
+
+    z-index: $zindex-fixed;
+}
+
+.slide-in__overlay {
+    @extend %absolute-fill;
+
+    background-color: rgba($color-base, 0.9);
+}
+
+.slide-in__content {
+    @extend .d-flex, .flex-column;
+    @extend %scroll-auto;
+
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background-color: $primary;
+    border-top: $border-width solid $border-color;
+    max-height: 95vh;
+    height: 100%;
+
+    @include media-breakpoint-up(lg) {
+        max-height: 90vh;
+        min-height: 80vh;
+        height: auto;
+    }
+}
+
+.slide-in__form,
+.slide-in__body {
+    @extend .d-flex, .flex-column, .flex-grow-1;
+}
+
+.slide-in__header {
+    position: sticky;
+    top: 0;
+    z-index: $zindex-sticky;
+    background-color: $primary;
+}
+
+.slide-in__close {
+    .icon {
+        color: rgba($white, 0.7);
+        transition: color 200ms ease;
+    }
+
+    &:hover .icon,
+    &:focus .icon {
+        color: $white;
+    }
+}

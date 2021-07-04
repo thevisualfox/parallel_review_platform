@@ -1,7 +1,37 @@
 .panel {
-    @extend .d-flex, .flex-column, .align-items-center, .justify-content-center;
+    @extend .d-flex, .flex-column, .align-items-center;
+
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 100%;
+    background-color: $primary;
+
+    @include media-breakpoint-up(md) {
+        top: 50%;
+        left: 50%;
+        right: auto;
+        bottom: auto;
+        height: auto;
+        transform: translate(-50%, -50%);
+        border-radius: $border-radius;
+    }
+
+    @include media-breakpoint-up(lg) {
+        top: 0;
+        left: 0;
+        height: 100%;
+        width: 400px;
+        transform: unset;
+        border-radius: 0;
+    }
 }
 
 .panel__body {
-    @extend .p-5, .p-md-8, .px-lg-16;
+    @extend .p-4, .p-md-6;
+}
+
+.panel__close {
+    @extend .custom-modal__close;
 }

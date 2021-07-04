@@ -6,7 +6,13 @@
 }
 
 .icon {
+    @extend %center-flex;
+
     flex-shrink: 0;
+}
+
+.icon--reversed {
+    transform: scaleX(-1);
 }
 
 .icon-wrapper {

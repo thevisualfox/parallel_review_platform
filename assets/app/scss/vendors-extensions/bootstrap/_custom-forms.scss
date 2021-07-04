@@ -3,14 +3,27 @@
  *
  */
 
+input:-webkit-autofill,
+input:-webkit-autofill:hover,
+input:-webkit-autofill:focus {
+    box-shadow: 0 0 0 30px $color-base inset !important;
+    -webkit-text-fill-color: $input-color !important;
+    transition: border-color 100ms ease !important;
+}
+
 .custom-control {
     margin-bottom: 0.5rem;
     min-height: $custom-control-indicator-size;
 }
 
 .form-control {
+    border-top: none;
+    border-left: none;
+    border-right: none;
+
     &.is-valid,
     &.is-invalid {
+        padding-right: 0 !important;
         background-position: right #{$input-padding-x} center;
     }
 }
@@ -35,10 +48,20 @@
 .form-control--search {
     $size: 16px;
 
-    background: $quaternary url('../img/icons/search.svg') $input-padding-x 50% / #{$size} no-repeat;
+    background: url('../img/icons/search.svg') $input-padding-x 50% / #{$size} no-repeat;
     padding-left: calc(#{$input-padding-x} + #{spacer(3)} + #{$size});
+}
 
-    &:focus {
-        background-color: $quaternary;
-    }
+.form-control-btn {
+    --size: 26;
+
+    @extend %center-flex;
+
+    position: absolute;
+    bottom: spacer(2);
+    right: 0;
+    padding: 0;
+    width: var(--size);
+    height: var(--size);
+    border: none;
 }

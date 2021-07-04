@@ -1,25 +1,55 @@
 /* Packages */
-import React from "react";
-import { createPortal } from "react-dom";
-import { motion } from "framer-motion";
+import React from 'react';
+import { createPortal } from 'react-dom';
+import { AnimatePresence, motion } from 'framer-motion';
+
+/* Domain */
+import ModalHeader from './ModalHeader';
 
 /* Animations */
-import { FADE_IN, TRANSFORM_UP } from "../../animations";
+import { FADE_IN, FADE_IN_UP } from '../../animations';
 
-export default function Modal({ toggleModal, children, domElement, variant = "default" }) {
-    const render = () => (
-        <div key="custom-modal" className={`custom-modal custom-modal--${variant}`}>
-            <motion.div className="custom-modal__overlay" onClick={toggleModal} {...FADE_IN} />
-            <motion.article key="custom-modal__content" className="custom-modal__content" {...TRANSFORM_UP}>
-                <div className="container-fluid d-flex flex-grow-1">{children}</div>
-            </motion.article>
-        </div>
-    );
+/* Hooks */
+import { useCloseOnEsc } from '../../hooks';
 
-    /* Render */
-    if (domElement) {
-        return createPortal(render(), domElement);
-    }
+export default function Modal({
+	title,
+	subtitle,
+	modalOpen,
+	toggleModal,
+	children,
+	renderOnBody = true,
+	center = true,
+	extensionClasses,
+	components = {},
+}) {
+	/* Constants */
+	const { HeaderComponent = ModalHeader } = components;
 
-    return render();
+	/* Hooks */
+	useCloseOnEsc(modalOpen, toggleModal);
+
+	const render = () => (
+		<AnimatePresence>
+			{modalOpen && (
+				<div className={`custom-modal ${center && 'custom-modal--center'} ${extensionClasses}`}>
+					<motion.div className="custom-modal-overlay" {...FADE_IN} onClick={toggleModal} />
+					<motion.div
+						key="custom-modal-content"
+						className="custom-modal__content border p-5"
+						{...FADE_IN_UP()}>
+						<HeaderComponent {...{ title, subtitle, toggleModal }} />
+						<div className="custom-modal__body d-flex mt-2">{children}</div>
+					</motion.div>
+				</div>
+			)}
+		</AnimatePresence>
+	);
+
+	/* Render */
+	if (renderOnBody) {
+		return createPortal(render(), document.body);
+	}
+
+	return render();
 }

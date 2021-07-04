@@ -23,6 +23,9 @@ import { fetchCurrentUser, QUERY_KEYS } from './api';
 /* Routes */
 import routes, { ROUTES } from './routes';
 
+/* Hooks */
+import { useStorage } from './hooks';
+
 export default function App() {
 	/* Render */
 	return (
@@ -37,10 +40,8 @@ const RouterBody = () => {
 	const [currentUser, setCurrentUser] = useState();
 	const [userRole, setUserRole] = useState([]);
 
-	/* Constants */
-	const userId = atob(window.location.search.replace('?', ''));
-
 	/* Hooks */
+	const [userId] = useStorage('userId', atob(window.location.search.replace('?', '')));
 	const location = useLocation();
 
 	/* Queries */
@@ -57,22 +58,24 @@ const RouterBody = () => {
 		<StaticContext.Provider value={{ currentUser, setCurrentUser, userRole }}>
 			<AnimatePresence>
 				{/* Show different headers based on route */}
-				{![ROUTES.login, ROUTES.signup].includes(location.pathname) && <HeaderNavigation />}
+				{![ROUTES.login, ROUTES.signup].includes(location.pathname) && !location.pathname.includes('review') && <HeaderNavigation />}
 			</AnimatePresence>
 			<PageLoader {...{ isLoading }}>
 				<AnimatePresence exitBeforeEnter>
 					<Switch location={location} key={location.pathname}>
 						{/* Redirect to /projects if a user is logged in */}
-						{currentUser && location.pathname === ROUTES.login && <Redirect to={ROUTES.projects} />}
+						{currentUser && [ROUTES.login, ROUTES.signup].includes(location.pathname) && (
+							<Redirect to={ROUTES.projects} />
+						)}
 
 						{/* Redirect to /login if a user is not logged in on the /projects route */}
-						{!currentUser && location.pathname === ROUTES.projects && <Redirect to={ROUTES.login} />}
+						{!currentUser && location.pathname.includes(ROUTES.projects) && <Redirect to={ROUTES.login} />}
 
 						{/* Render routes */}
 						{routes.map(({ path, component: Component, props }) => (
 							<Route key={path} path={path} exact>
 								<motion.div key={path} {...FADE_IN}>
-									<Component {...{ ...props, currentUser, setCurrentUser, userRole, setUserRole }} />
+									<Component {...{ ...props, currentUser, userRole }} />
 								</motion.div>
 							</Route>
 						))}

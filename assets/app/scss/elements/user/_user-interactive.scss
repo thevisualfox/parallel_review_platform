@@ -23,7 +23,7 @@
         .user__action-icon {
             width: calc(var(--avatar-dimensions) * 0.4);
             height: calc(var(--avatar-dimensions) * 0.4);
-            color: var(--theme);
+            color: Hsl(var(--theme)); /* stylelint-disable-line function-name-case */
         }
     }
 
@@ -36,8 +36,8 @@
             transform: translate(-50%, -100%);
         }
 
-        .user__avatar:after {
-            border-color: var(--theme);
+        .user__avatar {
+            border-color: Hsl(var(--theme), $opacity-level-active-border); /* stylelint-disable-line function-name-case */
         }
 
         .user__action {

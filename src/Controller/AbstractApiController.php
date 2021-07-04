@@ -9,7 +9,6 @@ abstract class AbstractApiController extends AbstractFOSRestController
 {
     protected const SERIALIZATION_GROUP_DEFAULT = 'Default';
     protected const SERIALIZATION_GROUP_PROJECTS = 'Projects';
-    protected const SERIALIZATION_GROUP_PROJECT_SINGLE = 'ProjectSingle';
 
     private $serializationGroups = [
         self::SERIALIZATION_GROUP_DEFAULT,

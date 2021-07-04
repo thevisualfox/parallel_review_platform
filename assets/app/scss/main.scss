@@ -63,6 +63,7 @@
 @import "base/base";
 @import "base/type";
 @import "base/vertical-rhythm";
+@import "base/horizontal-rhythm";
 
 // Forms
 
@@ -94,12 +95,18 @@
 @import "components/panes/pane";
 @import "components/panels/panel";
 @import "components/panels/panel-login";
-@import "components/custom-modals/custom-modal";
+@import "components/panels/panel-comments";
+@import "components/slide-ins/slide-in";
 @import "components/menus/menu";
-@import "components/boxes/box";
+@import "components/custom-modals/custom-modal";
 @import "components/dropzones/dropzone";
 @import "components/bars/bar";
+@import "components/bars/bar-review";
 @import "components/reviews/review";
+@import "components/mentions/mention";
+@import "components/replies/reply";
+@import "components/comments/comment";
+@import "components/pagination/pagination";
 
 // Compositions
 

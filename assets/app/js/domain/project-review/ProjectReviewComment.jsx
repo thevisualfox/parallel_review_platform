@@ -1,61 +1,109 @@
 /* Packages */
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useState } from 'react';
 
-/* Components */
-import { Box } from '../../components';
+/* Components*/
+import { User, UserInfo } from '../../components';
 
-/* Domain */
-import ProjectReviewMarker from './ProjectReviewMarker';
+export default function ProjectReviewComment({
+	comment: content,
+	commentIndex,
+	globalUsers,
+	setReplyToUser,
+	renderAuthor = false,
+}) {
+	/* Contants */
+	const { author, created, comment, comments } = content;
 
-/* Services */
-import calcCommentPos from './services/calcCommentPos';
-
-export default function ProjectReviewComment({ author, comment, position, commentIndex, reviewRef }) {
-	/* Constants */
-	const { xPercent, yPercent } = position;
 	/* State */
-	const [boxOpen, setBoxOpen] = useState(false);
+	const [showReplies, setShowReplies] = useState(false);
 
-	/* Callbacks */
-	const toggleBox = () => setBoxOpen(!boxOpen);
+	/* Render component */
+	const renderComment = () => {
+		const usersRegex = /@\[[^\]]*\]\{[0-9]+\}/gi;
+		const usersArray = [...comment.matchAll(usersRegex)];
+		const comments = comment.split(/@\[[^\]]*\]\{[0-9]+\}/gi);
+
+		return (
+			<p className="lh--md">
+				{comments.map((comment, commentIndex) => {
+					let user;
+
+					if (commentIndex in usersArray) {
+						user = globalUsers.find((user) => usersArray[commentIndex][0].includes(user.display));
+					}
+
+					return (
+						<React.Fragment key={commentIndex}>
+							<span className="comment__content">{`${comment} `}</span>{' '}
+							{user && (
+								<>
+									<span
+										className="comment__mention mentions__mention px-1"
+										style={{ '--theme': user.userColor }}>
+										<span>@{user.display}</span>
+									</span>{' '}
+								</>
+							)}
+						</React.Fragment>
+					);
+				})}
+			</p>
+		);
+	};
 
 	/* Render */
 	return (
-		<ProjectReviewMarker {...{ xPercent, yPercent, author, commentIndex, toggleComment: toggleBox }}>
-			<Comment {...{ comment, author, boxOpen, toggleBox, position, reviewRef }} />
-		</ProjectReviewMarker>
+		<>
+			<div className="comment">
+				{renderAuthor && (
+					<div className="d-flex align-items-center mb-2">
+						<User {...{ user: author }} />
+						<UserInfo
+							{...{
+								title: author.display,
+								subtitle: `/ ${author.organisation}`,
+								layout: 'horizontal',
+								size: 'sm',
+							}}
+						/>
+						{typeof commentIndex !== 'undefined' && (
+							<div
+								className="ml-auto icon-wrapper icon-wrapper--secondary">
+								<span className="text--sm text-secondary">{commentIndex + 1}</span>
+							</div>
+						)}
+					</div>
+				)}
+				{renderComment()}
+				<div className="d-flex align-items-center mt-1">
+					<p className="comment__created text-muted--60 mb-0 hr-2">{created}</p>
+					<p className="comment__agree text-muted--60 mb-0 hr-2 font-weight-normal">7 agree</p>
+					<button
+						className="comment__reply-toggle btn btn-link text-muted--60 mb-0 hr-2 font-weight-normal"
+						onClick={() => setReplyToUser(author)}>
+						<span className="btn-text text-white">Reply</span>
+					</button>
+					{comments.length > 0 && (
+						<button
+							className="comment__replies-toggle btn btn-link text-muted--60 mb-0 hr-2 font-weight-normal ml-auto text-white"
+							onClick={() => setShowReplies(!showReplies)}>
+							{showReplies ? 'Hide' : 'Show'} {comments.length} replies
+						</button>
+					)}
+				</div>
+				{comments.length > 0 && showReplies && (
+					<div className="comment__replies">
+						{comments.map((comment) => {
+							return (
+								<ProjectReviewComment
+									key={comment.id}
+									{...{ comment, globalUsers, setReplyToUser, renderAuthor: true }}
+								/>
+							);
+						})}
+					</div>
+				)}
+			</div>
+		</>
 	);
 }
-
-const Comment = ({ comment, author, boxOpen, toggleBox, position, reviewRef }) => {
-	/* Constants */
-	const title = author.username;
-	const subtitle = author.email;
-
-	/* State */
-	const [transformedPos, setTransformedPos] = useState(position);
-
-	/* Refs */
-	const boxRef = useRef();
-
-	/* Effects */
-	useEffect(() => {
-		if (position) {
-			setTransformedPos(() => {
-				position.reviewPos = reviewRef.current.getBoundingClientRect();
-				return calcCommentPos(boxRef, position);
-			});
-		}
-	}, [position]);
-
-	/* Render */
-	return (
-		<Box
-			renderOnBody={false}
-			animate={false}
-			extensionClasses="review__box"
-			{...{ title, subtitle, boxOpen, toggleBox, user: author, position: transformedPos, boxRef }}>
-			{comment}
-		</Box>
-	);
-};

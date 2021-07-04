@@ -13,16 +13,14 @@ import deleteIcon from 'icons/delete.svg';
 /* Api */
 import { deleteUser, QUERY_KEYS } from '../../api';
 
-export default function User({ user, project = {}, variant = 'default', size = 'md' }) {
+export default function User({ user, project, variant = 'default', size = 'md' }) {
 	/* Hooks */
 	const queryClient = useQueryClient();
 
 	/* Constants */
-	const { id: projectId, author } = project;
-	const { id: userId, email } = user;
-
+	const { id: projectId, author } = project ?? {};
+	const { id: userId, email } = user ?? {};
 	const isAuthor = email === author;
-	const classes = ['user', `user--${size}`, `user--${variant}`, isAuthor && 'user--author'].join(' ');
 
 	/* Mutations */
 	const deleteUserMutation = useMutation(deleteUser, {
@@ -31,17 +29,19 @@ export default function User({ user, project = {}, variant = 'default', size = '
 
 	/* Render */
 	return (
-		<div className={classes}>
-			<UserAvatar isLoading={deleteUserMutation.isLoading} {...user}>
-				{variant === 'interactive' && !isAuthor && (
-					<button
-						className="user__action btn btn-link p-0"
-						type="button"
-						onClick={() => deleteUserMutation.mutate({ projectId, userId })}>
-						<ReactSVG wrapper="svg" className="user__action-icon icon icon--14" src={deleteIcon} />
-					</button>
-				)}
-			</UserAvatar>
+		<div className={`user user--${size} user--${variant} ${isAuthor && 'user--author'}`}>
+			<div className="d-flex align-items-center">
+				<UserAvatar isLoading={deleteUserMutation.isLoading} {...user}>
+					{variant === 'interactive' && !isAuthor && (
+						<button
+							className="user__action btn btn-link p-0"
+							type="button"
+							onClick={() => deleteUserMutation.mutate({ projectId, userId })}>
+							<ReactSVG wrapper="svg" className="user__action-icon icon icon--14" src={deleteIcon} />
+						</button>
+					)}
+				</UserAvatar>
+			</div>
 			{isAuthor && (
 				<div className="user__status user__status--leader">
 					<ReactSVG wrapper="svg" className="user__status-icon icon text-tertiary mt-0" src={starIcon} />
@@ -51,9 +51,9 @@ export default function User({ user, project = {}, variant = 'default', size = '
 	);
 }
 
-export const UserAvatar = ({ username, userColor, isLoading, children }) => {
+export const UserAvatar = ({ display, userColor, isLoading, children }) => {
 	/* Constants */
-	const userInitials = username.split(' ').map((word) => word[0].toUpperCase());
+	const userInitials = display.split(' ').map((word) => word[0].toUpperCase());
 
 	/* Render */
 	return (
@@ -66,9 +66,9 @@ export const UserAvatar = ({ username, userColor, isLoading, children }) => {
 	);
 };
 
-export const UserInfo = ({ username, email }) => (
-	<div className="d-flex flex-column ml-3">
-		<p className="mb-0">{username}</p>
-		<p className="text-muted--60 text--xs">{email}</p>
+export const UserInfo = ({ title, subtitle, layout = 'vertical', size = 'lg' }) => (
+	<div className={`user__info user__info--${layout} user__info--${size} ml-2`}>
+		<p className="user__info-title mb-0">{title}</p>
+		{subtitle && <p className="user__info-subtitle mb-0">{subtitle}</p>}
 	</div>
 );

@@ -5,11 +5,14 @@ namespace App\Security;
 use App\Dto\Response\Transformer\UserResponseDtoTransformer;
 use App\Entity\User;
 use Doctrine\ORM\EntityManagerInterface;
+use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
+use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
 use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
+use Symfony\Component\Security\Core\Authentication\Token\UsernamePasswordToken;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 use Symfony\Component\Security\Core\Exception\CustomUserMessageAuthenticationException;
 use Symfony\Component\Security\Core\Exception\InvalidCsrfTokenException;
@@ -20,6 +23,8 @@ use Symfony\Component\Security\Csrf\CsrfToken;
 use Symfony\Component\Security\Csrf\CsrfTokenManagerInterface;
 use Symfony\Component\Security\Guard\Authenticator\AbstractFormLoginAuthenticator;
 use Symfony\Component\Security\Guard\PasswordAuthenticatedInterface;
+use Symfony\Component\Security\Http\Event\InteractiveLoginEvent;
+use Symfony\Component\Security\Http\SecurityEvents;
 use Symfony\Component\Security\Http\Util\TargetPathTrait;
 
 class AppAuthenticator extends AbstractFormLoginAuthenticator implements PasswordAuthenticatedInterface
@@ -40,14 +45,27 @@ class AppAuthenticator extends AbstractFormLoginAuthenticator implements Passwor
     /** @var UserResponseDtoTransformer  $userResponseDtoTransformer */
     private $userResponseDtoTransformer;
 
-    public function __construct(EntityManagerInterface $entityManager, UrlGeneratorInterface $urlGenerator, CsrfTokenManagerInterface $csrfTokenManager, UserPasswordEncoderInterface $passwordEncoder, Security $security, UserResponseDtoTransformer $userResponseDtoTransformer)
-    {
+    /** @var EventDispatcherInterface  $eventDispatcher */
+    private $eventDispatcher;
+
+    public function __construct(
+        EntityManagerInterface $entityManager,
+        UrlGeneratorInterface $urlGenerator,
+        CsrfTokenManagerInterface $csrfTokenManager,
+        UserPasswordEncoderInterface $passwordEncoder,
+        Security $security,
+        UserResponseDtoTransformer $userResponseDtoTransformer,
+        TokenStorageInterface $tokenStorage,
+        EventDispatcherInterface $eventDispatcher
+    ) {
         $this->entityManager = $entityManager;
         $this->urlGenerator = $urlGenerator;
         $this->csrfTokenManager = $csrfTokenManager;
         $this->passwordEncoder = $passwordEncoder;
         $this->security = $security;
         $this->userResponseDtoTransformer = $userResponseDtoTransformer;
+        $this->tokenStorage = $tokenStorage;
+        $this->eventDispatcher = $eventDispatcher;
     }
 
     public function supports(Request $request)
@@ -103,15 +121,36 @@ class AppAuthenticator extends AbstractFormLoginAuthenticator implements Passwor
 
     public function onAuthenticationSuccess(Request $request, TokenInterface $token, string $providerKey)
     {
+        /** @var User $user */
+        $user = $this->security->getUser();
+
         if ($targetPath = $this->getTargetPath($request->getSession(), $providerKey)) {
             return new RedirectResponse($targetPath);
         }
 
-        return new JsonResponse($this->userResponseDtoTransformer->transformFromObject($this->security->getUser()));
+        if (in_array('ROLE_USER_BASIC', $user->getRoles())) {
+            $user->setRoles([]);
+
+            $this->entityManager->persist($user);
+            $this->entityManager->flush();
+        }
+
+        $this->loginUser($request, $user);
+
+        return new JsonResponse($this->userResponseDtoTransformer->transformFromObject($user));
     }
 
     protected function getLoginUrl()
     {
         return $this->urlGenerator->generate(self::LOGIN_ROUTE);
+    }
+
+    private function loginUser(Request $request, UserInterface $user): void
+    {
+        $token = new UsernamePasswordToken($user, null, 'main', $user->getRoles());
+        $this->tokenStorage->setToken($token);
+
+        $event = new InteractiveLoginEvent($request, $token);
+        $this->eventDispatcher->dispatch($event, SecurityEvents::INTERACTIVE_LOGIN);
     }
 }

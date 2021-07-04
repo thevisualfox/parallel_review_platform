@@ -4,17 +4,17 @@
 
 namespace Composer\Autoload;
 
-class ComposerStaticInit9ecf568ede262cf76db4e2b0bc157ec2
+class ComposerStaticInitd13e4fea25fb81c85dbefd724ab087b6
 {
     public static $files = array (
         'a4a119a56e50fbb293281d9a48007e0e' => __DIR__ . '/..' . '/symfony/polyfill-php80/bootstrap.php',
         '6e3fae29631ef280660b3cdad06f25a8' => __DIR__ . '/..' . '/symfony/deprecation-contracts/function.php',
         '0e6d7bf4a5811bfa5cf40c5ccd6fae6a' => __DIR__ . '/..' . '/symfony/polyfill-mbstring/bootstrap.php',
+        'e69f7f6ee287b969198c3c9d6777bd38' => __DIR__ . '/..' . '/symfony/polyfill-intl-normalizer/bootstrap.php',
+        'f598d06aa772fa33d905e87be6398fb1' => __DIR__ . '/..' . '/symfony/polyfill-intl-idn/bootstrap.php',
         '0d59ee240a4cd96ddbb4ff164fccea4d' => __DIR__ . '/..' . '/symfony/polyfill-php73/bootstrap.php',
         '92c8763cd6170fce6fcfe7e26b4e8c10' => __DIR__ . '/..' . '/symfony/phpunit-bridge/bootstrap.php',
         '667aeda72477189d0494fecd327c3641' => __DIR__ . '/..' . '/symfony/var-dumper/Resources/functions/dump.php',
-        'e69f7f6ee287b969198c3c9d6777bd38' => __DIR__ . '/..' . '/symfony/polyfill-intl-normalizer/bootstrap.php',
-        'f598d06aa772fa33d905e87be6398fb1' => __DIR__ . '/..' . '/symfony/polyfill-intl-idn/bootstrap.php',
         '8825ede83f2f289127722d4e842cf7e8' => __DIR__ . '/..' . '/symfony/polyfill-intl-grapheme/bootstrap.php',
         'b6b991a57620e2fb6b2f66f03fe9ddc2' => __DIR__ . '/..' . '/symfony/string/Resources/functions.php',
         '6a47392539ca2329373e0d33e1dba053' => __DIR__ . '/..' . '/symfony/polyfill-intl-icu/bootstrap.php',
@@ -135,6 +135,7 @@ class ComposerStaticInit9ecf568ede262cf76db4e2b0bc157ec2
         ),
         'J' => 
         array (
+            'Jenssegers\\Date\\' => 16,
             'JMS\\Serializer\\' => 15,
             'JMS\\SerializerBundle\\' => 21,
         ),
@@ -171,6 +172,7 @@ class ComposerStaticInit9ecf568ede262cf76db4e2b0bc157ec2
         'C' => 
         array (
             'Colors\\' => 7,
+            'Carbon\\' => 7,
         ),
         'B' => 
         array (
@@ -187,8 +189,8 @@ class ComposerStaticInit9ecf568ede262cf76db4e2b0bc157ec2
         'phpDocumentor\\Reflection\\' => 
         array (
             0 => __DIR__ . '/..' . '/phpdocumentor/reflection-common/src',
-            1 => __DIR__ . '/..' . '/phpdocumentor/type-resolver/src',
-            2 => __DIR__ . '/..' . '/phpdocumentor/reflection-docblock/src',
+            1 => __DIR__ . '/..' . '/phpdocumentor/reflection-docblock/src',
+            2 => __DIR__ . '/..' . '/phpdocumentor/type-resolver/src',
         ),
         'Zend\\EventManager\\' => 
         array (
@@ -538,6 +540,10 @@ class ComposerStaticInit9ecf568ede262cf76db4e2b0bc157ec2
         array (
             0 => __DIR__ . '/..' . '/jms/metadata/src',
         ),
+        'Jenssegers\\Date\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/jenssegers/date/src',
+        ),
         'JMS\\Serializer\\' => 
         array (
             0 => __DIR__ . '/..' . '/jms/serializer/src',
@@ -608,9 +614,9 @@ class ComposerStaticInit9ecf568ede262cf76db4e2b0bc157ec2
         ),
         'Doctrine\\Common\\' => 
         array (
-            0 => __DIR__ . '/..' . '/doctrine/event-manager/lib/Doctrine/Common',
-            1 => __DIR__ . '/..' . '/doctrine/persistence/lib/Doctrine/Common',
-            2 => __DIR__ . '/..' . '/doctrine/common/lib/Doctrine/Common',
+            0 => __DIR__ . '/..' . '/doctrine/common/lib/Doctrine/Common',
+            1 => __DIR__ . '/..' . '/doctrine/event-manager/lib/Doctrine/Common',
+            2 => __DIR__ . '/..' . '/doctrine/persistence/lib/Doctrine/Common',
         ),
         'Doctrine\\Bundle\\MigrationsBundle\\' => 
         array (
@@ -623,6 +629,10 @@ class ComposerStaticInit9ecf568ede262cf76db4e2b0bc157ec2
         'Colors\\' => 
         array (
             0 => __DIR__ . '/..' . '/mistic100/randomcolor/src',
+        ),
+        'Carbon\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/nesbot/carbon/src/Carbon',
         ),
         'Behat\\Transliterator\\' => 
         array (
@@ -672,7 +682,7 @@ class ComposerStaticInit9ecf568ede262cf76db4e2b0bc157ec2
         'App\\Controller\\Action\\User\\UserDeleteAction' => __DIR__ . '/../..' . '/src/Controller/Action/User/UserDeleteAction.php',
         'App\\Controller\\Action\\User\\UserGetAllAction' => __DIR__ . '/../..' . '/src/Controller/Action/User/UserGetAllAction.php',
         'App\\Controller\\Action\\User\\UserGetCurrentAction' => __DIR__ . '/../..' . '/src/Controller/Action/User/UserGetCurrentAction.php',
-        'App\\Controller\\ProjectController' => __DIR__ . '/../..' . '/src/Controller/ProjectController.php',
+        'App\\Controller\\DefaultController' => __DIR__ . '/../..' . '/src/Controller/DefaultController.php',
         'App\\Controller\\RegistrationController' => __DIR__ . '/../..' . '/src/Controller/RegistrationController.php',
         'App\\Controller\\SecurityController' => __DIR__ . '/../..' . '/src/Controller/SecurityController.php',
         'App\\Dto\\Response\\CommentResponseDto' => __DIR__ . '/../..' . '/src/Dto/Response/CommentResponseDto.php',
@@ -687,15 +697,17 @@ class ComposerStaticInit9ecf568ede262cf76db4e2b0bc157ec2
         'App\\Dto\\Response\\Transformer\\ResponseDtoTransformerInterface' => __DIR__ . '/../..' . '/src/Dto/Response/Transformer/ResponseDtoTransformerInterface.php',
         'App\\Dto\\Response\\Transformer\\UserResponseDtoTransformer' => __DIR__ . '/../..' . '/src/Dto/Response/Transformer/UserResponseDtoTransformer.php',
         'App\\Dto\\Response\\UserResponseDto' => __DIR__ . '/../..' . '/src/Dto/Response/UserResponseDto.php',
+        'App\\Entity\\Comment' => __DIR__ . '/../..' . '/src/Entity/Comment.php',
         'App\\Entity\\Phase' => __DIR__ . '/../..' . '/src/Entity/Phase.php',
         'App\\Entity\\Project' => __DIR__ . '/../..' . '/src/Entity/Project.php',
         'App\\Entity\\ProjectImage' => __DIR__ . '/../..' . '/src/Entity/ProjectImage.php',
         'App\\Entity\\User' => __DIR__ . '/../..' . '/src/Entity/User.php',
         'App\\EventListener\\PreRemoveListener' => __DIR__ . '/../..' . '/src/EventListener/PreRemoveListener.php',
-        'App\\Form\\RegistrationFormType' => __DIR__ . '/../..' . '/src/Form/RegistrationFormType.php',
         'App\\Kernel' => __DIR__ . '/../..' . '/src/Kernel.php',
+        'App\\MessageHandler\\MentionedByEmailHandler' => __DIR__ . '/../..' . '/src/MessageHandler/MentionedByEmailHandler.php',
         'App\\MessageHandler\\ProjectUserAddEmailHandler' => __DIR__ . '/../..' . '/src/MessageHandler/ProjectUserAddEmailHandler.php',
         'App\\MessageHandler\\RegisterEmailHandler' => __DIR__ . '/../..' . '/src/MessageHandler/RegisterEmailHandler.php',
+        'App\\Message\\MentionedByEmail' => __DIR__ . '/../..' . '/src/Message/MentionedByEmail.php',
         'App\\Message\\ProjectUserAddEmail' => __DIR__ . '/../..' . '/src/Message/ProjectUserAddEmail.php',
         'App\\Message\\RegisterEmail' => __DIR__ . '/../..' . '/src/Message/RegisterEmail.php',
         'App\\Repository\\CommentRepository' => __DIR__ . '/../..' . '/src/Repository/CommentRepository.php',
@@ -704,11 +716,85 @@ class ComposerStaticInit9ecf568ede262cf76db4e2b0bc157ec2
         'App\\Repository\\ProjectRepository' => __DIR__ . '/../..' . '/src/Repository/ProjectRepository.php',
         'App\\Repository\\UserRepository' => __DIR__ . '/../..' . '/src/Repository/UserRepository.php',
         'App\\Security\\AppAuthenticator' => __DIR__ . '/../..' . '/src/Security/AppAuthenticator.php',
+        'App\\Service\\ColorHelper' => __DIR__ . '/../..' . '/src/Service/ColorHelper.php',
         'App\\Service\\ImageHelper' => __DIR__ . '/../..' . '/src/Service/ImageHelper.php',
         'App\\Service\\Mailer' => __DIR__ . '/../..' . '/src/Service/Mailer.php',
         'Attribute' => __DIR__ . '/..' . '/symfony/polyfill-php80/Resources/stubs/Attribute.php',
         'Behat\\Transliterator\\SyncTool' => __DIR__ . '/..' . '/behat/transliterator/src/Behat/Transliterator/SyncTool.php',
         'Behat\\Transliterator\\Transliterator' => __DIR__ . '/..' . '/behat/transliterator/src/Behat/Transliterator/Transliterator.php',
+        'Carbon\\Carbon' => __DIR__ . '/..' . '/nesbot/carbon/src/Carbon/Carbon.php',
+        'Carbon\\CarbonConverterInterface' => __DIR__ . '/..' . '/nesbot/carbon/src/Carbon/CarbonConverterInterface.php',
+        'Carbon\\CarbonImmutable' => __DIR__ . '/..' . '/nesbot/carbon/src/Carbon/CarbonImmutable.php',
+        'Carbon\\CarbonInterface' => __DIR__ . '/..' . '/nesbot/carbon/src/Carbon/CarbonInterface.php',
+        'Carbon\\CarbonInterval' => __DIR__ . '/..' . '/nesbot/carbon/src/Carbon/CarbonInterval.php',
+        'Carbon\\CarbonPeriod' => __DIR__ . '/..' . '/nesbot/carbon/src/Carbon/CarbonPeriod.php',
+        'Carbon\\CarbonTimeZone' => __DIR__ . '/..' . '/nesbot/carbon/src/Carbon/CarbonTimeZone.php',
+        'Carbon\\Cli\\Invoker' => __DIR__ . '/..' . '/nesbot/carbon/src/Carbon/Cli/Invoker.php',
+        'Carbon\\Doctrine\\CarbonDoctrineType' => __DIR__ . '/..' . '/nesbot/carbon/src/Carbon/Doctrine/CarbonDoctrineType.php',
+        'Carbon\\Doctrine\\CarbonImmutableType' => __DIR__ . '/..' . '/nesbot/carbon/src/Carbon/Doctrine/CarbonImmutableType.php',
+        'Carbon\\Doctrine\\CarbonType' => __DIR__ . '/..' . '/nesbot/carbon/src/Carbon/Doctrine/CarbonType.php',
+        'Carbon\\Doctrine\\CarbonTypeConverter' => __DIR__ . '/..' . '/nesbot/carbon/src/Carbon/Doctrine/CarbonTypeConverter.php',
+        'Carbon\\Doctrine\\DateTimeDefaultPrecision' => __DIR__ . '/..' . '/nesbot/carbon/src/Carbon/Doctrine/DateTimeDefaultPrecision.php',
+        'Carbon\\Doctrine\\DateTimeImmutableType' => __DIR__ . '/..' . '/nesbot/carbon/src/Carbon/Doctrine/DateTimeImmutableType.php',
+        'Carbon\\Doctrine\\DateTimeType' => __DIR__ . '/..' . '/nesbot/carbon/src/Carbon/Doctrine/DateTimeType.php',
+        'Carbon\\Exceptions\\BadComparisonUnitException' => __DIR__ . '/..' . '/nesbot/carbon/src/Carbon/Exceptions/BadComparisonUnitException.php',
+        'Carbon\\Exceptions\\BadFluentConstructorException' => __DIR__ . '/..' . '/nesbot/carbon/src/Carbon/Exceptions/BadFluentConstructorException.php',
+        'Carbon\\Exceptions\\BadFluentSetterException' => __DIR__ . '/..' . '/nesbot/carbon/src/Carbon/Exceptions/BadFluentSetterException.php',
+        'Carbon\\Exceptions\\BadMethodCallException' => __DIR__ . '/..' . '/nesbot/carbon/src/Carbon/Exceptions/BadMethodCallException.php',
+        'Carbon\\Exceptions\\Exception' => __DIR__ . '/..' . '/nesbot/carbon/src/Carbon/Exceptions/Exception.php',
+        'Carbon\\Exceptions\\ImmutableException' => __DIR__ . '/..' . '/nesbot/carbon/src/Carbon/Exceptions/ImmutableException.php',
+        'Carbon\\Exceptions\\InvalidArgumentException' => __DIR__ . '/..' . '/nesbot/carbon/src/Carbon/Exceptions/InvalidArgumentException.php',
+        'Carbon\\Exceptions\\InvalidCastException' => __DIR__ . '/..' . '/nesbot/carbon/src/Carbon/Exceptions/InvalidCastException.php',
+        'Carbon\\Exceptions\\InvalidDateException' => __DIR__ . '/..' . '/nesbot/carbon/src/Carbon/Exceptions/InvalidDateException.php',
+        'Carbon\\Exceptions\\InvalidFormatException' => __DIR__ . '/..' . '/nesbot/carbon/src/Carbon/Exceptions/InvalidFormatException.php',
+        'Carbon\\Exceptions\\InvalidIntervalException' => __DIR__ . '/..' . '/nesbot/carbon/src/Carbon/Exceptions/InvalidIntervalException.php',
+        'Carbon\\Exceptions\\InvalidPeriodDateException' => __DIR__ . '/..' . '/nesbot/carbon/src/Carbon/Exceptions/InvalidPeriodDateException.php',
+        'Carbon\\Exceptions\\InvalidPeriodParameterException' => __DIR__ . '/..' . '/nesbot/carbon/src/Carbon/Exceptions/InvalidPeriodParameterException.php',
+        'Carbon\\Exceptions\\InvalidTimeZoneException' => __DIR__ . '/..' . '/nesbot/carbon/src/Carbon/Exceptions/InvalidTimeZoneException.php',
+        'Carbon\\Exceptions\\InvalidTypeException' => __DIR__ . '/..' . '/nesbot/carbon/src/Carbon/Exceptions/InvalidTypeException.php',
+        'Carbon\\Exceptions\\NotACarbonClassException' => __DIR__ . '/..' . '/nesbot/carbon/src/Carbon/Exceptions/NotACarbonClassException.php',
+        'Carbon\\Exceptions\\NotAPeriodException' => __DIR__ . '/..' . '/nesbot/carbon/src/Carbon/Exceptions/NotAPeriodException.php',
+        'Carbon\\Exceptions\\NotLocaleAwareException' => __DIR__ . '/..' . '/nesbot/carbon/src/Carbon/Exceptions/NotLocaleAwareException.php',
+        'Carbon\\Exceptions\\OutOfRangeException' => __DIR__ . '/..' . '/nesbot/carbon/src/Carbon/Exceptions/OutOfRangeException.php',
+        'Carbon\\Exceptions\\ParseErrorException' => __DIR__ . '/..' . '/nesbot/carbon/src/Carbon/Exceptions/ParseErrorException.php',
+        'Carbon\\Exceptions\\RuntimeException' => __DIR__ . '/..' . '/nesbot/carbon/src/Carbon/Exceptions/RuntimeException.php',
+        'Carbon\\Exceptions\\UnitException' => __DIR__ . '/..' . '/nesbot/carbon/src/Carbon/Exceptions/UnitException.php',
+        'Carbon\\Exceptions\\UnitNotConfiguredException' => __DIR__ . '/..' . '/nesbot/carbon/src/Carbon/Exceptions/UnitNotConfiguredException.php',
+        'Carbon\\Exceptions\\UnknownGetterException' => __DIR__ . '/..' . '/nesbot/carbon/src/Carbon/Exceptions/UnknownGetterException.php',
+        'Carbon\\Exceptions\\UnknownMethodException' => __DIR__ . '/..' . '/nesbot/carbon/src/Carbon/Exceptions/UnknownMethodException.php',
+        'Carbon\\Exceptions\\UnknownSetterException' => __DIR__ . '/..' . '/nesbot/carbon/src/Carbon/Exceptions/UnknownSetterException.php',
+        'Carbon\\Exceptions\\UnknownUnitException' => __DIR__ . '/..' . '/nesbot/carbon/src/Carbon/Exceptions/UnknownUnitException.php',
+        'Carbon\\Exceptions\\UnreachableException' => __DIR__ . '/..' . '/nesbot/carbon/src/Carbon/Exceptions/UnreachableException.php',
+        'Carbon\\Factory' => __DIR__ . '/..' . '/nesbot/carbon/src/Carbon/Factory.php',
+        'Carbon\\FactoryImmutable' => __DIR__ . '/..' . '/nesbot/carbon/src/Carbon/FactoryImmutable.php',
+        'Carbon\\Language' => __DIR__ . '/..' . '/nesbot/carbon/src/Carbon/Language.php',
+        'Carbon\\Laravel\\ServiceProvider' => __DIR__ . '/..' . '/nesbot/carbon/src/Carbon/Laravel/ServiceProvider.php',
+        'Carbon\\PHPStan\\Macro' => __DIR__ . '/..' . '/nesbot/carbon/src/Carbon/PHPStan/Macro.php',
+        'Carbon\\PHPStan\\MacroExtension' => __DIR__ . '/..' . '/nesbot/carbon/src/Carbon/PHPStan/MacroExtension.php',
+        'Carbon\\PHPStan\\MacroScanner' => __DIR__ . '/..' . '/nesbot/carbon/src/Carbon/PHPStan/MacroScanner.php',
+        'Carbon\\Traits\\Boundaries' => __DIR__ . '/..' . '/nesbot/carbon/src/Carbon/Traits/Boundaries.php',
+        'Carbon\\Traits\\Cast' => __DIR__ . '/..' . '/nesbot/carbon/src/Carbon/Traits/Cast.php',
+        'Carbon\\Traits\\Comparison' => __DIR__ . '/..' . '/nesbot/carbon/src/Carbon/Traits/Comparison.php',
+        'Carbon\\Traits\\Converter' => __DIR__ . '/..' . '/nesbot/carbon/src/Carbon/Traits/Converter.php',
+        'Carbon\\Traits\\Creator' => __DIR__ . '/..' . '/nesbot/carbon/src/Carbon/Traits/Creator.php',
+        'Carbon\\Traits\\Date' => __DIR__ . '/..' . '/nesbot/carbon/src/Carbon/Traits/Date.php',
+        'Carbon\\Traits\\Difference' => __DIR__ . '/..' . '/nesbot/carbon/src/Carbon/Traits/Difference.php',
+        'Carbon\\Traits\\IntervalRounding' => __DIR__ . '/..' . '/nesbot/carbon/src/Carbon/Traits/IntervalRounding.php',
+        'Carbon\\Traits\\IntervalStep' => __DIR__ . '/..' . '/nesbot/carbon/src/Carbon/Traits/IntervalStep.php',
+        'Carbon\\Traits\\Localization' => __DIR__ . '/..' . '/nesbot/carbon/src/Carbon/Traits/Localization.php',
+        'Carbon\\Traits\\Macro' => __DIR__ . '/..' . '/nesbot/carbon/src/Carbon/Traits/Macro.php',
+        'Carbon\\Traits\\Mixin' => __DIR__ . '/..' . '/nesbot/carbon/src/Carbon/Traits/Mixin.php',
+        'Carbon\\Traits\\Modifiers' => __DIR__ . '/..' . '/nesbot/carbon/src/Carbon/Traits/Modifiers.php',
+        'Carbon\\Traits\\Mutability' => __DIR__ . '/..' . '/nesbot/carbon/src/Carbon/Traits/Mutability.php',
+        'Carbon\\Traits\\ObjectInitialisation' => __DIR__ . '/..' . '/nesbot/carbon/src/Carbon/Traits/ObjectInitialisation.php',
+        'Carbon\\Traits\\Options' => __DIR__ . '/..' . '/nesbot/carbon/src/Carbon/Traits/Options.php',
+        'Carbon\\Traits\\Rounding' => __DIR__ . '/..' . '/nesbot/carbon/src/Carbon/Traits/Rounding.php',
+        'Carbon\\Traits\\Serialization' => __DIR__ . '/..' . '/nesbot/carbon/src/Carbon/Traits/Serialization.php',
+        'Carbon\\Traits\\Test' => __DIR__ . '/..' . '/nesbot/carbon/src/Carbon/Traits/Test.php',
+        'Carbon\\Traits\\Timestamp' => __DIR__ . '/..' . '/nesbot/carbon/src/Carbon/Traits/Timestamp.php',
+        'Carbon\\Traits\\Units' => __DIR__ . '/..' . '/nesbot/carbon/src/Carbon/Traits/Units.php',
+        'Carbon\\Traits\\Week' => __DIR__ . '/..' . '/nesbot/carbon/src/Carbon/Traits/Week.php',
+        'Carbon\\Translator' => __DIR__ . '/..' . '/nesbot/carbon/src/Carbon/Translator.php',
         'Collator' => __DIR__ . '/..' . '/symfony/intl/Resources/stubs/Collator.php',
         'Colors\\RandomColor' => __DIR__ . '/..' . '/mistic100/randomcolor/src/RandomColor.php',
         'Composer\\InstalledVersions' => __DIR__ . '/..' . '/composer/InstalledVersions.php',
@@ -2357,6 +2443,8 @@ class ComposerStaticInit9ecf568ede262cf76db4e2b0bc157ec2
         'JMS\\Serializer\\Visitor\\SerializationVisitorInterface' => __DIR__ . '/..' . '/jms/serializer/src/Visitor/SerializationVisitorInterface.php',
         'JMS\\Serializer\\XmlDeserializationVisitor' => __DIR__ . '/..' . '/jms/serializer/src/XmlDeserializationVisitor.php',
         'JMS\\Serializer\\XmlSerializationVisitor' => __DIR__ . '/..' . '/jms/serializer/src/XmlSerializationVisitor.php',
+        'Jenssegers\\Date\\Date' => __DIR__ . '/..' . '/jenssegers/date/src/Date.php',
+        'Jenssegers\\Date\\DateServiceProvider' => __DIR__ . '/..' . '/jenssegers/date/src/DateServiceProvider.php',
         'JsonException' => __DIR__ . '/..' . '/symfony/polyfill-php73/Resources/stubs/JsonException.php',
         'JsonpCallbackValidator' => __DIR__ . '/..' . '/willdurand/jsonp-callback-validator/src/JsonpCallbackValidator.php',
         'Locale' => __DIR__ . '/..' . '/symfony/intl/Resources/stubs/Locale.php',
@@ -6101,10 +6189,10 @@ class ComposerStaticInit9ecf568ede262cf76db4e2b0bc157ec2
     public static function getInitializer(ClassLoader $loader)
     {
         return \Closure::bind(function () use ($loader) {
-            $loader->prefixLengthsPsr4 = ComposerStaticInit9ecf568ede262cf76db4e2b0bc157ec2::$prefixLengthsPsr4;
-            $loader->prefixDirsPsr4 = ComposerStaticInit9ecf568ede262cf76db4e2b0bc157ec2::$prefixDirsPsr4;
-            $loader->prefixesPsr0 = ComposerStaticInit9ecf568ede262cf76db4e2b0bc157ec2::$prefixesPsr0;
-            $loader->classMap = ComposerStaticInit9ecf568ede262cf76db4e2b0bc157ec2::$classMap;
+            $loader->prefixLengthsPsr4 = ComposerStaticInitd13e4fea25fb81c85dbefd724ab087b6::$prefixLengthsPsr4;
+            $loader->prefixDirsPsr4 = ComposerStaticInitd13e4fea25fb81c85dbefd724ab087b6::$prefixDirsPsr4;
+            $loader->prefixesPsr0 = ComposerStaticInitd13e4fea25fb81c85dbefd724ab087b6::$prefixesPsr0;
+            $loader->classMap = ComposerStaticInitd13e4fea25fb81c85dbefd724ab087b6::$classMap;
 
         }, null, ClassLoader::class);
     }

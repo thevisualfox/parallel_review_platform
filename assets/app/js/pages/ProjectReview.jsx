@@ -7,13 +7,16 @@ import { useParams } from 'react-router';
 import { PageLoader, PageWrapper } from '../components';
 
 /* Domain */
-import { ProjectReviewCanvas, ProjectReviewHeader } from '../domain/project-review';
+import { ProjectReviewCanvas } from '../domain/project-review';
 
 /* Api */
 import { fetchProjectImageById, QUERY_KEYS } from '../api';
 
 /* Hooks */
 import { usePageTitle } from '../hooks';
+
+/* Context */
+import { ReviewContext } from '../context';
 
 export default function ProjectReview() {
 	/* Queries */
@@ -27,11 +30,12 @@ export default function ProjectReview() {
 
 	/* Render */
 	return (
-		<PageWrapper>
-			<PageLoader {...{ isLoading }}>
-				<ProjectReviewHeader {...data} />
-				<ProjectReviewCanvas {...{ ...data, projectImageId }} />
-			</PageLoader>
-		</PageWrapper>
+		<ReviewContext.Provider value={{ projectImageId }}>
+			<PageWrapper>
+				<PageLoader {...{ isLoading }}>
+					<ProjectReviewCanvas {...data} />
+				</PageLoader>
+			</PageWrapper>
+		</ReviewContext.Provider>
 	);
 }

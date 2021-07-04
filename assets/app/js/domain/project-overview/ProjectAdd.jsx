@@ -5,7 +5,7 @@ import { AnimatePresence, motion } from 'framer-motion';
 import { useMutation, useQuery, useQueryClient } from 'react-query';
 
 /* Domain */
-import { ProjectModal } from './';
+import { ProjectSlideIn } from './';
 
 /* Animations */
 import { SCALE_FADE } from '../../animations';
@@ -19,7 +19,7 @@ import { addProject, QUERY_KEYS, editProject, fetchProjectById } from '../../api
 export default function ProjectAdd({ setNewProjectId }) {
 	/* State */
 	const [projectId, setProjectId] = useState(null);
-	const [modalOpen, setModalOpen] = useState(false);
+	const [slideInOpen, setSlideInOpen] = useState(false);
 
 	/* Hooks */
 	const queryClient = useQueryClient();
@@ -43,14 +43,14 @@ export default function ProjectAdd({ setNewProjectId }) {
 	});
 
 	/* Callbacks */
-	const toggleModal = () => {
-		setModalOpen(!modalOpen);
+	const toggleSlideIn = () => {
+		setSlideInOpen(!slideInOpen);
 
 		/* Mutate on modal open */
-		if (!modalOpen) addMutation.mutate();
+		if (!slideInOpen) addMutation.mutate();
 
 		/* Reset id on close modal */
-		if (modalOpen) {
+		if (slideInOpen) {
 			setTimeout(() => {
 				setProjectId(null);
 			}, 250);
@@ -71,11 +71,11 @@ export default function ProjectAdd({ setNewProjectId }) {
 				type="button"
 				className="icon-wrapper icon-wrapper--interactive icon-wrapper--secondary btn btn-link btn--add btn--add-right"
 				style={{ '--size': 75 }}
-				onClick={toggleModal}>
+				onClick={toggleSlideIn}>
 				<ReactSVG wrapper="svg" className="icon icon--30 text-secondary" src={addProjectIcon} />
 			</motion.button>
 			<AnimatePresence>
-				{modalOpen && <ProjectModal {...{ project, updateProject, toggleModal }} />}
+				{slideInOpen && <ProjectSlideIn {...{ project, updateProject, toggleSlideIn }} />}
 			</AnimatePresence>
 		</>
 	);

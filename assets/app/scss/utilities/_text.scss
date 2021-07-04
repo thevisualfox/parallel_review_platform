@@ -8,19 +8,39 @@
 }
 
 .text--xs {
-    font-size: $font-size-sm;
+    font-size: $font-size-xs !important;
 }
 
 .text--sm {
-    font-size: $font-size-sm;
+    font-size: $font-size-sm !important;
+}
+
+.text--md {
+    font-size: $font-size-md !important;
 }
 
 .text--lg {
-    font-size: $font-size-lg;
+    font-size: $font-size-lg !important;
 }
 
 .text--xl {
-    font-size: $font-size-xl;
+    font-size: $font-size-xl !important;
+}
+
+.lh--xs {
+    line-height: $line-height-xs;
+}
+
+.lh--sm {
+    line-height: $line-height-sm;
+}
+
+.lh--md {
+    line-height: $line-height-md;
+}
+
+.lh--base {
+    line-height: $line-height-base;
 }
 
 .text-decoration-underline {

@@ -1,6 +1,9 @@
 .review {
     --marker-size: 20;
 
+    display: flex;
+    justify-content: flex-end;
+
     .review__image {
         &:hover {
             cursor: url('../img/icons/cursor_comment.svg'), pointer;
@@ -18,11 +21,17 @@
 
         @extend %center-flex;
 
+        background-color: Hsl(var(--theme)); /* stylelint-disable-line function-name-case */
         border: 3px solid $white;
     }
 
-    .review__box {
+    .review__custom-modal {
         top: var(--top);
         left: var(--left);
+        z-index: $zindex-modal;
+
+        .custom-modal__content {
+            width: 420px;
+        }
     }
 }

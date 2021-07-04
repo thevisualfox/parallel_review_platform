@@ -99,6 +99,9 @@
     "gedmo/doctrine-extensions": {
         "version": "v3.0.3"
     },
+    "jenssegers/date": {
+        "version": "v4.0.0"
+    },
     "jms/metadata": {
         "version": "2.5.0"
     },
@@ -124,6 +127,9 @@
     },
     "monolog/monolog": {
         "version": "2.1.1"
+    },
+    "nesbot/carbon": {
+        "version": "2.49.0"
     },
     "nikic/php-parser": {
         "version": "v4.10.2"

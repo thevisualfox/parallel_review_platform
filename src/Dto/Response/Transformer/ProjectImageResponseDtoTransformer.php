@@ -6,14 +6,20 @@ namespace App\Dto\Response\Transformer;
 
 use App\Dto\Response\ProjectImageResponseDto;
 use App\Entity\ProjectImage;
+use App\Repository\ProjectImageRepository;
 
 class ProjectImageResponseDtoTransformer extends AbstractResponseDtoTransformer
 {
     /** @var PhaseResponseDtoTransformer $phaseResponseDtoTransformer */
     private $phaseResponseDtoTransformer;
 
-    public function __construct(PhaseResponseDtoTransformer $phaseResponseDtoTransformer) {
+    /** @var ProjectImageRepository $projectImageRepository */
+    private $projectImageRepository;
+
+    public function __construct(PhaseResponseDtoTransformer $phaseResponseDtoTransformer, ProjectImageRepository $projectImageRepository)
+    {
         $this->phaseResponseDtoTransformer = $phaseResponseDtoTransformer;
+        $this->projectImageRepository = $projectImageRepository;
     }
 
     /**
@@ -21,13 +27,24 @@ class ProjectImageResponseDtoTransformer extends AbstractResponseDtoTransformer
      *
      * @return ProjectImageResponseDto
      */
-    public function transformFromObject($projectImage): ProjectImageResponseDto
+    public function transformFromObject($projectImage, $includeTotalImages = false): ProjectImageResponseDto
     {
+        $id = $projectImage->getId();
+
         $dto = new ProjectImageResponseDto();
-        $dto->id = $projectImage->getId();
+        $dto->id = $id;
         $dto->title = $projectImage->getTitle();
         $dto->description = $projectImage->getDescription();
         $dto->phases = $this->phaseResponseDtoTransformer->transformFromObjects($projectImage->getPhases());
+
+        if ($includeTotalImages) {
+            $imageIds = [];
+            foreach ($this->projectImageRepository->findAll() as &$image) {
+                $imageIds[] = $image->getId();
+            };
+
+            $dto->allImages = $imageIds;
+        }
 
         return $dto;
     }

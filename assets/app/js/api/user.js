@@ -1,4 +1,4 @@
-import axios from "axios";
+import axios from 'axios';
 
 /* Fetch current (logged in) user | expects user id */
 export const fetchCurrentUser = async ({ userId }) => {
@@ -17,7 +17,10 @@ export const fetchGobalUsers = async () => {
 
 /* Add user to project | expects project id and user email */
 export const addUser = async ({ projectId, email }) => {
-	const result = await axios.post(`/api/users/add/${projectId}`, { email });
+	const result = await axios.post(`/api/users/add/${projectId}`, {
+		email: email,
+		referer: window.location.pathname.replace('/', ''),
+	});
 	return result?.data;
 };
 

@@ -1,0 +1,23 @@
+.reply {
+    @extend .pl-3, .pt-3, .pb-1, .mt-n7;
+    @extend .d-flex, .flex-column, .border-left;
+
+    .mentions,
+    .mentions__highlighter {
+        min-height: unset;
+    }
+
+    .mentions__highlighter {
+        @extend .text--sm;
+
+        padding: $input-btn-padding-y-sm $input-btn-padding-x-sm;
+    }
+
+    .mentions__input {
+        @extend .text--sm, .form-control-sm;
+    }
+
+    &:not(:last-child) {
+        @extend .mb-5;
+    }
+}

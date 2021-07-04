@@ -27,12 +27,18 @@ export default function UserSelect({ user, userIndex, handleClick, isFocused, se
 	return (
 		<button
 			className={`user user--select ${isFocused && 'is-focused'} user--xl`}
-			onClick={() => handleClick(user.email)}
+			onClick={() => handleClick(user)}
 			onMouseEnter={() => handleStatus('enter')}
-			onMouseLeave={() => handleStatus('leave')}>
+			onMouseLeave={() => handleStatus('leave')}
+			type="button">
 			<div className="d-flex align-items-center">
 				<UserAvatar isLoading={isLoading && isFocused} {...user} />
-				<UserInfo {...user} />
+				<UserInfo
+					{...{
+						title: user.display,
+						subtitle: user.organisation ? user.organisation : 'No organisation',
+					}}
+				/>
 				<div className="user__add text-secondary rounded-circle ml-auto">
 					<ReactSVG wrapper="svg" className="user__add-icon icon icon--12 text-secondary" src={addUserIcon} />
 				</div>

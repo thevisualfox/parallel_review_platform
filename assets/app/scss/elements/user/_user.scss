@@ -1,79 +1,107 @@
-:root {
+.user {
     --avatar-dimensions: 28px;
     --status-dimensions: 12px;
-}
 
-.user {
     position: relative;
-}
 
-.user__avatar {
-    @extend %center-flex;
-    @extend .position-relative;
+    &__avatar {
+        @extend %center-flex;
+        @extend .position-relative;
 
-    width: var(--avatar-dimensions);
-    height: var(--avatar-dimensions);
-    color: var(--theme);
-
-    &:before,
-    &:after {
-        @extend %absolute-fill;
-
-        content: "";
+        width: var(--avatar-dimensions);
+        height: var(--avatar-dimensions);
+        color: Hsl(var(--theme)); /* stylelint-disable-line function-name-case */
+        background-color: Hsl(var(--theme), $opacity-level); /* stylelint-disable-line function-name-case */
+        border: $border-width solid Hsl(var(--theme), 0); /* stylelint-disable-line function-name-case */
         border-radius: 50%;
         transition: border-color 150ms ease;
-        pointer-events: none;
+
+        &:before,
+        &:after {
+            @extend %absolute-fill;
+
+            content: "";
+            border-radius: 50%;
+            transition: border-color 150ms ease;
+            pointer-events: none;
+        }
     }
 
-    &:before {
-        background-color: var(--theme);
-        opacity: $opacity-level;
+    &__image {
+        @include object-fit(cover);
     }
 
-    &:after {
-        border: $border-width solid transparent;
-        opacity: $opacity-level-active-border;
+    &__initials {
+        @extend %center-flex;
+
+        font-family: $font-family-base;
+        font-size: calc(var(--avatar-dimensions) * 0.4);
+        color: Hsl(var(--theme)); /* stylelint-disable-line function-name-case */
     }
-}
 
-.user__image {
-    @include object-fit(cover);
-}
+    &__status {
+        @extend %center-flex;
 
-.user__initials {
-    @extend %center-flex;
+        position: absolute;
+        top: calc(var(--status-dimensions) / 4 * -1);
+        left: calc(var(--status-dimensions) / 4 * -1);
+        height: var(--status-dimensions);
+        width: var(--status-dimensions);
+        border-radius: 50%;
 
-    font-family: $font-family-base;
-    font-size: calc(var(--avatar-dimensions) * 0.4);
-    color: var(--theme);
-}
+        &--leader {
+            background-color: $black;
+        }
+    }
 
-.user__status {
-    @extend %center-flex;
+    &__status-icon {
+        width: calc(var(--status-dimensions) / 2);
+        height: calc(var(--status-dimensions) / 2);
+    }
 
-    position: absolute;
-    top: calc(var(--status-dimensions) / 4 * -1);
-    left: calc(var(--status-dimensions) / 4 * -1);
-    height: var(--status-dimensions);
-    width: var(--status-dimensions);
-    border-radius: 50%;
-}
+    &__info {
+        --font-size-title: #{$font-size-base};
+        --font-size-subtitle: #{$font-size-sm};
+        --subtitle-margin: 0;
 
-.user__status-icon {
-    width: calc(var(--status-dimensions) / 2);
-    height: calc(var(--status-dimensions) / 2);
-}
+        @extend .d-flex;
 
-.user__status--leader {
-    background-color: $black;
-}
+        &-title {
+            font-size: var(--font-size-title);
+            line-height: $line-height-md;
+        }
 
-.user--lg {
-    --avatar-dimensions: 30px;
-    --status-dimensions: 16px;
-}
+        &-subtitle {
+            @extend .text-muted--60;
 
-.user--xl {
-    --avatar-dimensions: 42px;
-    --status-dimensions: 20px;
+            font-size: var(--font-size-subtitle);
+            line-height: $line-height-sm;
+            margin-left: var(--subtitle-margin);
+        }
+
+        &--vertical {
+            @extend .flex-column;
+        }
+
+        &--horizontal {
+            @extend .flex-row, .align-items-baseline;
+
+            --subtitle-margin: #{spacer(1)};
+        }
+
+        &--sm {
+            --font-size-title: #{$font-size-sm};
+            --font-size-subtitle: #{$font-size-xs};
+        }
+    }
+
+    &--lg {
+        --avatar-dimensions: 34px;
+        --status-dimensions: 18px;
+    }
+
+    &--xl {
+        --avatar-dimensions: 42px;
+        --status-dimensions: 20px;
+    }
 }

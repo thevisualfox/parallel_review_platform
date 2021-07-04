@@ -24,7 +24,7 @@ export default function Users({ users, layout = 'full', ...rest }) {
 				})}
 				{layout === 'minimal' && users.length > 7 && (
 					<motion.div layout {...SCALE_FADE} className="col-auto" key="more">
-						<p className="text--xs text-muted--70 ml-1">+ {users.length - sliceAmount}</p>
+						<p className="text--sm text-muted--70 ml-1">+ {users.length - sliceAmount}</p>
 					</motion.div>
 				)}
 			</AnimatePresence>

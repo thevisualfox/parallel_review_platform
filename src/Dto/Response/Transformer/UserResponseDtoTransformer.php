@@ -13,14 +13,16 @@ class UserResponseDtoTransformer extends AbstractResponseDtoTransformer
      * @param User $user
      * @return UserResponseDto
      */
-    public function transformFromObject($user): UserResponseDto
+    public function transformFromObject($user, $isAuthenticated = false): UserResponseDto
     {
         $dto = new UserResponseDto();
         $dto->id = $user->getId();
         $dto->email = $user->getEmail();
         $dto->roles = $user->getRoles();
-        $dto->username = $user->getUsername();
+        $dto->display = $user->getUsername();
+        $dto->organisation = $user->getOrganisation();
         $dto->userColor = $user->getColor();
+        $dto->authenticated = $isAuthenticated;
 
         return $dto;
     }

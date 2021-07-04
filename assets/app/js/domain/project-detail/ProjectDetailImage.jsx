@@ -33,7 +33,7 @@ export default function ProjectDetailImage({ projectImage, projectId, selected, 
 	/* Render */
 	return (
 		<article className={`card card--link card--product ${selected.includes(projectImageId) && 'is-selected'}`}>
-			<Link to={`/projects/${projectId}/review/${projectImageId}${location.search}`} title={title}>
+			<Link to={`/projects/${projectId}/review/${projectImageId}`} title={title}>
 				<div className="card__image border m-2">
 					<img
 						className="card-img-top"
@@ -45,12 +45,13 @@ export default function ProjectDetailImage({ projectImage, projectId, selected, 
 			</Link>
 			<div className="card-body">
 				<Editable
-					inputType="title"
-					projectId={projectId}
-					content={title}
-					mutation={editProjectImage}
-					mutationId={projectImageId}
-					{...{ mutationOnSuccess }}>
+					{...{
+						title: 'Editing image title',
+						fields: [{ name: 'title', defaultValue: title }],
+						mutation: editProjectImage,
+						mutationId: projectImageId,
+						mutationOnSuccess: mutationOnSuccess,
+					}}>
 					<motion.p {...FADE_IN} className="mb-0">
 						{title}
 					</motion.p>

@@ -10,10 +10,14 @@ class ProjectUserAddEmail
     /* @var int $projectId */
     private $projectId;
 
-    public function __construct(int $userId, int $projectId)
+    /* @var string $referer */
+    private $referer;
+
+    public function __construct(int $userId, int $projectId, string $referer)
     {
         $this->userId = $userId;
         $this->projectId = $projectId;
+        $this->referer = $referer;
     }
 
     public function getUserId(): int
@@ -24,5 +28,10 @@ class ProjectUserAddEmail
     public function getProjectId(): int
     {
         return $this->projectId;
+    }
+
+    public function getReferer(): string
+    {
+        return $this->referer;
     }
 }

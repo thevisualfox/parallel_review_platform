@@ -6,6 +6,7 @@ use App\Repository\PhaseRepository;
 use App\Service\ImageHelper;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
+use Doctrine\Common\Collections\Criteria;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -84,6 +85,17 @@ class Phase
         $this->projectImage = $projectImage;
 
         return $this;
+    }
+
+    /**
+     * @return Collection|Comment[]
+     */
+    public function getParentComments(): Collection
+    {
+        $criteria = Criteria::create()
+            ->where(Criteria::expr()->eq('parent', null));
+
+        return $this->comments->matching($criteria);
     }
 
     /**

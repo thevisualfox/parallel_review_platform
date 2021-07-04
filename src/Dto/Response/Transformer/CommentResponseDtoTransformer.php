@@ -6,13 +6,15 @@ namespace App\Dto\Response\Transformer;
 
 use App\Dto\Response\CommentResponseDto;
 use App\Entity\Comment;
+use Jenssegers\Date\Date;
 
 class CommentResponseDtoTransformer extends AbstractResponseDtoTransformer
 {
     /** @var UserResponseDtoTransformer $userResponseDtoTransformer */
     private $userResponseDtoTransformer;
 
-    public function __construct(UserResponseDtoTransformer $userResponseDtoTransformer) {
+    public function __construct(UserResponseDtoTransformer $userResponseDtoTransformer)
+    {
         $this->userResponseDtoTransformer = $userResponseDtoTransformer;
     }
 
@@ -30,6 +32,9 @@ class CommentResponseDtoTransformer extends AbstractResponseDtoTransformer
             'xPercent' => $comment->getPositionX(),
             'yPercent' => $comment->getPositionY(),
         ];
+        $dto->created = Date::parse($comment->getCreated())->ago();
+        $dto->comments = $this->transformFromObjects($comment->getComments());
+
         return $dto;
     }
 }

@@ -12,7 +12,7 @@ import filterUsers from './services/filterUsers';
 /* Api */
 import { addUser, fetchGobalUsers, QUERY_KEYS } from '../../api';
 
-export default function UserAddSearch({ users, project, toggleBox }) {
+export default function UserAddSearch({ users, project, toggleModal }) {
 	/* State */
 	const [query, setQuery] = useState('');
 	const [focusedUser, setFocusedUser] = useState(0);
@@ -60,7 +60,7 @@ export default function UserAddSearch({ users, project, toggleBox }) {
 		}
 	};
 
-	const handleClick = (email) => {
+	const handleClick = ({ email }) => {
 		if (isEmail(email)) {
 			addUserMutation.mutate({ projectId: project.id, email: email });
 		}
@@ -69,13 +69,13 @@ export default function UserAddSearch({ users, project, toggleBox }) {
 	/* Render */
 	return (
 		<div className="d-flex flex-column flex-grow-1">
-			<Users {...{ users, project }} variant="interactive" size="xl" />
+			<Users {...{ users, project }} variant="interactive" size="lg" />
 			<div className="position-relative">
 				<label className="sr-only" htmlFor="userQuery">
 					Search name or email
 				</label>
 				<input
-					className="form-control form-control-sm form-control--search"
+					className="form-control form-control--search"
 					id="userQuery"
 					name="userQuery"
 					placeholder="Search name or email"
@@ -87,6 +87,7 @@ export default function UserAddSearch({ users, project, toggleBox }) {
 					autoComplete="off"
 					ref={queryRef}
 				/>
+				<Button onClick={toggleModal} extensionClasses="form-control-btn" contentType="icon" theme="default" />
 				<UserAddSearchResults
 					{...{
 						filteredUsers,
@@ -98,9 +99,6 @@ export default function UserAddSearch({ users, project, toggleBox }) {
 						globalUsersLoading,
 					}}
 				/>
-			</div>
-			<div className="d-flex align-items-center justify-content-center mt-4">
-				<Button title="Done" onClick={toggleBox} extensionClasses="w-50 justify-content-center" />
 			</div>
 		</div>
 	);

@@ -34,6 +34,6 @@ final class UserGetCurrentAction extends AbstractApiController
     {
         $currentUser = null !== $this->user ? $this->user : $user;
 
-        return $this->respond($this->userResponseDtoTransformer->transformFromObject($currentUser));
+        return $this->respond($this->userResponseDtoTransformer->transformFromObject($currentUser, null !== $this->user));
     }
 }

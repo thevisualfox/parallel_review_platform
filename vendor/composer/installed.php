@@ -6,7 +6,7 @@
     'aliases' => 
     array (
     ),
-    'reference' => '71c2a31973ba4bcadf60e0995b690ee440f132b7',
+    'reference' => 'f26cba71bd22a88e4825a1b697be4b1025a4adaa',
     'name' => '__root__',
   ),
   'versions' => 
@@ -18,7 +18,7 @@
       'aliases' => 
       array (
       ),
-      'reference' => '71c2a31973ba4bcadf60e0995b690ee440f132b7',
+      'reference' => 'f26cba71bd22a88e4825a1b697be4b1025a4adaa',
     ),
     'behat/transliterator' => 
     array (
@@ -200,6 +200,15 @@
       ),
       'reference' => 'b4302ede2e247a6cc884b302a5f7146e08bd1b18',
     ),
+    'jenssegers/date' => 
+    array (
+      'pretty_version' => 'v4.0.0',
+      'version' => '4.0.0.0',
+      'aliases' => 
+      array (
+      ),
+      'reference' => '506f86096e0b512f9ece6ad0ccae62b03c125771',
+    ),
     'jms/metadata' => 
     array (
       'pretty_version' => '2.5.0',
@@ -244,6 +253,15 @@
       array (
       ),
       'reference' => 'f9eee5cec93dfb313a38b6b288741e84e53f02d5',
+    ),
+    'nesbot/carbon' => 
+    array (
+      'pretty_version' => '2.49.0',
+      'version' => '2.49.0.0',
+      'aliases' => 
+      array (
+      ),
+      'reference' => '93d9db91c0235c486875d22f1e08b50bdf3e6eee',
     ),
     'nikic/php-parser' => 
     array (
@@ -411,8 +429,8 @@
     array (
       'provided' => 
       array (
-        0 => '1.0',
-        1 => '1.0.0',
+        0 => '1.0.0',
+        1 => '1.0',
       ),
     ),
     'psr/simple-cache-implementation' => 
