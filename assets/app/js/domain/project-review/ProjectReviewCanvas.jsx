@@ -13,7 +13,7 @@ import ProjectReviewPagination from './ProjectReviewPagination';
 import ProjectReviewCommentPanel from './ProjectReviewCommentPanel';
 
 /* Components */
-import { SecurityModal } from '../../components';
+import { SecurityModal, Image } from '../../components';
 
 /* Api */
 import { fetchProjectUsers, QUERY_KEYS } from '../../api';
@@ -27,7 +27,7 @@ import { SLIDE_IN } from '../../animations';
 /* Global */
 const cursorOffset = 10;
 
-export default function ProjectReviewCanvas({ parentId, title, phases = [], ...rest }) {
+export default function ProjectReviewCanvas({ parentId, title, phase, ...rest }) {
 	/* Queries */
 	const { data: projectUsers = [] } = useQuery(
 		QUERY_KEYS.PROJECT_USERS,
@@ -38,7 +38,7 @@ export default function ProjectReviewCanvas({ parentId, title, phases = [], ...r
 	);
 
 	/* Constants */
-	const { image, id: phaseId, comments, phase } = phases[phases.length - 1] || {};
+	const { image, id: phaseId, comments, phase: phaseNumber } = phase;
 
 	/* Hooks */
 	const { currentUser } = useContext(StaticContext);
@@ -73,7 +73,7 @@ export default function ProjectReviewCanvas({ parentId, title, phases = [], ...r
 
 	/* render */
 	return (
-		<motion.div layout className="review position-relative mx-n12 mb-3 mt-n10">
+		<motion.div className="review position-relative mx-n12 mb-3 mt-n10 min-vh-100">
 			<motion.div
 				className="review__image-wrapper position-relative"
 				ref={reviewRef}
@@ -82,7 +82,7 @@ export default function ProjectReviewCanvas({ parentId, title, phases = [], ...r
 					width: commentsPanelOpen ? `calc(100% - 400px)` : '100%',
 					transition: commentsPanelOpen ? SLIDE_IN.animate.transition : SLIDE_IN.exit.transition,
 				}}>
-				<img
+				<Image
 					className="review__image img-fluid w-100"
 					src={image.original}
 					srcSet={`${image.original} 2x`}
@@ -105,7 +105,9 @@ export default function ProjectReviewCanvas({ parentId, title, phases = [], ...r
 				<SecurityModal {...{ securityModalOpen, setSecurityModalOpen }} />
 				<ProjectReviewPagination {...rest} />
 			</motion.div>
-			<ProjectReviewActionBar {...{ ...rest, title, phase, commentsPanelOpen, toggleCommentsPanel }} />
+			<ProjectReviewActionBar
+				{...{ ...rest, title, phaseNumber, phaseId, commentsPanelOpen, toggleCommentsPanel }}
+			/>
 			<AnimatePresence>
 				{commentsPanelOpen && (
 					<ProjectReviewCommentPanel

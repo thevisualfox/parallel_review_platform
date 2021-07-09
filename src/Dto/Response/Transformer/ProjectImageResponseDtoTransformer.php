@@ -36,7 +36,7 @@ class ProjectImageResponseDtoTransformer extends AbstractResponseDtoTransformer
         $dto->id = $id;
         $dto->title = $projectImage->getTitle();
         $dto->description = $projectImage->getDescription();
-        $dto->phases = $this->phaseResponseDtoTransformer->transformFromObjects($projectImage->getPhases());
+        $dto->phase = $this->phaseResponseDtoTransformer->transformFromObject($projectImage->getPhase());
 
         if ($includeTotalImages) {
             $imageIds = [];

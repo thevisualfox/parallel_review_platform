@@ -8,7 +8,7 @@ import { AnimatePresence, motion } from 'framer-motion';
 import closeIcon from 'icons/close.svg';
 
 /* Components */
-import { Dropzone, LoadingWrapper, SlideIn, Users, UserAdd } from '../../components';
+import { Dropzone, LoadingWrapper, SlideIn, Users, UserAdd, Image } from '../../components';
 
 /* Animations */
 import { STAGGER_UP } from '../../animations';
@@ -105,8 +105,7 @@ export default function ProjectSlideIn({ project = {}, updateProject, toggleSlid
 }
 
 const DropzoneImage = ({ projectImage, projectImageIndex, updateProjectImages, isLoading }) => {
-	const { title, id, phases = [] } = projectImage;
-	const { image } = phases[phases.length - 1] || {};
+	const { title, id, phase = {} } = projectImage;
 
 	return (
 		<motion.div
@@ -115,10 +114,10 @@ const DropzoneImage = ({ projectImage, projectImageIndex, updateProjectImages, i
 			className="col-12 col-md-6 col-lg-4 col-xl-3 col-xxl-2"
 			key={id}>
 			<div className="dropzone__container">
-				<img
+				<Image
 					className="dropzone__image img-fluid"
-					src={image.thumbnail}
-					srcSet={`${image.thumbnailRetina} 2x`}
+					src={phase.image.thumbnail}
+					srcSet={`${phase.image.thumbnailRetina} 2x`}
 					alt={title}
 				/>
 				<button

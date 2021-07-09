@@ -5,9 +5,9 @@
         @extend .px-6;
     }
 
-    .bar__edit-modal {
+    .bar__modal {
         top: auto;
-        bottom: spacer(12);
+        bottom: spacer(15);
         left: 50%;
         transform: translateX(-50%);
     }

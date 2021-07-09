@@ -3,6 +3,7 @@ export * from './project';
 export * from './projectImage';
 export * from './user';
 export * from './comment';
+export * from './phase';
 
 export const QUERY_KEYS = {
 	CURRENT_USER: 'current_user',

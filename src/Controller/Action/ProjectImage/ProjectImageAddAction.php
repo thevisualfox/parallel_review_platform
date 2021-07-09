@@ -18,49 +18,54 @@ final class ProjectImageAddAction extends AbstractApiController
     /** @var ProjectResponseDtoTransformer  $projectResponseDtoTransformer */
     private $projectResponseDtoTransformer;
 
-    public function __construct(ProjectResponseDtoTransformer $projectResponseDtoTransformer)
+    /** @var EntityManagerInterface  $entityManager */
+    private $entityManager;
+
+    public function __construct(ProjectResponseDtoTransformer $projectResponseDtoTransformer, EntityManagerInterface  $entityManager)
     {
         $this->projectResponseDtoTransformer = $projectResponseDtoTransformer;
+        $this->entityManager = $entityManager;
     }
 
     /**
      * @Route("/api/images/add/{id}", name="app_project_image_add", methods="POST")
      */
-    public function __invoke(EntityManagerInterface $entityManager, Project $project, Request $request, ImageHelper $imageHelper): Response
+    public function __invoke(Project $project, Request $request, ImageHelper $imageHelper): Response
     {
         $requestImages = $request->files->get('images');
 
         foreach ($requestImages as $image) {
             $newFileName = $imageHelper->uploadImage($image);
+            $projectImage = $this->createProjectImage($newFileName);
 
-            $projectImage = $this->createProjectImage($newFileName, $project, $entityManager);
-            $this->createPhase($newFileName, $projectImage, $entityManager);
+            $project->addProjectImage($projectImage);
         }
 
-        $entityManager->persist($project);
-        $entityManager->flush();
+        $this->entityManager->persist($project);
+        $this->entityManager->flush();
 
         return $this->respond($this->projectResponseDtoTransformer->transformFromObject($project));
     }
 
-    public function createProjectImage(string $newFileName, Project $project, EntityManagerInterface $entityManager): ProjectImage
+    public function createProjectImage(string $newFileName): ProjectImage
     {
         $projectImage = new ProjectImage();
         $projectImage->setTitle($newFileName);
-        $projectImage->setProject($project);
+        $projectImage->addPhase($this->createPhase($newFileName));
 
-        $entityManager->persist($projectImage);
+        $this->entityManager->persist($projectImage);
 
         return $projectImage;
     }
 
-    public function createPhase(string $newFileName, ProjectImage $projectImage, EntityManagerInterface $entityManager): void
+    public function createPhase(string $newFileName): Phase
     {
         $phase = new Phase();
         $phase->setPhase(1);
         $phase->setImage($newFileName);
-        $phase->setProjectImage($projectImage);
 
-        $entityManager->persist($phase);
+        $this->entityManager->persist($phase);
+
+        return $phase;
     }
 }

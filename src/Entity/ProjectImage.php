@@ -5,6 +5,7 @@ namespace App\Entity;
 use App\Repository\ProjectImageRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
+use Doctrine\Common\Collections\Criteria;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -25,7 +26,7 @@ class ProjectImage
     private $title;
 
     /**
-     * @ORM\ManyToOne(targetEntity=Project::class, inversedBy="projectImages")
+     * @ORM\ManyToOne(targetEntity=Project::class, inversedBy="projectImages", cascade={"persist"})
      * @ORM\JoinColumn(nullable=false)
      */
     private $project;
@@ -92,6 +93,23 @@ class ProjectImage
     public function getPhases(): Collection
     {
         return $this->phases;
+    }
+
+    /**
+     * @return Phase
+     */
+    public function getPhase(int $phaseNumber = null): Phase
+    {
+        if (!$this->phases->isEmpty()) {
+            if (null !== $phaseNumber) {
+                $criteria = Criteria::create()
+                    ->where(Criteria::expr()->eq('phase', $phaseNumber));
+
+                return $this->phases->matching($criteria)->first();
+            }
+
+            return $this->phases->last();
+        }
     }
 
     public function addPhase(Phase $phase): self

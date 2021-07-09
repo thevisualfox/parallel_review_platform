@@ -40,7 +40,7 @@ class Project
     private $description;
 
     /**
-     * @ORM\OneToMany(targetEntity=ProjectImage::class, mappedBy="project", orphanRemoval=true))
+     * @ORM\OneToMany(targetEntity=ProjectImage::class, mappedBy="project", orphanRemoval=true), cascade={"persist"})
      */
     private $projectImages;
 

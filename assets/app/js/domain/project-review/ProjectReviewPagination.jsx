@@ -36,23 +36,25 @@ export default function ProjectReviewPagination({ allImages }) {
 	};
 
 	return (
-		<div className="pagination">
-			<div className="pagination__btn-wrapper pagination__btn-wrapper--prev">
-				<button
-					className="pagination__btn pagination__btn--prev btn btn-link text-reset"
-					type="button"
-					onClick={() => navigate('prev')}>
-					<ReactSVG wrapper="svg" className="pagination__icon icon icon--12" src={chevronIcon} />
-				</button>
+		allImages.length > 1 && (
+			<div className="pagination">
+				<div className="pagination__btn-wrapper pagination__btn-wrapper--prev">
+					<button
+						className="pagination__btn pagination__btn--prev btn btn-link text-reset"
+						type="button"
+						onClick={() => navigate('prev')}>
+						<ReactSVG wrapper="svg" className="pagination__icon icon icon--12" src={chevronIcon} />
+					</button>
+				</div>
+				<div className="pagination__btn-wrapper pagination__btn-wrapper--next">
+					<button
+						className="pagination__btn pagination__btn--next btn btn-link text-reset"
+						type="button"
+						onClick={() => navigate('next')}>
+						<ReactSVG wrapper="svg" className="pagination__icon icon icon--12" src={chevronIcon} />
+					</button>
+				</div>
 			</div>
-			<div className="pagination__btn-wrapper pagination__btn-wrapper--next">
-				<button
-					className="pagination__btn pagination__btn--next btn btn-link text-reset"
-					type="button"
-					onClick={() => navigate('next')}>
-					<ReactSVG wrapper="svg" className="pagination__icon icon icon--12" src={chevronIcon} />
-				</button>
-			</div>
-		</div>
+		)
 	);
 }

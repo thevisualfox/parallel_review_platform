@@ -21,10 +21,10 @@
   "build/app/img/delete.svg": "/build/app/img/delete.svg",
   "build/app/img/edit.svg": "/build/app/img/edit.svg",
   "build/app/img/leave.svg": "/build/app/img/leave.svg",
+  "build/app/img/next.svg": "/build/app/img/next.svg",
   "build/app/img/search.svg": "/build/app/img/search.svg",
   "build/app/img/star.svg": "/build/app/img/star.svg",
   "build/app/img/success.svg": "/build/app/img/success.svg",
   "build/app/img/upload.svg": "/build/app/img/upload.svg",
-  "build/app/img/warning.svg": "/build/app/img/warning.svg",
-  "build/app/img/next.svg": "/build/app/img/next.svg"
+  "build/app/img/warning.svg": "/build/app/img/warning.svg"
 }
