@@ -24,9 +24,8 @@ final class ProjectImageGetAction extends AbstractApiController
      */
     public function __invoke(ProjectImage $projectImage, Request $request): Response
     {
-        // $requestBody = json_decode($request->getContent(), true);
-        // $phase = $requestBody['phase'];
+        $phase = $request->query->get('phase') ? intval($request->query->get('phase')) : null;
 
-        return $this->respond($this->projectImageResponseDtoTransformer->transformFromObject($projectImage, true));
+        return $this->respond($this->projectImageResponseDtoTransformer->transformFromObject($projectImage, true, $phase));
     }
 }

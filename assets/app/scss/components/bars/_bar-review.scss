@@ -10,6 +10,11 @@
         bottom: spacer(15);
         left: 50%;
         transform: translateX(-50%);
+
+        &--left {
+            left: 0;
+            transform: unset;
+        }
     }
 
     .bar__action-btn {

@@ -11,6 +11,7 @@ import chevronIcon from 'icons/chevron.svg';
 import editIcon from 'icons/edit.svg';
 import nextIcon from 'icons/next.svg';
 import commentIcon from 'icons/comment.svg';
+import checkIcon from 'icons/check.svg';
 
 /* Context */
 import { ReviewContext, StaticContext } from '../../context';
@@ -21,8 +22,17 @@ import { editProjectImage, nextPhase, QUERY_KEYS } from '../../api';
 /* Animations */
 import { SCALE_IN_UP } from '../../animations';
 
+/* Global */
+const modalOptions = {
+	renderOnBody: false,
+	center: false,
+	extensionClasses: 'bar__modal',
+	customAnimation: SCALE_IN_UP(20),
+};
+
 export default function ProjectReviewActionBar({
 	allImages,
+	allPhases,
 	title,
 	description,
 	phaseNumber,
@@ -44,12 +54,6 @@ export default function ProjectReviewActionBar({
 					<div className="row gutters-0 justify-content-between align-items-center">
 						<div className="col-4 d-flex flex-column">
 							<div className="d-flex align-items-center">
-								<p className="text--sm mb-0">Project</p>
-								<ReactSVG
-									wrapper="svg"
-									className="icon icon--8 text-white text-muted--50 mx-1"
-									src={chevronIcon}
-								/>
 								<p className="text--sm mb-0 text-truncate" style={{ maxWidth: 120 }}>
 									{title}
 								</p>
@@ -59,7 +63,7 @@ export default function ProjectReviewActionBar({
 									{allImages.indexOf(Number(projectImageId)) + 1} of {allImages.length}
 								</p>
 								<span className="mx-1 text-muted--20">/</span>
-								<p className="text--xs text-muted--70 mb-0">Phase {phaseNumber}</p>
+								<PhaseAction {...{ allPhases, phaseNumber, userRole }} />
 							</div>
 						</div>
 						<div className="col-auto d-flex align-items-center">
@@ -74,7 +78,7 @@ export default function ProjectReviewActionBar({
 								<ReactSVG wrapper="svg" className="icon icon--16" src={commentIcon} />
 							</button>
 							<div className="position-relative hr-2">
-								{userRole === 'admin' && <PhaseAction {...{ phaseId, projectImageId }} />}
+								{userRole === 'admin' && <PhaseNextAction {...{ phaseId, projectImageId }} />}
 							</div>
 						</div>
 						<div className="col-4 d-flex justify-content-end">
@@ -87,15 +91,74 @@ export default function ProjectReviewActionBar({
 	);
 }
 
+const PhaseAction = ({ allPhases, phaseNumber, userRole }) => {
+	/* State */
+	const [modalOpen, setModalOpen] = useState(false);
+
+	/* Context */
+	const { activePhase, setActivePhase } = useContext(ReviewContext);
+
+	/* Callbacks */
+	const toggleModal = () => {
+		if (userRole !== 'admin') return;
+
+		setModalOpen(!modalOpen);
+	};
+
+	const navigateToPhase = (phase) => {
+		setActivePhase(phase);
+		toggleModal();
+	};
+
+	/* Render */
+	return (
+		<>
+			<button
+				className={`btn btn-link btn--modal text-reset d-flex align-items-center ${modalOpen && 'is-active'}`}
+				onClick={toggleModal}>
+				<p className="text--xs text-muted--70 mb-0">Phase {phaseNumber}</p>
+				{userRole === 'admin' && (
+					<ReactSVG wrapper="svg" className="icon icon--8 text-muted--50  ml-1" src={chevronIcon} />
+				)}
+			</button>
+			<Modal
+				{...{
+					title: 'Choose phase',
+					subtitle: 'Navigate to selected phase',
+					modalOpen: modalOpen,
+					toggleModal: toggleModal,
+					...modalOptions,
+					extensionClasses: 'bar__modal bar__modal--left',
+				}}>
+				<div className="d-flex align-items-center mt-2">
+					{allPhases.map((phase, phaseIndex) => (
+						<button
+							key={phaseIndex}
+							className="btn btn-link icon-wrapper icon-wrapper--interactive icon-wrapper--secondary hr-2 text-decoration-none"
+							style={{ '--size': 35 }}
+							onClick={() => navigateToPhase(phase)}>
+							{activePhase === phase ? (
+								<ReactSVG wrapper="svg" className="icon icon--12" src={checkIcon} />
+							) : (
+								<span className="text-secondary">{phaseIndex + 1}</span>
+							)}
+						</button>
+					))}
+				</div>
+			</Modal>
+		</>
+	);
+};
+
 const EditAction = ({ title, description, projectImageId }) => {
 	/* Hooks */
 	const queryClient = useQueryClient();
 
 	/* State */
-	const [editModalOpen, setEditModalOpen] = useState(false);
+	const [modalOpen, setModalOpen] = useState(false);
 
 	/* Callbacks */
-	const toggleEditModal = () => setEditModalOpen(!editModalOpen);
+	const toggleModal = () => setModalOpen(!modalOpen);
 
 	/* mutations */
 	const mutationOnSuccess = () => {
@@ -106,24 +169,21 @@ const EditAction = ({ title, description, projectImageId }) => {
 	return (
 		<>
 			<button
-				className={`bar__action-btn ${editModalOpen && 'is-active'} btn btn-link text-rest`}
-				onClick={toggleEditModal}>
+				className={`bar__action-btn ${modalOpen && 'is-active'} btn btn-link text-rest`}
+				onClick={toggleModal}>
 				<ReactSVG wrapper="svg" className="icon icon--16" src={editIcon} />
 			</button>
 			<Modal
 				{...{
 					title: 'Editing image',
 					subtitle: 'Save when ready',
-					modalOpen: editModalOpen,
-					toggleModal: toggleEditModal,
-					renderOnBody: false,
-					center: false,
-					extensionClasses: 'bar__modal',
-					customAnimation: SCALE_IN_UP,
+					modalOpen: modalOpen,
+					toggleModal: toggleModal,
+					...modalOptions,
 				}}>
 				<EditableBody
 					{...{
-						toggleModal: toggleEditModal,
+						toggleModal: toggleModal,
 						fields: [
 							{ name: 'title', defaultValue: title },
 							{ name: 'description', defaultValue: description },
@@ -138,21 +198,21 @@ const EditAction = ({ title, description, projectImageId }) => {
 	);
 };
 
-const PhaseAction = ({ phaseId, projectImageId }) => {
+const PhaseNextAction = ({ phaseId, projectImageId }) => {
 	/* Hooks */
 	const queryClient = useQueryClient();
 
 	/* State */
-	const [phaseModalOpen, setPhaseModalOpen] = useState(false);
+	const [modalOpen, setModalOpen] = useState(false);
 	const [images, setImages] = useState([]);
 
 	/* Callbacks */
-	const togglePhaseModal = () => setPhaseModalOpen(!phaseModalOpen);
+	const toggleModal = () => setModalOpen(!modalOpen);
 
 	/* Mutations */
 	const nextPhaseMutation = useMutation(nextPhase, {
 		onSuccess: () => {
-			togglePhaseModal();
+			toggleModal();
 			setImages([]);
 			queryClient.invalidateQueries([QUERY_KEYS.PROJECT_IMAGE_BY_ID, Number(projectImageId)]);
 		},
@@ -161,20 +221,17 @@ const PhaseAction = ({ phaseId, projectImageId }) => {
 	return (
 		<>
 			<button
-				className={`bar__action-btn ${phaseModalOpen && 'is-active'} btn btn-link text-rest`}
-				onClick={togglePhaseModal}>
+				className={`bar__action-btn ${modalOpen && 'is-active'} btn btn-link text-rest`}
+				onClick={toggleModal}>
 				<ReactSVG wrapper="svg" className="icon icon--16" src={nextIcon} />
 			</button>
 			<Modal
 				{...{
 					title: 'Next phase',
 					subtitle: 'Add a new image for the next phase',
-					modalOpen: phaseModalOpen,
-					toggleModal: togglePhaseModal,
-					renderOnBody: false,
-					center: false,
-					extensionClasses: 'bar__modal',
-					customAnimation: SCALE_IN_UP,
+					modalOpen: modalOpen,
+					toggleModal: toggleModal,
+					...modalOptions,
 				}}>
 				<div className="d-flex flex-column w-100">
 					<DropzoneSingle {...{ images, setImages }} />

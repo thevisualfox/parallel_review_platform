@@ -40,6 +40,12 @@ class ProjectImageResponseDto
     public $phase;
 
     /**
+     * @var string[] $allPhases
+     * @Serialization\Type("array<int>")
+     */
+    public $allPhases;
+
+    /**
      * @var int $prevImage
      * @Serialization\Type("array<int>")
      */

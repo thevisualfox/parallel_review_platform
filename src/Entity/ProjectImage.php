@@ -103,7 +103,7 @@ class ProjectImage
         if (!$this->phases->isEmpty()) {
             if (null !== $phaseNumber) {
                 $criteria = Criteria::create()
-                    ->where(Criteria::expr()->eq('phase', $phaseNumber));
+                    ->where(Criteria::expr()->eq('id', $phaseNumber));
 
                 return $this->phases->matching($criteria)->first();
             }
