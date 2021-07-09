@@ -15,6 +15,12 @@
             left: 0;
             transform: unset;
         }
+
+        &--right {
+            left: auto;
+            right: 0;
+            transform: unset;
+        }
     }
 
     .bar__action-btn {

@@ -45,8 +45,8 @@ const Text = ({ title, isLoading, children }) => (
 			loaderClasses: 'position-absolute d-flex text-secondary',
 			defaultClasses: 'd-flex align-items-center',
 		}}>
-		<span className="btn__text">{title}</span>
 		{children}
+		<span className="btn__text">{title}</span>
 	</LoadingWrapper>
 );
 

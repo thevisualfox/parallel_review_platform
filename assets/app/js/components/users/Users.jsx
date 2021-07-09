@@ -8,7 +8,7 @@ import { User } from '../../components';
 /* Animations */
 import { SCALE_FADE } from '../../animations';
 
-export default function Users({ users, layout = 'full', ...rest }) {
+export default function Users({ users, layout = 'full', useLayout = true, ...rest }) {
 	const sliceAmount = layout === 'minimal' ? 7 : Infinity;
 
 	/* Render */
@@ -17,7 +17,7 @@ export default function Users({ users, layout = 'full', ...rest }) {
 			<AnimatePresence>
 				{users.slice(0, sliceAmount).map((user) => {
 					return (
-						<motion.div layout {...SCALE_FADE} className="col-auto" key={user.id}>
+						<motion.div layout={useLayout} {...SCALE_FADE} className="col-auto" key={user.id}>
 							<User {...{ user, ...rest }} />
 						</motion.div>
 					);

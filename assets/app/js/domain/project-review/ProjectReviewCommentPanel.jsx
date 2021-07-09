@@ -31,9 +31,11 @@ export default function ProjectReviewCommentPanel({ comments, commentsPanelOpen,
 					</button>
 				</div>
 				<div className="d-flex flex-column w-100">
-					{comments?.reverse().map((comment, commentIndex) => (
-						<CommentWithReply key={commentIndex} {...{ comment, commentIndex, projectUsers }} />
-					))}
+					{comments?.reverse().map((comment, index) => {
+						const commentIndex = comments.length - index;
+
+						return <CommentWithReply key={commentIndex} {...{ comment, commentIndex, projectUsers }} />;
+					})}
 					{comments.length === 0 && <p className="text-muted--70">No comments yet</p>}
 				</div>
 			</div>

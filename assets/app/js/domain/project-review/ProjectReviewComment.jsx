@@ -71,7 +71,7 @@ export default function ProjectReviewComment({
 							<div
 								className="ml-auto icon-wrapper icon-wrapper--hsl icon-wrapper--interactive"
 								style={{ '--theme': author.userColor }}>
-								<span className="text--xs">{commentIndex + 1}</span>
+								<span className="text--xs">{commentIndex}</span>
 							</div>
 						)}
 					</div>

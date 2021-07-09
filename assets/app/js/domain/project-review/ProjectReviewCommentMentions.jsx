@@ -30,7 +30,7 @@ export default function ProjectReviewCommentMentions({
 	const { projectId } = useContext(ReviewContext);
 
 	/* Queries */
-	const { data: projectUsers = [] } = useQuery(QUERY_KEYS.PROJECT_USERS, () => fetchProjectUsers({ projectId }));
+	const { data: projectUsers = [] } = useQuery([QUERY_KEYS.PROJECT_USERS, projectId], () => fetchProjectUsers({ projectId }));
 
 	/* Refs */
 	const mentionRef = useRef();

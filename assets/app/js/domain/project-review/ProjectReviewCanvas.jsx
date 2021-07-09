@@ -5,10 +5,10 @@ import { useQuery } from 'react-query';
 import { motion } from 'framer-motion';
 
 /* Domain */
+import { ProjectReviewActionBar } from './project-review-action-bar';
 import ProjectReviewMarker from './ProjectReviewMarker';
 import ProjectReviewCommentModal from './ProjectReviewCommentModal';
 import ProjectReviewCommentAdd from './ProjectReviewCommentAdd';
-import ProjectReviewActionBar from './ProjectReviewActionBar';
 import ProjectReviewPagination from './ProjectReviewPagination';
 import ProjectReviewCommentPanel from './ProjectReviewCommentPanel';
 
@@ -30,7 +30,7 @@ const cursorOffset = 10;
 export default function ProjectReviewCanvas({ parentId, title, phase, ...rest }) {
 	/* Queries */
 	const { data: projectUsers = [] } = useQuery(
-		QUERY_KEYS.PROJECT_USERS,
+		[QUERY_KEYS.PROJECT_USERS, parentId],
 		() => fetchProjectUsers({ projectId: parentId }),
 		{
 			enabled: !!parentId,
@@ -106,7 +106,7 @@ export default function ProjectReviewCanvas({ parentId, title, phase, ...rest })
 				<ProjectReviewPagination {...rest} />
 			</motion.div>
 			<ProjectReviewActionBar
-				{...{ ...rest, title, phaseNumber, phaseId, commentsPanelOpen, toggleCommentsPanel }}
+				{...{ ...rest, title, phaseNumber, phaseId, commentsPanelOpen, toggleCommentsPanel, projectUsers }}
 			/>
 			<AnimatePresence>
 				{commentsPanelOpen && (

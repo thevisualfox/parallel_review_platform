@@ -1,7 +1,7 @@
 /* Packages */
 import React from 'react';
 import { ReactSVG } from 'react-svg';
-import { useMutation, useQueryClient } from 'react-query';
+import { useMutation } from 'react-query';
 
 /* Components */
 import { LoadingWrapper } from '../../components';
@@ -11,12 +11,9 @@ import starIcon from 'icons/star.svg';
 import deleteIcon from 'icons/delete.svg';
 
 /* Api */
-import { deleteUser, QUERY_KEYS } from '../../api';
+import { deleteUser } from '../../api';
 
-export default function User({ user, project, variant = 'default', size = 'md' }) {
-	/* Hooks */
-	const queryClient = useQueryClient();
-
+export default function User({ user, project, variant = 'default', size = 'md', invalidateQueries }) {
 	/* Constants */
 	const { id: projectId, author } = project ?? {};
 	const { id: userId, email } = user ?? {};
@@ -24,7 +21,7 @@ export default function User({ user, project, variant = 'default', size = 'md' }
 
 	/* Mutations */
 	const deleteUserMutation = useMutation(deleteUser, {
-		onSuccess: () => queryClient.invalidateQueries([QUERY_KEYS.PROJECT_BY_ID, projectId]),
+		onSuccess: () => invalidateQueries(),
 	});
 
 	/* Render */

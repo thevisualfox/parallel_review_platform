@@ -27,7 +27,7 @@ export default function Project({ project, selected, updateSelected }) {
 				<div className="d-flex flex-column">
 					<p className="mb-2">{title ? title : 'Add a nice title'}</p>
 					<div className="d-flex align-items-center">
-						<Users {...{ users, project: { author }, layout: 'minimal' }} />
+						<Users {...{ users, project: { author }, layout: 'minimal', useLayout: false }} />
 					</div>
 				</div>
 			</div>
