@@ -56,10 +56,6 @@ const RouterBody = () => {
 	/* Render */
 	return (
 		<StaticContext.Provider value={{ currentUser, setCurrentUser, userRole }}>
-			<AnimatePresence>
-				{/* Show different headers based on route */}
-				{![ROUTES.login, ROUTES.signup].includes(location.pathname) && !location.pathname.includes('review') && <HeaderNavigation />}
-			</AnimatePresence>
 			<PageLoader {...{ isLoading }}>
 				<AnimatePresence exitBeforeEnter>
 					<Switch location={location} key={location.pathname}>
@@ -74,7 +70,15 @@ const RouterBody = () => {
 						{/* Render routes */}
 						{routes.map(({ path, component: Component, props }) => (
 							<Route key={path} path={path} exact>
-								<motion.div key={path} {...FADE_IN}>
+								{/* Show different headers based on route */}
+								<motion.div
+									key={path}
+									{...FADE_IN}
+									transition={{ duration: 0.1, ease: [0.65, 0, 0.35, 1] }}>
+									{![ROUTES.login, ROUTES.signup, 'review'].includes(location.pathname) &&
+										!location.pathname.includes('review') && <HeaderNavigation />}
+
+									{/* Render page */}
 									<Component {...{ ...props, currentUser, userRole }} />
 								</motion.div>
 							</Route>
