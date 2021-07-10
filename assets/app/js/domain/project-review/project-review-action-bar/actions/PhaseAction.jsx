@@ -15,7 +15,7 @@ import { ReviewContext } from '../../../../context';
 /* Options */
 import { modalOptions } from '.';
 
-export default function PhaseAction({ allPhases, phaseNumber, userRole }) {
+export default function PhaseAction({ allPhases, phaseNumber, userRole, togglePaginationActive }) {
 	/* State */
 	const [modalOpen, setModalOpen] = useState(false);
 
@@ -26,6 +26,7 @@ export default function PhaseAction({ allPhases, phaseNumber, userRole }) {
 	const toggleModal = () => {
 		if (userRole !== 'admin') return;
 
+		togglePaginationActive();
 		setModalOpen(!modalOpen);
 	};
 

@@ -50,10 +50,17 @@ export default function ProjectReviewCanvas({ parentId, title, phase, ...rest })
 	const [markerPos, setMarkerPos] = useState();
 	const [securityModalOpen, setSecurityModalOpen] = useState(false);
 	const [commentsPanelOpen, setCommentsPanelOpen] = useState(false);
+	const [paginationActive, setPaginationActive] = useState(true);
 
 	/* Callbacks */
 	const toggleCommentAddOpen = () => setMarkerPos(null);
-	const toggleCommentsPanel = () => setCommentsPanelOpen(!commentsPanelOpen);
+
+	const toggleCommentsPanel = () => {
+		setCommentsPanelOpen(!commentsPanelOpen);
+		togglePaginationActive();
+	};
+
+	const togglePaginationActive = () => setPaginationActive(!paginationActive);
 
 	const posMarker = ({ clientX, clientY }) => {
 		if (!currentUser.authenticated) {
@@ -103,10 +110,19 @@ export default function ProjectReviewCanvas({ parentId, title, phase, ...rest })
 					)}
 				</AnimatePresence>
 				<SecurityModal {...{ securityModalOpen, setSecurityModalOpen }} />
-				<ProjectReviewPagination {...rest} />
+				<AnimatePresence>{paginationActive && <ProjectReviewPagination {...rest} />}</AnimatePresence>
 			</motion.div>
 			<ProjectReviewActionBar
-				{...{ ...rest, title, phaseNumber, phaseId, commentsPanelOpen, toggleCommentsPanel, projectUsers }}
+				{...{
+					...rest,
+					title,
+					phaseNumber,
+					phaseId,
+					commentsPanelOpen,
+					toggleCommentsPanel,
+					projectUsers,
+					togglePaginationActive,
+				}}
 			/>
 			<AnimatePresence>
 				{commentsPanelOpen && (

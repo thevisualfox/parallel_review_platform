@@ -15,7 +15,7 @@ import { editProjectImage, QUERY_KEYS } from '../../../../api';
 /* Options */
 import { modalOptions } from '.';
 
-export default function EditAction({ title, description, projectImageId }) {
+export default function EditAction({ title, description, projectImageId, togglePaginationActive }) {
 	/* Hooks */
 	const queryClient = useQueryClient();
 
@@ -23,7 +23,10 @@ export default function EditAction({ title, description, projectImageId }) {
 	const [modalOpen, setModalOpen] = useState(false);
 
 	/* Callbacks */
-	const toggleModal = () => setModalOpen(!modalOpen);
+	const toggleModal = () => {
+		togglePaginationActive();
+		setModalOpen(!modalOpen);
+	};
 
 	/* mutations */
 	const mutationOnSuccess = () => {

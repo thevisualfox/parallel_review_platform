@@ -15,7 +15,7 @@ import { nextPhase, QUERY_KEYS } from '../../../../api';
 /* Options */
 import { modalOptions } from '.';
 
-export default function PhaseNextAction({ phaseId, projectImageId }) {
+export default function PhaseNextAction({ phaseId, projectImageId, togglePaginationActive }) {
 	/* Hooks */
 	const queryClient = useQueryClient();
 
@@ -24,7 +24,10 @@ export default function PhaseNextAction({ phaseId, projectImageId }) {
 	const [images, setImages] = useState([]);
 
 	/* Callbacks */
-	const toggleModal = () => setModalOpen(!modalOpen);
+	const toggleModal = () => {
+		togglePaginationActive();
+		setModalOpen(!modalOpen);
+	};
 
 	/* Mutations */
 	const nextPhaseMutation = useMutation(nextPhase, {

@@ -2,6 +2,7 @@
 import React, { useContext } from 'react';
 import { useHistory } from 'react-router-dom';
 import { ReactSVG } from 'react-svg';
+import { motion } from 'framer-motion';
 
 /* Context */
 import { ReviewContext } from '../../context';
@@ -11,6 +12,9 @@ import chevronIcon from 'icons/chevron.svg';
 
 /* Hooks */
 import { useEventListener } from '../../hooks';
+
+/* Animation */
+import { FADE_IN } from '../../animations';
 
 export default function ProjectReviewPagination({ allImages }) {
 	/* Hooks */
@@ -37,7 +41,7 @@ export default function ProjectReviewPagination({ allImages }) {
 
 	return (
 		allImages.length > 1 && (
-			<div className="pagination">
+			<motion.div key="pagination" {...FADE_IN} className="pagination">
 				<div className="pagination__btn-wrapper pagination__btn-wrapper--prev">
 					<button
 						className="pagination__btn pagination__btn--prev btn btn-link text-reset"
@@ -54,7 +58,7 @@ export default function ProjectReviewPagination({ allImages }) {
 						<ReactSVG wrapper="svg" className="pagination__icon icon icon--12" src={chevronIcon} />
 					</button>
 				</div>
-			</div>
+			</motion.div>
 		)
 	);
 }
