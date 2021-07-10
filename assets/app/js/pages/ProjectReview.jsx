@@ -23,8 +23,12 @@ export default function ProjectReview() {
 
 	/* Queries */
 	const { id: projectImageId } = useParams();
-	const { isLoading, data, refetch } = useQuery([QUERY_KEYS.PROJECT_IMAGE_BY_ID, parseInt(projectImageId)], () =>
-		fetchProjectImageById({ projectImageId, phaseId: activePhase })
+	const { isLoading, data, refetch } = useQuery(
+		[QUERY_KEYS.PROJECT_IMAGE_BY_ID, parseInt(projectImageId)],
+		() => fetchProjectImageById({ projectImageId, phaseId: activePhase }),
+		{
+			refetchInterval: 10000,
+		}
 	);
 
 	/* Effects */
