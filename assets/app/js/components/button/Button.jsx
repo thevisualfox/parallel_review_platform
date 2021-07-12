@@ -14,7 +14,7 @@ export default function Button({
 	theme = 'secondary',
 	size = 'sm',
 	extensionClasses = '',
-	isLoading = true,
+	isLoading = false,
 	contentType = 'text',
 	children,
 	disabled = isLoading,

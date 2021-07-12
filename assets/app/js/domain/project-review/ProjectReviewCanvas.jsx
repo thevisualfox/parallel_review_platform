@@ -50,18 +50,11 @@ export default function ProjectReviewCanvas({ parentId, title, phase, ...rest })
 	const [markerPos, setMarkerPos] = useState();
 	const [securityModalOpen, setSecurityModalOpen] = useState(false);
 	const [commentsPanelOpen, setCommentsPanelOpen] = useState(false);
-	const [paginationActive, setPaginationActive] = useState(true);
 	const [commentFocused, setCommentFocused] = useState();
 
 	/* Callbacks */
 	const toggleCommentAddOpen = () => setMarkerPos(null);
-
-	const toggleCommentsPanel = () => {
-		setCommentsPanelOpen(!commentsPanelOpen);
-		togglePaginationActive();
-	};
-
-	const togglePaginationActive = () => setPaginationActive(!paginationActive);
+	const toggleCommentsPanel = () => setCommentsPanelOpen(!commentsPanelOpen);
 
 	const posMarker = ({ clientX, clientY }) => {
 		if (!currentUser.authenticated) {
@@ -100,7 +93,14 @@ export default function ProjectReviewCanvas({ parentId, title, phase, ...rest })
 				{comments?.map((comment, commentIndex) => (
 					<ProjectReviewCommentModal
 						key={comment.id}
-						{...{ comment, commentIndex, reviewRef, projectUsers, toggleCommentAddOpen, commentFocused }}
+						{...{
+							comment,
+							commentIndex,
+							reviewRef,
+							projectUsers,
+							toggleCommentAddOpen,
+							commentFocused,
+						}}
 					/>
 				))}
 				<AnimatePresence>
@@ -111,7 +111,7 @@ export default function ProjectReviewCanvas({ parentId, title, phase, ...rest })
 					)}
 				</AnimatePresence>
 				<SecurityModal {...{ securityModalOpen, setSecurityModalOpen }} />
-				<AnimatePresence>{paginationActive && <ProjectReviewPagination {...rest} />}</AnimatePresence>
+				<ProjectReviewPagination {...rest} />
 			</motion.div>
 			<ProjectReviewActionBar
 				{...{
@@ -122,7 +122,6 @@ export default function ProjectReviewCanvas({ parentId, title, phase, ...rest })
 					commentsPanelOpen,
 					toggleCommentsPanel,
 					projectUsers,
-					togglePaginationActive,
 				}}
 			/>
 			<AnimatePresence>

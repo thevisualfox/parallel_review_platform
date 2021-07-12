@@ -24,7 +24,6 @@ export default function ProjectReviewActionBar({
 	commentsPanelOpen,
 	toggleCommentsPanel,
 	projectUsers,
-	togglePaginationActive,
 }) {
 	/* Context */
 	const { currentUser, userRole } = useContext(StaticContext);
@@ -51,15 +50,13 @@ export default function ProjectReviewActionBar({
 										{allImages.indexOf(Number(projectImageId)) + 1} of {allImages.length}
 									</p>
 									<span className="mx-1 text-muted--20">/</span>
-									<PhaseAction {...{ allPhases, phaseNumber, togglePaginationActive }} />
+									<PhaseAction {...{ allPhases, phaseNumber }} />
 								</div>
 							</div>
 						</div>
 						<div className="col-auto d-flex align-items-center">
 							<div className="position-relative hr-2">
-								{userRole === 'admin' && (
-									<EditAction {...{ title, description, projectImageId, togglePaginationActive }} />
-								)}
+								{userRole === 'admin' && <EditAction {...{ title, description, projectImageId }} />}
 							</div>
 							<button
 								className={`bar__action-btn ${
@@ -69,13 +66,11 @@ export default function ProjectReviewActionBar({
 								<ReactSVG wrapper="svg" className="icon icon--16" src={commentIcon} />
 							</button>
 							<div className="position-relative hr-2">
-								{userRole === 'admin' && (
-									<PhaseNextAction {...{ phaseId, projectImageId, togglePaginationActive }} />
-								)}
+								{userRole === 'admin' && <PhaseNextAction {...{ phaseId, projectImageId }} />}
 							</div>
 						</div>
 						<div className="col-4 d-flex justify-content-end">
-							{userRole === 'admin' && <ShareAction {...{ projectUsers, togglePaginationActive }} />}
+							{userRole === 'admin' && <ShareAction {...{ projectUsers }} />}
 						</div>
 					</div>
 				</div>

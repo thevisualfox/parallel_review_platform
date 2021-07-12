@@ -15,7 +15,7 @@ import { ReviewContext } from '../../../../context';
 /* Options */
 import { modalOptions } from '.';
 
-export default function PhaseAction({ allPhases, phaseNumber, togglePaginationActive }) {
+export default function PhaseAction({ allPhases, phaseNumber }) {
 	/* State */
 	const [modalOpen, setModalOpen] = useState(false);
 
@@ -23,10 +23,7 @@ export default function PhaseAction({ allPhases, phaseNumber, togglePaginationAc
 	const { activePhase = allPhases[allPhases.length - 1], setActivePhase } = useContext(ReviewContext);
 
 	/* Callbacks */
-	const toggleModal = () => {
-		togglePaginationActive();
-		setModalOpen(!modalOpen);
-	};
+	const toggleModal = () => setModalOpen(!modalOpen);
 
 	const navigateToPhase = (phase) => {
 		setActivePhase(phase);

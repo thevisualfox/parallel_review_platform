@@ -1,5 +1,5 @@
 /* Packages */
-import React, { useContext, useEffect, useRef } from 'react';
+import React, { useContext, useEffect } from 'react';
 import { useQuery } from 'react-query';
 import { MentionsInput, Mention } from 'react-mentions';
 import { ReactSVG } from 'react-svg';
@@ -20,6 +20,7 @@ import { QUERY_KEYS, fetchProjectUsers } from '../../api';
 import { ReviewContext } from '../../context';
 
 export default function ProjectReviewCommentMentions({
+	inputRef,
 	comment,
 	setComment,
 	mentions,
@@ -34,13 +35,10 @@ export default function ProjectReviewCommentMentions({
 		fetchProjectUsers({ projectId })
 	);
 
-	/* Refs */
-	const mentionRef = useRef();
-
 	/* Effects */
 	useEffect(() => {
-		if (mentions.length > 0 && mentionRef?.current) styleMentions(projectUsers, mentionRef.current);
-	}, [mentions, mentionRef?.current]);
+		if (mentions.length > 0 && inputRef?.current) styleMentions(projectUsers, inputRef.current);
+	}, [mentions, inputRef?.current]);
 
 	/* Render */
 	return (
@@ -53,8 +51,9 @@ export default function ProjectReviewCommentMentions({
 				placeholder="Say something nice..."
 				onChange={(event) => setComment(event.target.value)}
 				onClick={() => styleMentions(projectUsers)}
-				inputRef={mentionRef}
-				autoFocus={autoFocus}>
+				inputRef={inputRef}
+				autoFocus={autoFocus}
+				onKeyUp={(event) => event.stopPropagation()}>
 				<Mention
 					trigger="@"
 					data={projectUsers}

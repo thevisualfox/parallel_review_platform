@@ -1,5 +1,5 @@
 /* Packages */
-import React, { useContext, useRef, useState } from 'react';
+import React, { useContext, useEffect, useRef, useState } from 'react';
 import { useMutation, useQueryClient } from 'react-query';
 import { motion } from 'framer-motion';
 import { ReactSVG } from 'react-svg';
@@ -34,6 +34,7 @@ import { ReviewContext } from '../../context';
 export default function ProjectReviewCommentAdd({ markerPos, phaseId, toggleCommentAddOpen }) {
 	/* Refs */
 	const formRef = useRef();
+	const inputRef = useRef();
 	const modalRef = useRef();
 
 	/* Constants */
@@ -42,6 +43,11 @@ export default function ProjectReviewCommentAdd({ markerPos, phaseId, toggleComm
 	/* State */
 	const [comment, setComment] = useState('');
 	const [mentions, setMentions] = useState([]);
+
+	/* Effects */
+	useEffect(() => {
+		inputRef?.current?.focus();
+	}, [markerPos]);
 
 	/* Hooks */
 	useCloseOnEsc(markerPos, toggleCommentAddOpen);
@@ -108,7 +114,7 @@ export default function ProjectReviewCommentAdd({ markerPos, phaseId, toggleComm
 						</label>
 						<div className="position-relative w-100">
 							<ProjectReviewCommentMentions
-								{...{ comment, setComment, mentions, setMentions, autoFocus: true }}
+								{...{ inputRef, comment, setComment, mentions, setMentions, autoFocus: true }}
 							/>
 							<Button
 								extensionClasses="form-control-btn"

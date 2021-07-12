@@ -77,6 +77,7 @@ const Field = ({ name, defaultValue, shouldFocus = false }) => {
 				ref={inputRef}
 				placeholder={capitalizeFirstLetter(name)}
 				onFocus={() => inputRef.current.select()}
+				onKeyUp={(event) => event.stopPropagation()}
 			/>
 		</>
 	);

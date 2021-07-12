@@ -18,7 +18,7 @@ import { QUERY_KEYS } from '../../../../api';
 /* Options */
 import { modalOptions } from '.';
 
-export default function ShareAction({ projectUsers, togglePaginationActive }) {
+export default function ShareAction({ projectUsers }) {
 	/* Context */
 	const { projectId } = useContext(ReviewContext);
 
@@ -29,10 +29,7 @@ export default function ShareAction({ projectUsers, togglePaginationActive }) {
 	const [modalOpen, setModalOpen] = useState(false);
 
 	/* Callbacks */
-	const toggleModal = () => {
-		togglePaginationActive();
-		setModalOpen(!modalOpen);
-	};
+	const toggleModal = () => setModalOpen(!modalOpen);
 
 	const invalidateQueries = () => {
 		queryClient.invalidateQueries([QUERY_KEYS.PROJECT_USERS, projectId]);
