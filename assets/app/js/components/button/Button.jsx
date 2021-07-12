@@ -6,7 +6,7 @@ import { ReactSVG } from 'react-svg';
 import { LoadingWrapper } from '../../components';
 
 /* Assets */
-import checkIcon from 'icons/check-circle.svg';
+import checkIcon from 'icons/check.svg';
 
 export default function Button({
 	title,
@@ -56,7 +56,7 @@ const Icon = ({ isLoading }) => (
 			loading={isLoading}
 			loaderSize={14}
 			classes={{ loaderClasses: 'position-absolute d-flex text-secondary', defaultClasses: 'd-flex' }}>
-			<ReactSVG wrapper="svg" className="alert__icon icon icon--14 text-secondary" src={checkIcon} />
+			<ReactSVG wrapper="svg" className="alert__icon icon icon--10 text-secondary" src={checkIcon} />
 		</LoadingWrapper>
 	</div>
 );

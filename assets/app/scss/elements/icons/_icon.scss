@@ -36,7 +36,7 @@
         --theme-active-background: Hsl(var(--theme), #{$opacity-level-active-background}); /* stylelint-disable-line function-name-case */
 
         background-color: Hsl(var(--theme), #{$opacity-level}); /* stylelint-disable-line function-name-case */
-        color: Hsl(var(--theme)); /* stylelint-disable-line function-name-case */
+        color: Hsl(var(--theme)) !important; /* stylelint-disable-line function-name-case */
     }
 }
 

@@ -1,8 +1,20 @@
 /* Packages */
 import React, { useState } from 'react';
+import { useMutation } from 'react-query';
+import { ReactSVG } from 'react-svg';
+import { motion, AnimatePresence } from 'framer-motion';
 
 /* Components*/
 import { User, UserInfo } from '../../components';
+
+/* Assets */
+import checkIcon from 'icons/check.svg';
+
+/* Api */
+import { checkComment } from '../../api';
+
+/* Animations */
+import { SCALE_FADE } from '../../animations';
 
 export default function ProjectReviewComment({
 	comment: content,
@@ -14,10 +26,14 @@ export default function ProjectReviewComment({
 	setCommentFocused = () => {},
 }) {
 	/* Contants */
-	const { author, created, comment, comments } = content;
+	const { author, id, checked, created, comment, comments } = content;
 
 	/* State */
 	const [showReplies, setShowReplies] = useState(showInitialReplies);
+	const [isChecked, setIsChecked] = useState(checked);
+
+	/* Mutations */
+	const checkCommentMutation = useMutation(checkComment);
 
 	/* Render component */
 	const renderComment = () => {
@@ -72,11 +88,25 @@ export default function ProjectReviewComment({
 							}}
 						/>
 						{typeof commentIndex !== 'undefined' && (
-							<div
-								className="ml-auto icon-wrapper icon-wrapper--hsl icon-wrapper--interactive"
-								style={{ '--theme': author.userColor }}>
-								<span className="text--xs">{commentIndex + 1}</span>
-							</div>
+							<button
+								className="btn btn-link ml-auto icon-wrapper icon-wrapper--hsl icon-wrapper--interactive text-decoration-none"
+								style={{ '--theme': author.userColor }}
+								onClick={() => {
+									setIsChecked(!isChecked);
+									checkCommentMutation.mutate({ commentId: id });
+								}}>
+								<AnimatePresence exitBeforeEnter>
+									{isChecked ? (
+										<motion.div key="checked" {...SCALE_FADE}>
+											<ReactSVG wrapper="svg" className="icon icon--10" src={checkIcon} />
+										</motion.div>
+									) : (
+										<motion.span key="not-checked" {...SCALE_FADE} className="text--xs">
+											{commentIndex + 1}
+										</motion.span>
+									)}
+								</AnimatePresence>
+							</button>
 						)}
 					</div>
 				)}

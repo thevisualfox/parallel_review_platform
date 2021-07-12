@@ -41,6 +41,12 @@ class CommentResponseDto
     public $created;
 
     /**
+     * @var array $checked
+     * @Serialization\Type("boolean")
+     */
+    public $checked;
+
+    /**
      * @var Comment[] $comments
      * @Serialization\Type("array<App\Dto\Response\CommentResponseDto>")
      */
