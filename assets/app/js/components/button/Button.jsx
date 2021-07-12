@@ -14,10 +14,11 @@ export default function Button({
 	theme = 'secondary',
 	size = 'sm',
 	extensionClasses = '',
-	onClick = () => {},
-	isLoading = false,
+	isLoading = true,
 	contentType = 'text',
 	children,
+	disabled = isLoading,
+	...props
 }) {
 	/* Refs */
 	const buttonRef = useRef();
@@ -31,7 +32,7 @@ export default function Button({
 			ref={buttonRef}
 			className={`btn btn-${size} btn-${theme} ${extensionClasses} d-flex align-items-center`}
 			style={{ height: buttonHeight }}
-			{...{ type, onClick }}>
+			{...{ ...props, type, disabled }}>
 			{contentType === 'text' ? <Text {...{ title, isLoading, children }} /> : <Icon {...{ isLoading }} />}
 		</button>
 	);

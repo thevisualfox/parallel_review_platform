@@ -59,6 +59,8 @@ export default function PhaseNextAction({ phaseId, projectImageId, togglePaginat
 						title="Next phase"
 						onClick={() => nextPhaseMutation.mutate({ phaseId: phaseId, images: images })}
 						extensionClasses="mt-3 w-50 mx-auto justify-content-center"
+						isLoading={nextPhaseMutation.isLoading}
+						disabled={images.length === 0 || nextPhaseMutation.isLoading}
 					/>
 				</div>
 			</Modal>
