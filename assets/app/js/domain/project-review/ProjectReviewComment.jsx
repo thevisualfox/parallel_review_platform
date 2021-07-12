@@ -1,5 +1,5 @@
 /* Packages */
-import React, { useState } from 'react';
+import React, { useContext, useState } from 'react';
 import { useMutation } from 'react-query';
 import { ReactSVG } from 'react-svg';
 import { motion, AnimatePresence } from 'framer-motion';
@@ -16,6 +16,9 @@ import { checkComment } from '../../api';
 /* Animations */
 import { SCALE_FADE } from '../../animations';
 
+/* Context */
+import { StaticContext } from '../../context';
+
 export default function ProjectReviewComment({
 	comment: content,
 	commentIndex,
@@ -25,6 +28,9 @@ export default function ProjectReviewComment({
 	showInitialReplies = false,
 	setCommentFocused = () => {},
 }) {
+	/* Context */
+	const { userRole } = useContext(StaticContext);
+
 	/* Contants */
 	const { author, id, checked, created, comment, comments } = content;
 
@@ -92,11 +98,13 @@ export default function ProjectReviewComment({
 								className="btn btn-link ml-auto icon-wrapper icon-wrapper--hsl icon-wrapper--interactive text-decoration-none"
 								style={{ '--theme': author.userColor }}
 								onClick={() => {
+									if (userRole !== 'admin') return;
+
 									setIsChecked(!isChecked);
 									checkCommentMutation.mutate({ commentId: id });
 								}}>
 								<AnimatePresence exitBeforeEnter>
-									{isChecked ? (
+									{isChecked && userRole === 'admin' ? (
 										<motion.div key="checked" {...SCALE_FADE}>
 											<ReactSVG wrapper="svg" className="icon icon--10" src={checkIcon} />
 										</motion.div>
