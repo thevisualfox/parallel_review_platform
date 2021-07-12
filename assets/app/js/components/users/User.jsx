@@ -13,11 +13,14 @@ import deleteIcon from 'icons/delete.svg';
 /* Api */
 import { deleteUser } from '../../api';
 
+/* Services */
+import { USER_ROLES } from '../../services/getRole';
+
 export default function User({ user, project, variant = 'default', size = 'md', invalidateQueries }) {
 	/* Constants */
-	const { id: projectId, author } = project ?? {};
-	const { id: userId, email } = user ?? {};
-	const isAuthor = email === author;
+	const { id: projectId } = project ?? {};
+	const { id: userId, roles = [] } = user ?? {};
+	const isAuthor = roles.includes(USER_ROLES.ADMIN);
 
 	/* Mutations */
 	const deleteUserMutation = useMutation(deleteUser, {
