@@ -41,6 +41,35 @@ const FADE_IN_UP = (y = 100) => ({
 	},
 });
 
+const SCALE_IN_UP = (y = 100) => ({
+	initial: {
+		y: y,
+		scale: 0.5,
+		transformOrigin: '50% 100%',
+		opacity: 0,
+	},
+	animate: {
+		y: 0,
+		scale: 1,
+		opacity: 1,
+		transition: {
+			type: 'spring',
+			damping: 42,
+			stiffness: 800,
+		},
+	},
+	exit: {
+		y: y,
+		scale: 0.5,
+		opacity: 0,
+		transition: {
+			type: 'spring',
+			damping: 42,
+			stiffness: 1200,
+		},
+	},
+});
+
 const TRANSFORM_UP = {
 	initial: {
 		y: '100%',
@@ -114,4 +143,4 @@ const SLIDE_IN = {
 	},
 };
 
-export { FADE_IN, FADE_IN_UP, TRANSFORM_UP, SCALE_FADE, STAGGER_UP, STAGGER_LEFT, SLIDE_IN };
+export { FADE_IN, FADE_IN_UP, SCALE_IN_UP, TRANSFORM_UP, SCALE_FADE, STAGGER_UP, STAGGER_LEFT, SLIDE_IN };

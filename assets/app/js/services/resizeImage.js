@@ -31,8 +31,8 @@ async function resizeImage(image) {
 
 	return {
 		original: image,
-		thumbnail: thumbnail,
-		thumbnailRetina: thumbnailRetina,
+		thumbnail: Object.assign(thumbnail, { preview: URL.createObjectURL(thumbnail) }),
+		thumbnailRetina: Object.assign(thumbnailRetina, { preview: URL.createObjectURL(thumbnailRetina) }),
 	};
 }
 

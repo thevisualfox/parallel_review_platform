@@ -1,5 +1,5 @@
 /* Packages */
-import React, { useEffect, useRef } from 'react';
+import React, { useContext, useEffect, useRef } from 'react';
 import { useQuery } from 'react-query';
 import { MentionsInput, Mention } from 'react-mentions';
 import { ReactSVG } from 'react-svg';
@@ -14,7 +14,10 @@ import { UserAvatar, UserInfo } from '../../components/users/User';
 import styleMentions from './services/styleMention';
 
 /* Api */
-import { QUERY_KEYS, fetchGobalUsers } from '../../api';
+import { QUERY_KEYS, fetchProjectUsers } from '../../api';
+
+/* Context */
+import { ReviewContext } from '../../context';
 
 export default function ProjectReviewCommentMentions({
 	comment,
@@ -23,15 +26,20 @@ export default function ProjectReviewCommentMentions({
 	setMentions,
 	autoFocus = false,
 }) {
+	/* Context */
+	const { projectId } = useContext(ReviewContext);
+
 	/* Queries */
-	const { data: globalUsers = [] } = useQuery(QUERY_KEYS.GLOBAL_USERS, fetchGobalUsers);
+	const { data: projectUsers = [] } = useQuery([QUERY_KEYS.PROJECT_USERS, projectId], () =>
+		fetchProjectUsers({ projectId })
+	);
 
 	/* Refs */
 	const mentionRef = useRef();
 
 	/* Effects */
 	useEffect(() => {
-		if (mentions.length > 0 && mentionRef?.current) styleMentions(globalUsers, mentionRef.current);
+		if (mentions.length > 0 && mentionRef?.current) styleMentions(projectUsers, mentionRef.current);
 	}, [mentions, mentionRef?.current]);
 
 	/* Render */
@@ -44,12 +52,12 @@ export default function ProjectReviewCommentMentions({
 				name="comment"
 				placeholder="Say something nice..."
 				onChange={(event) => setComment(event.target.value)}
-				onClick={() => styleMentions(globalUsers)}
+				onClick={() => styleMentions(projectUsers)}
 				inputRef={mentionRef}
 				autoFocus={autoFocus}>
 				<Mention
 					trigger="@"
-					data={globalUsers}
+					data={projectUsers}
 					renderSuggestion={Suggestion}
 					allowSpaceInQuery
 					appendSpaceOnAdd

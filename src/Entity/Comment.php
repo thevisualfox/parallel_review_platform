@@ -61,6 +61,21 @@ class Comment
      */
     private $comments;
 
+    /**
+     * @ORM\Column(type="boolean")
+     */
+    private $checked = false;
+
+    /**
+     * @ORM\Column(type="boolean")
+     */
+    private $new = true;
+
+    /**
+     * @ORM\Column(type="array")
+     */
+    private $likes = [];
+
     public function __construct()
     {
         $this->comments = new ArrayCollection();
@@ -181,6 +196,42 @@ class Comment
                 $comment->setParent(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getChecked(): ?bool
+    {
+        return $this->checked;
+    }
+
+    public function setChecked(bool $checked): self
+    {
+        $this->checked = $checked;
+
+        return $this;
+    }
+
+    public function getNew(): ?bool
+    {
+        return $this->new;
+    }
+
+    public function setNew(bool $new): self
+    {
+        $this->new = $new;
+
+        return $this;
+    }
+
+    public function getLikes(): ?array
+    {
+        return $this->likes;
+    }
+
+    public function setLikes(array $likes): self
+    {
+        $this->likes = $likes;
 
         return $this;
     }

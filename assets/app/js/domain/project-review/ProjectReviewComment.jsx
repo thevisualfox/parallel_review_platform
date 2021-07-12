@@ -1,21 +1,45 @@
 /* Packages */
-import React, { useState } from 'react';
+import React, { useContext, useState } from 'react';
+import { useMutation } from 'react-query';
+import { ReactSVG } from 'react-svg';
+import { motion, AnimatePresence } from 'framer-motion';
 
 /* Components*/
 import { User, UserInfo } from '../../components';
 
+/* Assets */
+import checkIcon from 'icons/check.svg';
+
+/* Api */
+import { checkComment } from '../../api';
+
+/* Animations */
+import { SCALE_FADE } from '../../animations';
+
+/* Context */
+import { StaticContext } from '../../context';
+
 export default function ProjectReviewComment({
 	comment: content,
 	commentIndex,
-	globalUsers,
+	projectUsers,
 	setReplyToUser,
 	renderAuthor = false,
+	showInitialReplies = false,
+	setCommentFocused = () => {},
 }) {
+	/* Context */
+	const { userRole } = useContext(StaticContext);
+
 	/* Contants */
-	const { author, created, comment, comments } = content;
+	const { author, id, checked, created, comment, comments } = content;
 
 	/* State */
-	const [showReplies, setShowReplies] = useState(false);
+	const [showReplies, setShowReplies] = useState(showInitialReplies);
+	const [isChecked, setIsChecked] = useState(checked);
+
+	/* Mutations */
+	const checkCommentMutation = useMutation(checkComment);
 
 	/* Render component */
 	const renderComment = () => {
@@ -29,7 +53,7 @@ export default function ProjectReviewComment({
 					let user;
 
 					if (commentIndex in usersArray) {
-						user = globalUsers.find((user) => usersArray[commentIndex][0].includes(user.display));
+						user = projectUsers.find((user) => usersArray[commentIndex][0].includes(user.display));
 					}
 
 					return (
@@ -54,7 +78,10 @@ export default function ProjectReviewComment({
 	/* Render */
 	return (
 		<>
-			<div className="comment">
+			<div
+				className="comment"
+				onMouseEnter={() => setCommentFocused(commentIndex)}
+				onMouseLeave={() => setCommentFocused(null)}>
 				{renderAuthor && (
 					<div className="d-flex align-items-center mb-2">
 						<User {...{ user: author }} />
@@ -67,10 +94,27 @@ export default function ProjectReviewComment({
 							}}
 						/>
 						{typeof commentIndex !== 'undefined' && (
-							<div
-								className="ml-auto icon-wrapper icon-wrapper--secondary">
-								<span className="text--sm text-secondary">{commentIndex + 1}</span>
-							</div>
+							<button
+								className="btn btn-link ml-auto icon-wrapper icon-wrapper--hsl icon-wrapper--interactive text-decoration-none"
+								style={{ '--theme': author.userColor }}
+								onClick={() => {
+									if (userRole !== 'admin') return;
+
+									setIsChecked(!isChecked);
+									checkCommentMutation.mutate({ commentId: id });
+								}}>
+								<AnimatePresence exitBeforeEnter>
+									{isChecked && userRole === 'admin' ? (
+										<motion.div key="checked" {...SCALE_FADE}>
+											<ReactSVG wrapper="svg" className="icon icon--10" src={checkIcon} />
+										</motion.div>
+									) : (
+										<motion.span key="not-checked" {...SCALE_FADE} className="text--xs">
+											{commentIndex + 1}
+										</motion.span>
+									)}
+								</AnimatePresence>
+							</button>
 						)}
 					</div>
 				)}
@@ -97,7 +141,7 @@ export default function ProjectReviewComment({
 							return (
 								<ProjectReviewComment
 									key={comment.id}
-									{...{ comment, globalUsers, setReplyToUser, renderAuthor: true }}
+									{...{ comment, projectUsers, setReplyToUser, renderAuthor: true }}
 								/>
 							);
 						})}

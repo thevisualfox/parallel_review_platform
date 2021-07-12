@@ -1,8 +1,10 @@
 import axios from 'axios';
 
-/* Fetch projectImage by id | expects project image id */
-export const fetchProjectImageById = async ({ projectImageId }) => {
-	const result = await axios.get(`/api/images/get/${projectImageId}`);
+/* Fetch projectImage by id | expects project image id and optional phaseId */
+export const fetchProjectImageById = async ({ projectImageId, phaseId }) => {
+	const params = phaseId ? { params: { phase: phaseId } } : {};
+
+	const result = await axios.get(`/api/images/get/${projectImageId}`, { ...params });
 	return result?.data;
 };
 

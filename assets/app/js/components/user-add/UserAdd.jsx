@@ -1,6 +1,7 @@
 /* Packages */
 import React, { useState } from 'react';
 import { ReactSVG } from 'react-svg';
+import { useQueryClient } from 'react-query';
 
 /* Components */
 import { Modal, UserAddSearch } from '../../components';
@@ -8,12 +9,23 @@ import { Modal, UserAddSearch } from '../../components';
 /* Assets */
 import addUserIcon from 'icons/add_user.svg';
 
+/* Api */
+import { QUERY_KEYS } from '../../api';
+
 export default function UserAdd({ users, project }) {
 	/* State */
 	const [modalOpen, setModalOpen] = useState(false);
 
+	/* Hooks */
+	const queryClient = useQueryClient();
+
 	/* Callbacks */
 	const toggleModal = () => setModalOpen(!modalOpen);
+
+	const invalidateQueries = () => {
+		queryClient.invalidateQueries([QUERY_KEYS.PROJECT_BY_ID, project.id]);
+		queryClient.invalidateQueries(QUERY_KEYS.GLOBAL_USERS);
+	};
 
 	/* Render */
 	return (
@@ -29,7 +41,7 @@ export default function UserAdd({ users, project }) {
 				title="Select users"
 				subtitle="Choose some users to collaborate with."
 				{...{ modalOpen, toggleModal }}>
-				<UserAddSearch {...{ users, project, toggleModal }} />
+				<UserAddSearch {...{ users, project, toggleModal, invalidateQueries }} />
 			</Modal>
 		</div>
 	);

@@ -1,6 +1,6 @@
 /* Packages */
 import React, { useRef, useState } from 'react';
-import { useMutation, useQuery, useQueryClient } from 'react-query';
+import { useMutation, useQuery } from 'react-query';
 
 /* Components */
 import { UserAddSearchResults, Users, Button } from '../../components';
@@ -12,7 +12,7 @@ import filterUsers from './services/filterUsers';
 /* Api */
 import { addUser, fetchGobalUsers, QUERY_KEYS } from '../../api';
 
-export default function UserAddSearch({ users, project, toggleModal }) {
+export default function UserAddSearch({ users, project, toggleModal, invalidateQueries }) {
 	/* State */
 	const [query, setQuery] = useState('');
 	const [focusedUser, setFocusedUser] = useState(0);
@@ -29,15 +29,10 @@ export default function UserAddSearch({ users, project, toggleModal }) {
 	/* Refs */
 	const queryRef = useRef();
 
-	/* Hooks */
-	const queryClient = useQueryClient();
-
 	/* Mutations */
 	const addUserMutation = useMutation(addUser, {
 		onSuccess: () => {
-			queryClient.invalidateQueries([QUERY_KEYS.PROJECT_BY_ID, project.id]);
-			queryClient.invalidateQueries(QUERY_KEYS.GLOBAL_USERS);
-
+			invalidateQueries();
 			queryRef.current.select();
 			setQuery('');
 		},
@@ -69,7 +64,7 @@ export default function UserAddSearch({ users, project, toggleModal }) {
 	/* Render */
 	return (
 		<div className="d-flex flex-column flex-grow-1">
-			<Users {...{ users, project }} variant="interactive" size="lg" />
+			<Users {...{ users, project, invalidateQueries }} variant="interactive" size="lg" />
 			<div className="position-relative">
 				<label className="sr-only" htmlFor="userQuery">
 					Search name or email

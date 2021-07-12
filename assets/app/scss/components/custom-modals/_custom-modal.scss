@@ -44,6 +44,11 @@
     overflow-x: hidden;
     z-index: $zindex-dropdown;
     max-height: 200px;
+
+    .bar & {
+        top: auto;
+        bottom: calc(100% - 1px);
+    }
 }
 
 .custom-modal-overlay {

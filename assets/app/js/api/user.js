@@ -15,6 +15,12 @@ export const fetchGobalUsers = async () => {
 	return result?.data;
 };
 
+/* Fetch project users */
+export const fetchProjectUsers = async ({ projectId }) => {
+	const result = await axios.get(`/api/users/get/project/${projectId}`);
+	return result?.data;
+};
+
 /* Add user to project | expects project id and user email */
 export const addUser = async ({ projectId, email }) => {
 	const result = await axios.post(`/api/users/add/${projectId}`, {

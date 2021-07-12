@@ -5,23 +5,25 @@ import { ReactSVG } from 'react-svg';
 /* Assets */
 import addImageIcon from 'icons/add_image.svg';
 
+/* Components */
+import { Image } from '../../components';
+
 export default function ProjectImage({ projectImages }) {
 	/* Constants */
-	const { phases = [], title } = projectImages[0] || {};
-	const { image } = phases[phases.length - 1] || {};
+	const { phase = {}, title } = projectImages[0] || {};
 
 	/* Render */
 	return (
 		<div className="card__image border m-2">
-			{image && (
-				<img
+			{phase.image && (
+				<Image
 					className="card-img-top"
-					src={image.thumbnail}
-					srcSet={`${image.thumbnailRetina} 2x`}
+					src={phase.image.thumbnail}
+					srcSet={`${phase.image.thumbnailRetina} 2x`}
 					alt={title}
 				/>
 			)}
-			{!image && <ReactSVG wrapper="svg" className="icon icon--48 text-muted--40" src={addImageIcon} />}
+			{!phase.image && <ReactSVG wrapper="svg" className="icon icon--48 text-muted--40" src={addImageIcon} />}
 		</div>
 	);
 }

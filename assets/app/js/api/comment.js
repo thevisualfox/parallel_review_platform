@@ -18,7 +18,7 @@ export const addComment = async ({ phaseId, userId, comment, mentioned, position
 	return result?.data;
 };
 
-/* Add comment | expects phase id, user id and formRef obect */
+/* Add reply | expects commentId id, reply and mentioned array */
 export const addReply = async ({ commentId, reply, mentioned }) => {
 	const params = new FormData();
 
@@ -30,5 +30,11 @@ export const addReply = async ({ commentId, reply, mentioned }) => {
 	}
 
 	const result = await axios.post(`/api/comments/reply/${commentId}`, params);
+	return result?.data;
+};
+
+/* Check comment | expects commentId  */
+export const checkComment = async ({ commentId }) => {
+	const result = await axios.post(`/api/comments/check/${commentId}`);
 	return result?.data;
 };

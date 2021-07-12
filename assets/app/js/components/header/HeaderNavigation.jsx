@@ -4,13 +4,9 @@ import { useMutation } from 'react-query';
 import { useHistory } from 'react-router';
 import { toast } from 'react-toastify';
 import { Link } from 'react-router-dom';
-import { motion } from 'framer-motion';
 
 /* Components */
 import { Alert } from '../../components';
-
-/* Animations */
-import { FADE_IN } from '../../animations';
 
 /* Context */
 import StaticContext from '../../context/mainContext';
@@ -40,7 +36,7 @@ export default function HeaderNavigation() {
 
 	/* Render */
 	return (
-		<motion.header className="main-header main-header--projects" {...FADE_IN}>
+		<header className="main-header main-header--projects">
 			<div className="container-fluid">
 				<div className="main-header__wrapper d-flex align-items-end">
 					<div className="main-header__logo logo">
@@ -66,6 +62,6 @@ export default function HeaderNavigation() {
 					</div>
 				</div>
 			</div>
-		</motion.header>
+		</header>
 	);
 }

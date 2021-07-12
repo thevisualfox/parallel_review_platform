@@ -33,6 +33,7 @@ class CommentResponseDtoTransformer extends AbstractResponseDtoTransformer
             'yPercent' => $comment->getPositionY(),
         ];
         $dto->created = Date::parse($comment->getCreated())->ago();
+        $dto->checked = $comment->getChecked();
         $dto->comments = $this->transformFromObjects($comment->getComments());
 
         return $dto;

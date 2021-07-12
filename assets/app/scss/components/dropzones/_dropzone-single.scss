@@ -1,0 +1,26 @@
+.dropzone--single {
+    @extend .border, .rounded, %center-flex;
+
+    min-height: auto;
+    cursor: pointer;
+    aspect-ratio: 16/9; /* stylelint-disable-line property-no-unknown */
+    transition: border-color 150ms ease;
+
+    &:hover,
+    &:focus {
+        border-color: rgba($white, 0.1) !important;
+    }
+
+    .dropzone__container {
+        aspect-ratio: inherit; /* stylelint-disable-line property-no-unknown */
+        width: 100%;
+    }
+
+    .dropzone__image {
+        @include object-fit(cover);
+
+        width: 100%;
+        aspect-ratio: inherit; /* stylelint-disable-line property-no-unknown */
+        border-radius: inherit;
+    }
+}

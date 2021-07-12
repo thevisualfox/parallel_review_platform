@@ -21,7 +21,13 @@ import { calcCommentPos } from './services';
 /* Hooks */
 import { useCloseOnEsc } from '../../hooks';
 
-export default function ProjectReviewCommentModal({ comment, commentIndex, toggleCommentAddOpen, ...rest }) {
+export default function ProjectReviewCommentModal({
+	comment,
+	commentIndex,
+	toggleCommentAddOpen,
+	commentFocused,
+	...rest
+}) {
 	/* Constants */
 	const { position, author, id } = comment;
 	const { xPercent, yPercent } = position;
@@ -41,7 +47,15 @@ export default function ProjectReviewCommentModal({ comment, commentIndex, toggl
 	/* Render */
 	return (
 		<ProjectReviewMarker
-			{...{ xPercent, yPercent, author, commentIndex: commentIndex + 1, commentOpen, toggleComment }}>
+			{...{
+				xPercent,
+				yPercent,
+				author,
+				commentIndex,
+				commentOpen,
+				toggleComment,
+				commentFocused,
+			}}>
 			<AnimatePresence>
 				{commentOpen && <CommentBox key={id} {...{ comment, toggleComment, ...rest }} />}
 			</AnimatePresence>
@@ -95,7 +109,7 @@ const CommentBox = ({ comment, toggleComment, reviewRef, ...rest }) => {
 				</div>
 				<div className="custom-modal__body d-flex mt-4">
 					<div className="d-flex flex-column w-100">
-						<ProjectReviewComment {...{ comment, setReplyToUser, ...rest }} />
+						<ProjectReviewComment {...{ comment, setReplyToUser, showInitialReplies: true, ...rest }} />
 						{replyToUser && (
 							<ProjectReviewCommentReply
 								{...{

@@ -5,11 +5,22 @@
         @extend .px-6;
     }
 
-    .bar__edit-modal {
+    .bar__modal {
         top: auto;
-        bottom: spacer(12);
+        bottom: spacer(15);
         left: 50%;
         transform: translateX(-50%);
+
+        &--left {
+            left: 0;
+            transform: unset;
+        }
+
+        &--right {
+            left: auto;
+            right: 0;
+            transform: unset;
+        }
     }
 
     .bar__action-btn {

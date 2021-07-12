@@ -1,6 +1,6 @@
 {
     "name": "parallel_review_platform",
-    "version": "0.1.0",
+    "version": "0.2.0",
     "description": "Parallel review platform",
     "repository": "https://github.com/thevisualfox/parallel_review_platform",
     "author": "The Visual Fox",
@@ -28,6 +28,7 @@
         "react-query": "^3.12.1",
         "react-router-dom": "^5.2.0",
         "react-svg": "^12.1.0",
+        "react-tippy": "^1.4.0",
         "react-toastify": "^7.0.4",
         "regenerator-runtime": "^0.13.7"
     },

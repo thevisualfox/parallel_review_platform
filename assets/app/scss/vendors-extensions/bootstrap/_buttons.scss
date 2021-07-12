@@ -32,6 +32,17 @@
     }
 }
 
+.btn--modal {
+    .icon {
+        transform: rotate(-90deg);
+        transition: transform 150ms ease;
+    }
+
+    &.is-active .icon {
+        transform: scaleY(-1) rotate(-90deg);
+    }
+}
+
 // Button states
 
 @each $color, $value in $theme-colors {

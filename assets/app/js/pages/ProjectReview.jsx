@@ -1,5 +1,5 @@
 /* Packages */
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { useQuery } from 'react-query';
 import { useParams } from 'react-router';
 
@@ -19,18 +19,29 @@ import { usePageTitle } from '../hooks';
 import { ReviewContext } from '../context';
 
 export default function ProjectReview() {
+	const [activePhase, setActivePhase] = useState();
+
 	/* Queries */
 	const { id: projectImageId } = useParams();
-	const { isLoading, data = {} } = useQuery([QUERY_KEYS.PROJECT_IMAGE_BY_ID, parseInt(projectImageId)], () =>
-		fetchProjectImageById({ projectImageId })
+	const { isLoading, data, refetch } = useQuery(
+		[QUERY_KEYS.PROJECT_IMAGE_BY_ID, parseInt(projectImageId)],
+		() => fetchProjectImageById({ projectImageId, phaseId: activePhase }),
+		{
+			refetchOnWindowFocus: true,
+		}
 	);
+
+	/* Effects */
+	useEffect(() => {
+		if (activePhase) refetch({ projectImage: projectImageId, phaseId: activePhase });
+	}, [activePhase]);
 
 	/* Hooks */
 	usePageTitle(data?.title, [data]);
 
 	/* Render */
 	return (
-		<ReviewContext.Provider value={{ projectImageId }}>
+		<ReviewContext.Provider value={{ projectId: data?.parentId, projectImageId, activePhase, setActivePhase }}>
 			<PageWrapper>
 				<PageLoader {...{ isLoading }}>
 					<ProjectReviewCanvas {...data} />

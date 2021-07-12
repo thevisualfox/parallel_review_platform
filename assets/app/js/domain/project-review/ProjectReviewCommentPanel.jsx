@@ -16,7 +16,13 @@ import closeIcon from 'icons/close.svg';
 /* Hooks */
 import { useCloseOnEsc } from '../../hooks';
 
-export default function ProjectReviewCommentPanel({ comments, commentsPanelOpen, toggleCommentsPanel, globalUsers }) {
+export default function ProjectReviewCommentPanel({
+	comments,
+	commentsPanelOpen,
+	toggleCommentsPanel,
+	projectUsers,
+	setCommentFocused,
+}) {
 	/* Hooks */
 	useCloseOnEsc(commentsPanelOpen, toggleCommentsPanel);
 
@@ -31,9 +37,14 @@ export default function ProjectReviewCommentPanel({ comments, commentsPanelOpen,
 					</button>
 				</div>
 				<div className="d-flex flex-column w-100">
-					{comments?.reverse().map((comment, commentIndex) => (
-						<CommentWithReply key={commentIndex} {...{ comment, commentIndex, globalUsers }} />
-					))}
+					{comments?.map((comment, commentIndex) => {
+						return (
+							<CommentWithReply
+								key={commentIndex}
+								{...{ comment, commentIndex, projectUsers, setCommentFocused }}
+							/>
+						);
+					})}
 					{comments.length === 0 && <p className="text-muted--70">No comments yet</p>}
 				</div>
 			</div>
@@ -41,13 +52,15 @@ export default function ProjectReviewCommentPanel({ comments, commentsPanelOpen,
 	);
 }
 
-const CommentWithReply = ({ comment, commentIndex, globalUsers }) => {
+const CommentWithReply = ({ comment, commentIndex, projectUsers, setCommentFocused }) => {
 	/* State */
 	const [replyToUser, setReplyToUser] = useState();
 
 	return (
 		<>
-			<ProjectReviewComment {...{ comment, commentIndex, setReplyToUser, renderAuthor: true, globalUsers }} />
+			<ProjectReviewComment
+				{...{ comment, commentIndex, setReplyToUser, renderAuthor: true, projectUsers, setCommentFocused }}
+			/>
 			{replyToUser && (
 				<ProjectReviewCommentReply
 					{...{

@@ -16,6 +16,12 @@ class ProjectImageResponseDto
     public $id;
 
     /**
+     * @var int $parentId
+     * @Serialization\Type("int")
+     */
+    public $parentId;
+
+    /**
      * @var string $title
      * @Serialization\Type("string")
      */
@@ -28,10 +34,16 @@ class ProjectImageResponseDto
     public $description;
 
     /**
-     * @var Phase[] $phases
-     * @Serialization\Type("array<App\Dto\Response\PhaseResponseDto>")
+     * @var Phase $phase
+     * @Serialization\Type("App\Dto\Response\PhaseResponseDto")
      */
-    public $phases;
+    public $phase;
+
+    /**
+     * @var string[] $allPhases
+     * @Serialization\Type("array<int>")
+     */
+    public $allPhases;
 
     /**
      * @var int $prevImage
