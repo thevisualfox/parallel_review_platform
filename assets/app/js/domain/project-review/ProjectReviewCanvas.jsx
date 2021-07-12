@@ -51,6 +51,7 @@ export default function ProjectReviewCanvas({ parentId, title, phase, ...rest })
 	const [securityModalOpen, setSecurityModalOpen] = useState(false);
 	const [commentsPanelOpen, setCommentsPanelOpen] = useState(false);
 	const [paginationActive, setPaginationActive] = useState(true);
+	const [commentFocused, setCommentFocused] = useState();
 
 	/* Callbacks */
 	const toggleCommentAddOpen = () => setMarkerPos(null);
@@ -71,7 +72,7 @@ export default function ProjectReviewCanvas({ parentId, title, phase, ...rest })
 		const reviewPos = reviewRef?.current.getBoundingClientRect();
 
 		setMarkerPos(() => {
-			const xPercent = ((clientX - cursorOffset) / reviewPos.width) * 100;
+			const xPercent = ((clientX - cursorOffset - reviewPos.x) / reviewPos.width) * 100;
 			const yPercent = ((clientY - reviewPos.top - cursorOffset) / reviewPos.height) * 100;
 
 			return { xPercent, yPercent, reviewPos };
@@ -99,7 +100,7 @@ export default function ProjectReviewCanvas({ parentId, title, phase, ...rest })
 				{comments?.map((comment, commentIndex) => (
 					<ProjectReviewCommentModal
 						key={comment.id}
-						{...{ comment, commentIndex, reviewRef, projectUsers, toggleCommentAddOpen }}
+						{...{ comment, commentIndex, reviewRef, projectUsers, toggleCommentAddOpen, commentFocused }}
 					/>
 				))}
 				<AnimatePresence>
@@ -127,7 +128,7 @@ export default function ProjectReviewCanvas({ parentId, title, phase, ...rest })
 			<AnimatePresence>
 				{commentsPanelOpen && (
 					<ProjectReviewCommentPanel
-						{...{ comments, commentsPanelOpen, toggleCommentsPanel, projectUsers }}
+						{...{ comments, commentsPanelOpen, toggleCommentsPanel, projectUsers, setCommentFocused }}
 					/>
 				)}
 			</AnimatePresence>

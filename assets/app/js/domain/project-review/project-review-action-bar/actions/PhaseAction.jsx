@@ -15,7 +15,7 @@ import { ReviewContext } from '../../../../context';
 /* Options */
 import { modalOptions } from '.';
 
-export default function PhaseAction({ allPhases, phaseNumber, userRole, togglePaginationActive }) {
+export default function PhaseAction({ allPhases, phaseNumber, togglePaginationActive }) {
 	/* State */
 	const [modalOpen, setModalOpen] = useState(false);
 
@@ -24,8 +24,6 @@ export default function PhaseAction({ allPhases, phaseNumber, userRole, togglePa
 
 	/* Callbacks */
 	const toggleModal = () => {
-		if (userRole !== 'admin') return;
-
 		togglePaginationActive();
 		setModalOpen(!modalOpen);
 	};
@@ -42,9 +40,7 @@ export default function PhaseAction({ allPhases, phaseNumber, userRole, togglePa
 				className={`btn btn-link btn--modal text-reset d-flex align-items-center ${modalOpen && 'is-active'}`}
 				onClick={toggleModal}>
 				<p className="text--xs text-muted--70 mb-0">Phase {phaseNumber}</p>
-				{userRole === 'admin' && (
-					<ReactSVG wrapper="svg" className="icon icon--8 text-muted--50  ml-1" src={chevronIcon} />
-				)}
+				<ReactSVG wrapper="svg" className="icon icon--8 text-muted--50  ml-1" src={chevronIcon} />
 			</button>
 			<Modal
 				{...{

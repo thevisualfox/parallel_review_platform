@@ -11,6 +11,7 @@ export default function ProjectReviewComment({
 	setReplyToUser,
 	renderAuthor = false,
 	showInitialReplies = false,
+	setCommentFocused = () => {},
 }) {
 	/* Contants */
 	const { author, created, comment, comments } = content;
@@ -55,7 +56,10 @@ export default function ProjectReviewComment({
 	/* Render */
 	return (
 		<>
-			<div className="comment">
+			<div
+				className="comment"
+				onMouseEnter={() => setCommentFocused(commentIndex)}
+				onMouseLeave={() => setCommentFocused(null)}>
 				{renderAuthor && (
 					<div className="d-flex align-items-center mb-2">
 						<User {...{ user: author }} />
@@ -71,7 +75,7 @@ export default function ProjectReviewComment({
 							<div
 								className="ml-auto icon-wrapper icon-wrapper--hsl icon-wrapper--interactive"
 								style={{ '--theme': author.userColor }}>
-								<span className="text--xs">{commentIndex}</span>
+								<span className="text--xs">{commentIndex + 1}</span>
 							</div>
 						)}
 					</div>

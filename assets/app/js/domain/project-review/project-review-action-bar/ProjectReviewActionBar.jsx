@@ -51,7 +51,7 @@ export default function ProjectReviewActionBar({
 										{allImages.indexOf(Number(projectImageId)) + 1} of {allImages.length}
 									</p>
 									<span className="mx-1 text-muted--20">/</span>
-									<PhaseAction {...{ allPhases, phaseNumber, userRole, togglePaginationActive }} />
+									<PhaseAction {...{ allPhases, phaseNumber, togglePaginationActive }} />
 								</div>
 							</div>
 						</div>

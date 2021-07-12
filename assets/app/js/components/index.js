@@ -34,3 +34,5 @@ export { default as LoginForm } from './security/LoginForm';
 export { default as SignupForm } from './security/SignupForm';
 
 export { default as Image } from './image/image';
+
+export { default as Tooltip } from './tooltip/Tooltip';

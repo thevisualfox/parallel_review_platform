@@ -9,6 +9,9 @@ import { SCALE_FADE } from '../../animations';
 /* Context */
 import StaticContext from '../../context/mainContext';
 
+/* Components */
+import { Tooltip } from '../../components';
+
 export default function ProjectReviewMarker({
 	xPercent,
 	yPercent,
@@ -16,11 +19,15 @@ export default function ProjectReviewMarker({
 	commentIndex,
 	commentOpen,
 	toggleComment,
+	commentFocused,
 	children,
 }) {
 	/* Hooks */
 	const { currentUser } = useContext(StaticContext);
+
+	/* Constants */
 	const user = author ? author : currentUser;
+	const label = (commentIndex ?? 0) + 1;
 
 	/* Render */
 	return (
@@ -36,13 +43,17 @@ export default function ProjectReviewMarker({
 					'--x': xPercent,
 					'--y': yPercent,
 				}}>
-				<motion.button
-					{...SCALE_FADE}
-					className="review__marker icon-wrapper icon-wrapper--secondary btn btn-link text-reset"
-					style={{ '--theme': `${user.userColor}` }}
-					onClick={toggleComment}>
-					{commentIndex && <span className="text--xs">{commentIndex}</span>}
-				</motion.button>
+				<Tooltip
+					title={author?.display ?? 'Add comment'}
+					open={(commentFocused ?? false) === commentIndex ?? false}>
+					<motion.button
+						{...SCALE_FADE}
+						className="review__marker icon-wrapper icon-wrapper--secondary btn btn-link text-reset"
+						style={{ '--theme': `${user.userColor}` }}
+						onClick={toggleComment}>
+						{label && <span className="text--xs">{label}</span>}
+					</motion.button>
+				</Tooltip>
 				<div>{children}</div>
 			</motion.div>
 		</ClickAwayListener>
